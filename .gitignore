@@ -1,3 +1,13 @@
-/server/.env 
+# Node modules
+/server/node_modules
+/client/node_modules
+
+# Environment variables
+/server/.env
 /client/.env
-.DS_store
+
+# macOS system files
+.DS_Store
+
+# Logs
+*.log
