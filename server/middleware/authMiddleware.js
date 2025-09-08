@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// ------------------------- Authentication Middleware
+
 export const authMiddleware = (req, res, next) => {
   const token = req.header("Authorization")?.split(" ")[1];
   if (!token) return res.status(401).json({ error: "No token provided" });
@@ -14,6 +16,8 @@ export const authMiddleware = (req, res, next) => {
     res.status(401).json({ error: "Invalid token" });
   }
 };
+
+// ------------------------- Role-based Authorization Middleware
 
 export const authorizeRoles = (...roles) => {
   return (req, res, next) => {
