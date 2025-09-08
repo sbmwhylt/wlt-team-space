@@ -1,38 +1,30 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
-import pool from "./config/db.js";
-import apiRoutes from "./routes/index.js";  // central routes
+import dotenv from "dotenv";
+import db from "./models/index.js";
+import authRoutes from "./routes/auth.js";
 
 dotenv.config();
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ------------------------- Root route
-
+// Root route
 app.get("/", (req, res) => {
-  res.send("✅ Backend server is running!");
+  res.send("API is running 🚀");
 });
 
-// ------------------------- Test DB route
+// Routes
+app.use("/api/auth", authRoutes);
 
-app.get("/api/test", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json({ serverTime: result.rows[0] });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// -------------------------  API Routes
-
-app.use("/api", apiRoutes);
-
-// ------------------------- Start server
+// DB connection
+db.sequelize
+  .sync()
+  .then(() => console.log("✅ Database connected"))
+  .catch((err) => console.error("❌ DB Error:", err));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
