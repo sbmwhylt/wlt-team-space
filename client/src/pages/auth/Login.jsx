@@ -35,8 +35,9 @@ export default function Login({ onLogin }) {
         toast.success("Login successful!");
         localStorage.setItem("token", data.token);
         if (onLogin) onLogin(data.user);
-        console.log("Logged in user:", data.user); 
-        navigate("/dashboard"); 
+        navigate("/dashboard");
+        console.log("Logged in user:", data.user);
+        console.log("Token:", data.token);
       } else {
         toast.error(data.message || "Login failed");
       }
@@ -51,15 +52,16 @@ export default function Login({ onLogin }) {
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="max-w-sm w-full">
+        <img src="/logo-whyleavetown.png" alt="" className="w-18 mx-5 border-none"/>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle className="text-xl">Login to your account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Welcome back! Please enter your credentials to access your account.{" "}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -74,12 +76,6 @@ export default function Login({ onLogin }) {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input
                   id="password"
@@ -89,6 +85,12 @@ export default function Login({ onLogin }) {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <a
+                  href="#"
+                  className="ml-auto inline-block text-sm underline-offset-4 font-medium"
+                >
+                  Forgot your password?
+                </a>
               </div>
             </div>
           </form>
