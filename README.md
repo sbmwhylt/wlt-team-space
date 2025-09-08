@@ -13,10 +13,11 @@ Installation:
 
 -----------------------------------------------------
 
-Backend/server: Node + Express JS + bcyrpt + jsonwebtoken + dotenv + CORS + nodemon 
+Backend/server: Node + Express JS + sequelize pg + bcyrpt + jsonwebtoken + dotenv + CORS + nodemon 
 Database: PostgresQL
 
 - express → web framework
+- sequiliz → 
 - bcrypt → password hashing
 - jsonwebtoken → JWT for auth
 - dotenv → env vars
@@ -24,5 +25,5 @@ Database: PostgresQL
 - nodemon → auto-restart during dev
 
 Installation: 
-- npm install express bcrypt jsonwebtoken dotenv cors pg
+- npm install express sequelize  bcrypt jsonwebtoken dotenv cors pg pg-hstore
 - npm install --save-dev nodemon
