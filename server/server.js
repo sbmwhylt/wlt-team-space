@@ -2,25 +2,25 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import db from "./models/index.js";
-import authRoutes from "./routes/auth.js";
+import routes from "./routes/index.js";
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
+// ------------------------ Middleware
 app.use(cors());
 app.use(express.json());
 
-// Root route
+// ------------------------ Root route
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
 });
 
-// Routes
-app.use("/api/auth", authRoutes);
+// ------------------------ All Routes
+app.use("/api/", routes);
 
-// DB connection
+// ------------------------ DB connection
 db.sequelize
   .sync()
   .then(() => console.log("✅ Database connected"))
