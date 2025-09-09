@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "sbmdev",
+    "password": "password123",
+    "database": "db_wlt_system",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "sbmdev",
+    "password": "password123",
+    "database": "db_wlt_system",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "sbmdev",
+    "password": "password123",
+    "database": "db_wlt_system",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

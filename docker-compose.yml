@@ -4,21 +4,42 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "4000:4000"
+      - "3000:3000"
     volumes:
       - ./server:/app
       - /app/node_modules
     command: npm run dev
+    env_file:
+      - ./server/.env
+    depends_on:
+      - postgres
 
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
+      - "4000:4000"
     volumes:
       - ./client:/app
       - /app/node_modules
     command: npm run dev -- --host
+    env_file:
+      - ./client/.env
     depends_on:
       - server
+
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: sbmdev
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: db_wlt_system
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
