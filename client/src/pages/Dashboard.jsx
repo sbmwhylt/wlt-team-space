@@ -1,17 +1,64 @@
-import { useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { AuthContext } from "@/context/AuthContext";
+import { AppSidebar } from "@/components/app-sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+
 
 export default function Dashboard() {
-  const { user, logout } = useContext(AuthContext);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <p>Welcome to your dashboard! You are logged in as: {user?.userName}</p>
-      <Button className="mt-4" onClick={logout}>
-        Logout
-      </Button>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        {/* Header */}
+        <header className="flex h-16 shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Home</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <h2></h2>
+          {/* Example grid (from your layout) */}
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3 mt-6">
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+          </div>
+
+          {/* Extra placeholder content */}
+          <div className="bg-muted/50 min-h-[50vh] flex-1 rounded-xl md:min-h-min mt-6" />
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
