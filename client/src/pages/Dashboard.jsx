@@ -1,29 +1,15 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { Button } from "@/components/ui/button";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login"); 
-    }
-  }, [token, navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
-  if (!token) return null; 
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <p>Welcome to your dashboard!</p>
-      <Button className="mt-4" onClick={handleLogout}>
+      <p>Welcome to your dashboard! You are logged in as: {user?.userName}</p>
+      <Button className="mt-4" onClick={logout}>
         Logout
       </Button>
     </div>
