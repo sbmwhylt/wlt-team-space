@@ -12,7 +12,7 @@ export const userSeeder = async () => {
       console.log("⚠️ User already exists. Skipping seeding.");
       return;
     }
-    const hashedPassword = await bcrypt.hash("password123", 10);
+    const hashedPassword = await bcrypt.hash("superadminpass123", 10);
     await User.create({
       firstName: "John",
       lastName: "Doe",

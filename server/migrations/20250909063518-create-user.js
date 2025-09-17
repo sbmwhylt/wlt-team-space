@@ -34,6 +34,10 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       allowNull: false,
       defaultValue: "super-admin",
+  },
+    avatar: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,

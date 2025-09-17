@@ -14,7 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-export default function Dashboard() {
+export default function TimeTracker() {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,11 +30,11 @@ export default function Dashboard() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink Link="/dashboard">Dashboard</BreadcrumbLink>
+                  <BreadcrumbLink Link="/dashboard">Time Tracker</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Home</BreadcrumbPage>
+                  <BreadcrumbPage>Time Tracker</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -42,7 +42,7 @@ export default function Dashboard() {
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <h1 className="text-2xl font-bold">Time Tracking</h1>
           {/* Example grid (from your layout) */}
           <div className="grid auto-rows-min gap-4 md:grid-cols-3 mt-6">
             <div className="bg-muted/50 aspect-video rounded-xl" />

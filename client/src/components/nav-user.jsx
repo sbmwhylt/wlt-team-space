@@ -1,11 +1,4 @@
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { Bell, ChevronsUpDown, LogOut, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -42,14 +35,18 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage alt={user?.firstName || "User"} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg bg-primary text-white">
+                  {user?.firstName.charAt(0)}
+                  {user?.lastName.charAt(0)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">
-                  {user?.firstName || "Guest"}
+                  {user?.firstName} {user?.lastName}
                 </span>
+
                 <span className="truncate text-xs">
-                  {user?.email || "guest@example.com"}
+                  {user?.role || "guest@example.com"}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -64,12 +61,15 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage alt={user?.name || "User"} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage alt={user?.firstName || "User"} />
+                  <AvatarFallback className="rounded-lg bg-primary text-white">
+                    {user?.firstName.charAt(0)}
+                    {user?.lastName.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">
-                    {user?.name || "Guest"}
+                    {user?.userName || "Guest"}
                   </span>
                   <span className="truncate text-xs">{user?.email || ""}</span>
                 </div>
@@ -78,19 +78,8 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
+                <User />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
@@ -98,7 +87,10 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
+            <DropdownMenuItem
+              onClick={logout}
+              className="hover:bg-red-500 hover:text-white transition-all"
+            >
               <LogOut />
               <span>Log out</span>
             </DropdownMenuItem>

@@ -1,17 +1,11 @@
 "use client";
 
-import * as React from "react";
 import {
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
+  Settings,
   SquareTerminal,
+  CircleQuestionMark,
+  ClipboardClock,
+  LayoutDashboard
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -38,64 +32,24 @@ const data = {
     {
       title: "Dashboard",
       url: "/dashboard",
-      icon: SquareTerminal,
+      icon: LayoutDashboard,
       isActive: true,
     },
-
     {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
+      title: "Time Tracker",
+      url: "/time-tracker",
+      icon: ClipboardClock,
       items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
+        /* ... */
       ],
     },
   ],
   navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Report",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  test: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
+    { title: "Settings", url: "/settings", icon: Settings },
+    { title: "Support", url: "/support", icon: CircleQuestionMark }
   ],
 };
+console.log("data.projects in AppSidebar:", data.projects);
 
 export function AppSidebar({ ...props }) {
   return (
@@ -106,10 +60,10 @@ export function AppSidebar({ ...props }) {
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+                  <img src="logo-whyleavetown.png" alt="WLT Logo" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
+                  <span className="truncate font-medium">WhyLeavetown</span>
                   <span className="truncate text-xs">Enterprise</span>
                 </div>
               </a>
@@ -119,7 +73,6 @@ export function AppSidebar({ ...props }) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
