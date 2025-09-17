@@ -2,10 +2,10 @@
 
 import {
   Settings,
-  SquareTerminal,
   CircleQuestionMark,
   ClipboardClock,
   LayoutDashboard,
+  Users,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -21,6 +21,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import SupportDialog from "@/pages/dialog/SupportDialog";
 
 const data = {
   user: {
@@ -43,10 +44,23 @@ const data = {
         /* ... */
       ],
     },
+    {
+      title: "User Management",
+      url: "/users",
+      icon: Users,
+      items: [
+        /* ... */
+      ],
+    },
   ],
   navSecondary: [
     { title: "Settings", url: "/settings", icon: Settings },
-    { title: "Support", url: "/support", icon: CircleQuestionMark },
+    {
+      title: "Support",
+      url: "/support",
+      icon: CircleQuestionMark,
+      dialog: SupportDialog,
+    },
   ],
 };
 console.log("data.projects in AppSidebar:", data.projects);
@@ -77,6 +91,7 @@ export function AppSidebar({ ...props }) {
         <NavMain items={data.navMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>

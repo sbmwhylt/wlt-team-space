@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "@/pages/auth/Login";
 import Dashboard from "@/pages/Dashboard";
+import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
 import TimeTracker from "@/pages/TimeTracker";
 import ProtectedRoute from "@/context/ProtectedRoute";
@@ -23,6 +24,14 @@ function App() {
         element={
           <ProtectedRoute>
             <TimeTracker />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <Users />
           </ProtectedRoute>
         }
       />

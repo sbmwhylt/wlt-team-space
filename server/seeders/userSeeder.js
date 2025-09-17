@@ -14,10 +14,10 @@ export const userSeeder = async () => {
     }
     const hashedPassword = await bcrypt.hash("superadminpass123", 10);
     await User.create({
-      firstName: "John",
-      lastName: "Doe",
-      userName: "jdoe11",
-      email: "superadmin@example.com",
+      firstName: "Shemrei",
+      lastName: "Marabillo",
+      userName: "smarabillo",
+      email: "shemrei@whyleavetown.com",
       password: hashedPassword,
       role: "super-admin",
     });

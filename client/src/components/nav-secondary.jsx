@@ -14,16 +14,32 @@ export function NavSecondary({ items, ...props }) {
       <SidebarGroupLabel>Secondary</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton size="sm" asChild>
-                <Link to={item.url} >
-                  <item.icon />
-                  <span className="text">{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            const DialogComponent = item.dialog; // support custom dialog
+
+            return (
+              <SidebarMenuItem key={item.title}>
+                {DialogComponent ? (
+                  // Wrap menu button in dialog trigger
+                  <DialogComponent>
+                    <SidebarMenuButton asChild>
+                      <button className="flex items-center gap-2">
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </button>
+                    </SidebarMenuButton>
+                  </DialogComponent>
+                ) : (
+                  <SidebarMenuButton size="sm" asChild>
+                    <Link to={item.url}>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                )}
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
