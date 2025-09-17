@@ -5,7 +5,7 @@ import {
   SquareTerminal,
   CircleQuestionMark,
   ClipboardClock,
-  LayoutDashboard
+  LayoutDashboard,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -46,7 +46,7 @@ const data = {
   ],
   navSecondary: [
     { title: "Settings", url: "/settings", icon: Settings },
-    { title: "Support", url: "/support", icon: CircleQuestionMark }
+    { title: "Support", url: "/support", icon: CircleQuestionMark },
   ],
 };
 console.log("data.projects in AppSidebar:", data.projects);
@@ -56,18 +56,20 @@ export function AppSidebar({ ...props }) {
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <img src="logo-whyleavetown.png" alt="WLT Logo" />
-                </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">WhyLeavetown</span>
-                  <span className="truncate text-xs">Enterprise</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
+          <SidebarMenuItem className="flex gap-2">
+            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+              <img
+                src="logo-whyleavetown.png"
+                alt="WLT Logo"
+                className="border"
+              />
+            </div>
+            <div className="grid  text-left  leading-snug ">
+              <span className="truncate font-bold text-sm">Team Space</span>
+              <span className="truncate text-xs text-gray-600">
+                Management System
+              </span>
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

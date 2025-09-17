@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "@/pages/auth/Login";
 import Dashboard from "@/pages/Dashboard";
+import Settings from "@/pages/Settings";
 import TimeTracker from "@/pages/TimeTracker";
 import ProtectedRoute from "@/context/ProtectedRoute";
 
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route
         path="/dashboard"
@@ -24,7 +26,14 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route path="/" element={<Login />} />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

@@ -4,12 +4,14 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarGroupLabel,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
 
 export function NavSecondary({ items, ...props }) {
   return (
     <SidebarGroup {...props}>
+      <SidebarGroupLabel>Secondary</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (

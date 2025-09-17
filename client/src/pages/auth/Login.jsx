@@ -100,19 +100,13 @@ export default function Login() {
                 </a>
               </div>
             </div>
-            <Button
-              type="submit"
-              className="w-full mt-4"
-              disabled={loading}
-            >
+            <Button type="submit" className="w-full mt-4" disabled={loading}>
               {loading ? <Loader2Icon className="animate-spin" /> : "Login"}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button variant="outline" className="w-full">
-            Sign up
-          </Button>
+          <span className="text-xs">&copy; {new Date().getFullYear()} WhyLeaveTown, All Rights Reserved</span>
         </CardFooter>
       </Card>
     </div>
