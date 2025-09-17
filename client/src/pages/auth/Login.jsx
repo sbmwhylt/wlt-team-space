@@ -55,8 +55,8 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Card className="max-w-sm w-full">
+    <div className="flex justify-center items-center h-screen bg-[url('/bg-background.png')] bg-cover bg-center bg-no-repeat">
+      <Card className="max-w-sm w-full shadow-2xl">
         <img
           src="/logo-whyleavetown.png"
           alt="logo"

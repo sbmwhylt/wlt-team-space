@@ -34,7 +34,7 @@ export function NavMain({ items }) {
                 <SidebarMenuButton
                   asChild
                   tooltip={item.title}
-                  className={isActive ? "text-primary bg-primary/10 transition-all" : ""}
+                  className={isActive ? "text-white bg-primary transition-all" : ""}
                 >
                   <Link to={item.url}>
                     <item.icon />
