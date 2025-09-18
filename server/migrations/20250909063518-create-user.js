@@ -1,5 +1,7 @@
 "use strict";
 
+import { DATE } from "sequelize";
+
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("Users", {
     id: {
@@ -14,6 +16,15 @@ export async function up(queryInterface, Sequelize) {
     },
     lastName: {
       type: Sequelize.STRING,
+      allowNull: false,
+    },
+    gender: {
+      type: Sequelize.STRING,
+      defaultValue: "male",
+      allowNull: false,
+    },
+    birthDate: {
+      type: Sequelize.DATE,
       allowNull: false,
     },
     userName: {

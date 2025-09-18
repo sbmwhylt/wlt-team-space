@@ -17,9 +17,13 @@ export const userSeeder = async () => {
       firstName: "Shemrei",
       lastName: "Marabillo",
       userName: "smarabillo",
+      gender: "male",
+      birthDate: "09-13-2002",
       email: "shemrei@whyleavetown.com",
       password: hashedPassword,
       role: "super-admin",
+      status: "active",
+      avatar: "https://i.pinimg.com/1200x/21/f4/65/21f465e19888e48a60b84804bcdf142d.jpg"
     });
     console.log("✅ User seeded successfully");
   } catch (error) {

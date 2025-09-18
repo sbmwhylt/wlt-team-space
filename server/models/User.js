@@ -22,12 +22,20 @@ const User = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    gender: {
+      type: DataTypes.STRING,
+      defaultValue: "male",
+      allowNull: false,
+    },
+    birthDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -39,6 +47,18 @@ const User = sequelize.define(
       validate: {
         isIn: [["super-admin", "admin", "user"]],
       },
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "active",
+      validate: {
+        isIn: [["active", "inactive"]],
+      },
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {

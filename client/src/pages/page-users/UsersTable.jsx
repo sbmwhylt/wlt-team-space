@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/table";
 
 import { useUsers } from "@/hooks/use-users";
+import { CircleCheck, CircleX } from "lucide-react";
 
 export default function UsersTable() {
   const { users, loading } = useUsers();
@@ -18,11 +18,14 @@ export default function UsersTable() {
   }
 
   return (
-    <Table >
-      <TableHeader >
+    <Table>
+      <TableHeader>
         <TableRow>
-          <TableHead >
+          <TableHead className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
             ID
+          </TableHead>
+          <TableHead className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
+            Avatar
           </TableHead>
           <TableHead className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
             Name
@@ -34,8 +37,12 @@ export default function UsersTable() {
             Email
           </TableHead>
           <TableHead className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
+            Status
+          </TableHead>
+          <TableHead className="px-4 py-2 text-left text-sm font-semibold text-gray-600">
             Role
           </TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
 
@@ -45,11 +52,34 @@ export default function UsersTable() {
             <TableRow key={user.id}>
               <TableCell className="px-4 py-2 text-black">{user.id}</TableCell>
               <TableCell className="px-4 py-2">
+                <div className="w-7 h-7 rounded-full border overflow-hidden">
+                  <img
+                    src={user.avatar}
+                    alt="User avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </TableCell>
+              <TableCell className="px-4 py-2">
                 {user.firstName} {user.lastName}
               </TableCell>
               <TableCell className="px-4 py-2">{user.userName}</TableCell>
               <TableCell className="px-4 py-2">{user.email}</TableCell>
+              <TableCell>
+                <span
+                  className={`rounded-full text-md flex gap-1 items-center w-fit ${
+                    user.status === "active" ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  {(user.status === "active" && <CircleCheck size={16} />) ||
+                    (user.status === "inactive" && (
+                      <CircleX size={16}></CircleX>
+                    ))}
+                  {user.status}
+                </span>
+              </TableCell>
               <TableCell className="px-4 py-2">{user.role}</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           ))}
       </TableBody>
