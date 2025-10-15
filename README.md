@@ -2,14 +2,14 @@ Node Based Web App System Template
 
 -----------------------------------------------------
 
-Frontend/client: React + TailwindCSS + Vite
+Frontend/client: React TS + TailwindCSS + Vite
 
 - React → UI library
 - TailwindCSS → utility-first styling
 - Vite → fast development build tool
 
 Installation: 
-- npm create vite@latest client || frontend -- --template react
+- npm create vite@latest (react + typescript)
 - npm install tailwindcss @tailwindcss/vite
 - npm install react-router-dom@latest
 - npm install react-hot-toast@latest
