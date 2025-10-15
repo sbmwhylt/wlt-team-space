@@ -16,12 +16,15 @@ export default function SupportDialog({ children }: { children: ReactNode }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Support</DialogTitle>
-          <DialogDescription>
-            How can we help you today?
-          </DialogDescription>
+          <DialogDescription>How can we help you today?</DialogDescription>
         </DialogHeader>
         <p className="text-sm text-gray-600">
-          Contact us at support@example.com
+          Contact support at{" "}
+          <span>
+            <a href="mailto:shemrei@whyleavetown.com" className="text-blue-800 hover:underline font-medium">
+              shemrei@whyleavetown.com
+            </a>
+          </span>
         </p>
       </DialogContent>
     </Dialog>
