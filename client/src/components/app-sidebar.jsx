@@ -36,13 +36,18 @@ const data = {
       icon: LayoutDashboard,
       isActive: true,
     },
+    // {
+    //   title: "Time Tracker",
+    //   url: "/time-tracker",
+    //   icon: ClipboardClock,
+    //   items: [
+    //     /* ... */
+    //   ],
+    // },
     {
-      title: "Time Tracker",
-      url: "/time-tracker",
+      title: "Microsites",
+      url: "/microsites",
       icon: ClipboardClock,
-      items: [
-        /* ... */
-      ],
     },
     {
       title: "User Management",
