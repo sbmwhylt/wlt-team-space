@@ -4,6 +4,8 @@ import Dashboard from "@/pages/Dashboard";
 import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
 import TimeTracker from "@/pages/TimeTracker";
+import Microsites from "@/pages/Microsites";
+
 import ProtectedRoute from "@/context/ProtectedRoute";
 
 function App() {
@@ -24,6 +26,14 @@ function App() {
         element={
           <ProtectedRoute>
             <TimeTracker />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/microsites"
+        element={
+          <ProtectedRoute>
+            <Microsites />
           </ProtectedRoute>
         }
       />
