@@ -16,8 +16,9 @@ Installation:
 Backend/server: Node + Express JS + sequelize pg + bcyrpt + jsonwebtoken + dotenv + CORS + nodemon 
 Database: PostgresQL
 
+
 - express → web framework
-- sequiliz → 
+- sequilize → 
 - bcrypt → password hashing
 - jsonwebtoken → JWT for auth
 - dotenv → env vars
