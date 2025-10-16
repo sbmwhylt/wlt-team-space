@@ -10,19 +10,8 @@ import {
 import { useUsers } from "@/hooks/use-users";
 import { CircleCheck, CircleX } from "lucide-react";
 
-type User = {
-  id: string | number;
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  email: string;
-  status: "active" | "inactive";
-  role: string;
-};
-
 export default function UsersTable() {
-  const { users, loading } = useUsers() as { users: User[]; loading: boolean };
+  const { users, loading } = useUsers();
 
   if (loading) {
     return <div className="p-4 text-gray-500">Loading users...</div>;
