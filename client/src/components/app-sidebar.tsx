@@ -4,6 +4,7 @@ import {
   Settings,
   CircleQuestionMark,
   ClipboardClock,
+  Globe,
   LayoutDashboard,
   Users,
 } from "lucide-react";
@@ -45,7 +46,7 @@ const data = {
     {
       title: "Microsites",
       url: "/microsites",
-      icon: ClipboardClock,
+      icon: Globe,
     },
     {
       title: "User Management",
