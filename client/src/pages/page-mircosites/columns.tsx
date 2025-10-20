@@ -60,11 +60,11 @@ export const columns: ColumnDef<MicroSite>[] = [
         <img
           src={logo}
           alt="Logo"
-          className="h-8 w-8 rounded-full object-cover"
+          className="h-8 w-8 rounded-lg object-cover"
         />
       ) : (
-        <div className="h-10 w-10 rounded bg-gray-800 flex items-center justify-center text-gray-500">
-          N/A
+        <div className="h-8 w-8 rounded-lg flex items-center justify-center text-gray-500">
+          N/A{" "}
         </div>
       );
     },
@@ -182,9 +182,7 @@ export const columns: ColumnDef<MicroSite>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(microsite.link)
-              }
+              onClick={() => navigator.clipboard.writeText(microsite.link)}
             >
               Copy Link
             </DropdownMenuItem>

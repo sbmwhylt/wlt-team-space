@@ -46,7 +46,9 @@ export function useMicroSites() {
   // --- CREATE ---
   const create = async (microsite: Omit<MicroSite, "id">) => {
     try {
-      const res = await axios.post(baseUrl, microsite);
+      const res = await axios.post(baseUrl, microsite, {
+        headers: { "Content-Type": "application/json" },
+      });
       setMicrosites((prev) => [...prev, res.data.microsite]);
     } catch (err) {
       console.error("Create microsite failed:", err);
