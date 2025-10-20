@@ -12,6 +12,11 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    slug: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
     type: {
       type: Sequelize.STRING,
       allowNull: false,
