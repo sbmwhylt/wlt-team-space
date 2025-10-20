@@ -3,7 +3,6 @@
 import {
   Settings,
   CircleQuestionMark,
-  ClipboardClock,
   Globe,
   LayoutDashboard,
   Users,

@@ -34,17 +34,24 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt={user?.userName || "User"} />
+                <AvatarImage
+                  src={user?.avatar} // <-- pass the actual image URL here
+                  alt={
+                    user?.firstName
+                      ? `${user.firstName} ${user.lastName}`
+                      : "User"
+                  }
+                />
                 <AvatarFallback className="rounded-lg bg-primary text-white">
-                  {user?.firstName || user?.lastName
-                    ? `${user?.firstName?.charAt(0).toUpperCase() || ""}${
-                        user?.lastName?.charAt(0).toUpperCase() || ""
-                      }`
-                    : "U"}
+                  {user?.firstName ? user.firstName.charAt(0) : ""}
+                  {user?.lastName ? user.lastName.charAt(0) : ""}
                 </AvatarFallback>
               </Avatar>
+
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user?.firstName} {user?.lastName}</span>
+                <span className="truncate font-medium">
+                  {user?.firstName} {user?.lastName}
+                </span>
                 <span className="truncate text-xs">
                   {user?.role || "guest@example.com"}
                 </span>
