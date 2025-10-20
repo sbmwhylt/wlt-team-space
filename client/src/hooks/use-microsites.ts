@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 type MicroSite = {
   id: string | number;
   name: string;
+  slug: string;
   type?: "consumer" | "business";
   link: string;
   banner?: string;

@@ -13,6 +13,11 @@ const Microsite = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
     type: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -82,5 +87,11 @@ const Microsite = sequelize.define(
     timestamps: true,
   }
 );
+
+Microsite.beforeValidate((microsite) => {
+  if (!microsite.slug && microsite.name) {
+    microsite.slug = slugify(microsite.name, { lower: true, strict: true });
+  }
+});
 
 export default Microsite;

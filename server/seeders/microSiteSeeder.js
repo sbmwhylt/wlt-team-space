@@ -12,11 +12,12 @@ export const microSiteSeeder = async () => {
       return;
     }
     await Microsite.create({
-      name: "Default Microsite",
-      link: "https://defaultmicrosite.com",
+      name: "Fruit Bites",
+      link: "https://fruitbites.com",
+      slug: "fruit-bites",
       type: "consumer",
-      banner: "https://via.placeholder.com/150",
-      logo: "https://via.placeholder.com/150",
+      banner: "https://i.pinimg.com/736x/94/e1/0e/94e10ed02adca77a415490aac579a338.jpg",
+      logo: "https://i.pinimg.com/736x/94/e1/0e/94e10ed02adca77a415490aac579a338.jpg",
       aboutDesc: "This is the default microsite.",
       footerDesc: "Default footer description.",
       socialLinks: {
