@@ -250,7 +250,7 @@ export default function CreateMicrositeForm() {
                     <img
                       src={URL.createObjectURL(field.value)}
                       alt="Logo Preview"
-                      className="w-16 h-16 object-cover rounded-full border"
+                      className="w-20 h-20 object-cover rounded-full border"
                     />
                   </div>
                 )}

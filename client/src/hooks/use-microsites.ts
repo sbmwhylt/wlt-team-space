@@ -31,7 +31,7 @@ export function useMicroSites() {
   const [loading, setLoading] = useState(true);
   const baseUrl = `${import.meta.env.VITE_API_URL}/microsites`;
 
-  // --- GET all microsites ---
+  // --------------- GET all microsites
   const get = async () => {
     setLoading(true);
     try {
@@ -44,7 +44,20 @@ export function useMicroSites() {
     }
   };
 
-  // --- CREATE ---
+  // --------------- GET microsite by slug
+  const getBySlug = async (slug: string) => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${baseUrl}/${slug}`);
+      return res.data.microsite;
+    } catch (err) {
+      console.error("Fetch microsite by slug failed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // --------------- CREATE
   const create = async (microsite: Omit<MicroSite, "id">) => {
     try {
       const res = await axios.post(baseUrl, microsite, {
@@ -56,7 +69,7 @@ export function useMicroSites() {
     }
   };
 
-  // --- UPDATE ---
+  // --------------- UPDATE
   const update = async (id: string | number, data: Partial<MicroSite>) => {
     try {
       const res = await axios.put(`${baseUrl}/${id}`, data);
@@ -68,7 +81,7 @@ export function useMicroSites() {
     }
   };
 
-  // --- DELETE ---
+  // --------------- DELETE
   const remove = async (id: string | number) => {
     try {
       await axios.delete(`${baseUrl}/${id}`);
@@ -82,5 +95,5 @@ export function useMicroSites() {
     get();
   }, []);
 
-  return { microsites, loading, create, update, remove };
+  return { microsites, loading, create, update, remove, getBySlug };
 }
