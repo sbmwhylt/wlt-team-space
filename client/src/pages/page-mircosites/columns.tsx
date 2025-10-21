@@ -18,6 +18,7 @@ import { formatDistanceToNow } from "date-fns";
 export type MicroSite = {
   id: string | number;
   name: string;
+  slug: string;
   type?: "consumer" | "business";
   link: string;
   banner?: string;
@@ -187,10 +188,14 @@ export const columns: ColumnDef<MicroSite>[] = [
               Copy Link
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => window.open(microsite.link, "_blank")}
-            >
-              View microsite
+            <DropdownMenuItem>
+              <a
+                href={`/microsites/${microsite.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View microsite
+              </a>
             </DropdownMenuItem>
             <DropdownMenuItem>Edit microsite</DropdownMenuItem>
             <DropdownMenuItem className="text-red-500">

@@ -35,11 +35,13 @@ export const getAllMicroSites = async (req, res) => {
   }
 };
 
-// -------------------- GET MICROSITE BY ID
-export const getMicroSiteById = async (req, res) => {
+// -------------------- GET MICROSITE BY SLUG
+export const getMicroSiteBySlug = async (req, res) => {
   try {
-    const { id } = req.params;
-    const microsite = await Microsite.findByPk(id);
+    const { slug } = req.params;
+    const microsite = await Microsite.findOne({
+      where: { slug: req.params.slug },
+    });
     if (!microsite)
       return res.status(404).json({ error: "Microsite not found" });
     res.json({ microsite });
@@ -48,11 +50,11 @@ export const getMicroSiteById = async (req, res) => {
   }
 };
 
-// -------------------- GET MICROSITE BY SLUG
-export const getMicroSiteBySlug = async (req, res) => {
+// -------------------- GET MICROSITE BY ID
+export const getMicroSiteById = async (req, res) => {
   try {
-    const { slug } = req.params;
-    const microsite = await Microsite.findOne({ where: { slug: slug } });
+    const { id } = req.params;
+    const microsite = await Microsite.findByPk(id);
     if (!microsite)
       return res.status(404).json({ error: "Microsite not found" });
     res.json({ microsite });

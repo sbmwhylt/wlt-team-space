@@ -33,14 +33,7 @@ function App() {
           }
         />
 
-        <Route
-          path="/microsites/:slug/"
-          element={
-            <ProtectedRoute>
-              <MicrositeTemplate />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/microsites/:slug/" element={<MicrositeTemplate />} />
 
         <Route
           path="/users"
