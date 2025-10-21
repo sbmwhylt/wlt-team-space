@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.tsx'
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import "leaflet/dist/leaflet.css";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
