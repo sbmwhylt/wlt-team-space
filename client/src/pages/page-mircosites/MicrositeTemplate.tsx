@@ -78,7 +78,7 @@ export default function MicrositeTemplate() {
       }}
     >
       <section className="max-w-lg mx-auto p-5">
-        <Card className="p-4 rounded-3xl bg-white/20 backdrop-blur-3xl ">
+        <Card className="p-4 rounded-3xl bg-white/90 backdrop-blur-3xl ">
           {/* Banner container */}
           <div className="relative w-full">
             <div
@@ -105,9 +105,13 @@ export default function MicrositeTemplate() {
           </div>
 
           <CardHeader className="text-center mt-12">
-            <CardTitle className="font-bold text-3xl">
-              {microsite.name}
-            </CardTitle>
+            <div className="flex gap-2 items-center justify-center">
+              <CardTitle className="font-bold text-3xl">
+                {microsite.name}
+              </CardTitle>
+              
+            </div>
+
             <CardDescription className="text-lg pt-4 mx-auto">
               {microsite.aboutDesc}
             </CardDescription>
@@ -115,7 +119,7 @@ export default function MicrositeTemplate() {
 
           <CardContent className="text-center p-0 ">
             {/* Socials Links */}
-            <div className="flex justify-center items-center mx-auto gap-2 my-8 bg-gray-200 p-2 rounded-2xl w-fit">
+            <div className="flex justify-center items-center mx-auto gap-2 my-8  rounded-2xl w-fit">
               <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
                 <a href={microsite.facebook} target="_blank">
                   <Facebook strokeWidth={1.5} />
