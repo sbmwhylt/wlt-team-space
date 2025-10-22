@@ -64,7 +64,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
     },
     mapLink: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: true,
     },
     marketingImgs: {

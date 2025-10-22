@@ -13,7 +13,6 @@ import {
 import { CreditCard, ShoppingBasket } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import MapCard from "@/components/MapCard";
 
 export default function MicrositeTemplate() {
   const { slug } = useParams();
@@ -50,17 +49,24 @@ export default function MicrositeTemplate() {
     );
 
   return (
-    <>
-      <section className="max-w-lg mx-auto p-3 md:p-5">
-        <Card className="p-3 rounded-3xl">
-          {/* ✅ Banner container */}
+    <div
+      className="relative max-w-full mx-auto overflow-hidden bg-cover bg-center "
+      style={{
+        backgroundImage: `url(${microsite.banner})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <section className="max-w-lg mx-auto p-3 md:p-5 ">
+        <Card className="p-3 rounded-3xl bg-white/30 backdrop-blur-3xl">
+          {/* Banner container */}
           <div className="relative w-full">
             <div
               className="w-full h-72 bg-cover bg-center bg-gray-100 rounded-2xl"
               style={{ backgroundImage: `url('${microsite.banner}')` }}
             />
 
-            {/* ✅ Logo overlapping the bottom of banner */}
+            {/* Logo overlapping the bottom of banner */}
             <div className="absolute left-1/2 -bottom-12 transform -translate-x-1/2">
               <img
                 src={microsite.logo}
@@ -219,13 +225,18 @@ export default function MicrositeTemplate() {
               <h2 className="text-2xl w-60">Where can I use my Gift Card?</h2>
             </div>
 
-            {/* Map Section */}
-            <div className="w-full h-[400px] bg-gray-400 rounded-3xl">
-              <MapCard mapLink={microsite.mapLink} />
+            {/* Map Section / Google Map Embed */}
+            <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
+              {/* <MapCard mapLink={microsite.mapLink} /> */}
+              <iframe
+                className="w-full h-full"
+                src={microsite.mapLink}
+                loading="lazy"
+              />
             </div>
           </CardContent>
         </Card>
       </section>
-    </>
+    </div>
   );
 }
