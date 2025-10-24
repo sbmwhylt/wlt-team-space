@@ -1,6 +1,12 @@
-import React, { createContext, useState, useEffect, type ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  type ReactNode,
+} from "react";
+import toast from "react-hot-toast";
 
-// Define the shape of the user object
 interface User {
   id?: string;
   email?: string;
@@ -9,10 +15,8 @@ interface User {
   firstName?: string;
   lastName?: string;
   avatar?: string;
-  // add more fields as needed
 }
 
-// Define what the context will contain
 interface AuthContextType {
   user: User | null;
   token: string | null;
@@ -20,7 +24,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
-// Create the context with a default (empty) value
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   token: null,
@@ -33,22 +36,39 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // ------------------- STATE
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
 
-  // ------------------- CHECK TOKEN
+  const AUTO_LOGOUT_TIME = 3 * 24 * 60 * 60 * 1000; // 3 days
+  // const AUTO_LOGOUT_TIME = 5 * 1000; // 5 seconds testing
+
+  useEffect(() => {
+    const loginTime = localStorage.getItem("loginTime");
+    if (token && loginTime) {
+      const elapsed = Date.now() - Number(loginTime);
+      if (elapsed > AUTO_LOGOUT_TIME) {
+        logout();
+      } else {
+        const remaining = AUTO_LOGOUT_TIME - elapsed;
+        const timer = setTimeout(() => {
+          logout();
+          toast.error("Session expired. Please log in again.");
+        }, remaining);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [token]);
+
   useEffect(() => {
     if (token) {
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
         try {
-          const parsedUser: User = JSON.parse(storedUser);
-          setUser(parsedUser);
-        } catch (error) {
-          console.error("Failed to parse user from localStorage", error);
+          setUser(JSON.parse(storedUser));
+        } catch {
+          console.error("Failed to parse user from localStorage");
         }
       }
     } else {
@@ -56,21 +76,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [token]);
 
-  // ------------------- LOGIN
   const login = (userData: User, tokenData: string) => {
     localStorage.setItem("token", tokenData);
     localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("loginTime", Date.now().toString());
     setUser(userData);
     setToken(tokenData);
   };
 
-  // ------------------- LOGOUT
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("loginTime");
     setUser(null);
     setToken(null);
-  };
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, token, login, logout }}>
