@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import React from "react";
 
 import {
   Card,
@@ -10,7 +11,13 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import {
   Accordion,
   AccordionContent,
@@ -30,13 +37,38 @@ import {
   Facebook,
   Instagram,
   Mail,
+  UserStar,
+  Building2,
+  Star,
+  Linkedin,
+  Twitter,
+  BookText,
+  Palette,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
+import Autoplay from "embla-carousel-autoplay";
 
+export function Example() {
+  return (
+    <Carousel
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
+    >
+      // ...
+    </Carousel>
+  );
+}
 export default function MicrositeTemplate() {
   const { slug } = useParams();
   const [microsite, setMicrosite] = useState<any>(null);
+
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
 
   useEffect(() => {
     const fetchMicrosite = async () => {
@@ -57,7 +89,7 @@ export default function MicrositeTemplate() {
 
   useEffect(() => {
     if (microsite?.name) {
-      document.title = `${microsite.name} | Microsite`;
+      document.title = `${microsite.name} | ${microsite.type}`;
     }
   }, [microsite]);
 
@@ -68,17 +100,29 @@ export default function MicrositeTemplate() {
       </div>
     );
 
+  const icons = {
+    facebook: <Facebook strokeWidth={1.5} />,
+    instagram: <Instagram strokeWidth={1.5} />,
+    twitter: <Twitter strokeWidth={1.5} />,
+    linkedin: <Linkedin strokeWidth={1.5} />,
+    website: <Globe strokeWidth={1.5} />,
+    email: <Mail strokeWidth={1.5} />,
+  };
+
   return (
-    <div
-      className="relative max-w-full mx-auto overflow-hidden bg-cover bg-center "
-      style={{
-        backgroundImage: `url(${microsite.banner})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* Background layer (blurred image) */}
+      <div
+        className="absolute inset-0 bg-cover bg-center blur-3xl scale-105"
+        style={{
+          backgroundImage: `url(${microsite.banner})`,
+        }}
+      />
+
+      {/* Optional overlay for contrast */}
+      <div className="absolute inset-0 bg-black/30" />
       <section className="max-w-lg mx-auto p-5">
-        <Card className="p-4 rounded-3xl bg-white/90 backdrop-blur-3xl ">
+        <Card className="p-4 rounded-3xl bg-white/55 backdrop-blur-2xl ">
           {/* Banner container */}
           <div className="relative w-full">
             <div
@@ -106,10 +150,29 @@ export default function MicrositeTemplate() {
 
           <CardHeader className="text-center mt-12">
             <div className="flex gap-2 items-center justify-center">
-              <CardTitle className="font-bold text-3xl">
-                {microsite.name}
-              </CardTitle>
-              
+              <div className="flex flex-col gap-1 items-center">
+                <CardTitle className="font-bold text-3xl">
+                  {microsite.name}
+                </CardTitle>
+                <div className="flex items-center gap-2 text-gray-500">
+                  {microsite.type === "consumer" ? (
+                    <div className="bg-green-100 text-green-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
+                      <UserStar strokeWidth={1.5} size={14} />
+                      <span>{microsite.type}</span>
+                    </div>
+                  ) : microsite.type === "business" ? (
+                    <>
+                      <div></div>
+                      <div className="bg-orange-100 text-orange-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
+                        <Building2 strokeWidth={1.5} size={14} />
+                        <span>{microsite.type}</span>
+                      </div>
+                    </>
+                  ) : (
+                    <span className="text-gray-400">No type specified</span>
+                  )}
+                </div>
+              </div>
             </div>
 
             <CardDescription className="text-lg pt-4 mx-auto">
@@ -118,30 +181,26 @@ export default function MicrositeTemplate() {
           </CardHeader>
 
           <CardContent className="text-center p-0 ">
-            {/* Socials Links */}
-            <div className="flex justify-center items-center mx-auto gap-2 my-8  rounded-2xl w-fit">
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Facebook strokeWidth={1.5} />
-                </a>
-              </div>
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Instagram strokeWidth={1.5} />
-                </a>
-              </div>
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Globe strokeWidth={1.5} />
-                </a>
-              </div>
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Mail strokeWidth={1.5} />
-                </a>
-              </div>
+            {/* Social Links */}
+            <div className="flex justify-center items-center mx-auto gap-2 my-8 rounded-2xl w-fit">
+              {Object.entries(microsite.socialLinks || {}).map(
+                ([platform, url]) => {
+                  const typedPlatform = platform as keyof typeof icons;
+                  if (typeof url !== "string" || !url) return null;
+                  return (
+                    <a
+                      key={platform}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-15 h-12 bg-white rounded-xl flex items-center justify-center hover:bg-gray-100 transition"
+                    >
+                      {icons[typedPlatform] || <Globe strokeWidth={1.5} />}
+                    </a>
+                  );
+                }
+              )}
             </div>
-
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
@@ -149,7 +208,6 @@ export default function MicrositeTemplate() {
               </div>
               <h2 className="text-2xl ">Purchase Cards</h2>
             </div>
-
             {/* Purchase Cards */}
             <div className="space-y-4">
               {/* Card 1 */}
@@ -169,9 +227,13 @@ export default function MicrositeTemplate() {
                       </p>
                     </div>
                     <div className="flex items-center gap-2 mt-2">
-                      <button className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm">
+                      <a
+                        href={microsite.physicalCardOrderLink}
+                        target="_blank"
+                        className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
+                      >
                         Purchase here
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -186,68 +248,90 @@ export default function MicrositeTemplate() {
                   </div>
                   <div>
                     <div className="text-left ">
-                      <h2 className="text-sm font-semibold">Bulk Orders</h2>
+                      <h2 className="text-sm font-semibold">
+                        Physical Card Bulk Orders
+                      </h2>
                       <p className="text-sm text-gray-600 mt-1 max-w-45">
                         Have a large order or need custom values?
                       </p>
                     </div>
                     <div className="flex items-center gap-2 mt-4 ">
-                      <button className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm">
+                      <a
+                        href="https://www.whyleavetown.com/bulk-card-orders/"
+                        target="_blank"
+                        className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
+                      >
                         Purchase here
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
                 <div className="w-full h-full bg-gray-400 rounded-3xl "></div>
               </div>
 
-              {/* Card 3 */}
-              {/* <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
-                <div className="flex flex-col justify-between p-3">
-                  <div className="bg-primary rounded-full p-1.5 text-white w-fit">
-                    <ShoppingBasket strokeWidth={1} size={18} />
-                  </div>
-                  <div>
-                    <div className="text-left ">
-                      <h2 className="text-sm font-semibold">Lorem Ipsum</h2>
-                      <p className="text-sm text-gray-600 mt-1 w-45">
-                        Reprehenderit Lorem fugiat laboris irure magna aliquip.
-                      </p>
+              {microsite.type === "business" && (
+                <div className="grid gap-6">
+                  {/* Card 3 */}
+                  <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
+                    <div className="flex flex-col justify-between p-3">
+                      <div className="bg-primary rounded-full p-1.5 text-white w-fit">
+                        <ShoppingBasket strokeWidth={1} size={18} />
+                      </div>
+                      <div>
+                        <div className="text-left">
+                          <h2 className="text-sm font-semibold">
+                            Digital Gift Cards
+                          </h2>
+                          <p className="text-sm text-gray-600 mt-1 w-45">
+                            Send a digital card via SMS for 25, 50, 100 or 200
+                            dollars
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4">
+                          <a
+                            href={microsite.digitalCardOrderLink}
+                            target="_blank"
+                            className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
+                          >
+                            Purchase here
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 mt-4 ">
-                      <button className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm">
-                        Purchase here
-                      </button>
-                    </div>
+                    <div className="w-full h-full bg-gray-400 rounded-3xl"></div>
                   </div>
-                </div>
-                <div className="w-full h-full bg-gray-400 rounded-3xl "></div>
-              </div> */}
 
-              {/* Card 4 */}
-              {/* <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
-                <div className="flex flex-col justify-between p-3">
-                  <div className="bg-primary rounded-full p-1.5 text-white w-fit">
-                    <ShoppingBasket strokeWidth={1} size={18} />
-                  </div>
-                  <div>
-                    <div className="text-left ">
-                      <h2 className="text-sm font-semibold">Lorem Ipsum</h2>
-                      <p className="text-sm text-gray-600 mt-1 w-45">
-                        Reprehenderit Lorem fugiat laboris irure magna aliquip.
-                      </p>
+                  {/* Card 4 */}
+                  <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
+                    <div className="flex flex-col justify-between p-3">
+                      <div className="bg-primary rounded-full p-1.5 text-white w-fit">
+                        <ShoppingBasket strokeWidth={1} size={18} />
+                      </div>
+                      <div>
+                        <div className="text-left">
+                          <h2 className="text-sm font-semibold">
+                            Digital Card Bulk Orders
+                          </h2>
+                          <p className="text-sm text-gray-600 mt-1 w-45">
+                            Have a large order or need custom values?
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4">
+                          <a
+                            href="https://www.whyleavetown.com/bulk-digital-card-orders/"
+                            target="_blank"
+                            className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
+                          >
+                            Purchase here
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 mt-4 ">
-                      <button className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm">
-                        Purchase here
-                      </button>
-                    </div>
+                    <div className="w-full h-full bg-gray-400 rounded-3xl"></div>
                   </div>
                 </div>
-                <div className="w-full h-full bg-gray-400 rounded-3xl "></div>
-              </div> */}
+              )}
             </div>
-
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
@@ -255,17 +339,16 @@ export default function MicrositeTemplate() {
               </div>
               <h2 className="text-2xl w-60">Where can I use my Gift Card?</h2>
             </div>
-
             {/* Map Section / Google Map Embed */}
-            <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
-              {/* <MapCard mapLink={microsite.mapLink} /> */}
-              <iframe
-                className="w-full h-full"
-                src={microsite.mapLink}
-                loading="lazy"
-              />
-            </div>
-
+            {microsite.type === "consumer" && (
+              <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
+                <iframe
+                  className="w-full h-full"
+                  src={microsite.mapLink}
+                  loading="lazy"
+                />
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-4 mt-4">
               <a
                 href="https://www.whyleavetown.com/participating-stores/#participating_communities"
@@ -281,21 +364,112 @@ export default function MicrositeTemplate() {
                   </h2>
                 </div>
               </a>
-              <a
-                href="https://www.whyleavetown.com/check-card-balance/"
-                target="_blank"
-              >
-                <div className="rounded-3xl bg-white/80 h-40 flex flex-col justify-center items-center gap-3">
-                  <HandCoins
-                    size={40}
-                    className="p-2 bg-primary text-white rounded-full"
-                  />
-                  <h2 className="text-lg text-secondary font-bold">
-                    My Points
-                  </h2>
-                </div>
-              </a>
+              {microsite?.type === "consumer" && (
+                <a
+                  href="https://www.whyleavetown.com/check-card-balance/"
+                  target="_blank"
+                >
+                  <div className="rounded-3xl bg-white/80 h-40 flex flex-col justify-center items-center gap-3">
+                    <HandCoins
+                      size={40}
+                      className="p-2 bg-primary text-white rounded-full"
+                    />
+                    <h2 className="text-lg text-secondary font-bold">
+                      My Points
+                    </h2>
+                  </div>
+                </a>
+              )}
+
+              {microsite?.type === "business" && (
+                <a
+                  href="https://www.whyleavetown.com/terms-and-conditions/"
+                  target="_blank"
+                >
+                  <div className="rounded-3xl bg-white/80 h-40 flex flex-col justify-center items-center gap-3">
+                    <BookText
+                      size={40}
+                      className="p-2 bg-primary text-white rounded-full"
+                    />
+                    <h2 className="text-lg text-secondary font-bold">
+                      Terms & Conditions
+                    </h2>
+                  </div>
+                </a>
+              )}
             </div>
+
+            {microsite.type === "business" && (
+              // Section Title
+              <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
+                <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                  <Palette strokeWidth={1.5} />
+                </div>
+                <h2 className="text-2xl w-60">Marketing Material</h2>
+              </div>
+            )}
+
+            {microsite.type === "business" && (
+              // Marketing Content
+              <Carousel className="w-full mb-4">
+                <div className="flex flex-col gap-4">
+                  <CarouselContent>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <CarouselItem key={index}>
+                        <div className="p-1">
+                          <Card>
+                            <CardContent className="flex aspect-square items-center justify-center p-6 h-45">
+                              <span className="text-4xl font-semibold">
+                                {index + 1}
+                              </span>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </div>
+                <div className="flex justify-center items-center gap-4 mt-4">
+                  <CarouselPrevious className="static translate-y-0" />
+                  <CarouselNext className="static translate-y-0" />
+                </div>{" "}
+              </Carousel>
+            )}
+
+            {microsite.type === "business" && (
+              <div className="w-full">
+                <Carousel
+                  className="w-full"
+                  plugins={[plugin.current]}
+                  onMouseEnter={plugin.current.stop}
+                  onMouseLeave={plugin.current.reset}
+                  opts={{ loop: true }}
+                >
+                  <CarouselContent className="-ml-1">
+                    {Array.from({ length: 10 }).map((_, index) => (
+                      <CarouselItem
+                        key={index}
+                        className="pl-1 md:basis-1/2 lg:basis-1/3"
+                      >
+                        <div className="p-1">
+                          <Card>
+                            <CardContent className="flex aspect-square items-center justify-center p-6">
+                              <span className="text-2xl font-semibold">
+                                {index + 1}
+                              </span>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <div className="flex justify-center items-center gap-4 mt-4">
+                    <CarouselPrevious className="static translate-y-0" />
+                    <CarouselNext className="static translate-y-0" />
+                  </div>{" "}
+                </Carousel>
+              </div>
+            )}
 
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
@@ -304,7 +478,6 @@ export default function MicrositeTemplate() {
               </div>
               <h2 className="text-2xl w-60">Frequently Asked Questions</h2>
             </div>
-
             {/* Accordion */}
             <Accordion
               type="single"
@@ -383,44 +556,38 @@ export default function MicrositeTemplate() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-
             {/* Business Page */}
             <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
                 <BriefcaseBusiness strokeWidth={1.5} />
               </div>
               <h2 className="text-2xl w-60">Business Owners</h2>
-              <p className="text-lg lg:px-10 text-gray-600 w-80">
+              <p className="text-lg lg:px-10 text-gray-600 ">
                 {microsite.aboutDesc}
               </p>
             </div>
-
             <Button variant="default" size="lg" className="w-fit mt-6">
               Register here
             </Button>
-
-            {/* Socials Links */}
-            <div className="flex justify-center items-center mx-auto gap-2 my-8  p-2 rounded-2xl w-fit">
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Facebook strokeWidth={1.5} />
-                </a>
-              </div>
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Instagram strokeWidth={1.5} />
-                </a>
-              </div>
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Globe strokeWidth={1.5} />
-                </a>
-              </div>
-              <div className="w-15 h-12 bg-white rounded-xl flex items-center justify-center">
-                <a href={microsite.facebook} target="_blank">
-                  <Mail strokeWidth={1.5} />
-                </a>
-              </div>
+            {/* Social Links */}
+            <div className="flex justify-center items-center mx-auto gap-2 my-8 rounded-2xl w-fit">
+              {Object.entries(microsite.socialLinks || {}).map(
+                ([platform, url]) => {
+                  const typedPlatform = platform as keyof typeof icons;
+                  if (typeof url !== "string" || !url) return null;
+                  return (
+                    <a
+                      key={platform}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-15 h-12 bg-white rounded-xl flex items-center justify-center hover:bg-gray-100 transition"
+                    >
+                      {icons[typedPlatform] || <Globe strokeWidth={1.5} />}
+                    </a>
+                  );
+                }
+              )}
             </div>
           </CardContent>
 
