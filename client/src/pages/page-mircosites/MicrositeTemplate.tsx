@@ -26,6 +26,17 @@ import {
 } from "@/components/ui/accordion";
 
 import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+
+import {
   CreditCard,
   ShoppingBasket,
   Link,
@@ -44,10 +55,15 @@ import {
   Twitter,
   BookText,
   Palette,
+  Zap,
+  Car,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import Autoplay from "embla-carousel-autoplay";
+import UpdateContactForm from "@/pages/page-mircosites/forms/UpdateContactForm";
+import UpdateTerminalForm from "@/pages/page-mircosites/forms/UpdateTerminalForm";
+import CardStockForm from "@/pages/page-mircosites/forms/CardStockForm";
 
 export function Example() {
   return (
@@ -65,6 +81,7 @@ export function Example() {
 export default function MicrositeTemplate() {
   const { slug } = useParams();
   const [microsite, setMicrosite] = useState<any>(null);
+  const [open, setOpen] = useState(false);
 
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
@@ -449,11 +466,11 @@ export default function MicrositeTemplate() {
                     {Array.from({ length: 10 }).map((_, index) => (
                       <CarouselItem
                         key={index}
-                        className="pl-1 md:basis-1/2 lg:basis-1/3"
+                        className="pl-1 md:basis-1/1 lg:basis-1/3"
                       >
                         <div className="p-1">
                           <Card>
-                            <CardContent className="flex aspect-square items-center justify-center p-6">
+                            <CardContent className="flex aspect-square items-center justify-center p-6 h-25">
                               <span className="text-2xl font-semibold">
                                 {index + 1}
                               </span>
@@ -463,10 +480,6 @@ export default function MicrositeTemplate() {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <div className="flex justify-center items-center gap-4 mt-4">
-                    <CarouselPrevious className="static translate-y-0" />
-                    <CarouselNext className="static translate-y-0" />
-                  </div>{" "}
                 </Carousel>
               </div>
             )}
@@ -556,19 +569,88 @@ export default function MicrositeTemplate() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+
             {/* Business Page */}
-            <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
-              <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
-                <BriefcaseBusiness strokeWidth={1.5} />
-              </div>
-              <h2 className="text-2xl w-60">Business Owners</h2>
-              <p className="text-lg lg:px-10 text-gray-600 ">
-                {microsite.aboutDesc}
-              </p>
-            </div>
-            <Button variant="default" size="lg" className="w-fit mt-6">
-              Register here
-            </Button>
+            {microsite.type === "business" ? (
+              <>
+                <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
+                  <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                    <BriefcaseBusiness strokeWidth={1.5} />
+                  </div>
+                  <h2 className="text-2xl w-60">Program Operations</h2>
+                  <p className="text-lg lg:px-10 text-gray-600 ">
+                    {microsite.aboutDesc}
+                  </p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
+                  <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                    <BriefcaseBusiness strokeWidth={1.5} />
+                  </div>
+                  <h2 className="text-2xl w-60">Business Owners</h2>
+                  <p className="text-lg lg:px-10 text-gray-600 ">
+                    {microsite.aboutDesc}
+                  </p>
+                </div>
+              </>
+            )}
+
+            {microsite.type === "business" && (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="default" size="lg" className="w-fit mt-6">
+                    Update forms
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+                  <DialogHeader className="mx-auto text-center">
+                    {/* <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                    <Zap strokeWidth={1.5} />
+                  </div> */}
+                    <DialogDescription className="text-2xl text-black">
+                      What needs an update?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid grid-cols-3 gap-4">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default">Contact Details</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <UpdateContactForm />
+                      </DialogContent>
+                    </Dialog>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default">Terminal Details</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <UpdateTerminalForm />
+                      </DialogContent>
+                    </Dialog>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default">Card Stocks</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <CardStockForm />
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            )}
+
+            {microsite.type === "consumer" && (
+              <a href="" target="_blank">
+                <Button variant="default" size="lg" className="w-fit mt-6">
+                  Go to form
+                </Button>
+              </a>
+            )}
+
             {/* Social Links */}
             <div className="flex justify-center items-center mx-auto gap-2 my-8 rounded-2xl w-fit">
               {Object.entries(microsite.socialLinks || {}).map(
