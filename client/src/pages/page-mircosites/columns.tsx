@@ -100,7 +100,6 @@ export const columns: ColumnDef<MicroSite>[] = [
     ),
     cell: ({ row }) => {
       const type = row.getValue("type") as string;
-
       return (
         <div
           className={`capitalize font-medium py-1 px-2 w-fit text-xs rounded-full ${
@@ -113,7 +112,6 @@ export const columns: ColumnDef<MicroSite>[] = [
         </div>
       );
     },
-
     enableSorting: true,
   },
   {
