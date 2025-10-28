@@ -31,7 +31,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import CreateMicrositeDialog from "@/pages/page-mircosites/dialog/CreateMicrosite";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -123,7 +122,7 @@ export function DataTable<TData, TValue>({
                 ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <CreateMicrositeDialog>
+          {/* <CreateMicrositeDialog>
             <Button
               variant="default"
               className="ml-auto"
@@ -131,7 +130,7 @@ export function DataTable<TData, TValue>({
             >
               Create
             </Button>
-          </CreateMicrositeDialog>
+          </CreateMicrositeDialog> */}
         </div>
       </div>
 
