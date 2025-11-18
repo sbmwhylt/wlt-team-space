@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/dialog";
 
 import type { ReactNode } from "react";
-import CreateMicrositeForm from "../forms/Create";
+import CreateUserForm from "../forms/Create";
 
-export default function CreateMicrositeDialog({
+export default function CreateUserDialog({
   children,
 }: {
   children: ReactNode;
@@ -28,12 +28,12 @@ export default function CreateMicrositeDialog({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Create Microsite</DialogTitle>
+          <DialogTitle>Add User</DialogTitle>
           <DialogDescription>
-            Fill in the details to create a new microsite.
+            Fill in the details to create a new user.
           </DialogDescription>
         </DialogHeader>
-        <CreateMicrositeForm onSuccess={handleSuccess} />
+        <CreateUserForm onSuccess={handleSuccess} />
       </DialogContent>
     </Dialog>
   );
