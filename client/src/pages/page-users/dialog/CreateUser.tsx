@@ -10,6 +10,7 @@ import {
 
 import type { ReactNode } from "react";
 import CreateUserForm from "../forms/Create";
+import { useUsers } from "@/hooks/use-users";
 
 export default function CreateUserDialog({
   children,
@@ -17,10 +18,11 @@ export default function CreateUserDialog({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const { get } = useUsers();
 
-  const handleSuccess = () => {
-    setOpen(false); // Close the dialog
-    window.location.reload(); // Refresh the page
+  const handleSuccess = async () => {
+    setOpen(false);
+    await get();
   };
 
   return (

@@ -10,28 +10,53 @@ const User = db.User;
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, userName, email, password, role } = req.body;
+    console.log("=== REGISTER ENDPOINT HIT ===");
+    console.log("Full request body:", req.body);
+    console.log("birthDate received:", req.body.birthDate);
+    console.log("birthDate type:", typeof req.body.birthDate);
+
+    const {
+      firstName,
+      lastName,
+      userName,
+      gender,
+      birthDate,
+      email,
+      password,
+      role,
+      status,
+      avatar,
+    } = req.body;
+
     const existingUser = await User.findOne({
       where: { email },
     });
     if (existingUser) {
       return res.status(400).json({ error: "Email already exists" });
     }
+
     const existingUsername = await User.findOne({
       where: { userName },
     });
     if (existingUsername) {
       return res.status(400).json({ error: "Username already taken" });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       firstName,
       lastName,
       userName,
+      gender: gender || "male",
+      birthDate: new Date(birthDate),
       email,
       password: hashedPassword,
-      role: role || "user", 
+      role: role || "user",
+      status: status || "active",
+      avatar: avatar || null,
     });
+
     res.status(201).json({
       msg: "User registered successfully",
       user: {
@@ -39,8 +64,11 @@ export const register = async (req, res) => {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         userName: newUser.userName,
+        birthDate: newUser.birthDate,
+        gender: newUser.gender,
         email: newUser.email,
         role: newUser.role,
+        status: newUser.status,
       },
     });
   } catch (error) {
