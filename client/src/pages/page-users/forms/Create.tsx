@@ -29,18 +29,18 @@ const userSchema = z.object({
   firstName: z.string().min(2, "Name is required"),
   lastName: z.string().min(2, "Name is required"),
   userName: z.string().min(5),
-  gender: z.enum(["male", "female", "other"]),
-  birthDate: z.date().optional(),
+  gender: z.enum(["male", "female"]),
+  birthDate: z.string().min(1, "Birth date is required"),
   email: z.string().email("Must be a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  role: z.enum(["admin", "superadmin", "user"]),
+  role: z.enum(["super-admin", "admin", "user"]),
   status: z.enum(["active", "inactive"]),
   avatar: z.string().optional(),
 });
 
 type UserFormValues = z.infer<typeof userSchema>;
 interface CreateUsersFormProps {
-  onSuccess?: () => void; // Function to call when form succeeds
+  onSuccess?: () => void;
 }
 
 export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
@@ -54,7 +54,7 @@ export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
       lastName: "",
       userName: "",
       gender: "male",
-      birthDate: undefined,
+      birthDate: "",
       email: "",
       password: "",
       role: "user",
@@ -67,42 +67,176 @@ export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
     try {
       await create(values);
       toast.success("User created successfully");
-      form.reset(); // Clear the form
+      form.reset();
       onSuccess?.();
     } catch (error) {
+      console.error("Full error:", error);
       toast.error("Failed to create user");
     }
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid grid-cols-2 gap-3">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="John" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Doe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Gender</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="birthDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Birth Date</FormLabel>
+                <FormControl>
+                  <Input
+                    type="date"
+                    value={field.value || ""}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    ref={field.ref}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <hr className="border-black/10" />
+
         <FormField
           control={form.control}
-          name="firstName"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>First Name</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="John" {...field} />
+                <Input placeholder="admin@whyleavetown.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
+        <div className="grid grid-cols-2 gap-3">
+          <FormField
+            control={form.control}
+            name="userName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="johndoe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Role</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="super-admin">Super Admin</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="user">User</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <FormField
           control={form.control}
-          name="lastName"
+          name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Doe" {...field} />
+                <Input
+                  type="password"
+                  placeholder="Create Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        <div className="flex justify-end pt-2">
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? "Creating..." : "Create User"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

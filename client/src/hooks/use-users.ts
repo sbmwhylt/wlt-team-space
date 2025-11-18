@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 
 type User = {
   id: string | number;
-  avatar?: string;
   firstName: string;
   lastName: string;
   userName: string;
+  gender: "male" | "female";
+  birthDate: Date; 
   email: string;
-  status?: "active" | "inactive";
-  role: string;
+  password: string;
+  role: "super-admin" | "admin" | "user"; 
+  status: "active" | "inactive"; 
+  avatar?: string;
 };
 
 export function useUsers() {
@@ -34,12 +37,15 @@ export function useUsers() {
   const create = async (user: Omit<User, "id">) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/register`, // different enpoint 
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         user
       );
       setUsers((prev) => [...prev, res.data.user]);
-    } catch (err) {
+      return res.data;
+    } catch (err: any) {
       console.error("Create user failed:", err);
+      console.error("Backend says:", err.response?.data);
+      throw err;
     }
   };
 
@@ -48,8 +54,10 @@ export function useUsers() {
     try {
       const res = await axios.put(`${baseUrl}/${id}`, data);
       setUsers((prev) => prev.map((u) => (u.id === id ? res.data.user : u)));
-    } catch (err) {
+      return res.data;
+    } catch (err: any) {
       console.error("Update user failed:", err);
+      throw err;
     }
   };
 
@@ -58,8 +66,9 @@ export function useUsers() {
     try {
       await axios.delete(`${baseUrl}/${id}`);
       setUsers((prev) => prev.filter((u) => u.id !== id));
-    } catch (err) {
+    } catch (err: any) {
       console.error("Delete user failed:", err);
+      throw err;
     }
   };
 

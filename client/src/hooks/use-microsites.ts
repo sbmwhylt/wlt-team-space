@@ -95,5 +95,5 @@ export function useMicroSites() {
     get();
   }, []);
 
-  return { microsites, loading, create, update, remove, getBySlug };
+  return { microsites, loading, create, get, update, remove, getBySlug };
 }

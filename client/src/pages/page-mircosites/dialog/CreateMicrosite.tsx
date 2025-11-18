@@ -10,6 +10,7 @@ import {
 
 import type { ReactNode } from "react";
 import CreateMicrositeForm from "../forms/Create";
+import { useMicroSites } from "@/hooks/use-microsites";
 
 export default function CreateMicrositeDialog({
   children,
@@ -17,10 +18,11 @@ export default function CreateMicrositeDialog({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const { get } = useMicroSites();
 
-  const handleSuccess = () => {
-    setOpen(false); // Close the dialog
-    window.location.reload(); // Refresh the page
+  const handleSuccess = async () => {
+    setOpen(false);
+    await get();
   };
 
   return (
