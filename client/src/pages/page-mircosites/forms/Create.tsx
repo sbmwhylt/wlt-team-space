@@ -50,8 +50,13 @@ const micrositeSchema = z.object({
 });
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
+interface CreateMicrositeFormProps {
+  onSuccess?: () => void; // Function to call when form succeeds
+}
 
-export default function CreateMicrositeForm() {
+export default function CreateMicrositeForm({
+  onSuccess,
+}: CreateMicrositeFormProps) {
   const [open, setOpen] = useState(false);
   const { create } = useMicroSites();
 
@@ -124,12 +129,11 @@ export default function CreateMicrositeForm() {
       });
 
       await create(formData);
-      console.log("✅ Microsite created successfully");
       toast.success("Microsite created successfully!");
       setOpen(false);
       form.reset();
+      onSuccess?.();
     } catch (error) {
-      console.error("❌ Error creating microsite:", error);
       toast.error("Error creating microsite");
     }
   };

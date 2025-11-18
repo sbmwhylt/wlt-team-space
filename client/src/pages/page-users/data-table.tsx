@@ -31,6 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CreateUserDialog from "./dialog/CreateUser";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -122,15 +123,15 @@ export function DataTable<TData, TValue>({
                 ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          {/* <CreateMicrositeDialog>
+          <CreateUserDialog>
             <Button
               variant="default"
               className="ml-auto"
               onClick={() => setOpen(true)}
             >
-              Create
+              Add User
             </Button>
-          </CreateMicrositeDialog> */}
+          </CreateUserDialog>
         </div>
       </div>
 

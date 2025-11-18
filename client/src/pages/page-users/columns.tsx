@@ -163,8 +163,8 @@ export const columns: ColumnDef<User>[] = [
 
   // Created At
   {
-    accessorKey: "createdAt",
-    header: "Created",
+    accessorKey: "updatedAt",
+    header: "Updated At",
     cell: ({ getValue }) => {
       const date = getValue<Date>();
       return <span>{formatDistanceToNow(new Date(date))} ago</span>;
