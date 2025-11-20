@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "react-hot-toast";
 import { formatDistanceToNow } from "date-fns";
+import { useUsers } from "@/hooks/use-users";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 export type User = {
   id: string | number;
@@ -29,7 +41,6 @@ export type User = {
 };
 
 export const columns: ColumnDef<User>[] = [
-  // Row selection
   {
     id: "select",
     header: ({ table }) => (
@@ -177,34 +188,74 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const user = row.original;
+      const { remove } = useUsers();
+      const [open, setOpen] = useState(false);
 
       const handleEdit = () => {
         window.location.href = `/users/${user.id}`;
       };
 
-      const handleDelete = () => {
-        if (confirm(`Delete user "${user.firstName} ${user.lastName}"?`)) {
-          console.log("Delete logic here for", user.id);
+      const handleDelete = async () => {
+        try {
+          toast.success("User deleted successfully");
+          await remove(user.id);
+          setOpen(false);
+        } catch (err) {
+          toast.error("Failed to delete user");
+          console.error("Failed to delete user:", err);
         }
       };
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={handleEdit}>Edit User</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleDelete} className="text-red-500">
-              Delete User
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => (window.location.href = `/users/${user.id}`)}
+              >
+                Edit User
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setOpen(true)}
+                className="text-red-500"
+              >
+                Delete User
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* --- Delete confirmation dialog --- */}
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className="max-w-sm">
+              <DialogHeader>
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogDescription>
+                  Are you sure you want to delete{" "}
+                  <strong>
+                    {user.firstName} {user.lastName}
+                  </strong>
+                  ? This action cannot be undone.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex justify-end mt-4 space-x-2">
+                <Button variant="outline" onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
+                <Button variant="destructive" onClick={handleDelete}>
+                  Delete
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </>
       );
     },
   },

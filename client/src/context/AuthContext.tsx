@@ -60,6 +60,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(updatedUser);
     } catch (err) {
       console.error("Failed to refresh user:", err);
+      // remove invalid data
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      setUser(null);
+      setToken(null);
     }
   }, []);
 
