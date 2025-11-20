@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,10 +20,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUsers } from "@/hooks/use-users";
-import { toast } from "react-hot-toast";
+import { AuthContext } from "@/context/AuthContext";
 
 const userSchema = z.object({
   firstName: z.string().min(2, "Name is required"),
@@ -46,6 +47,7 @@ interface CreateUsersFormProps {
 export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
   const [open, setOpen] = useState(false);
   const { create } = useUsers();
+  const { user } = useContext(AuthContext);
 
   const form = useForm<UserFormValues>({
     resolver: zodResolver(userSchema),
@@ -189,6 +191,26 @@ export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
 
           <FormField
             control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Create Password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        {user?.role === "super-admin" && (
+          <FormField
+            control={form.control}
             name="role"
             render={({ field }) => (
               <FormItem>
@@ -212,25 +234,7 @@ export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
               </FormItem>
             )}
           />
-        </div>
-
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Create Password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        )}
 
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>
