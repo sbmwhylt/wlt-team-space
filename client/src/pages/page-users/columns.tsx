@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import { toast } from "react-hot-toast";
 import { formatDistanceToNow } from "date-fns";
 import { useUsers } from "@/hooks/use-users";
 import type { User } from "@/types/User";
+import { AuthContext } from "@/context/AuthContext";
 
 import {
   Dialog,
@@ -165,7 +166,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Updated At",
     cell: ({ getValue }) => {
       const date = getValue<Date | undefined>();
-      if (!date) return <span>N/A</span>; 
+      if (!date) return <span>N/A</span>;
       const parsedDate = date instanceof Date ? date : new Date(date);
       if (isNaN(parsedDate.getTime())) return <span>Invalid date</span>;
       return <span>{formatDistanceToNow(parsedDate)} ago</span>;
@@ -196,31 +197,36 @@ export const columns: ColumnDef<User>[] = [
         }
       };
 
+      const { user: currentUser } = useContext(AuthContext);
+
       return (
         <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => (window.location.href = `/users/${user.id}`)}
-              >
-                Edit User
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => setOpen(true)}
-                className="text-red-500"
-              >
-                Delete User
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {currentUser?.role === "super-admin" && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem
+                  onClick={() => (window.location.href = `/users/${user.id}`)}
+                >
+                  Edit User
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => setOpen(true)}
+                  className="text-red-500"
+                >
+                  Delete User
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
 
           {/* --- Delete confirmation dialog --- */}
           <Dialog open={open} onOpenChange={setOpen}>
