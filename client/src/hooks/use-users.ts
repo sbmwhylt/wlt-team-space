@@ -1,23 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-type User = {
-  id: string | number;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  gender: "male" | "female";
-  birthDate: Date; 
-  email: string;
-  password: string;
-  role: "super-admin" | "admin" | "user"; 
-  status: "active" | "inactive"; 
-  avatar?: string;
-};
+import type { User } from "@/types/User";
 
 export function useUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
+
   const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
   // --- GET all users ---
@@ -41,10 +29,9 @@ export function useUsers() {
         user
       );
       setUsers((prev) => [...prev, res.data.user]);
-      return res.data;
+      return res.data.user;
     } catch (err: any) {
       console.error("Create user failed:", err);
-      console.error("Backend says:", err.response?.data);
       throw err;
     }
   };
@@ -53,8 +40,10 @@ export function useUsers() {
   const update = async (id: string | number, data: Partial<User>) => {
     try {
       const res = await axios.put(`${baseUrl}/${id}`, data);
+
       setUsers((prev) => prev.map((u) => (u.id === id ? res.data.user : u)));
-      return res.data;
+
+      return res.data.user;
     } catch (err: any) {
       console.error("Update user failed:", err);
       throw err;
@@ -76,5 +65,12 @@ export function useUsers() {
     get();
   }, []);
 
-  return { users, loading, create, get, update, remove };
+  return {
+    users,
+    loading,
+    get,
+    create,
+    update,
+    remove,
+  };
 }
