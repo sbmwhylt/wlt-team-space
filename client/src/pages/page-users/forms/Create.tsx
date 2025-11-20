@@ -3,7 +3,6 @@
 import { useContext, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -23,7 +22,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUsers } from "@/hooks/use-users";
 import { AuthContext } from "@/context/AuthContext";
 
 const userSchema = z.object({
@@ -42,11 +40,11 @@ const userSchema = z.object({
 type UserFormValues = z.infer<typeof userSchema>;
 interface CreateUsersFormProps {
   onSuccess?: () => void;
+  create: (values: any) => Promise<any>; 
 }
 
-export default function CreateUsersForm({ onSuccess }: CreateUsersFormProps) {
+export default function CreateUsersForm({ onSuccess, create }: CreateUsersFormProps) {
   const [open, setOpen] = useState(false);
-  const { create } = useUsers();
   const { user } = useContext(AuthContext);
 
   const form = useForm<UserFormValues>({

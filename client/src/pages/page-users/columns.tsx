@@ -17,6 +17,7 @@ import {
 import { toast } from "react-hot-toast";
 import { formatDistanceToNow } from "date-fns";
 import { useUsers } from "@/hooks/use-users";
+import type { User } from "@/types/User";
 
 import {
   Dialog,
@@ -24,21 +25,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogClose,
 } from "@/components/ui/dialog";
-
-export type User = {
-  id: string | number;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  email: string;
-  status: "active" | "inactive";
-  role: string;
-  avatar: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -172,13 +159,16 @@ export const columns: ColumnDef<User>[] = [
     enableSorting: true,
   },
 
-  // Created At
+  // Updated At
   {
     accessorKey: "updatedAt",
     header: "Updated At",
     cell: ({ getValue }) => {
-      const date = getValue<Date>();
-      return <span>{formatDistanceToNow(new Date(date))} ago</span>;
+      const date = getValue<Date | undefined>();
+      if (!date) return <span>N/A</span>; 
+      const parsedDate = date instanceof Date ? date : new Date(date);
+      if (isNaN(parsedDate.getTime())) return <span>Invalid date</span>;
+      return <span>{formatDistanceToNow(parsedDate)} ago</span>;
     },
   },
 
@@ -191,9 +181,9 @@ export const columns: ColumnDef<User>[] = [
       const { remove } = useUsers();
       const [open, setOpen] = useState(false);
 
-      const handleEdit = () => {
-        window.location.href = `/users/${user.id}`;
-      };
+      // const handleEdit = () => {
+      //   window.location.href = `/users/${user.id}`;
+      // };
 
       const handleDelete = async () => {
         try {
