@@ -1,13 +1,14 @@
 export interface User {
-  id: string | number;
+  id: string;
   firstName: string;
   lastName: string;
   userName: string;
-  gender?: "male" | "female";
-  birthDate?: Date;
   email: string;
-  password?: string;
-  role: "super-admin" | "admin" | "user";
-  status?: "active" | "inactive";
-  avatar?: string;
+  role: string;
+  status: "active" | "inactive";  
+  avatar: string;                 
+  gender: string;
+  birthDate: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

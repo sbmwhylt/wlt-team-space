@@ -1,10 +1,11 @@
 import MainLayout from "@/layouts/MainLayout";
 import { DataTable } from "@/pages/page-users/data-table";
-import { columns, type User } from "@/pages/page-users/columns";
+import { columns } from "@/pages/page-users/columns";
 import { useUsers } from "@/hooks/use-users";
+import CreateUserDialog from "./page-users/dialog/CreateUser";
 
 export default function Users() {
-  const { users } = useUsers();
+  const usersState = useUsers();
 
   return (
     <MainLayout>
@@ -18,8 +19,14 @@ export default function Users() {
 
       {/* Extra placeholder content */}
       <div className="border min-h-[50vh] flex-1 rounded-xl md:min-h-min mt-6 p-4">
-        <DataTable columns={columns} data={users || []} />
+        <DataTable
+          columns={columns}
+          data={usersState.users || []}
+          usersState={usersState}
+        />
       </div>
+
+      <CreateUserDialog usersState={usersState}></CreateUserDialog>
     </MainLayout>
   );
 }

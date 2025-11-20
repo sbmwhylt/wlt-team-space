@@ -14,15 +14,19 @@ import { useUsers } from "@/hooks/use-users";
 
 export default function CreateUserDialog({
   children,
+  usersState,
 }: {
   children: ReactNode;
+  usersState: ReturnType<typeof useUsers>;
 }) {
   const [open, setOpen] = useState(false);
-  const { get } = useUsers();
+
+  // ✅ correct usage
+  const { create, get } = usersState;
 
   const handleSuccess = async () => {
+    await get(); // refresh the users list
     setOpen(false);
-    await get();
   };
 
   return (
@@ -35,7 +39,7 @@ export default function CreateUserDialog({
             Fill in the details to create a new user.
           </DialogDescription>
         </DialogHeader>
-        <CreateUserForm onSuccess={handleSuccess} />
+        <CreateUserForm onSuccess={handleSuccess} create={create} />
       </DialogContent>
     </Dialog>
   );
