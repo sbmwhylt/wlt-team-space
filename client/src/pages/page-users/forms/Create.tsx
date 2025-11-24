@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -44,7 +44,6 @@ interface CreateUsersFormProps {
 }
 
 export default function CreateUsersForm({ onSuccess, create }: CreateUsersFormProps) {
-  const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
 
   const form = useForm<UserFormValues>({

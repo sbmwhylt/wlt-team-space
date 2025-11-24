@@ -14,12 +14,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { toast } from "react-hot-toast";
 import { formatDistanceToNow } from "date-fns";
 import { useUsers } from "@/hooks/use-users";
 import type { User } from "@/types/User";
 import { AuthContext } from "@/context/AuthContext";
-
 import {
   Dialog,
   DialogContent,
@@ -27,30 +25,34 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { toast } from "react-hot-toast";
+import UpdateUsersForm from "@/pages/page-users/forms/Update";
 
-export const columns: ColumnDef<User>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+export const getColumns = (
+  usersState: ReturnType<typeof useUsers>
+): ColumnDef<User>[] => [
+  // {
+  //   id: "select",
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
 
   // ID
   // {
@@ -176,81 +178,121 @@ export const columns: ColumnDef<User>[] = [
   // Actions
   {
     id: "actions",
-    enableHiding: false,
     cell: ({ row }) => {
       const user = row.original;
-      const { remove } = useUsers();
-      const [open, setOpen] = useState(false);
+      const { user: currentUser } = useContext(AuthContext);
 
-      // const handleEdit = () => {
-      //   window.location.href = `/users/${user.id}`;
-      // };
+      const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+      const [editDialogOpen, setEditDialogOpen] = useState(false);
+      const [isLoading, setIsLoading] = useState(false);
 
-      const handleDelete = async () => {
+      const handleRemove = async () => {
+        setIsLoading(true);
         try {
+          await usersState.remove(user.id);
+          await usersState.get();
           toast.success("User deleted successfully");
-          await remove(user.id);
-          setOpen(false);
+          setDeleteDialogOpen(false);
         } catch (err) {
           toast.error("Failed to delete user");
-          console.error("Failed to delete user:", err);
+          console.error(err);
+        } finally {
+          setIsLoading(false);
         }
       };
 
-      const { user: currentUser } = useContext(AuthContext);
+      const handleEditSuccess = async () => {
+        await usersState.get();
+        setEditDialogOpen(false);
+      };
 
       return (
         <>
           {currentUser?.role === "super-admin" && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0">
+                    <span className="sr-only">Open menu</span>
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={() => (window.location.href = `/users/${user.id}`)}
-                >
-                  Edit User
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => setOpen(true)}
-                  className="text-red-500"
-                >
-                  Delete User
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <DropdownMenuItem
+                    onSelect={(e) => {
+                      e.preventDefault();
+                      setEditDialogOpen(true);
+                    }}
+                  >
+                    Edit User
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+
+                  {currentUser?.id !== user.id && (
+                    <DropdownMenuItem
+                      onSelect={(e) => {
+                        e.preventDefault();
+                        setDeleteDialogOpen(true);
+                      }}
+                      className="text-red-500"
+                    >
+                      Delete User
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Edit Dialog */}
+              <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+                <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Edit User</DialogTitle>
+                    <DialogDescription>
+                      Update the user's information below.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <UpdateUsersForm
+                    userId={user.id}
+                    update={usersState.update} 
+                    onSuccess={() => usersState.get()}
+                  />
+                </DialogContent>
+              </Dialog>
+
+              {/* Delete Dialog */}
+              <Dialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+              >
+                <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Remove User</DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to remove this user?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() => setDeleteDialogOpen(false)}
+                      disabled={isLoading}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      onClick={handleRemove}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Removing..." : "Remove"}
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </>
           )}
-
-          {/* --- Delete confirmation dialog --- */}
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-w-sm">
-              <DialogHeader>
-                <DialogTitle>Confirm Delete</DialogTitle>
-                <DialogDescription>
-                  Are you sure you want to delete{" "}
-                  <strong>
-                    {user.firstName} {user.lastName}
-                  </strong>
-                  ? This action cannot be undone.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex justify-end mt-4 space-x-2">
-                <Button variant="outline" onClick={() => setOpen(false)}>
-                  Cancel
-                </Button>
-                <Button variant="destructive" onClick={handleDelete}>
-                  Delete
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
         </>
       );
     },

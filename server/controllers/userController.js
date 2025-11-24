@@ -7,7 +7,7 @@ const User = db.User;
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ["password"] }, 
+      attributes: { exclude: ["password"] },
     });
     res.json({ users });
   } catch (err) {
@@ -33,32 +33,14 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, userName, email, password, role } = req.body;
     const user = await User.findByPk(id);
     if (!user) return res.status(404).json({ error: "User not found" });
-    let hashedPassword = user.password;
-    if (password) {
-      hashedPassword = await bcrypt.hash(password, 10);
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 10);
     }
-    await user.update({
-      firstName: firstName || user.firstName,
-      lastName: lastName || user.lastName,
-      userName: userName || user.userName,
-      email: email || user.email,
-      password: hashedPassword,
-      role: role || user.role,
-    });
-    res.json({
-      msg: "User updated successfully",
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        userName: user.userName,
-        email: user.email,
-        role: user.role,
-      },
-    });
+    await user.update(req.body);
+    const { password, ...userWithoutPassword } = user.toJSON();
+    res.json({ msg: "User updated successfully", user: userWithoutPassword });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
