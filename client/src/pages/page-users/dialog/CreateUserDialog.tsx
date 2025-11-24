@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 
 import type { ReactNode } from "react";
-import UserForm from "../forms/Create"; // Updated import path
+import UserForm from "../forms/CreateUserForm"; // Updated import path
 import { useUsers } from "@/hooks/use-users";
 
 export default function CreateUserDialog({

@@ -2,7 +2,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { DataTable } from "@/pages/page-users/data-table";
 import {  getColumns } from "@/pages/page-users/columns";
 import { useUsers } from "@/hooks/use-users";
-import CreateUserDialog from "./page-users/dialog/CreateUser";
+import CreateUserDialog from "./page-users/dialog/CreateUserDialog";
 
 export default function Users() {
   const usersState = useUsers();

@@ -26,7 +26,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { toast } from "react-hot-toast";
-import UpdateUsersForm from "@/pages/page-users/forms/Update";
+import UpdateUsersForm from "@/pages/page-users/forms/UpdateUserForm";
 
 export const getColumns = (
   usersState: ReturnType<typeof useUsers>
