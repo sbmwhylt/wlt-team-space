@@ -31,7 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import CreateUserDialog from "./dialog/CreateUser";
+import CreateUserDialog from "./dialog/CreateUserDialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
