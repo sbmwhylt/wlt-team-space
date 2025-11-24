@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 
 import type { ReactNode } from "react";
-import CreateUserForm from "../forms/Create";
+import UserForm from "../forms/Create"; // Updated import path
 import { useUsers } from "@/hooks/use-users";
 
 export default function CreateUserDialog({
@@ -20,12 +20,10 @@ export default function CreateUserDialog({
   usersState: ReturnType<typeof useUsers>;
 }) {
   const [open, setOpen] = useState(false);
-
-  // ✅ correct usage
   const { create, get } = usersState;
 
   const handleSuccess = async () => {
-    await get(); // refresh the users list
+    await get();
     setOpen(false);
   };
 
@@ -39,7 +37,7 @@ export default function CreateUserDialog({
             Fill in the details to create a new user.
           </DialogDescription>
         </DialogHeader>
-        <CreateUserForm onSuccess={handleSuccess} create={create} />
+        <UserForm create={create} onSuccess={handleSuccess} />
       </DialogContent>
     </Dialog>
   );

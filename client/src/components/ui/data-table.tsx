@@ -15,7 +15,7 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 
-import { ChevronDown, type LucideIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -52,7 +52,6 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [filtering, setFiltering] = React.useState("");
-  const [open, setOpen] = React.useState(false);
 
   const table = useReactTable({
     data,

@@ -40,9 +40,7 @@ export function useUsers() {
   const update = async (id: string | number, data: Partial<User>) => {
     try {
       const res = await axios.put(`${baseUrl}/${id}`, data);
-
       setUsers((prev) => prev.map((u) => (u.id === id ? res.data.user : u)));
-
       return res.data.user;
     } catch (err: any) {
       console.error("Update user failed:", err);
