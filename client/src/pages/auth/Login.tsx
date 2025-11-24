@@ -14,11 +14,13 @@ import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { Loader2Icon } from "lucide-react";
 import { AuthContext } from "@/context/AuthContext";
+import { useUsers } from "@/hooks/use-users";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { users } = useUsers();
 
   const { token, login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -29,10 +31,16 @@ export default function Login() {
     }
   }, [token, navigate]);
 
-  const handleLogin = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setLoading(true);
     try {
+      const user = users.find((u) => u.email === email);
+      if (user && user.status === "inactive") {
+        toast.error("Your account is inactive. Please contact support team.");
+        setLoading(false);
+        return;
+      }
       const res = await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -106,7 +114,9 @@ export default function Login() {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <span className="text-xs">&copy; {new Date().getFullYear()} WhyLeaveTown, All Rights Reserved</span>
+          <span className="text-xs">
+            &copy; {new Date().getFullYear()} WhyLeaveTown, All Rights Reserved
+          </span>
         </CardFooter>
       </Card>
     </div>
