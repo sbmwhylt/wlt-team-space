@@ -7,6 +7,7 @@ import Microsites from "@/pages/Microsites";
 import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
 import MicrositeTemplate from "@/pages/page-mircosites/MicrositeTemplate";
+import Account from "@/pages/Account";
 
 function App() {
   return (
@@ -49,6 +50,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Settings />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile/:username?"
+          element={
+            <ProtectedRoute>
+              <Account />
             </ProtectedRoute>
           }
         />

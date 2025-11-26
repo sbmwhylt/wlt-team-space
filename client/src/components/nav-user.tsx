@@ -19,6 +19,7 @@ import {
 
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import { Link } from "react-router-dom";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -68,7 +69,10 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user?.avatar} alt={user?.firstName || "User"} />
+                  <AvatarImage
+                    src={user?.avatar}
+                    alt={user?.firstName || "User"}
+                  />
                   <AvatarFallback className="rounded-lg bg-primary text-white">
                     {user?.firstName ? user.firstName.charAt(0) : ""}
                     {user?.lastName ? user.lastName.charAt(0) : ""}
@@ -84,10 +88,12 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User />
-                Account
-              </DropdownMenuItem>
+              <Link to="/profile" className="w-full ">
+                <DropdownMenuItem>
+                  <User />
+                  Account
+                </DropdownMenuItem>{" "}
+              </Link>
               <DropdownMenuItem>
                 <Bell />
                 Notifications

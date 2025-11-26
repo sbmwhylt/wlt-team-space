@@ -70,10 +70,7 @@ export default function UpdateUsersForm({
         `${import.meta.env.VITE_API_URL}/users/${userId}`
       );
       if (!response.ok) throw new Error("Failed to fetch user data");
-
       const data = await response.json();
-
-      // Only reset the editable fields
       form.reset({
         email: data.email,
         status: data.status,
@@ -88,7 +85,6 @@ export default function UpdateUsersForm({
     }
   };
 
-  // Submit handler
   const onSubmit = async (values: UserFormValues) => {
     try {
       const submitData = Object.fromEntries(

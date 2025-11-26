@@ -44,7 +44,7 @@ export function NavSecondary({ items, ...props }: NavSecondaryProps) {
                     </SidebarMenuButton>
                   </DialogComponent>
                 ) : (
-                  <SidebarMenuButton size="sm" asChild>
+                  <SidebarMenuButton size="default" asChild>
                     <Link to={item.url}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
