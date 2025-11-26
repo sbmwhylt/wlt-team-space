@@ -70,7 +70,7 @@ const profileSchema = z
 
 type profileFormValues = z.infer<typeof profileSchema>;
 
-export default function Account() {
+export default function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
   const [isUsernameDialogOpen, setIsUsernameDialogOpen] = useState(false);

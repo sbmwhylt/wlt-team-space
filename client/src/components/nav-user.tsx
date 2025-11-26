@@ -91,7 +91,7 @@ export function NavUser() {
               <Link to="/profile" className="w-full ">
                 <DropdownMenuItem>
                   <User />
-                  Account
+                  My Profile
                 </DropdownMenuItem>{" "}
               </Link>
               <DropdownMenuItem>
