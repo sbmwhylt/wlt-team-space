@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { type Path } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -57,7 +58,7 @@ interface CreateMicrositeFormProps {
 export default function CreateMicrositeForm({
   onSuccess,
 }: CreateMicrositeFormProps) {
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
   const { create } = useMicroSites();
 
   const form = useForm<MicrositeFormValues>({
@@ -90,11 +91,7 @@ export default function CreateMicrositeForm({
   const onSubmit = async (values: MicrositeFormValues) => {
     try {
       console.log("Submitting values:", values);
-
-      // Prepare form data for file uploads
       const formData = new FormData();
-
-      // Append all simple fields
       Object.keys(values).forEach((key) => {
         if (key === "banner" && values.banner) {
           formData.append("banner", values.banner);
@@ -110,8 +107,7 @@ export default function CreateMicrositeForm({
             }
           );
         } else if (key === "marketingImgs" && values.marketingImgs) {
-          // Handle multiple marketing images
-          values.marketingImgs.forEach((img, index) => {
+          values.marketingImgs.forEach((img) => {
             if (img.file) {
               formData.append(`marketingImgs`, img.file);
             }
@@ -120,7 +116,6 @@ export default function CreateMicrositeForm({
           values[key as keyof MicrositeFormValues] &&
           key !== "marketingVids"
         ) {
-          // Append other non-file fields
           formData.append(
             key,
             String(values[key as keyof MicrositeFormValues])
@@ -306,7 +301,7 @@ export default function CreateMicrositeForm({
             <FormField
               key={platform}
               control={form.control}
-              name={`socialLinks.${platform}`}
+              name={`socialLinks.${platform}` as Path<MicrositeFormValues>} // ✅ cast as Path
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="capitalize">{platform}</FormLabel>
@@ -399,61 +394,64 @@ export default function CreateMicrositeForm({
         <FormField
           control={form.control}
           name="marketingImgs"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Marketing Images</FormLabel>
-              <FormControl>
-                <div>
-                  <Input
-                    id="marketingImgs"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) => {
-                      const files = Array.from(e.target.files || []);
-                      const newImages = files.map((file) => ({
-                        file,
-                        preview: URL.createObjectURL(file),
-                      }));
-                      // Combine existing images with new ones
-                      const existingImages = field.value || [];
-                      field.onChange([...existingImages, ...newImages]);
-                    }}
-                  />
+          render={({ field }) => {
+            // Ensure we always work with an array
+            const images: { file: File; preview: string }[] = field.value || [];
 
-                  {Array.isArray(field.value) && field.value.length > 0 && (
-                    <div className="grid grid-cols-3 gap-2 mt-3">
-                      {field.value.map((img: any, i: number) => (
-                        <div
-                          key={i}
-                          className="relative w-full h-24 border rounded-md overflow-hidden"
-                        >
-                          <img
-                            src={img.preview}
-                            alt={`preview-${i}`}
-                            className="w-full h-full object-cover"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const updated = field.value.filter(
-                                (_: any, idx: number) => idx !== i
-                              );
-                              field.onChange(updated);
-                            }}
-                            className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+            return (
+              <FormItem>
+                <FormLabel>Marketing Images</FormLabel>
+                <FormControl>
+                  <div>
+                    <Input
+                      id="marketingImgs"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files || []);
+                        const newImages = files.map((file) => ({
+                          file,
+                          preview: URL.createObjectURL(file),
+                        }));
+                        field.onChange([...images, ...newImages]); // merge with existing
+                      }}
+                    />
+
+                    {images.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2 mt-3">
+                        {images.map((img, i) => (
+                          <div
+                            key={i}
+                            className="relative w-full h-24 border rounded-md overflow-hidden"
                           >
-                            ✕
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+                            <img
+                              src={img.preview}
+                              alt={`preview-${i}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = images.filter(
+                                  (_, idx) => idx !== i
+                                );
+                                field.onChange(updated);
+                              }}
+                              className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
 
         <div className="flex justify-end pt-2">

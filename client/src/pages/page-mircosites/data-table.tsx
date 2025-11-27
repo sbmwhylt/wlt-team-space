@@ -52,7 +52,7 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [filtering, setFiltering] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [, setOpen] = React.useState(false);
 
   const table = useReactTable({
     data,

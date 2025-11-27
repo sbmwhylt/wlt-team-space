@@ -30,10 +30,7 @@ import {
   DialogTrigger,
   DialogContent,
   DialogHeader,
-  DialogTitle,
   DialogDescription,
-  DialogFooter,
-  DialogClose,
 } from "@/components/ui/dialog";
 
 import {
@@ -50,13 +47,10 @@ import {
   Mail,
   UserStar,
   Building2,
-  Star,
   Linkedin,
   Twitter,
   BookText,
   Palette,
-  Zap,
-  Car,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
@@ -81,7 +75,6 @@ export function Example() {
 export default function MicrositeTemplate() {
   const { slug } = useParams();
   const [microsite, setMicrosite] = useState<any>(null);
-  const [open, setOpen] = useState(false);
 
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
