@@ -58,10 +58,10 @@ export function useMicroSites() {
   };
 
   // --------------- CREATE
-  const create = async (microsite: Omit<MicroSite, "id">) => {
+  const create = async (formData: FormData) => {
     try {
-      const res = await axios.post(baseUrl, microsite, {
-        headers: { "Content-Type": "application/json" },
+      const res = await axios.post(baseUrl, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       setMicrosites((prev) => [...prev, res.data.microsite]);
     } catch (err) {

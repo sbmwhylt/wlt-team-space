@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -201,10 +201,10 @@ export const getColumns = (
         }
       };
 
-      const handleEditSuccess = async () => {
-        await usersState.get();
-        setEditDialogOpen(false);
-      };
+      // const handleEditSuccess = async () => {
+      //   await usersState.get();
+      //   setEditDialogOpen(false);
+      // };
 
       return (
         <>
@@ -255,7 +255,7 @@ export const getColumns = (
                   </DialogHeader>
                   <UpdateUsersForm
                     userId={user.id}
-                    update={usersState.update} 
+                    update={usersState.update}
                     onSuccess={() => usersState.get()}
                   />
                 </DialogContent>

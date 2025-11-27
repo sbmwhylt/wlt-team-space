@@ -71,13 +71,13 @@ const profileSchema = z
 type profileFormValues = z.infer<typeof profileSchema>;
 
 export default function Profile() {
-  const [isLoading, setIsLoading] = useState(false);
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
   const [isUsernameDialogOpen, setIsUsernameDialogOpen] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   const { username } = useParams();
   const { user, refreshUser } = useContext(AuthContext);
-  const { users, update, getUsers } = useUsers();
+  const { users, update, get } = useUsers();
+  const [, setIsLoading] = useState(false);
 
   const profileUser = username
     ? users.find((u) => u.userName === username)
@@ -109,7 +109,7 @@ export default function Profile() {
   const handleProfileUpdate = async (data: profileFormValues) => {
     if (!profileUser) return;
 
-    const userId = profileUser._id || profileUser.id;
+    const userId = (profileUser as any)._id || (profileUser as any).id;
     if (!userId) {
       toast.error("User ID not found");
       console.error("Profile user:", profileUser);
@@ -124,7 +124,7 @@ export default function Profile() {
       });
 
       // Refresh both users list and current user
-      if (getUsers) await getUsers();
+      if (get) await get();
       if (refreshUser) await refreshUser();
 
       toast.success("Profile updated!");
@@ -140,7 +140,7 @@ export default function Profile() {
   const handlePasswordUpdate = async (data: profileFormValues) => {
     if (!profileUser) return;
 
-    const userId = profileUser._id || profileUser.id;
+    const userId = (profileUser as any)._id || (profileUser as any).id;
     if (!userId) {
       toast.error("User ID not found");
       console.error("Profile user:", profileUser);
@@ -151,7 +151,7 @@ export default function Profile() {
       await update(userId, { password: data.newPassword });
 
       // Refresh both users list and current user
-      if (getUsers) await getUsers();
+      if (get) await get();
       if (refreshUser) await refreshUser();
 
       toast.success("Password updated successfully");
