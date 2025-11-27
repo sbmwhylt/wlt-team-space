@@ -27,6 +27,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const profileSchema = z
   .object({
@@ -184,20 +185,32 @@ export default function Profile() {
             </div>
 
             <div className="relative z-10 flex flex-col justify-center items-center mb-4 -mt-20">
-              <img
-                src={profileUser?.avatar}
-                alt={`${profileUser?.firstName} ${profileUser?.lastName}`}
-                className="rounded-3xl w-40 h-40 object-cover border-4 border-white shadow-md"
-              />
+              {/* Profile Avatar */}
+              <Avatar className="w-40 h-40 border-4 border-white shadow-md rounded-3xl">
+                {profileUser?.avatar ? (
+                  <AvatarImage
+                    src={profileUser.avatar}
+                    alt={`${profileUser.firstName} ${profileUser.lastName}`}
+                    className="object-cover "
+                  />
+                ) : (
+                  <AvatarFallback className="bg-primary text-white flex items-center justify-center text-7xl rounded-3xl">
+                    {profileUser?.firstName?.charAt(0)}
+                    {profileUser?.lastName?.charAt(0)}
+                  </AvatarFallback>
+                )}
+              </Avatar>
 
+              {/* Name */}
               <h1 className="text-xl mt-4">
                 {profileUser
                   ? `${profileUser.firstName} ${profileUser.lastName}`
                   : "User Not Found"}
               </h1>
 
+              {/* Username */}
               <h3 className="text-muted-foreground">
-                @{profileUser?.userName}
+                @{profileUser?.userName || "unknown"}
               </h3>
             </div>
 
