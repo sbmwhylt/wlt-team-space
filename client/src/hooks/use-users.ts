@@ -2,18 +2,29 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { User } from "@/types/User";
 
+let cachedUsers: User[] | null = null;
+let cachedAt = 0;
+const CACHE_TTL = 1000 * 60 * 5;
+
 export function useUsers() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>(cachedUsers || []);
   const [loading, setLoading] = useState(false);
 
   const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
-  // --- GET all users ---
+  // --------------- GET all users
   const get = async () => {
+    const fresh = Date.now() - cachedAt < CACHE_TTL;
+    if (cachedUsers && fresh) {
+      setUsers(cachedUsers || []);
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.get(baseUrl);
-      setUsers(res.data.users || []);
+      cachedUsers = res.data.users || [];
+      cachedAt = Date.now();
+      setUsers(cachedUsers || []);
     } catch (err) {
       console.error("Fetch users failed:", err);
     } finally {
@@ -21,42 +32,35 @@ export function useUsers() {
     }
   };
 
-  // --- CREATE ---
+  // --------------- CREATE
   const create = async (user: Omit<User, "id">) => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/auth/register`,
         user
       );
-      setUsers((prev) => [...prev, res.data.user]);
+      cachedUsers = [...(cachedUsers || []), res.data.user];
+      setUsers(cachedUsers || []);
       return res.data.user;
-    } catch (err: any) {
+    } catch (err) {
       console.error("Create user failed:", err);
-      throw err;
     }
   };
 
-  // --- UPDATE ---
+  // --------------- UPDATE
   const update = async (id: string | number, data: Partial<User>) => {
-    try {
-      const res = await axios.put(`${baseUrl}/${id}`, data);
-      setUsers((prev) => prev.map((u) => (u.id === id ? res.data.user : u)));
-      return res.data.user;
-    } catch (err: any) {
-      console.error("Update user failed:", err);
-      throw err;
-    }
+    const res = await axios.put(`${baseUrl}/${id}`, data);
+    cachedUsers =
+      cachedUsers?.map((u) => (u.id === id ? res.data.user : u)) || [];
+    setUsers(cachedUsers || []);
+    return res.data.user;
   };
 
-  // --- DELETE ---
+  // --------------- DELETE
   const remove = async (id: string | number) => {
-    try {
-      await axios.delete(`${baseUrl}/${id}`);
-      setUsers((prev) => prev.filter((u) => u.id !== id));
-    } catch (err: any) {
-      console.error("Delete user failed:", err);
-      throw err;
-    }
+    await axios.delete(`${baseUrl}/${id}`);
+    cachedUsers = cachedUsers?.filter((u) => u.id !== id) || [];
+    setUsers(cachedUsers || []);
   };
 
   useEffect(() => {
