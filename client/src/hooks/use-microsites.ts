@@ -1,41 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import type { MicroSite } from "@/types/Microsite";
 
-type MicroSite = {
-  id: string | number;
-  name: string;
-  slug: string;
-  type?: "consumer" | "business";
-  link: string;
-  banner?: string;
-  logo?: string;
-  aboutDesc?: string;
-  footerDesc?: string;
-  socialLinks?: {
-    facebook?: string;
-    twitter?: string;
-    linkedin?: string;
-    instagram?: string;
-    youtube?: string;
-  };
-  digitalCardOrderLink?: string;
-  physicalCardOrderLink?: string;
-  communityLink?: string;
-  mapLink?: string;
-  marketingImgs?: string[];
-  marketingVids?: string[];
-};
+let cachedMicrosites: MicroSite[] | null = null;
+let cachedAt = 0;
+const CACHE_TTL = 1000 * 60 * 5;
 
 export function useMicroSites() {
   const [microsites, setMicrosites] = useState<MicroSite[]>([]);
   const [loading, setLoading] = useState(true);
+
   const baseUrl = `${import.meta.env.VITE_API_URL}/microsites`;
 
   // --------------- GET all microsites
   const get = async () => {
+    const fresh = Date.now() - cachedAt < CACHE_TTL;
+    if (cachedMicrosites && fresh) {
+      setMicrosites(cachedMicrosites || []);
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.get(baseUrl);
+      cachedMicrosites = res.data.microsites || [];
+      cachedAt = Date.now();
       setMicrosites(res.data.microsites || []);
     } catch (err) {
       console.error("Fetch microsites failed:", err);
@@ -59,6 +47,7 @@ export function useMicroSites() {
 
   // --------------- CREATE
   const create = async (formData: FormData) => {
+    setLoading(true);
     try {
       const res = await axios.post(baseUrl, formData, {
         headers: { "Content-Type": "multipart/form-data" },

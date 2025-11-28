@@ -109,25 +109,20 @@ export default function Profile() {
 
   const handleProfileUpdate = async (data: profileFormValues) => {
     if (!profileUser) return;
-
     const userId = (profileUser as any)._id || (profileUser as any).id;
     if (!userId) {
       toast.error("User ID not found");
       console.error("Profile user:", profileUser);
       return;
     }
-
     setIsLoading(true);
     try {
       await update(userId, {
         email: data.email,
         userName: data.userName,
       });
-
-      // Refresh both users list and current user
       if (get) await get();
       if (refreshUser) await refreshUser();
-
       toast.success("Profile updated!");
       setIsEmailDialogOpen(false);
       setIsUsernameDialogOpen(false);
@@ -140,21 +135,16 @@ export default function Profile() {
 
   const handlePasswordUpdate = async (data: profileFormValues) => {
     if (!profileUser) return;
-
     const userId = (profileUser as any)._id || (profileUser as any).id;
     if (!userId) {
       toast.error("User ID not found");
       console.error("Profile user:", profileUser);
       return;
     }
-
     try {
       await update(userId, { password: data.newPassword });
-
-      // Refresh both users list and current user
       if (get) await get();
       if (refreshUser) await refreshUser();
-
       toast.success("Password updated successfully");
       form.reset({
         ...form.getValues(),
@@ -169,7 +159,7 @@ export default function Profile() {
   };
 
   if (!profileUser) {
-    return <div>Loading...</div>;
+    return <>Loading...</>;
   }
 
   return (
