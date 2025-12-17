@@ -1,20 +1,26 @@
 import express from "express";
 import {
-  getAllMicroSites,
-  getMicroSiteById,
   createMicroSite,
+  getAllMicroSites,
+  getMicroSiteBySlug,
+  getMicroSiteById,
   updateMicroSite,
   deleteMicroSite,
-  getMicroSiteBySlug,
+  uploadMedia,
 } from "../controllers/micrositeController.js";
+import upload from "../middleware/upload.js";
 
 const router = express.Router();
 
-router.get("/", getAllMicroSites);
-router.get("/:slug", getMicroSiteBySlug);
-router.get("/:id", getMicroSiteById);
+// CRUD routes
 router.post("/", createMicroSite);
+router.get("/", getAllMicroSites);
+router.get("/slug/:slug", getMicroSiteBySlug);
+router.get("/:id", getMicroSiteById);
 router.put("/:id", updateMicroSite);
 router.delete("/:id", deleteMicroSite);
+
+// Upload route (form-data)
+router.post("/:id/uploadMedia", upload.single("files"), uploadMedia);
 
 export default router;

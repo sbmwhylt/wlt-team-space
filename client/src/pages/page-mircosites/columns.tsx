@@ -104,7 +104,7 @@ export const columns: ColumnDef<MicroSite>[] = [
         <div
           className={`capitalize font-medium py-1 px-2 w-fit text-xs rounded-full ${
             type === "consumer"
-              ? "bg-green-200 text-green-800"
+              ? "bg-blue-200 text-blue-800"
               : "bg-orange-200 text-orange-800"
           }`}
         >

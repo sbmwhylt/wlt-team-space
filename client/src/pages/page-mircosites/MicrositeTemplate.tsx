@@ -166,7 +166,7 @@ export default function MicrositeTemplate() {
                 </CardTitle>
                 <div className="flex items-center gap-2 text-gray-500">
                   {microsite.type === "consumer" ? (
-                    <div className="bg-green-100 text-green-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
+                    <div className="bg-blue-100 text-blue-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
                       <UserStar strokeWidth={1.5} size={14} />
                       <span>{microsite.type}</span>
                     </div>
