@@ -7,57 +7,48 @@ const Microsite = db.Microsite;
 // -------------------- CREATE MICROSITE
 export const createMicroSite = async (req, res) => {
   try {
-    // DEBUG LOGS
-    console.log("Body:", req.body);
-    console.log("Files:", req.files);
-    console.log("Has banner?", req.files?.banner);
-    console.log("Has logo?", req.files?.logo);
-    const { name, ...rest } = req.body;
-
+    const { name, socialLinks, ...rest } = req.body;
     if (!name) {
       return res.status(400).json({ error: "Microsite name is required" });
     }
-
+    // Parse socialLinks if it's a JSON string
+    const parsedSocialLinks =
+      typeof socialLinks === "string"
+        ? JSON.parse(socialLinks)
+        : socialLinks || {};
     const slug = slugify(name, { lower: true, strict: true });
     const existing = await Microsite.findOne({ where: { slug } });
-
     if (existing) {
       return res.status(400).json({ error: "Slug already exists" });
     }
-
     // Handle file uploads
     const uploadedData = {};
-
     // Upload banner if provided
     if (req.files?.banner) {
       uploadedData.banner = await uploadToImageKit(req.files.banner);
     }
-
     // Upload logo if provided
     if (req.files?.logo) {
       uploadedData.logo = await uploadToImageKit(req.files.logo);
     }
-
     // Upload multiple marketing images if provided
     if (req.files?.marketingImgs) {
       const images = Array.isArray(req.files.marketingImgs)
         ? req.files.marketingImgs
         : [req.files.marketingImgs];
-
       const imageUrls = await Promise.all(
         images.map((file) => uploadToImageKit(file))
       );
       uploadedData.marketingImgs = imageUrls;
     }
-
     // Create microsite with uploaded image URLs
     const microsite = await Microsite.create({
       name,
       slug,
       ...rest,
+      socialLinks: parsedSocialLinks, // ← Use parsed object
       ...uploadedData,
     });
-
     res.status(201).json({
       msg: "Microsite created successfully",
       microsite,
@@ -82,14 +73,14 @@ export const getMicroSiteBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
     const microsite = await Microsite.findOne({
-      where: { slug: slug }, 
+      where: { slug: slug },
     });
     if (!microsite) {
       return res.status(404).json({ error: "Microsite not found" });
     }
     res.json({ microsite });
   } catch (err) {
-    console.error("Error in getMicroSiteBySlug:", err); 
+    console.error("Error in getMicroSiteBySlug:", err);
     res.status(500).json({ error: err.message });
   }
 };

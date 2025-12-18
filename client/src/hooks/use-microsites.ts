@@ -52,9 +52,15 @@ export function useMicroSites() {
       const res = await axios.post(baseUrl, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      setMicrosites((prev) => [...prev, res.data.microsite]);
+      // Invalidate cache and refresh list
+      cachedMicrosites = null;
+      await get(); // Fetch fresh data
+      return res.data.microsite;
     } catch (err) {
       console.error("Create microsite failed:", err);
+      throw err;
+    } finally {
+      setLoading(false);
     }
   };
 

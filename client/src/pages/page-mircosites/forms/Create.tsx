@@ -58,7 +58,7 @@ interface CreateMicrositeFormProps {
 export default function CreateMicrositeForm({
   onSuccess,
 }: CreateMicrositeFormProps) {
-  const [, setOpen] = useState(false);
+  const [] = useState(false);
   const { create } = useMicroSites();
 
   const form = useForm<MicrositeFormValues>({
@@ -90,45 +90,42 @@ export default function CreateMicrositeForm({
 
   const onSubmit = async (values: MicrositeFormValues) => {
     try {
-      console.log("Submitting values:", values);
       const formData = new FormData();
-      Object.keys(values).forEach((key) => {
-        if (key === "banner" && values.banner) {
-          formData.append("banner", values.banner);
-        } else if (key === "logo" && values.logo) {
-          formData.append("logo", values.logo);
-        } else if (key === "socialLinks") {
-          // Handle nested socialLinks object
-          Object.entries(values.socialLinks).forEach(
-            ([socialKey, socialValue]) => {
-              if (socialValue) {
-                formData.append(`socialLinks[${socialKey}]`, socialValue);
-              }
-            }
-          );
-        } else if (key === "marketingImgs" && values.marketingImgs) {
-          values.marketingImgs.forEach((img) => {
-            if (img.file) {
-              formData.append(`marketingImgs`, img.file);
-            }
-          });
-        } else if (
-          values[key as keyof MicrositeFormValues] &&
-          key !== "marketingVids"
-        ) {
-          formData.append(
-            key,
-            String(values[key as keyof MicrositeFormValues])
-          );
-        }
+      // Required fields
+      formData.append("name", values.name);
+      formData.append("link", values.link);
+      formData.append("type", values.type);
+      // Optional text fields - loop through them
+      const optionalFields = [
+        "aboutDesc",
+        "footerDesc",
+        "digitalCardOrderLink",
+        "physicalCardOrderLink",
+        "bulkOrderLink",
+        "communityLink",
+        "mapLink",
+      ];
+      optionalFields.forEach((field) => {
+        const value = values[field as keyof MicrositeFormValues];
+        if (value) formData.append(field, String(value));
       });
-
+      // Files
+      if (values.banner) formData.append("banner", values.banner);
+      if (values.logo) formData.append("logo", values.logo);
+      // Marketing images
+      if (values.marketingImgs?.length) {
+        values.marketingImgs.forEach((img) => {
+          formData.append("marketingImgs", img.file);
+        });
+      }
+      // Social links as JSON
+      formData.append("socialLinks", JSON.stringify(values.socialLinks));
       await create(formData);
       toast.success("Microsite created successfully!");
-      setOpen(false);
       form.reset();
-      onSuccess?.();
+      onSuccess?.(); // This will refresh the list
     } catch (error) {
+      console.error("Error:", error);
       toast.error("Error creating microsite");
     }
   };
