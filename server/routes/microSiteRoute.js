@@ -3,24 +3,21 @@ import {
   createMicroSite,
   getAllMicroSites,
   getMicroSiteBySlug,
-  getMicroSiteById,
   updateMicroSite,
   deleteMicroSite,
-  uploadMedia,
+  uploadImages,
 } from "../controllers/micrositeController.js";
-import upload from "../middleware/upload.js";
 
 const router = express.Router();
 
 // CRUD routes
 router.post("/", createMicroSite);
 router.get("/", getAllMicroSites);
-router.get("/slug/:slug", getMicroSiteBySlug);
-router.get("/:id", getMicroSiteById);
+router.get("/:slug", getMicroSiteBySlug);
 router.put("/:id", updateMicroSite);
 router.delete("/:id", deleteMicroSite);
 
-// Upload route (form-data)
-router.post("/:id/uploadMedia", upload.single("files"), uploadMedia);
+// Image Upload (NO middleware needed!)
+router.post("/upload", uploadImages);
 
 export default router;
