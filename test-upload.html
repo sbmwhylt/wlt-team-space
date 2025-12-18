@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload Test</title>
+  </head>
+  <body>
+    <h2>Test Image Upload</h2>
+
+    <form
+      action="http://localhost:3000/api/microsites/upload"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="image" accept="image/*" />
+      <button type="submit">Upload</button>
+    </form>
+
+    <hr />
+
+    <h2>Create Microsite with Images</h2>
+    <form id="micrositeForm">
+      <input
+        type="text"
+        name="name"
+        placeholder="Microsite Name"
+        required
+      /><br />
+      <input type="text" name="type" value="consumer" /><br />
+      <input type="text" name="link" placeholder="Link" required /><br />
+
+      <label>Banner:</label>
+      <input type="file" id="banner" name="banner" accept="image/*" /><br />
+
+      <label>Logo:</label>
+      <input type="file" id="logo" name="logo" accept="image/*" /><br />
+
+      <label>Marketing Images:</label>
+      <input
+        type="file"
+        id="marketingImgs"
+        name="marketingImgs"
+        accept="image/*"
+        multiple
+      /><br />
+
+      <button type="submit">Create Microsite</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      document
+        .getElementById("micrositeForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData();
+
+          // Add text fields
+          formData.append("name", e.target.name.value);
+          formData.append("type", e.target.type.value);
+          formData.append("link", e.target.link.value);
+
+          // Add banner file if selected
+          const bannerFile = document.getElementById("banner").files[0];
+          if (bannerFile) {
+            formData.append("banner", bannerFile);
+          }
+
+          // Add logo file if selected
+          const logoFile = document.getElementById("logo").files[0];
+          if (logoFile) {
+            formData.append("logo", logoFile);
+          }
+
+          // Add marketing images if selected
+          const marketingFiles = document.getElementById("marketingImgs").files;
+          if (marketingFiles.length > 0) {
+            // Append each file individually with the same name
+            for (let i = 0; i < marketingFiles.length; i++) {
+              formData.append("marketingImgs", marketingFiles[i]);
+            }
+          }
+
+          try {
+            document.getElementById("result").innerHTML =
+              "⏳ Creating microsite...";
+
+            const response = await fetch(
+              "http://localhost:3000/api/microsites",
+              {
+                method: "POST",
+                body: formData,
+                // Don't set Content-Type header - browser does it automatically
+              }
+            );
+
+            const data = await response.json();
+            document.getElementById(
+              "result"
+            ).innerHTML = `✅ Success!<br><pre>${JSON.stringify(
+              data,
+              null,
+              2
+            )}</pre>`;
+          } catch (error) {
+            document.getElementById(
+              "result"
+            ).innerHTML = `❌ Error: ${error.message}`;
+          }
+        });
+    </script>
+  </body>
+</html>
