@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 
 import type { ReactNode } from "react";
-import CreateMicrositeForm from "../forms/Create";
+import CreateMicrositeForm from "../forms/CreateMicrositeForm";
 import { useMicroSites } from "@/hooks/use-microsites";
 
 export default function CreateMicrositeDialog({

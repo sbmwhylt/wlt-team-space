@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
+import type { MicroSite } from "@/types/Microsite";
 
 import {
   Card,
@@ -74,7 +75,7 @@ export function Example() {
 }
 export default function MicrositeTemplate() {
   const { slug } = useParams();
-  const [microsite, setMicrosite] = useState<any>(null);
+  const [microsite, setMicrosite] = useState<MicroSite | null>(null);
 
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
@@ -420,29 +421,29 @@ export default function MicrositeTemplate() {
             )}
 
             {microsite.type === "business" && (
-              // Marketing Content
               <Carousel className="w-full mb-4">
-                <div className="flex flex-col gap-4">
-                  <CarouselContent>
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <CarouselItem key={index}>
-                        <div className="p-1">
-                          <Card>
-                            <CardContent className="flex aspect-square items-center justify-center p-6 h-45">
-                              <span className="text-4xl font-semibold">
-                                {index + 1}
-                              </span>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </div>
+                <CarouselContent>
+                  {microsite.marketingImgs?.map((img, index) => (
+                    <CarouselItem key={index}>
+                      <div className="p-1">
+                        <Card>
+                          <CardContent className="aspect-square p-0">
+                            <img
+                              src={img}
+                              alt={`Marketing image ${index + 1}`}
+                              className="w-full h-full object-cover rounded-md"
+                            />
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+
                 <div className="flex justify-center items-center gap-4 mt-4">
                   <CarouselPrevious className="static translate-y-0" />
                   <CarouselNext className="static translate-y-0" />
-                </div>{" "}
+                </div>
               </Carousel>
             )}
 

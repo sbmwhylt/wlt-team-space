@@ -40,10 +40,13 @@ const userSchema = z.object({
 type UserFormValues = z.infer<typeof userSchema>;
 interface CreateUsersFormProps {
   onSuccess?: () => void;
-  create: (values: any) => Promise<any>; 
+  create: (values: any) => Promise<any>;
 }
 
-export default function CreateUsersForm({ onSuccess, create }: CreateUsersFormProps) {
+export default function CreateUsersForm({
+  onSuccess,
+  create,
+}: CreateUsersFormProps) {
   const { user } = useContext(AuthContext);
 
   const form = useForm<UserFormValues>({

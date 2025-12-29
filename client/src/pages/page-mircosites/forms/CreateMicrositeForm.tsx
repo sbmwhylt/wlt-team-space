@@ -52,7 +52,7 @@ const micrositeSchema = z.object({
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
 interface CreateMicrositeFormProps {
-  onSuccess?: () => void; // Function to call when form succeeds
+  onSuccess?: () => void; 
 }
 
 export default function CreateMicrositeForm({

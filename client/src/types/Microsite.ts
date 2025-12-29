@@ -19,6 +19,6 @@ export interface MicroSite {
   physicalCardOrderLink?: string;
   communityLink?: string;
   mapLink?: string;
-  marketingImgs?: string[];
+  marketingImgs: string[];
   marketingVids?: string[];
 }

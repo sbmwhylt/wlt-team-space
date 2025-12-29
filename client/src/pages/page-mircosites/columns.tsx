@@ -29,7 +29,11 @@ export type MicroSite = {
   updatedAt?: Date;
 };
 
-export const columns: ColumnDef<MicroSite>[] = [
+// Remove the parameter if you don't need actions, OR type it properly
+export const getColumns = (micrositesState?: {
+  update?: (id: string | number, data: any) => Promise<any>;
+  remove?: (id: string | number) => Promise<void>;
+}): ColumnDef<MicroSite>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -65,12 +69,11 @@ export const columns: ColumnDef<MicroSite>[] = [
         />
       ) : (
         <div className="h-8 w-8 rounded-lg flex items-center justify-center text-gray-500">
-          N/A{" "}
+          N/A
         </div>
       );
     },
     enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: "name",
@@ -112,7 +115,6 @@ export const columns: ColumnDef<MicroSite>[] = [
         </div>
       );
     },
-    enableSorting: true,
   },
   {
     accessorKey: "link",
@@ -161,7 +163,7 @@ export const columns: ColumnDef<MicroSite>[] = [
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("updatedAt"));
-      const timeAgo = formatDistanceToNow(date, { addSuffix: true }); // "2 hours ago"
+      const timeAgo = formatDistanceToNow(date, { addSuffix: true });
       return <div className="text-sm text-muted-foreground">{timeAgo}</div>;
     },
   },
@@ -186,7 +188,7 @@ export const columns: ColumnDef<MicroSite>[] = [
               Copy Link
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <a
                 href={`/microsites/${microsite.slug}`}
                 target="_blank"
@@ -195,10 +197,28 @@ export const columns: ColumnDef<MicroSite>[] = [
                 View microsite
               </a>
             </DropdownMenuItem>
-            <DropdownMenuItem>Edit microsite</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">
-              Delete microsite
+            <DropdownMenuItem
+              onClick={() => {
+                // Edit logic here
+                console.log("Edit:", microsite.id);
+              }}
+            >
+              Edit microsite
             </DropdownMenuItem>
+            {micrositesState?.remove && (
+              <DropdownMenuItem
+                className="text-red-500"
+                onClick={() => {
+                  if (
+                    confirm("Are you sure you want to delete this microsite?")
+                  ) {
+                    micrositesState.remove(microsite.id);
+                  }
+                }}
+              >
+                Delete microsite
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       );
