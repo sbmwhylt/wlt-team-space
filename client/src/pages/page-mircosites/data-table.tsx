@@ -31,7 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import CreateMicrositeDialog from "@/pages/page-mircosites/dialog/CreateMicrosite";
+import CreateMicrositeDialog from "@/pages/page-mircosites/dialog/CreateMicrositeDialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
