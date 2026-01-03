@@ -212,7 +212,7 @@ export const getColumns = (micrositesState?: {
                   if (
                     confirm("Are you sure you want to delete this microsite?")
                   ) {
-                    micrositesState.remove(microsite.id);
+                    micrositesState.remove?.(microsite.id); // Add ?. here!
                   }
                 }}
               >
