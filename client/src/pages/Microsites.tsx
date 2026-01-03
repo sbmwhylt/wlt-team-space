@@ -5,19 +5,16 @@ import { useMicroSites } from "@/hooks/use-microsites";
 import CreateMicrositeDialog from "@/pages/page-mircosites/dialog/CreateMicrositeDialog";
 
 export default function Microsites() {
-  const micrositesState = useMicroSites(); // Get full state object
+  const micrositesState = useMicroSites();
   const columns = getColumns(micrositesState);
 
   return (
     <MainLayout>
-      <DataTable
-        columns={columns}
-        data={micrositesState.microsites || []}
-        micrositesState={micrositesState}
-      />
-
-      {/* Add the create dialog */}
-      <CreateMicrositeDialog micrositesState={micrositesState} />
+      <DataTable columns={columns} data={micrositesState.microsites || []} />
+      <CreateMicrositeDialog>
+        {/* Add a button or whatever should open the dialog */}
+        <button>Create Microsite</button>
+      </CreateMicrositeDialog>
     </MainLayout>
   );
 }
