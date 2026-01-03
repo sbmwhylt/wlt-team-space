@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import React from "react";
 import type { MicroSite } from "@/types/Microsite";
 
 import {
@@ -76,10 +75,6 @@ export function Example() {
 export default function MicrositeTemplate() {
   const { slug } = useParams();
   const [microsite, setMicrosite] = useState<MicroSite | null>(null);
-
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
-  );
 
   useEffect(() => {
     const fetchMicrosite = async () => {
