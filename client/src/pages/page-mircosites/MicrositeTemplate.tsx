@@ -421,59 +421,28 @@ export default function MicrositeTemplate() {
             )}
 
             {microsite.type === "business" && (
-              <Carousel className="w-full mb-4">
-                <CarouselContent>
-                  {microsite.marketingImgs?.map((img, index) => (
-                    <CarouselItem key={index}>
-                      <div className="p-1">
-                        <Card>
-                          <CardContent className="aspect-square p-0">
+              <div className="w-full mb-4">
+                <Carousel className="w-full max-w-4xl mx-auto">
+                  <CarouselContent className="">
+                    {microsite.marketingImgs?.map((img, index) => (
+                      <CarouselItem key={index} className="pl-4">
+                        <div className="p-0">
+                          <div className="relative w-full h-full p-4">
                             <img
                               src={img}
                               alt={`Marketing image ${index + 1}`}
-                              className="w-full h-full object-cover rounded-md"
+                              className="w-full h-full object-cover rounded-lg"
                             />
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-
-                <div className="flex justify-center items-center gap-4 mt-4">
-                  <CarouselPrevious className="static translate-y-0" />
-                  <CarouselNext className="static translate-y-0" />
-                </div>
-              </Carousel>
-            )}
-
-            {microsite.type === "business" && (
-              <div className="w-full">
-                <Carousel
-                  className="w-full"
-                  plugins={[plugin.current]}
-                  onMouseEnter={plugin.current.stop}
-                  onMouseLeave={plugin.current.reset}
-                  opts={{ loop: true }}
-                >
-                  <CarouselContent className="-ml-1">
-                    {Array.from({ length: 10 }).map((_, index) => (
-                      <CarouselItem
-                        key={index}
-                        className="pl-1 md:basis-1/1 lg:basis-1/3"
-                      >
-                        <div className="p-1">
-                          <Card>
-                            <CardContent className="flex aspect-square items-center justify-center p-6 h-25">
-                              <span className="text-2xl font-semibold">
-                                {index + 1}
-                              </span>
-                            </CardContent>
-                          </Card>
+                          </div>
                         </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
+
+                  <div className="flex justify-center items-center gap-4 mt-6">
+                    <CarouselPrevious className="static translate-y-0" />
+                    <CarouselNext className="static translate-y-0" />
+                  </div>
                 </Carousel>
               </div>
             )}
