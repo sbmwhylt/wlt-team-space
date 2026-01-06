@@ -12,8 +12,7 @@ export default function Microsites() {
     <MainLayout>
       <DataTable columns={columns} data={micrositesState.microsites || []} />
       <CreateMicrositeDialog>
-        {/* Add a button or whatever should open the dialog */}
-        <button>Create Microsite</button>
+        <div></div>
       </CreateMicrositeDialog>
     </MainLayout>
   );
