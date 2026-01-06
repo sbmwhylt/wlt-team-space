@@ -40,11 +40,11 @@ const Microsite = sequelize.define(
       allowNull: true,
     },
     aboutDesc: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     footerDesc: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     socialLinks: {
@@ -60,10 +60,6 @@ const Microsite = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    //   bulkOrderLink: {
-    //     type: DataTypes.STRING,
-    //     allowNull: true,
-    //   },
     communityLink: {
       type: DataTypes.STRING,
       allowNull: true,

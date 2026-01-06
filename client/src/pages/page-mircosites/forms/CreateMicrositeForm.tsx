@@ -52,7 +52,7 @@ const micrositeSchema = z.object({
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
 interface CreateMicrositeFormProps {
-  onSuccess?: () => void; 
+  onSuccess?: () => void;
 }
 
 export default function CreateMicrositeForm({
@@ -120,10 +120,10 @@ export default function CreateMicrositeForm({
       }
       // Social links as JSON
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
-      await create(formData);
+      await create(formData); 
       toast.success("Microsite created successfully!");
       form.reset();
-      onSuccess?.(); // This will refresh the list
+      onSuccess?.();
     } catch (error) {
       console.error("Error:", error);
       toast.error("Error creating microsite");
@@ -173,7 +173,7 @@ export default function CreateMicrositeForm({
                 defaultValue={field.value}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a type" />
                   </SelectTrigger>
                 </FormControl>
@@ -278,7 +278,7 @@ export default function CreateMicrositeForm({
           control={form.control}
           name="footerDesc"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="pb-4">
               <FormLabel>Footer Description</FormLabel>
               <FormControl>
                 <Textarea
@@ -291,102 +291,113 @@ export default function CreateMicrositeForm({
           )}
         />
 
+        <hr />
+
         {/* Social Links Section */}
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Social Links</h3>
-          {Object.keys(form.watch("socialLinks") || {}).map((platform) => (
-            <FormField
-              key={platform}
-              control={form.control}
-              name={`socialLinks.${platform}` as Path<MicrositeFormValues>} // ✅ cast as Path
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="capitalize">{platform}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={`https://${platform}.com/yourpage`}
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
+          <div className="grid grid-cols-2 gap-2 pb-4">
+            {Object.keys(form.watch("socialLinks") || {}).map((platform) => (
+              <FormField
+                key={platform}
+                control={form.control}
+                name={`socialLinks.${platform}` as Path<MicrositeFormValues>} // ✅ cast as Path
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="capitalize">{platform}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={`https://${platform}.com/yourpage`}
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+          </div>
         </div>
 
-        <FormField
-          control={form.control}
-          name="digitalCardOrderLink"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Digital Card Order Link</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="https://example.com"
-                  {...field}
-                  value={field.value || ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <hr />
+        <h3 className="text-lg font-bold">Other Details</h3>
 
-        <FormField
-          control={form.control}
-          name="physicalCardOrderLink"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Physical Card Order Link</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="https://example.com"
-                  {...field}
-                  value={field.value || ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-2">
+          <FormField
+            control={form.control}
+            name="digitalCardOrderLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Digital Card Order Link</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://example.com"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="communityLink"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Community Link</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="https://example.com"
-                  {...field}
-                  value={field.value || ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="physicalCardOrderLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Physical Card Order Link</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://example.com"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="mapLink"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Store Location</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="https://maps.app.goo.gl/bLiqMuCoLJNWWJvj9"
-                  {...field}
-                  value={field.value || ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="communityLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Community Link</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://example.com"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="mapLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Store Location</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://maps.app.goo.gl/bLiqMuCoLJNWWJvj9"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          
+        </div>
 
         <FormField
           control={form.control}

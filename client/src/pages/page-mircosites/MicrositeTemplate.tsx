@@ -73,17 +73,17 @@ export function Example() {
   );
 }
 export default function MicrositeTemplate() {
-  const { slug } = useParams();
+  const { slug, type } = useParams();
   const [microsite, setMicrosite] = useState<MicroSite | null>(null);
 
   useEffect(() => {
     const fetchMicrosite = async () => {
-      if (!slug) return;
+      if (!slug || !type) return;
       try {
         const res = await axios.get(
           `${import.meta.env.VITE_API_URL}/microsites/${encodeURIComponent(
-            slug
-          )}`
+            type
+          )}/${encodeURIComponent(slug)}`
         );
         setMicrosite(res.data.microsite);
       } catch (err) {
@@ -91,7 +91,7 @@ export default function MicrositeTemplate() {
       }
     };
     fetchMicrosite();
-  }, [slug]);
+  }, [slug, type]);
 
   useEffect(() => {
     if (microsite?.name) {
@@ -128,7 +128,7 @@ export default function MicrositeTemplate() {
       {/* Optional overlay for contrast */}
       <div className="absolute inset-0 bg-black/30" />
       <section className="max-w-lg mx-auto p-5">
-        <Card className="p-4 rounded-3xl bg-white/55 backdrop-blur-2xl ">
+        <Card className="p-4 rounded-3xl bg-white/65 backdrop-blur-2xl ">
           {/* Banner container */}
           <div className="relative w-full">
             <div
@@ -181,32 +181,12 @@ export default function MicrositeTemplate() {
               </div>
             </div>
 
-            <CardDescription className="text-lg pt-4 mx-auto">
+            <CardDescription className="text-lg pt-4 mx-auto text-gray-700">
               {microsite.aboutDesc}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="text-center p-0 ">
-            {/* Social Links */}
-            <div className="flex justify-center items-center mx-auto gap-2 my-8 rounded-2xl w-fit">
-              {Object.entries(microsite.socialLinks || {}).map(
-                ([platform, url]) => {
-                  const typedPlatform = platform as keyof typeof icons;
-                  if (typeof url !== "string" || !url) return null;
-                  return (
-                    <a
-                      key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-15 h-12 bg-white rounded-xl flex items-center justify-center hover:bg-gray-100 transition"
-                    >
-                      {icons[typedPlatform] || <Globe strokeWidth={1.5} />}
-                    </a>
-                  );
-                }
-              )}
-            </div>
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
@@ -217,7 +197,7 @@ export default function MicrositeTemplate() {
             {/* Purchase Cards */}
             <div className="space-y-4">
               {/* Card 1 */}
-              <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
+              <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
                 <div className="flex flex-col justify-between p-3">
                   <div className="bg-primary rounded-full p-1.5 text-white w-fit">
                     <ShoppingBasket strokeWidth={1} size={18} />
@@ -243,11 +223,17 @@ export default function MicrositeTemplate() {
                     </div>
                   </div>
                 </div>
-                <div className="w-full h-full bg-gray-400 rounded-3xl "></div>
+                <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/physical.png"
+                    alt="Description"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
               {/* Card 2 */}
-              <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
+              <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
                 <div className="flex flex-col justify-between p-3">
                   <div className="bg-primary rounded-full p-1.5 text-white w-fit">
                     <ShoppingBasket strokeWidth={1} size={18} />
@@ -272,13 +258,19 @@ export default function MicrositeTemplate() {
                     </div>
                   </div>
                 </div>
-                <div className="w-full h-full bg-gray-400 rounded-3xl "></div>
+                <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-physical.png?updatedAt=1767672636033"
+                    alt="Description"
+                    className="w-full h-full object-cover"
+                  />
+                </div>{" "}
               </div>
 
               {microsite.type === "business" && (
                 <div className="grid gap-6">
                   {/* Card 3 */}
-                  <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
+                  <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
                     <div className="flex flex-col justify-between p-3">
                       <div className="bg-primary rounded-full p-1.5 text-white w-fit">
                         <ShoppingBasket strokeWidth={1} size={18} />
@@ -304,11 +296,17 @@ export default function MicrositeTemplate() {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full h-full bg-gray-400 rounded-3xl"></div>
+                    <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
+                      <img
+                        src="https://ik.imagekit.io/wlt/wlt-static-imgs/digital.png?updatedAt=1767672636048"
+                        alt="Digital Card Img"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
 
                   {/* Card 4 */}
-                  <div className="w-full h-[190px] bg-gray-200 border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
+                  <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
                     <div className="flex flex-col justify-between p-3">
                       <div className="bg-primary rounded-full p-1.5 text-white w-fit">
                         <ShoppingBasket strokeWidth={1} size={18} />
@@ -333,7 +331,13 @@ export default function MicrositeTemplate() {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full h-full bg-gray-400 rounded-3xl"></div>
+                    <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
+                      <img
+                        src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-digital.png?updatedAt=1767672636330"
+                        alt="Digital Card Img"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>{" "}
                   </div>
                 </div>
               )}
@@ -412,6 +416,11 @@ export default function MicrositeTemplate() {
                   <Palette strokeWidth={1.5} />
                 </div>
                 <h2 className="text-2xl w-60">Marketing Material</h2>
+                <p className="text-gray-700 max-w-sm">
+                  Simply swipe through the content below, click on the image you
+                  would like to use and then share it direct to your social
+                  pages.
+                </p>
               </div>
             )}
 
@@ -548,7 +557,7 @@ export default function MicrositeTemplate() {
                     <BriefcaseBusiness strokeWidth={1.5} />
                   </div>
                   <h2 className="text-2xl w-60">Business Owners</h2>
-                  <p className="text-lg lg:px-10 text-gray-600 ">
+                  <p className="text-lg lg:px-10 max-w-xl text-gray-700">
                     {microsite.aboutDesc}
                   </p>
                 </div>
@@ -610,20 +619,24 @@ export default function MicrositeTemplate() {
             )}
 
             {/* Social Links */}
-            <div className="flex justify-center items-center mx-auto gap-2 my-8 rounded-2xl w-fit">
+            <div className="flex justify-center items-center gap-4 my-10">
               {Object.entries(microsite.socialLinks || {}).map(
                 ([platform, url]) => {
                   const typedPlatform = platform as keyof typeof icons;
                   if (typeof url !== "string" || !url) return null;
+
                   return (
                     <a
                       key={platform}
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-15 h-12 bg-white rounded-xl flex items-center justify-center hover:bg-gray-100 transition"
+                      className="group relative w-14 h-14 bg-gradient-to-br from-white to-gray-50 rounded-2xl flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-md hover:shadow-2xl border border-gray-100"
                     >
-                      {icons[typedPlatform] || <Globe strokeWidth={1.5} />}
+                      <div className="text-gray-700 group-hover:text-blue-600 transition-colors duration-300">
+                        {icons[typedPlatform] || <Globe strokeWidth={1.5} />}
+                      </div>
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-400/0 to-purple-400/0 group-hover:from-blue-400/20 group-hover:to-purple-400/20 transition-all duration-300" />
                     </a>
                   );
                 }

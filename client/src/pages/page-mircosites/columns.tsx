@@ -190,7 +190,7 @@ export const getColumns = (micrositesState?: {
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <a
-                href={`/microsites/${microsite.slug}`}
+                href={`/microsites/${microsite.type}/${microsite.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
