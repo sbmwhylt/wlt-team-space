@@ -33,10 +33,10 @@ export function useMicroSites() {
   };
 
   // --------------- GET microsite by slug
-  const getBySlug = async (slug: string) => {
+  const getBySlug = async (type: string, slug: string) => {
     setLoading(true);
     try {
-      const res = await axios.get(`${baseUrl}/${slug}`);
+      const res = await axios.get(`${baseUrl}/${type}/${slug}`);
       return res.data.microsite;
     } catch (err) {
       console.error("Fetch microsite by slug failed:", err);
