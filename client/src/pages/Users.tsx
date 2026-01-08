@@ -19,13 +19,11 @@ export default function Users() {
       </div> */}
 
       {/* Extra placeholder content */}
-      <div className="border min-h-[50vh] flex-1 rounded-xl md:min-h-min mt-6 p-4">
-        <DataTable
-          columns={columns}
-          data={usersState.users || []}
-          usersState={usersState}
-        />
-      </div>
+      <DataTable
+        columns={columns}
+        data={usersState.users || []}
+        usersState={usersState}
+      />
 
       <CreateUserDialog usersState={usersState}></CreateUserDialog>
     </MainLayout>
