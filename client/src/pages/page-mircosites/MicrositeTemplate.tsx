@@ -45,11 +45,8 @@ import {
   Facebook,
   Instagram,
   Mail,
-  UserStar,
-  Building2,
   Linkedin,
   Twitter,
-  BookText,
   Palette,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
@@ -147,8 +144,8 @@ export default function MicrositeTemplate() {
             {/* Logo overlapping the bottom of banner */}
             <div className="absolute left-1/2 -bottom-12 transform -translate-x-1/2">
               <img
-                src={microsite.logo}
-                alt={microsite.name}
+                src="/logo-whyleavetown.png"
+                alt="Why Leave Town Logo"
                 className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
               />
             </div>
@@ -160,7 +157,7 @@ export default function MicrositeTemplate() {
                 <CardTitle className="font-bold text-3xl">
                   {microsite.name}
                 </CardTitle>
-                <div className="flex items-center gap-2 text-gray-500">
+                {/* <div className="flex items-center gap-2 text-gray-500">
                   {microsite.type === "consumer" ? (
                     <div className="bg-blue-100 text-blue-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
                       <UserStar strokeWidth={1.5} size={14} />
@@ -177,13 +174,49 @@ export default function MicrositeTemplate() {
                   ) : (
                     <span className="text-gray-400">No type specified</span>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
-
             <CardDescription className="text-lg pt-4 mx-auto text-gray-700">
               {microsite.aboutDesc}
             </CardDescription>
+            {microsite.type === "consumer" && (
+              <div className="flex justify-center items-center gap-2 mt-8">
+                {Object.entries(microsite.socialLinks || {}).map(
+                  ([platform, url]) => {
+                    const typedPlatform = platform as keyof typeof icons;
+                    const hasLink = typeof url === "string" && url;
+
+                    return (
+                      <a
+                        key={platform}
+                        href={hasLink ? url : undefined}
+                        target={hasLink ? "_blank" : undefined}
+                        rel={hasLink ? "noopener noreferrer" : undefined}
+                        className={`group relative 
+                        p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
+                          hasLink
+                            ? "border-gray-200 hover:border-orange-400 hover:scale-105  cursor-pointer"
+                            : "border-gray-100 opacity-50 cursor-default"
+                        }`}
+                      >
+                        <div
+                          className={`transition-all duration-300 ${
+                            hasLink
+                              ? "text-gray-600 group-hover:text-orange-600 group-hover:scale-110"
+                              : "text-gray-400"
+                          }`}
+                        >
+                          {icons[typedPlatform] || (
+                            <Globe strokeWidth={1.5} size={24} />
+                          )}
+                        </div>
+                      </a>
+                    );
+                  }
+                )}
+              </div>
+            )}
           </CardHeader>
 
           <CardContent className="text-center p-0 ">
@@ -194,154 +227,155 @@ export default function MicrositeTemplate() {
               </div>
               <h2 className="text-2xl ">Purchase Cards</h2>
             </div>
+
             {/* Purchase Cards */}
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Card 1 */}
-              <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
-                <div className="flex flex-col justify-between p-3">
-                  <div className="bg-primary rounded-full p-1.5 text-white w-fit">
-                    <ShoppingBasket strokeWidth={1} size={18} />
-                  </div>
-                  <div>
-                    <div className="text-left">
-                      <h2 className="text-sm font-semibold">
-                        Physical Gift Cards
-                      </h2>
-                      <p className="text-xs text-gray-700 mt-1 max-w-40">
-                        Send a physical gift card to via post for 25, 50, 100 or
-                        200 dollars!
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      <a
-                        href={microsite.physicalCardOrderLink}
-                        target="_blank"
-                        className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
-                      >
-                        Purchase here
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
+              <div className="group relative bg-white border-2 border-blue-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300">
+                <div className="relative h-40 overflow-hidden">
                   <img
                     src="https://ik.imagekit.io/wlt/wlt-static-imgs/physical.png"
-                    alt="Description"
-                    className="w-full h-full object-cover"
+                    alt="Physical Card"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full p-2 text-white shadow-lg">
+                    <ShoppingBasket strokeWidth={1.5} size={18} />
+                  </div>
+                </div>
+
+                <div className="p-5 space-y-3">
+                  <div>
+                    <h2 className="text-base font-bold text-gray-900">
+                      Physical Gift Cards
+                    </h2>
+                    <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
+                      Send a physical gift card via post for $25, $50, $100 or
+                      $200
+                    </p>
+                  </div>
+
+                  <a
+                    href={microsite.physicalCardOrderLink}
+                    target="_blank"
+                    className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                  >
+                    Purchase Now
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                  </a>
                 </div>
               </div>
 
               {/* Card 2 */}
-              <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
-                <div className="flex flex-col justify-between p-3">
-                  <div className="bg-primary rounded-full p-1.5 text-white w-fit">
-                    <ShoppingBasket strokeWidth={1} size={18} />
-                  </div>
-                  <div>
-                    <div className="text-left ">
-                      <h2 className="text-sm font-semibold">
-                        Physical Card Bulk Orders
-                      </h2>
-                      <p className="text-sm text-gray-600 mt-1 max-w-45">
-                        Have a large order or need custom values?
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 mt-4 ">
-                      <a
-                        href="https://www.whyleavetown.com/bulk-card-orders/"
-                        target="_blank"
-                        className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
-                      >
-                        Purchase here
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
+              <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
+                <div className="relative h-40 overflow-hidden">
                   <img
                     src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-physical.png?updatedAt=1767672636033"
-                    alt="Description"
-                    className="w-full h-full object-cover"
+                    alt="Bulk Physical"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                </div>{" "}
-              </div>
-
-              {microsite.type === "business" && (
-                <div className="grid gap-6">
-                  {/* Card 3 */}
-                  <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
-                    <div className="flex flex-col justify-between p-3">
-                      <div className="bg-primary rounded-full p-1.5 text-white w-fit">
-                        <ShoppingBasket strokeWidth={1} size={18} />
-                      </div>
-                      <div>
-                        <div className="text-left">
-                          <h2 className="text-sm font-semibold">
-                            Digital Gift Cards
-                          </h2>
-                          <p className="text-sm text-gray-600 mt-1 w-45">
-                            Send a digital card via SMS for 25, 50, 100 or 200
-                            dollars
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2 mt-4">
-                          <a
-                            href={microsite.digitalCardOrderLink}
-                            target="_blank"
-                            className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
-                          >
-                            Purchase here
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
-                      <img
-                        src="https://ik.imagekit.io/wlt/wlt-static-imgs/digital.png?updatedAt=1767672636048"
-                        alt="Digital Card Img"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Card 4 */}
-                  <div className="w-full h-[190px] bg-white border rounded-3xl grid grid-cols-2 gap-4 overflow-hidden">
-                    <div className="flex flex-col justify-between p-3">
-                      <div className="bg-primary rounded-full p-1.5 text-white w-fit">
-                        <ShoppingBasket strokeWidth={1} size={18} />
-                      </div>
-                      <div>
-                        <div className="text-left">
-                          <h2 className="text-sm font-semibold">
-                            Digital Card Bulk Orders
-                          </h2>
-                          <p className="text-sm text-gray-600 mt-1 w-45">
-                            Have a large order or need custom values?
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2 mt-4">
-                          <a
-                            href="https://www.whyleavetown.com/bulk-digital-card-orders/"
-                            target="_blank"
-                            className="bg-blue-500 hover:bg-blue-600 transition px-4 py-2 text-white rounded-xl text-sm"
-                          >
-                            Purchase here
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full h-full bg-gray-400 rounded-3xl overflow-hidden">
-                      <img
-                        src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-digital.png?updatedAt=1767672636330"
-                        alt="Digital Card Img"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>{" "}
+                  <div className="absolute top-3 left-3 bg-gray-900 rounded-full p-2 text-white shadow-lg">
+                    <ShoppingBasket strokeWidth={1.5} size={18} />
                   </div>
                 </div>
-              )}
+
+                <div className="p-5 space-y-3">
+                  <div>
+                    <h2 className="text-base font-bold text-gray-900">
+                      Physical Bulk Orders
+                    </h2>
+                    <p className="text-xs text-gray-600 mt-1.5">
+                      Large orders or need custom values?
+                    </p>
+                  </div>
+
+                  <a
+                    href="https://www.whyleavetown.com/bulk-card-orders/"
+                    target="_blank"
+                    className="inline-flex items-center justify-center gap-2 w-full bg-gray-900 hover:bg-gray-800 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                  >
+                    Learn More
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div className="group relative bg-white border-2 border-purple-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-purple-200 transition-all duration-300">
+                <div className="relative h-40 overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/digital.png?updatedAt=1767672636048"
+                    alt="Digital Card"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full p-2 text-white shadow-lg">
+                    <ShoppingBasket strokeWidth={1.5} size={18} />
+                  </div>
+                </div>
+
+                <div className="p-5 space-y-3">
+                  <div>
+                    <h2 className="text-base font-bold text-gray-900">
+                      Digital Gift Cards
+                    </h2>
+                    <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
+                      Instant delivery via SMS for $25, $50, $100 or $200
+                    </p>
+                  </div>
+
+                  <a
+                    href={microsite.digitalCardOrderLink}
+                    target="_blank"
+                    className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                  >
+                    Purchase Now
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Card 4 */}
+              <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
+                <div className="relative h-40 overflow-hidden">
+                  <img
+                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-digital.png?updatedAt=1767672636330"
+                    alt="Bulk Digital"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute top-3 left-3 bg-gray-900 rounded-full p-2 text-white shadow-lg">
+                    <ShoppingBasket strokeWidth={1.5} size={18} />
+                  </div>
+                </div>
+
+                <div className="p-5 space-y-3">
+                  <div>
+                    <h2 className="text-base font-bold text-gray-900">
+                      Digital Bulk Orders
+                    </h2>
+                    <p className="text-xs text-gray-600 mt-1.5">
+                      Large orders or need custom values?
+                    </p>
+                  </div>
+
+                  <a
+                    href="https://www.whyleavetown.com/bulk-digital-card-orders/"
+                    target="_blank"
+                    className="inline-flex items-center justify-center gap-2 w-full bg-gray-900 hover:bg-gray-800 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                  >
+                    Learn More
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
             </div>
+
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
@@ -359,54 +393,51 @@ export default function MicrositeTemplate() {
                 />
               </div>
             )}
+
             <div className="grid grid-cols-2 gap-4 mt-4">
               <a
                 href="https://www.whyleavetown.com/participating-stores/#participating_communities"
                 target="_blank"
+                className="group"
               >
-                <div className="rounded-3xl bg-white/80 h-40 flex flex-col justify-center items-center gap-3">
-                  <Store
-                    size={40}
-                    className="p-2 bg-primary text-white rounded-full"
-                  />
-                  <h2 className="text-lg text-secondary font-bold">
-                    Check Stores
-                  </h2>
+                <div className="relative rounded-3xl bg-gradient-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-blue-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  <div className="relative z-10 flex flex-col items-center gap-4">
+                    <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-3 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <Store
+                        size={26}
+                        className="text-white"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+
+                    <h2 className="text-base font-bold text-gray-900 text-center px-6  transition-colors">
+                      Where to spend the gift card?
+                    </h2>
+                  </div>
                 </div>
               </a>
-              {microsite?.type === "consumer" && (
-                <a
-                  href="https://www.whyleavetown.com/check-card-balance/"
-                  target="_blank"
-                >
-                  <div className="rounded-3xl bg-white/80 h-40 flex flex-col justify-center items-center gap-3">
-                    <HandCoins
-                      size={40}
-                      className="p-2 bg-primary text-white rounded-full"
-                    />
-                    <h2 className="text-lg text-secondary font-bold">
-                      My Points
-                    </h2>
-                  </div>
-                </a>
-              )}
 
-              {microsite?.type === "business" && (
-                <a
-                  href="https://www.whyleavetown.com/terms-and-conditions/"
-                  target="_blank"
-                >
-                  <div className="rounded-3xl bg-white/80 h-40 flex flex-col justify-center items-center gap-3">
-                    <BookText
-                      size={40}
-                      className="p-2 bg-primary text-white rounded-full"
-                    />
-                    <h2 className="text-lg text-secondary font-bold">
-                      Terms & Conditions
+              <a
+                href="https://www.whyleavetown.com/check-card-balance/"
+                target="_blank"
+                className="group"
+              >
+                <div className="relative rounded-3xl bg-gradient-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-green-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  <div className="relative z-10 flex flex-col items-center gap-4">
+                    <div className="bg-gradient-to-br from-green-600 to-emerald-600 p-3 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <HandCoins
+                        size={26}
+                        className="text-white"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+
+                    <h2 className="text-base font-bold text-gray-900 text-center px-6 transition-colors">
+                      Check card balance or expiry?
                     </h2>
                   </div>
-                </a>
-              )}
+                </div>
+              </a>
             </div>
 
             {microsite.type === "business" && (
@@ -417,9 +448,10 @@ export default function MicrositeTemplate() {
                 </div>
                 <h2 className="text-2xl w-60">Marketing Material</h2>
                 <p className="text-gray-700 max-w-sm">
-                  Simply swipe through the content below, click on the image you
-                  would like to use and then share it direct to your social
-                  pages.
+                  A dedicated space showcasing ready-to-use marketing materials,
+                  brand assets, and promotional resources—designed to keep
+                  messaging consistent, on-brand, and easy to deploy across
+                  channels.
                 </p>
               </div>
             )}
@@ -465,19 +497,6 @@ export default function MicrositeTemplate() {
               className="w-full text-left bg-white/90 px-4 rounded-2xl"
               defaultValue="item-1"
             >
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-md">
-                  What is this microsite about?
-                </AccordionTrigger>
-                <AccordionContent className="w-full">
-                  <p className="text-gray-700 text-md">
-                    This microsite highlights our business and the community
-                    we’re proud to be part of. It’s designed to help you learn
-                    more about what we offer and how we contribute to the local
-                    area.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger className="text-md">
                   How do I get a Why Leave Town Gift Card?{" "}
@@ -510,9 +529,9 @@ export default function MicrositeTemplate() {
                 </AccordionTrigger>
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
-                    Click the <strong>my points</strong> link on this website
-                    and enter your card number. You’ll see your remaining
-                    balance and expiry date instantly.
+                    Click the <strong>check card balance above</strong> link on
+                    this website and enter your card number. You’ll see your
+                    remaining balance and expiry date instantly.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -537,6 +556,26 @@ export default function MicrositeTemplate() {
               </AccordionItem>
             </Accordion>
 
+            <div className="flex justify-center gap-1 mt-4">
+              <a
+                href="https://www.whyleavetown.com/about/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative px-6 py-2.5 bg-white border-2 border-gray-300 rounded-xl font-medium text-sm text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              >
+                <span className="relative z-10">View more FAQ</span>
+              </a>
+
+              <a
+                href="https://www.whyleavetown.com/terms-and-conditions/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative px-6 py-2.5 bg-white border-2 border-gray-300 rounded-xl font-medium text-sm text-gray-700 hover:border-purple-500 hover:text-purple-600 hover:shadow-lg transition-all duration-300 overflow-hidden"
+              >
+                <span className="relative z-10">Terms & Conditions</span>
+              </a>
+            </div>
+
             {/* Business Page */}
             {microsite.type === "business" ? (
               <>
@@ -546,7 +585,10 @@ export default function MicrositeTemplate() {
                   </div>
                   <h2 className="text-2xl w-60">Program Operations</h2>
                   <p className="text-lg lg:px-10 text-gray-600 ">
-                    {microsite.aboutDesc}
+                    Forms used to update, modify, and maintain program
+                    details—covering changes to schedules, configurations,
+                    requirements, and other operational information to keep
+                    programs accurate and up to date.
                   </p>
                 </div>
               </>
@@ -558,7 +600,13 @@ export default function MicrositeTemplate() {
                   </div>
                   <h2 className="text-2xl w-60">Business Owners</h2>
                   <p className="text-lg lg:px-10 max-w-xl text-gray-700">
-                    {microsite.aboutDesc}
+                    Do you want to accept the{" "}
+                    <span className="text-blue-600 font-medium">
+                      {microsite.name}
+                    </span>{" "}
+                    Gift Card at your business? Join the Why Leave Town network
+                    today and start attracting more local customers while
+                    supporting your community.
                   </p>
                 </div>
               </>
@@ -619,29 +667,43 @@ export default function MicrositeTemplate() {
             )}
 
             {/* Social Links */}
-            <div className="flex justify-center items-center gap-4 my-10">
-              {Object.entries(microsite.socialLinks || {}).map(
-                ([platform, url]) => {
-                  const typedPlatform = platform as keyof typeof icons;
-                  if (typeof url !== "string" || !url) return null;
+            {microsite.type === "consumer" && (
+              <div className="flex justify-center items-center gap-2 mt-12 mb-6">
+                {Object.entries(microsite.socialLinks || {}).map(
+                  ([platform, url]) => {
+                    const typedPlatform = platform as keyof typeof icons;
+                    const hasLink = typeof url === "string" && url;
 
-                  return (
-                    <a
-                      key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative w-14 h-14 bg-gradient-to-br from-white to-gray-50 rounded-2xl flex items-center justify-center hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-md hover:shadow-2xl border border-gray-100"
-                    >
-                      <div className="text-gray-700 group-hover:text-blue-600 transition-colors duration-300">
-                        {icons[typedPlatform] || <Globe strokeWidth={1.5} />}
-                      </div>
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-400/0 to-purple-400/0 group-hover:from-blue-400/20 group-hover:to-purple-400/20 transition-all duration-300" />
-                    </a>
-                  );
-                }
-              )}
-            </div>
+                    return (
+                      <a
+                        key={platform}
+                        href={hasLink ? url : undefined}
+                        target={hasLink ? "_blank" : undefined}
+                        rel={hasLink ? "noopener noreferrer" : undefined}
+                        className={`group relative 
+                        p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
+                          hasLink
+                            ? "border-gray-200 hover:border-orange-400 hover:scale-105  cursor-pointer"
+                            : "border-gray-100 opacity-50 cursor-default"
+                        }`}
+                      >
+                        <div
+                          className={`transition-all duration-300 ${
+                            hasLink
+                              ? "text-gray-600 group-hover:text-orange-600 group-hover:scale-110"
+                              : "text-gray-400"
+                          }`}
+                        >
+                          {icons[typedPlatform] || (
+                            <Globe strokeWidth={1.5} size={24} />
+                          )}
+                        </div>
+                      </a>
+                    );
+                  }
+                )}
+              </div>
+            )}
           </CardContent>
 
           <CardFooter className="bg-white rounded-2xl py-4">
