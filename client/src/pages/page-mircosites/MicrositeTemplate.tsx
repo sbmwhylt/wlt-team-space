@@ -37,7 +37,6 @@ import {
 import {
   CreditCard,
   ShoppingBasket,
-  Link,
   Store,
   HandCoins,
   MessageCircleQuestionMark,
@@ -46,6 +45,8 @@ import {
   Facebook,
   Instagram,
   Palette,
+  Mail,
+  Phone,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
@@ -111,11 +112,10 @@ export default function MicrositeTemplate() {
     instagram: (
       <SocialIcon network="instagram" style={{ height: 24, width: 24 }} />
     ),
-    twitter: <SocialIcon network="x" style={{ height: 24, width: 24 }} />,
-    linkedin: <SocialIcon network="email" style={{ height: 24, width: 24 }} />,
+    x: <SocialIcon network="x" style={{ height: 24, width: 24 }} />,
     website: (
-      <div className="p-1 rounded-full bg-emerald-500">
-        <Globe strokeWidth={1.5} className="text-white" size={16} />
+      <div className="p-1 rounded-full bg-white">
+        <Globe strokeWidth={1.5} className="text-red-500" />
       </div>
     ),
   };
@@ -139,15 +139,7 @@ export default function MicrositeTemplate() {
             <div
               className="w-full h-72 bg-cover bg-center bg-gray-100 rounded-2xl"
               style={{ backgroundImage: `url('${microsite.banner}')` }}
-            >
-              <a
-                href={microsite.link}
-                target="_blank"
-                className="absolute p-2 right-0"
-              >
-                <Link size={35} className="p-1.5" />
-              </a>
-            </div>
+            ></div>
 
             {/* Logo overlapping the bottom of banner */}
             <div className="absolute left-1/2 -bottom-12 transform -translate-x-1/2">
@@ -204,7 +196,7 @@ export default function MicrositeTemplate() {
                         className={`group relative 
                         p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
                           hasLink
-                            ? "border-gray-200 hover:border-blue-600 hover:scale-105  cursor-pointer"
+                            ? ":scale-105  cursor-pointer"
                             : "border-gray-100 opacity-50 cursor-default"
                         }`}
                       >
@@ -223,6 +215,27 @@ export default function MicrositeTemplate() {
                     );
                   }
                 )}
+                <a
+                  href={`mailto:${microsite.email}`}
+                  className="group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 text-gray-600 hover:text-blue-600 cursor-pointer"
+                >
+                  <Mail
+                    strokeWidth={2}
+                    size={24}
+                    className="p-1 rounded-full bg-red-400 text-white transition-transform duration-300 group-hover:scale-110"
+                  />
+                </a>
+                <a
+                  href={`tel:${microsite.phone}`}
+                  className="group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 text-gray-600 hover:text-blue-600 cursor-pointer"
+                >
+                  <Phone
+                    strokeWidth={0}
+                    size={24}
+                    fill="currentColor"
+                    className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
+                  />
+                </a>
               </div>
             )}
           </CardHeader>
