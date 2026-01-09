@@ -20,11 +20,8 @@ export type MicroSite = {
   name: string;
   slug: string;
   type?: "consumer" | "business";
-  link: string;
   banner?: string;
-  logo?: string;
   aboutDesc?: string;
-  footerDesc?: string;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -57,14 +54,14 @@ export const getColumns = (micrositesState?: {
     enableHiding: false,
   },
   {
-    accessorKey: "logo",
-    header: "Logo",
+    accessorKey: "banner",
+    header: "Banner",
     cell: ({ row }) => {
-      const logo = row.getValue("logo") as string | undefined;
-      return logo ? (
+      const banner = row.getValue("banner") as string | undefined;
+      return banner ? (
         <img
-          src={logo}
-          alt="Logo"
+          src={banner}
+          alt="Microsite Banner"
           className="h-8 w-8 rounded-lg object-cover"
         />
       ) : (
@@ -117,18 +114,18 @@ export const getColumns = (micrositesState?: {
     },
   },
   {
-    accessorKey: "link",
-    header: "Link",
+    accessorKey: "slug",
+    header: "Microsite Link",
     cell: ({ row }) => {
-      const link = row.getValue("link") as string;
+      const slug = row.getValue("slug") as string;
       return (
         <a
-          href={link}
+          href={`/microsites/${row.original.type}/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-700 hover:underline inline-flex items-center gap-1"
         >
-          {link}
+          {slug}
           <ExternalLink className="w-3 h-3" />
         </a>
       );
@@ -183,7 +180,7 @@ export const getColumns = (micrositesState?: {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(microsite.link)}
+              onClick={() => navigator.clipboard.writeText(microsite.slug)}
             >
               Copy Link
             </DropdownMenuItem>

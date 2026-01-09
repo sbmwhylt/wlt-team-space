@@ -114,9 +114,11 @@ export default function MicrositeTemplate() {
     ),
     x: <SocialIcon network="x" style={{ height: 24, width: 24 }} />,
     website: (
-      <div className="p-1 rounded-full bg-white">
-        <Globe strokeWidth={1.5} className="text-red-500" />
-      </div>
+      <Globe
+        strokeWidth={1.5}
+        size={24}
+        className="text-white p-1 rounded-full bg-purple-500"
+      />
     ),
   };
 
@@ -207,33 +209,45 @@ export default function MicrositeTemplate() {
                               : "text-gray-400"
                           }`}
                         >
-                          {icons[typedPlatform] || (
-                            <Globe strokeWidth={1.5} size={24} />
-                          )}
+                          {icons[typedPlatform] ?? null}
                         </div>
                       </a>
                     );
                   }
                 )}
                 <a
-                  href={`mailto:${microsite.email}`}
-                  className="group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 text-gray-600 hover:text-blue-600 cursor-pointer"
+                  href={
+                    microsite.email ? `mailto:${microsite.email}` : undefined
+                  }
+                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                    microsite.email
+                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                      : "border-gray-100 opacity-50 cursor-default"
+                  }`}
                 >
                   <Mail
                     strokeWidth={2}
                     size={24}
-                    className="p-1 rounded-full bg-red-400 text-white transition-transform duration-300 group-hover:scale-110"
+                    className={`p-1 rounded-full bg-red-400 text-white transition-transform duration-300 ${
+                      microsite.email ? "group-hover:scale-110" : ""
+                    }`}
                   />
                 </a>
                 <a
-                  href={`tel:${microsite.phone}`}
-                  className="group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 text-gray-600 hover:text-blue-600 cursor-pointer"
+                  href={microsite.phone ? `tel:${microsite.phone}` : undefined}
+                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                    microsite.phone
+                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                      : "border-gray-100 opacity-50 cursor-default"
+                  }`}
                 >
                   <Phone
                     strokeWidth={0}
                     size={24}
                     fill="currentColor"
-                    className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
+                    className={`p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 ${
+                      microsite.phone ? "group-hover:scale-110" : ""
+                    }`}
                   />
                 </a>
               </div>
@@ -689,7 +703,7 @@ export default function MicrositeTemplate() {
 
             {/* Social Links */}
             {microsite.type === "consumer" && (
-              <div className="flex justify-center items-center gap-2 mt-12 mb-6">
+              <div className="flex justify-center items-center gap-2 mt-8">
                 {Object.entries(microsite.socialLinks || {}).map(
                   ([platform, url]) => {
                     const typedPlatform = platform as keyof typeof icons;
@@ -704,25 +718,58 @@ export default function MicrositeTemplate() {
                         className={`group relative 
                         p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
                           hasLink
-                            ? "border-gray-200 hover:border-orange-400 hover:scale-105  cursor-pointer"
+                            ? ":scale-105  cursor-pointer"
                             : "border-gray-100 opacity-50 cursor-default"
                         }`}
                       >
                         <div
                           className={`transition-all duration-300 ${
                             hasLink
-                              ? "text-gray-600 group-hover:text-orange-600 group-hover:scale-110"
+                              ? "text-gray-600 group-hover:text-blue-600 group-hover:scale-110"
                               : "text-gray-400"
                           }`}
                         >
-                          {icons[typedPlatform] || (
-                            <Globe strokeWidth={1.5} size={24} />
-                          )}
+                          {icons[typedPlatform] ?? null}
                         </div>
                       </a>
                     );
                   }
                 )}
+                <a
+                  href={
+                    microsite.email ? `mailto:${microsite.email}` : undefined
+                  }
+                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                    microsite.email
+                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                      : "border-gray-100 opacity-50 cursor-default"
+                  }`}
+                >
+                  <Mail
+                    strokeWidth={2}
+                    size={24}
+                    className={`p-1 rounded-full bg-red-400 text-white transition-transform duration-300 ${
+                      microsite.email ? "group-hover:scale-110" : ""
+                    }`}
+                  />
+                </a>
+                <a
+                  href={microsite.phone ? `tel:${microsite.phone}` : undefined}
+                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                    microsite.phone
+                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                      : "border-gray-100 opacity-50 cursor-default"
+                  }`}
+                >
+                  <Phone
+                    strokeWidth={0}
+                    size={24}
+                    fill="currentColor"
+                    className={`p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 ${
+                      microsite.phone ? "group-hover:scale-110" : ""
+                    }`}
+                  />
+                </a>
               </div>
             )}
           </CardContent>
