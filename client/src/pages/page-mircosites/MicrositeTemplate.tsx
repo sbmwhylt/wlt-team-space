@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { MicroSite } from "@/types/Microsite";
+import { SocialIcon } from "react-social-icons";
 
 import {
   Card,
@@ -44,9 +45,6 @@ import {
   Globe,
   Facebook,
   Instagram,
-  Mail,
-  Linkedin,
-  Twitter,
   Palette,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
@@ -104,12 +102,22 @@ export default function MicrositeTemplate() {
     );
 
   const icons = {
-    facebook: <Facebook strokeWidth={1.5} />,
-    instagram: <Instagram strokeWidth={1.5} />,
-    twitter: <Twitter strokeWidth={1.5} />,
-    linkedin: <Linkedin strokeWidth={1.5} />,
-    website: <Globe strokeWidth={1.5} />,
-    email: <Mail strokeWidth={1.5} />,
+    facebook: (
+      <SocialIcon
+        network="facebook"
+        style={{ height: 24, width: 24, color: "green" }}
+      />
+    ),
+    instagram: (
+      <SocialIcon network="instagram" style={{ height: 24, width: 24 }} />
+    ),
+    twitter: <SocialIcon network="x" style={{ height: 24, width: 24 }} />,
+    linkedin: <SocialIcon network="email" style={{ height: 24, width: 24 }} />,
+    website: (
+      <div className="p-1 rounded-full bg-emerald-500">
+        <Globe strokeWidth={1.5} className="text-white" size={16} />
+      </div>
+    ),
   };
 
   return (
@@ -196,14 +204,14 @@ export default function MicrositeTemplate() {
                         className={`group relative 
                         p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
                           hasLink
-                            ? "border-gray-200 hover:border-orange-400 hover:scale-105  cursor-pointer"
+                            ? "border-gray-200 hover:border-blue-600 hover:scale-105  cursor-pointer"
                             : "border-gray-100 opacity-50 cursor-default"
                         }`}
                       >
                         <div
                           className={`transition-all duration-300 ${
                             hasLink
-                              ? "text-gray-600 group-hover:text-orange-600 group-hover:scale-110"
+                              ? "text-gray-600 group-hover:text-blue-600 group-hover:scale-110"
                               : "text-gray-400"
                           }`}
                         >

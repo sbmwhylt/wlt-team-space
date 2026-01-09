@@ -26,24 +26,25 @@ const Microsite = sequelize.define(
         isIn: [["consumer", "business"]],
       },
     },
-    link: {
+    email: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      allowNull: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isNumeric: true,
+      },  
     },
     banner: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    logo: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     aboutDesc: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    footerDesc: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
