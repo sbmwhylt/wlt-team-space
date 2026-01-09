@@ -3,15 +3,14 @@ export interface MicroSite {
   name: string;
   slug: string;
   type?: "consumer" | "business";
-  link: string;
+  email?: string;
+  phone?: string;
   banner?: string;
-  logo?: string;
   aboutDesc?: string;
-  footerDesc?: string;
   socialLinks?: {
     facebook?: string;
-    twitter?: string;
-    linkedin?: string;
+    x?: string;
+    website?: string;
     instagram?: string;
     youtube?: string;
   };

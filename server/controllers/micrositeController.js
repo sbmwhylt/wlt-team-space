@@ -11,28 +11,22 @@ export const createMicroSite = async (req, res) => {
     if (!name) {
       return res.status(400).json({ error: "Microsite name is required" });
     }
-
     const parsedSocialLinks =
       typeof socialLinks === "string"
         ? JSON.parse(socialLinks)
         : socialLinks || {};
-
     const slug = slugify(name, { lower: true, strict: true });
     const existing = await Microsite.findOne({ where: { slug } });
     if (existing) {
       return res.status(400).json({ error: "Slug already exists" });
     }
-    // ✅ ONLY NOW upload files (validation passed!)
     const uploadedData = {};
-
     if (req.files?.banner) {
       uploadedData.banner = await uploadToImageKit(req.files.banner);
     }
-
     if (req.files?.logo) {
       uploadedData.logo = await uploadToImageKit(req.files.logo);
     }
-
     if (req.files?.marketingImgs) {
       const images = Array.isArray(req.files.marketingImgs)
         ? req.files.marketingImgs
@@ -43,7 +37,6 @@ export const createMicroSite = async (req, res) => {
       uploadedData.marketingImgs = imageUrls;
     }
 
-    // ✅ Create microsite
     const microsite = await Microsite.create({
       name,
       slug,

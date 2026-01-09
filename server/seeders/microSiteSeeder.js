@@ -12,35 +12,30 @@ export const microSiteSeeder = async () => {
       return;
     }
     await Microsite.create({
-      name: "Fruit Bites",
-      link: "https://fruitbites.com",
-      slug: "fruit-bites",
+      name: "Stanthorpe",
       type: "consumer",
+      email: "secretary@stanthorpecoc.com.au",
+      phone: "0746843877",
       banner:
-        "https://i.pinimg.com/736x/f1/dc/1f/f1dc1f25812bf150a418d09e8406cb08.jpg",
-      logo: "https://i.pinimg.com/736x/94/e1/0e/94e10ed02adca77a415490aac579a338.jpg",
+        "https://ik.imagekit.io/wlt/uploads/Stanthorpe_Design_Element_3_YMmvoTCH0.png?updatedAt=1767591816806",
       aboutDesc:
-        "Fresh, fun, and full of flavor — Fruit Bites serves up delicious, healthy treats made from real fruit, perfect for any time of day.",
-      footerDesc: "Default footer description.",
+        "Brought to you by the Community Bank Branch Stanthorpe (Bendigo Bank) along with Stanthorpe & Granite Belt Chamber of Commerce and operated by shop local experts Why Leave Town, the Stanthorpe Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!",
       socialLinks: {
-        facebook: "https://facebook.com/default",
-        twitter: "https://twitter.com/default",
-        instagram: "https://instagram.com/default",
+        facebook: "https://www.facebook.com/stanthorpecoc/",
+        Website: "https://stanthorpecoc.au/",
       },
-      digitalCardOrderLink: "https://defaultmicrosite.com/digital-card",
-      physicalCardOrderLink: "https://defaultmicrosite.com/physical-card",
-      // bulkOrderLink: "https://defaultmicrosite.com/bulk-order",
-      communityLink: "https://defaultmicrosite.com/community",
+      digitalCardOrderLink:
+        "https://www.whyleavetown.com/product/stanthorpe-digital-gift-card/",
+      physicalCardOrderLink:
+        "https://www.whyleavetown.com/product/stanthorpe-gift-card/",
+      communityLink: "https://travelexplorer.com/community",
       mapLink:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.2758967082495!2d151.2127217765538!3d-33.8567799184377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae665e892fdd%3A0x3133f8d75a1ac251!2sSydney%20Opera%20House!5e0!3m2!1sen!2sph!4v1761119408630!5m2!1sen!2sph",
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1023.8604545538805!2d149.7835285620878!3d-30.327001928392992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ba7345ab7a394fd%3A0xa99b23f394edc764!2sCentre%20of%20Town!5e0!3m2!1sen!2sph!4v1761092847014!5m2!1sen!2sph",
       marketingImgs: [
-        "https://via.placeholder.com/300",
-        "https://via.placeholder.com/300",
-        "https://via.placeholder.com/300",
-      ],
-      marketingVids: [
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "https://ik.imagekit.io/wlt/uploads/Stanthorpe_Design_Element_6_3kVovopO8.png?updatedAt=1767591821063",
+        "https://ik.imagekit.io/wlt/uploads/Stanthorpe_Design_Element_7_GrN62uaXs.png?updatedAt=1767591820884",
+        "https://ik.imagekit.io/wlt/uploads/Stanthorpe_Design_Element_5_nPaOSHzgv.png?updatedAt=1767591820044",
+        "https://ik.imagekit.io/wlt/uploads/Stanthorpe_Design_Element_4_dvPw6Gq0S.png?updatedAt=1767504589121",
       ],
     });
     console.log("✅ Microsite seeded successfully");
