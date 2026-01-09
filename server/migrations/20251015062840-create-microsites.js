@@ -2,7 +2,7 @@
 
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("Microsites", {
-     id: {
+    id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -22,16 +22,15 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
       defaultValue: "consumer",
     },
-    link: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    banner: {
+    email: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    logo: {
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
+    banner: {
       type: Sequelize.STRING,
       allowNull: true,
     },
@@ -39,13 +38,10 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.TEXT,
       allowNull: true,
     },
-    footerDesc: {
-      type: Sequelize.TEXT,
-      allowNull: true,
-    },
     socialLinks: {
       type: Sequelize.JSON,
       allowNull: true,
+      defaultValue: "{}",
     },
     digitalCardOrderLink: {
       type: Sequelize.STRING,
@@ -55,10 +51,6 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    // bulkOrderLink: {
-    //   type: Sequelize.STRING,
-    //   allowNull: true,
-    // },
     communityLink: {
       type: Sequelize.STRING,
       allowNull: true,
@@ -70,10 +62,12 @@ export async function up(queryInterface, Sequelize) {
     marketingImgs: {
       type: Sequelize.JSON,
       allowNull: true,
+      defaultValue: "[]",
     },
     marketingVids: {
       type: Sequelize.JSON,
       allowNull: true,
+      defaultValue: "[]",
     },
     createdAt: {
       allowNull: false,
@@ -82,7 +76,7 @@ export async function up(queryInterface, Sequelize) {
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
-    },  
+    },
   });
 }
 
