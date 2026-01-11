@@ -196,7 +196,7 @@ export default function MicrositeTemplate() {
                         target={hasLink ? "_blank" : undefined}
                         rel={hasLink ? "noopener noreferrer" : undefined}
                         className={`group relative 
-                        p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
+                        p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
                           hasLink
                             ? ":scale-105  cursor-pointer"
                             : "border-gray-100 opacity-50 cursor-default"
@@ -219,7 +219,7 @@ export default function MicrositeTemplate() {
                   href={
                     microsite.email ? `mailto:${microsite.email}` : undefined
                   }
-                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
                     microsite.email
                       ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
                       : "border-gray-100 opacity-50 cursor-default"
@@ -235,7 +235,7 @@ export default function MicrositeTemplate() {
                 </a>
                 <a
                   href={microsite.phone ? `tel:${microsite.phone}` : undefined}
-                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
                     microsite.phone
                       ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
                       : "border-gray-100 opacity-50 cursor-default"
@@ -716,7 +716,7 @@ export default function MicrositeTemplate() {
                         target={hasLink ? "_blank" : undefined}
                         rel={hasLink ? "noopener noreferrer" : undefined}
                         className={`group relative 
-                        p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
+                        p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
                           hasLink
                             ? ":scale-105  cursor-pointer"
                             : "border-gray-100 opacity-50 cursor-default"
@@ -739,7 +739,7 @@ export default function MicrositeTemplate() {
                   href={
                     microsite.email ? `mailto:${microsite.email}` : undefined
                   }
-                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
                     microsite.email
                       ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
                       : "border-gray-100 opacity-50 cursor-default"
@@ -755,7 +755,7 @@ export default function MicrositeTemplate() {
                 </a>
                 <a
                   href={microsite.phone ? `tel:${microsite.phone}` : undefined}
-                  className={`group p-3 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
                     microsite.phone
                       ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
                       : "border-gray-100 opacity-50 cursor-default"
