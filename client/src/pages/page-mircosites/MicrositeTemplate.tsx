@@ -409,7 +409,7 @@ export default function MicrositeTemplate() {
 
             <div className="grid grid-cols-2 gap-4 mt-4">
               <a
-                href="https://www.whyleavetown.com/participating-stores/#participating_communities"
+                href={microsite.communityLink}
                 target="_blank"
                 className="group"
               >
