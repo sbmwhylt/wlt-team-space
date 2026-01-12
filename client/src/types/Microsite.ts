@@ -21,4 +21,8 @@ export interface MicroSite {
   businessLink?: string;
   marketingImgs: string[];
   marketingVids?: string[];
+  physicalImg?: string;
+  digitalImg?: string;
+  physicalBulkImg?: string;
+  digitalBulkImg?: string;
 }
