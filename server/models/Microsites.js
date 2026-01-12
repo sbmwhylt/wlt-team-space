@@ -38,7 +38,7 @@ const Microsite = sequelize.define(
       allowNull: true,
       validate: {
         isNumeric: true,
-      },  
+      },
     },
     banner: {
       type: DataTypes.STRING,
@@ -67,6 +67,10 @@ const Microsite = sequelize.define(
     },
     mapLink: {
       type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    businessLink: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
     marketingImgs: {
