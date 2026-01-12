@@ -154,105 +154,83 @@ export default function MicrositeTemplate() {
           </div>
 
           <CardHeader className="text-center mt-12">
-            <div className="flex gap-2 items-center justify-center">
-              <div className="flex flex-col gap-1 items-center">
-                <CardTitle className="font-bold text-3xl">
-                  {microsite.name}
-                </CardTitle>
-                {/* <div className="flex items-center gap-2 text-gray-500">
-                  {microsite.type === "consumer" ? (
-                    <div className="bg-blue-100 text-blue-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
-                      <UserStar strokeWidth={1.5} size={14} />
-                      <span>{microsite.type}</span>
-                    </div>
-                  ) : microsite.type === "business" ? (
-                    <>
-                      <div></div>
-                      <div className="bg-orange-100 text-orange-800 rounded-full flex gap-1 items-center py-1 px-2 text-xs">
-                        <Building2 strokeWidth={1.5} size={14} />
-                        <span>{microsite.type}</span>
-                      </div>
-                    </>
-                  ) : (
-                    <span className="text-gray-400">No type specified</span>
-                  )}
-                </div> */}
-              </div>
-            </div>
-            <CardDescription className="text-lg pt-4 mx-auto text-gray-700">
+            <CardTitle className="font-bold text-3xl">
+              {microsite.name}
+            </CardTitle>
+
+            <CardDescription className="text-lg pt-4  text-gray-700">
               {microsite.aboutDesc}
             </CardDescription>
-            {microsite.type === "consumer" && (
-              <div className="flex justify-center items-center gap-2 mt-8">
-                {Object.entries(microsite.socialLinks || {}).map(
-                  ([platform, url]) => {
-                    const typedPlatform = platform as keyof typeof icons;
-                    const hasLink = typeof url === "string" && url;
+          </CardHeader>
 
-                    return (
-                      <a
-                        key={platform}
-                        href={hasLink ? url : undefined}
-                        target={hasLink ? "_blank" : undefined}
-                        rel={hasLink ? "noopener noreferrer" : undefined}
-                        className={`group relative 
+          {microsite.type === "consumer" && (
+            <div className="flex justify-center items-center gap-2 mt-5">
+              {Object.entries(microsite.socialLinks || {}).map(
+                ([platform, url]) => {
+                  const typedPlatform = platform as keyof typeof icons;
+                  const hasLink = typeof url === "string" && url;
+
+                  return (
+                    <a
+                      key={platform}
+                      href={hasLink ? url : undefined}
+                      target={hasLink ? "_blank" : undefined}
+                      rel={hasLink ? "noopener noreferrer" : undefined}
+                      className={`group relative 
                         p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
                           hasLink
                             ? ":scale-105  cursor-pointer"
                             : "border-gray-100 opacity-50 cursor-default"
                         }`}
+                    >
+                      <div
+                        className={`transition-all duration-300 ${
+                          hasLink
+                            ? "text-gray-600 group-hover:text-blue-600 group-hover:scale-110"
+                            : "text-gray-400"
+                        }`}
                       >
-                        <div
-                          className={`transition-all duration-300 ${
-                            hasLink
-                              ? "text-gray-600 group-hover:text-blue-600 group-hover:scale-110"
-                              : "text-gray-400"
-                          }`}
-                        >
-                          {icons[typedPlatform] ?? null}
-                        </div>
-                      </a>
-                    );
-                  }
-                )}
-                <a
-                  href={
-                    microsite.email ? `mailto:${microsite.email}` : undefined
-                  }
-                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
-                    microsite.email
-                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                      : "border-gray-100 opacity-50 cursor-default"
+                        {icons[typedPlatform] ?? null}
+                      </div>
+                    </a>
+                  );
+                }
+              )}
+              <a
+                href={microsite.email ? `mailto:${microsite.email}` : undefined}
+                className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                  microsite.email
+                    ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                    : "border-gray-100 opacity-50 cursor-default"
+                }`}
+              >
+                <Mail
+                  strokeWidth={2}
+                  size={24}
+                  className={`p-1 rounded-full bg-red-400 text-white transition-transform duration-300 ${
+                    microsite.email ? "group-hover:scale-110" : ""
                   }`}
-                >
-                  <Mail
-                    strokeWidth={2}
-                    size={24}
-                    className={`p-1 rounded-full bg-red-400 text-white transition-transform duration-300 ${
-                      microsite.email ? "group-hover:scale-110" : ""
-                    }`}
-                  />
-                </a>
-                <a
-                  href={microsite.phone ? `tel:${microsite.phone}` : undefined}
-                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
-                    microsite.phone
-                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                      : "border-gray-100 opacity-50 cursor-default"
+                />
+              </a>
+              <a
+                href={microsite.phone ? `tel:${microsite.phone}` : undefined}
+                className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
+                  microsite.phone
+                    ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                    : "border-gray-100 opacity-50 cursor-default"
+                }`}
+              >
+                <Phone
+                  strokeWidth={0}
+                  size={24}
+                  fill="currentColor"
+                  className={`p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 ${
+                    microsite.phone ? "group-hover:scale-110" : ""
                   }`}
-                >
-                  <Phone
-                    strokeWidth={0}
-                    size={24}
-                    fill="currentColor"
-                    className={`p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 ${
-                      microsite.phone ? "group-hover:scale-110" : ""
-                    }`}
-                  />
-                </a>
-              </div>
-            )}
-          </CardHeader>
+                />
+              </a>
+            </div>
+          )}
 
           <CardContent className="text-center p-0 ">
             {/* Section Title */}
