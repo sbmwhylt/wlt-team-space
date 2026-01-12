@@ -158,8 +158,12 @@ export default function CreateMicrositeForm({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="consumer">Consumer</SelectItem>
-                  <SelectItem value="business">Business</SelectItem>
+                  <SelectItem value="consumer" className="text-orange-500">
+                    Consumer
+                  </SelectItem>
+                  <SelectItem value="business" className="text-blue-500">
+                    Business
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

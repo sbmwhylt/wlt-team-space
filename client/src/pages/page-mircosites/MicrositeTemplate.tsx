@@ -165,6 +165,189 @@ export default function MicrositeTemplate() {
             </CardDescription>
           </CardHeader>
 
+          {microsite.type === "business" && (
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full text-left bg-white/90 px-4 rounded-2xl mt-4"
+              defaultValue="item-1"
+            >
+              <AccordionItem value="item-2">
+                <AccordionTrigger className="text-md">
+                  Insufficient funds on gift card{" "}
+                </AccordionTrigger>
+                <AccordionContent className="w-full">
+                  <div className="text-gray-700 text-md space-y-3">
+                    <p>
+                      If a transaction is declined due to insufficient funds, it
+                      generally means that the total amount being spent exceeds
+                      the available balance on the gift card.
+                    </p>
+                    <p>
+                      For example, if the customer has a $200 balance on their
+                      gift card but attempts to make a purchase of $250, the
+                      transaction will not go through, as the funds on the card
+                      are insufficient to cover the total amount.
+                    </p>
+                    <p>
+                      Another common issue arises when a surcharge is
+                      automatically added to the transaction. For example: If
+                      the transaction amount is $100, but your terminal
+                      automatically adds a 2% surcharge (which would be $2), the
+                      total amount the customer needs to pay is $102.
+                    </p>
+                    <p>
+                      If the customer is using a $100 gift card, the $102 total
+                      would exceed the available balance on the card, causing
+                      the transaction to decline. To see what value is on the
+                      gift card click{" "}
+                      <span>
+                        <a
+                          href="https://www.whyleavetown.com/check-card-balance/"
+                          className="text-blue-600 underline"
+                          target="_blank"
+                        >
+                          here
+                        </a>
+                      </span>
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger className="text-md">
+                  Terminal not authorised
+                </AccordionTrigger>
+                <AccordionContent className="w-full">
+                  <p className="text-gray-700 text-md">
+                    This issue is related to your terminal not being in our
+                    network. Maybe you recently installed new terminals, or
+                    there has been a bank update. To resolve this issue please
+                    work through the terminal activation process mentioned
+                    further down on this page (under Program Operations).
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-4">
+                <AccordionTrigger className="text-md">
+                  Terminal Not Reading
+                </AccordionTrigger>
+                <AccordionContent className="w-full">
+                  <div className="text-gray-700 text-md space-y-4">
+                    <p>
+                      If a transaction fails because the terminal isn’t reading
+                      the card, there could be several reasons behind this. Here
+                      are some of the most common causes:
+                    </p>
+                    <ol className="list-decimal pl-5">
+                      <li>
+                        <strong>Incorrect process</strong>: Before swiping the
+                        card, the purchase amount must be typed into the
+                        terminal, and the enter button pressed. Only after this
+                        is completed, should the card be swiped.
+                      </li>
+                      <li>
+                        <strong>Terminal compatibility:</strong>
+                        Some terminals, like Square, are not compatible with
+                        EFTPOS Swipe gift cards (i.e. the type of card we use
+                        for the physical version of the gift card). If you're
+                        using a terminal that doesn't support these cards, the
+                        swipe won't register, and therefore the cards cannot be
+                        redeemed. For further information on Square related
+                        issues, please refer to this section below.
+                      </li>
+                      <li>
+                        <strong>Damaged terminal:</strong>
+                        If the card is not reading when swiped, it may be
+                        because the terminal’s swipe functionality isn’t working
+                        properly. This could be be due to a technical issue,
+                        such as a damaged or faulty terminal, or because the
+                        swipe functionality on your terminal has not been
+                        activated. To resolve any of these issues, please
+                        contact your terminal provider.
+                      </li>
+                      <li>
+                        <strong>Magnetic strip damage:</strong>
+                        Another reason for cards not swiping properly is because
+                        the magnetic strip on the gift card may be damaged. This
+                        can happen if the card has been scratched, bent, or
+                        exposed to extreme conditions. If you suspect a damaged
+                        magnetic strip, please encourage the card holder to
+                        contact WLT{" "}
+                        <span>
+                          <a
+                            href="https://www.whyleavetown.com/contact-us-here/"
+                            className="text-blue-600 underline"
+                            target="_blank"
+                          >
+                            here.
+                          </a>
+                        </span>
+                      </li>
+                    </ol>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-5">
+                <AccordionTrigger className="text-md">
+                  Incorrect PIN
+                </AccordionTrigger>
+                <AccordionContent className="w-full">
+                  <div className="text-gray-700 text-md space-y-4">
+                    <p>
+                      If the transaction is declined due to an incorrect PIN,
+                      it’s usually because the wrong PIN was entered. This can
+                      happen if a customer accidentally presses a wrong digit.
+                    </p>
+                    <p>
+                      <strong>Tip:</strong> Double-check the PIN located on the
+                      back of the card and take care when re-entering. Please be
+                      aware that if the wrong pin is entered on more than 3
+                      occasions, the card will be disabled for security reasons.
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-6">
+                <AccordionTrigger className="text-md">
+                  Expired Card
+                </AccordionTrigger>
+                <AccordionContent className="w-full">
+                  <p className="text-gray-700 text-md">
+                    If you{" "}
+                    <span>
+                      <a href="https://www.whyleavetown.com/check-card-balance/">
+                        check the card’s balance{" "}
+                      </a>
+                    </span>
+                    and receive the message “The given credentials are invalid”,
+                    it likely means the card has expired. In line with
+                    government legislation, a card expires three years after the
+                    purchase date, and it can therefore no longer be used.
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-7">
+                <AccordionTrigger className="text-md">
+                  All other declines
+                </AccordionTrigger>
+                <AccordionContent className="w-full">
+                  <p className="text-gray-700 text-md">
+                    If all of the above reasons for cards declining have been
+                    considered and you are still experiencing issues, please
+                    contact WLT for further assistance{" "}
+                    <span>
+                      <a href="https://www.whyleavetown.com/contact-us-here/">
+                        HERE
+                      </a>
+                    </span>
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
+          {/* Accordion */}
+
           {microsite.type === "consumer" && (
             <div className="flex justify-center items-center gap-2 mt-5">
               {Object.entries(microsite.socialLinks || {}).map(
