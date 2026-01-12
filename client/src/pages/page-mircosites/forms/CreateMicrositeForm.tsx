@@ -321,7 +321,10 @@ export default function CreateMicrositeForm({
             name="communityLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Community Link</FormLabel>
+                <FormLabel>
+                  Community Link{" "}
+                  <span className="text-orange-500">(Consumer)</span>{" "}
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="https://example.com"
@@ -339,7 +342,10 @@ export default function CreateMicrositeForm({
             name="mapLink"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Store Location</FormLabel>
+                <FormLabel>
+                  Store Location{" "}
+                  <span className="text-orange-500">(Consumer)</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="https://maps.app.goo.gl/bLiqMuCoLJNWWJvj9"
@@ -362,7 +368,10 @@ export default function CreateMicrositeForm({
 
             return (
               <FormItem>
-                <FormLabel>Marketing Images</FormLabel>
+                <FormLabel>
+                  Marketing Images{" "}
+                  <span className="text-blue-500">(Business)</span>
+                </FormLabel>
                 <FormControl>
                   <div>
                     <Input

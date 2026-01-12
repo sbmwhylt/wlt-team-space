@@ -24,9 +24,6 @@ export const createMicroSite = async (req, res) => {
     if (req.files?.banner) {
       uploadedData.banner = await uploadToImageKit(req.files.banner);
     }
-    if (req.files?.logo) {
-      uploadedData.logo = await uploadToImageKit(req.files.logo);
-    }
     if (req.files?.marketingImgs) {
       const images = Array.isArray(req.files.marketingImgs)
         ? req.files.marketingImgs

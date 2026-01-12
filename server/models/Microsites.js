@@ -83,6 +83,22 @@ const Microsite = sequelize.define(
       allowNull: true,
       defaultValue: [],
     },
+    physicalImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    digitalImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    physicalBulkImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    digitalBulkImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,

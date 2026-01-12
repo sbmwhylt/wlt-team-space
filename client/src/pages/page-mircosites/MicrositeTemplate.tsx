@@ -121,7 +121,9 @@ export default function MicrositeTemplate() {
       />
     ),
   };
-
+  {
+    console.log("physicalImg:", microsite.physicalImg);
+  }
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
       {/* Background layer (blurred image) */}
@@ -247,7 +249,10 @@ export default function MicrositeTemplate() {
               <div className="group relative bg-white border-2 border-blue-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300">
                 <div className="relative h-40 overflow-hidden">
                   <img
-                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/physical.png"
+                    src={
+                      microsite.physicalImg ||
+                      "https://ik.imagekit.io/wlt/wlt-static-imgs/physical.png"
+                    }
                     alt="Physical Card"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -284,7 +289,10 @@ export default function MicrositeTemplate() {
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-40 overflow-hidden">
                   <img
-                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-physical.png?updatedAt=1767672636033"
+                    src={
+                      microsite.physicalBulkImg ||
+                      "https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-physical.png?updatedAt=1767672636033"
+                    }
                     alt="Bulk Physical"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -320,7 +328,10 @@ export default function MicrositeTemplate() {
               <div className="group relative bg-white border-2 border-purple-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-purple-200 transition-all duration-300">
                 <div className="relative h-40 overflow-hidden">
                   <img
-                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/digital.png?updatedAt=1767672636048"
+                    src={
+                      microsite.digitalImg ||
+                      "https://ik.imagekit.io/wlt/wlt-static-imgs/digital.png?updatedAt=1767672636048"
+                    }
                     alt="Digital Card"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -356,7 +367,10 @@ export default function MicrositeTemplate() {
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-40 overflow-hidden">
                   <img
-                    src="https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-digital.png?updatedAt=1767672636330"
+                    src={
+                      microsite.digitalBulkImg ||
+                      "https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-digital.png?updatedAt=1767672636330"
+                    }
                     alt="Bulk Digital"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
