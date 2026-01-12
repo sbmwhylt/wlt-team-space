@@ -460,7 +460,7 @@ export default function MicrositeTemplate() {
                   <Palette strokeWidth={1.5} />
                 </div>
                 <h2 className="text-2xl w-60">Marketing Material</h2>
-                <p className="text-gray-700 max-w-sm">
+                <p className="text-gray-700 max-w-sm text-lg">
                   A dedicated space showcasing ready-to-use marketing materials,
                   brand assets, and promotional resources—designed to keep
                   messaging consistent, on-brand, and easy to deploy across
