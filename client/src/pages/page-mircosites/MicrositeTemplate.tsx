@@ -694,8 +694,16 @@ export default function MicrositeTemplate() {
             )}
 
             {microsite.type === "consumer" && (
-              <a href="" target="_blank">
-                <Button variant="default" size="lg" className="w-fit mt-6">
+              <a
+                href={microsite.businessLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="w-fit mt-6 cursor-pointer"
+                >
                   Go to form
                 </Button>
               </a>
