@@ -28,24 +28,23 @@ import { toast } from "react-hot-toast";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
-  link: z.string().url("Must be a valid URL"),
   type: z.enum(["consumer", "business"]),
+  email: z.string().email().optional(),
+  phone: z.string().optional(),
   banner: z.any().optional(),
-  logo: z.any().optional(),
   aboutDesc: z.string().optional(),
-  footerDesc: z.string().optional(),
   socialLinks: z.object({
     facebook: z.string().url().optional().or(z.literal("")),
-    twitter: z.string().url().optional().or(z.literal("")),
-    linkedin: z.string().url().optional().or(z.literal("")),
     instagram: z.string().url().optional().or(z.literal("")),
+    x: z.string().url().optional().or(z.literal("")),
+    website: z.string().url().optional().or(z.literal("")),
     youtube: z.string().url().optional().or(z.literal("")),
   }),
   digitalCardOrderLink: z.string().url().optional().or(z.literal("")),
   physicalCardOrderLink: z.string().url().optional().or(z.literal("")),
-  bulkOrderLink: z.string().url().optional().or(z.literal("")),
   communityLink: z.string().url().optional().or(z.literal("")),
   mapLink: z.string().url().optional().or(z.literal("")),
+  businessLink: z.string().url().optional().or(z.literal("")),
   marketingImgs: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
 });
@@ -65,24 +64,23 @@ export default function CreateMicrositeForm({
     resolver: zodResolver(micrositeSchema),
     defaultValues: {
       name: "",
-      link: "",
       type: "consumer",
+      email: "",
+      phone: "",
       banner: null,
-      logo: null,
       aboutDesc: "",
-      footerDesc: "",
       socialLinks: {
         facebook: "",
-        twitter: "",
-        linkedin: "",
         instagram: "",
+        x: "",
+        website: "",
         youtube: "",
       },
       digitalCardOrderLink: "",
       physicalCardOrderLink: "",
-      bulkOrderLink: "",
       communityLink: "",
       mapLink: "",
+      businessLink: "",
       marketingImgs: [],
       marketingVids: [],
     },
@@ -93,15 +91,12 @@ export default function CreateMicrositeForm({
       const formData = new FormData();
       // Required fields
       formData.append("name", values.name);
-      formData.append("link", values.link);
       formData.append("type", values.type);
       // Optional text fields - loop through them
       const optionalFields = [
         "aboutDesc",
-        "footerDesc",
         "digitalCardOrderLink",
         "physicalCardOrderLink",
-        "bulkOrderLink",
         "communityLink",
         "mapLink",
       ];
@@ -111,7 +106,6 @@ export default function CreateMicrositeForm({
       });
       // Files
       if (values.banner) formData.append("banner", values.banner);
-      if (values.logo) formData.append("logo", values.logo);
       // Marketing images
       if (values.marketingImgs?.length) {
         values.marketingImgs.forEach((img) => {
@@ -120,7 +114,7 @@ export default function CreateMicrositeForm({
       }
       // Social links as JSON
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
-      await create(formData); 
+      await create(formData);
       toast.success("Microsite created successfully!");
       form.reset();
       onSuccess?.();
@@ -141,20 +135,6 @@ export default function CreateMicrositeForm({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Default Microsite" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="link"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Link</FormLabel>
-              <FormControl>
-                <Input placeholder="https://example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -187,75 +167,68 @@ export default function CreateMicrositeForm({
           )}
         />
 
-        <div className="flex items-center gap-4">
-          {/* Banner Upload */}
+        <div className="flex items-center gap-2 w-full">
           <FormField
             control={form.control}
-            name="banner"
+            name="email"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel>Banner</FormLabel>
+              <FormItem className="flex-1">
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    id="banner"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      field.onChange(file);
-                    }}
-                  />
+                  <Input placeholder="Email" {...field} />
                 </FormControl>
-
-                {field.value && (
-                  <div className="mt-2">
-                    <img
-                      src={URL.createObjectURL(field.value)}
-                      alt="Banner Preview"
-                      className="w-32 h-20 object-cover rounded-md border"
-                    />
-                  </div>
-                )}
-
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          {/* Logo Upload */}
           <FormField
             control={form.control}
-            name="logo"
+            name="phone"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel>Logo</FormLabel>
+              <FormItem className="flex-1">
+                <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input
-                    id="logo"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      field.onChange(file);
-                    }}
-                  />
+                  <Input placeholder="Phone" {...field} />
                 </FormControl>
-
-                {field.value && (
-                  <div className="mt-2">
-                    <img
-                      src={URL.createObjectURL(field.value)}
-                      alt="Logo Preview"
-                      className="w-20 h-20 object-cover rounded-full border"
-                    />
-                  </div>
-                )}
-
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
+
+        {/* Banner Upload */}
+        <FormField
+          control={form.control}
+          name="banner"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-2">
+              <FormLabel>Banner</FormLabel>
+              <FormControl>
+                <Input
+                  id="banner"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    field.onChange(file);
+                  }}
+                />
+              </FormControl>
+
+              {field.value && (
+                <div className="mt-2">
+                  <img
+                    src={URL.createObjectURL(field.value)}
+                    alt="Banner Preview"
+                    className="w-32 h-20 object-cover rounded-md border"
+                  />
+                </div>
+              )}
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}
@@ -266,23 +239,6 @@ export default function CreateMicrositeForm({
               <FormControl>
                 <Textarea
                   placeholder="This is a default microsite created to showcase..."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="footerDesc"
-          render={({ field }) => (
-            <FormItem className="pb-4">
-              <FormLabel>Footer Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Input footer description here..."
                   {...field}
                 />
               </FormControl>
@@ -321,7 +277,7 @@ export default function CreateMicrositeForm({
         </div>
 
         <hr />
-        <h3 className="text-lg font-bold">Other Details</h3>
+        <h3 className="text-lg ">Other Details</h3>
 
         <div className="grid grid-cols-2 gap-2">
           <FormField
@@ -395,8 +351,6 @@ export default function CreateMicrositeForm({
               </FormItem>
             )}
           />
-
-          
         </div>
 
         <FormField
