@@ -207,7 +207,7 @@ export default function MicrositeTemplate() {
                           className="text-blue-600 underline"
                           target="_blank"
                         >
-                          here
+                          here.
                         </a>
                       </span>
                     </p>
@@ -337,8 +337,8 @@ export default function MicrositeTemplate() {
                     considered and you are still experiencing issues, please
                     contact WLT for further assistance{" "}
                     <span>
-                      <a href="https://www.whyleavetown.com/contact-us-here/">
-                        HERE
+                      <a href="https://www.whyleavetown.com/contact-us-here/" className="underline text-blue-500">
+                        here.
                       </a>
                     </span>
                   </p>
