@@ -25,6 +25,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
+import { Upload, X } from "lucide-react";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -47,6 +48,10 @@ const micrositeSchema = z.object({
   businessLink: z.string().url().optional().or(z.literal("")),
   marketingImgs: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
+  physicalImg: z.any().optional(),
+  digitalImg: z.any().optional(),
+  physicalBulkImg: z.any().optional(),
+  digitalBulkImg: z.any().optional(),
 });
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
@@ -83,6 +88,10 @@ export default function CreateMicrositeForm({
       businessLink: "",
       marketingImgs: [],
       marketingVids: [],
+      physicalImg: null,
+      digitalImg: null,
+      physicalBulkImg: null,
+      digitalBulkImg: null,
     },
   });
 
@@ -208,27 +217,42 @@ export default function CreateMicrositeForm({
             <FormItem className="flex flex-col gap-2">
               <FormLabel>Banner</FormLabel>
               <FormControl>
-                <Input
-                  id="banner"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    field.onChange(file);
-                  }}
-                />
-              </FormControl>
-
-              {field.value && (
-                <div className="mt-2">
-                  <img
-                    src={URL.createObjectURL(field.value)}
-                    alt="Banner Preview"
-                    className="w-32 h-20 object-cover rounded-md border"
-                  />
+                <div>
+                  {!field.value ? (
+                    <label
+                      htmlFor="banner"
+                      className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
+                    >
+                      <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                      <span className="text-sm text-gray-500">
+                        Click to upload Banner
+                      </span>
+                      <Input
+                        id="banner"
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => field.onChange(e.target.files?.[0])}
+                      />
+                    </label>
+                  ) : (
+                    <div className="relative w-full h-32 border rounded-lg overflow-hidden">
+                      <img
+                        src={URL.createObjectURL(field.value)}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => field.onChange(null)}
+                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -428,6 +452,202 @@ export default function CreateMicrositeForm({
             );
           }}
         />
+
+        <hr />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-7">
+          <FormField
+            control={form.control}
+            name="physicalImg"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Physical Image</FormLabel>
+                <FormControl>
+                  <div>
+                    {!field.value ? (
+                      <label
+                        htmlFor="physicalImg"
+                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
+                      >
+                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                        <span className="text-sm text-gray-500">
+                          Upload Physical Image
+                        </span>
+                        <Input
+                          id="physicalImg"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => field.onChange(e.target.files?.[0])}
+                        />
+                      </label>
+                    ) : (
+                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
+                        <img
+                          src={URL.createObjectURL(field.value)}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(null)}
+                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="digitalImg"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Digital Image</FormLabel>
+                <FormControl>
+                  <div>
+                    {!field.value ? (
+                      <label
+                        htmlFor="digitalImg"
+                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
+                      >
+                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                        <span className="text-sm text-gray-500">
+                          Upload Digital Image
+                        </span>
+                        <Input
+                          id="digitalImg"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => field.onChange(e.target.files?.[0])}
+                        />
+                      </label>
+                    ) : (
+                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
+                        <img
+                          src={URL.createObjectURL(field.value)}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(null)}
+                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="physicalBulkImg"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Physical Bulk Image</FormLabel>
+                <FormControl>
+                  <div>
+                    {!field.value ? (
+                      <label
+                        htmlFor="physicalBulkImg"
+                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
+                      >
+                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                        <span className="text-sm text-gray-500">
+                          Upload Physical Bulk Image
+                        </span>
+                        <Input
+                          id="physicalBulkImg"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => field.onChange(e.target.files?.[0])}
+                        />
+                      </label>
+                    ) : (
+                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
+                        <img
+                          src={URL.createObjectURL(field.value)}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(null)}
+                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="digitalBulkImg"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2">
+                <FormLabel>Digital Bulk Image</FormLabel>
+                <FormControl>
+                  <div>
+                    {!field.value ? (
+                      <label
+                        htmlFor="digitalBulkImg"
+                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
+                      >
+                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                        <span className="text-sm text-gray-500">
+                          Upload Digital Bulk Image
+                        </span>
+                        <Input
+                          id="digitalBulkImg"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => field.onChange(e.target.files?.[0])}
+                        />
+                      </label>
+                    ) : (
+                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
+                        <img
+                          src={URL.createObjectURL(field.value)}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => field.onChange(null)}
+                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>

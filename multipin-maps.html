@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Microsite Location Manager</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .view-toggle {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .view-toggle button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: none;
+        background: #007bff;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .view-toggle button.active {
+        background: #0056b3;
+      }
+      .section {
+        display: none;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .section.active {
+        display: block;
+      }
+      h2 {
+        margin-top: 0;
+      }
+      #searchBox {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      #map {
+        height: 400px;
+        width: 100%;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+      .location-list {
+        margin-top: 20px;
+      }
+      .location-item {
+        background: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+      }
+      .location-item h3 {
+        margin: 0 0 5px 0;
+      }
+      .location-item button {
+        padding: 8px 15px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .location-item button:hover {
+        background: #218838;
+      }
+      .delete-btn {
+        background: #dc3545 !important;
+        margin-left: 10px;
+      }
+      .delete-btn:hover {
+        background: #c82333 !important;
+      }
+      .instructions {
+        background: #e7f3ff;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="view-toggle">
+        <button id="adminBtn" class="active">Admin View (Add Locations)</button>
+        <button id="customerBtn">Customer View (Browse Locations)</button>
+      </div>
+
+      <!-- ADMIN SECTION -->
+      <div id="adminSection" class="section active">
+        <h2>📍 Add Your Business Locations</h2>
+        <div class="instructions">
+          <strong>How to add a location:</strong><br />
+          1. Search for an address in the box below, OR<br />
+          2. Click directly on the map<br />
+          3. Give it a name and save!
+        </div>
+
+        <input
+          type="text"
+          id="searchBox"
+          placeholder="Search for an address (e.g., 'SM Mall of Asia, Manila')"
+        />
+
+        <div id="map"></div>
+
+        <div class="location-list">
+          <h3>Your Saved Locations:</h3>
+          <div id="savedLocations"></div>
+        </div>
+      </div>
+
+      <!-- CUSTOMER SECTION -->
+      <div id="customerSection" class="section">
+        <h2>🗺️ Our Locations</h2>
+        <div
+          id="customerMap"
+          style="height: 400px; margin-bottom: 20px; border-radius: 5px"
+        ></div>
+        <div id="customerLocations"></div>
+      </div>
+    </div>
+
+    <script>
+      // SIMULATED DATABASE (In real app, this would be your actual database)
+      let savedPins = [];
+
+      // Initialize admin map
+      const adminMap = L.map("map").setView([12.8797, 121.774], 6);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(adminMap);
+
+      // Initialize customer map
+      const customerMap = L.map("customerMap").setView([12.8797, 121.774], 6);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(customerMap);
+
+      // View toggle
+      document.getElementById("adminBtn").addEventListener("click", () => {
+        document.getElementById("adminSection").classList.add("active");
+        document.getElementById("customerSection").classList.remove("active");
+        document.getElementById("adminBtn").classList.add("active");
+        document.getElementById("customerBtn").classList.remove("active");
+        setTimeout(() => adminMap.invalidateSize(), 100);
+      });
+
+      document.getElementById("customerBtn").addEventListener("click", () => {
+        document.getElementById("customerSection").classList.add("active");
+        document.getElementById("adminSection").classList.remove("active");
+        document.getElementById("customerBtn").classList.add("active");
+        document.getElementById("adminBtn").classList.remove("active");
+        setTimeout(() => customerMap.invalidateSize(), 100);
+        renderCustomerView();
+      });
+
+      // Search functionality using Nominatim (free geocoding)
+      document
+        .getElementById("searchBox")
+        .addEventListener("keypress", async (e) => {
+          if (e.key === "Enter") {
+            const query = e.target.value;
+            if (!query) return;
+
+            try {
+              const response = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+                  query
+                )}`
+              );
+              const results = await response.json();
+
+              if (results.length > 0) {
+                const lat = parseFloat(results[0].lat);
+                const lng = parseFloat(results[0].lon);
+                adminMap.setView([lat, lng], 15);
+                addPin(lat, lng, results[0].display_name);
+              } else {
+                alert(
+                  "Location not found. Try a different search or click on the map."
+                );
+              }
+            } catch (error) {
+              alert("Search failed. Please click on the map instead.");
+            }
+          }
+        });
+
+      // Click to add pin
+      adminMap.on("click", (e) => {
+        addPin(e.latlng.lat, e.latlng.lng);
+      });
+
+      // Add pin function
+      function addPin(lat, lng, suggestedName = "") {
+        const locationName = prompt("Name this location:", suggestedName);
+
+        if (locationName) {
+          // Save to "database"
+          const newPin = {
+            id: Date.now(),
+            name: locationName,
+            lat: lat,
+            lng: lng,
+          };
+          savedPins.push(newPin);
+
+          // Add marker to admin map
+          L.marker([lat, lng])
+            .addTo(adminMap)
+            .bindPopup(`<strong>${locationName}</strong>`)
+            .openPopup();
+
+          // Update saved locations list
+          renderSavedLocations();
+
+          alert("Location saved! ✓");
+        }
+      }
+
+      // Render saved locations in admin
+      function renderSavedLocations() {
+        const container = document.getElementById("savedLocations");
+
+        if (savedPins.length === 0) {
+          container.innerHTML =
+            '<p style="color: #999;">No locations saved yet.</p>';
+          return;
+        }
+
+        container.innerHTML = savedPins
+          .map(
+            (pin) => `
+      <div class="location-item">
+        <h3>${pin.name}</h3>
+        <small>Lat: ${pin.lat.toFixed(4)}, Lng: ${pin.lng.toFixed(4)}</small>
+        <br>
+        <button onclick="deletePin(${
+          pin.id
+        })" class="delete-btn">Delete</button>
+      </div>
+    `
+          )
+          .join("");
+      }
+
+      // Delete pin
+      function deletePin(id) {
+        if (confirm("Delete this location?")) {
+          savedPins = savedPins.filter((pin) => pin.id !== id);
+          renderSavedLocations();
+
+          // Clear and redraw admin map markers
+          adminMap.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+              adminMap.removeLayer(layer);
+            }
+          });
+
+          savedPins.forEach((pin) => {
+            L.marker([pin.lat, pin.lng])
+              .addTo(adminMap)
+              .bindPopup(`<strong>${pin.name}</strong>`);
+          });
+        }
+      }
+
+      // Render customer view
+      function renderCustomerView() {
+        // Clear customer map markers
+        customerMap.eachLayer((layer) => {
+          if (layer instanceof L.Marker) {
+            customerMap.removeLayer(layer);
+          }
+        });
+
+        const container = document.getElementById("customerLocations");
+
+        if (savedPins.length === 0) {
+          container.innerHTML =
+            '<p style="color: #999; text-align: center;">No locations available yet.</p>';
+          return;
+        }
+
+        // Add markers to customer map
+        savedPins.forEach((pin) => {
+          L.marker([pin.lat, pin.lng])
+            .addTo(customerMap)
+            .bindPopup(`<strong>${pin.name}</strong>`);
+        });
+
+        // Fit map to show all markers
+        if (savedPins.length > 0) {
+          const bounds = L.latLngBounds(
+            savedPins.map((pin) => [pin.lat, pin.lng])
+          );
+          customerMap.fitBounds(bounds, { padding: [50, 50] });
+        }
+
+        // Render location cards
+        container.innerHTML = savedPins
+          .map((pin) => {
+            const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${pin.lat},${pin.lng}`;
+            return `
+        <div class="location-item">
+          <h3>${pin.name}</h3>
+          <small>Coordinates: ${pin.lat.toFixed(4)}, ${pin.lng.toFixed(
+              4
+            )}</small>
+          <br>
+          <button onclick="window.open('${directionsUrl}', '_blank')">
+            🧭 Get Directions
+          </button>
+        </div>
+      `;
+          })
+          .join("");
+      }
+
+      // Initial render
+      renderSavedLocations();
+    </script>
+  </body>
+</html>
