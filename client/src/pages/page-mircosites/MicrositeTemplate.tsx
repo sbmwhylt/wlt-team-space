@@ -47,6 +47,7 @@ import {
   Palette,
   Mail,
   Phone,
+  CircleOff,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
@@ -121,9 +122,7 @@ export default function MicrositeTemplate() {
       />
     ),
   };
-  {
-    console.log("physicalImg:", microsite.physicalImg);
-  }
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
       {/* Background layer (blurred image) */}
@@ -154,7 +153,6 @@ export default function MicrositeTemplate() {
               />
             </div>
           </div>
-
           <CardHeader className="text-center mt-12">
             <CardTitle className="font-bold text-3xl">
               {microsite.name}
@@ -164,7 +162,14 @@ export default function MicrositeTemplate() {
               {microsite.aboutDesc}
             </CardDescription>
           </CardHeader>
-
+          {microsite.type === "business" && (
+            <div className="section-title mt-6 flex flex-col justify-center items-center text-center gap-3">
+              <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                <CircleOff strokeWidth={1.5} />
+              </div>
+              <h2 className="text-2xl ">Had a Card Decline?</h2>
+            </div>
+          )}
           {microsite.type === "business" && (
             <Accordion
               type="single"
@@ -337,7 +342,10 @@ export default function MicrositeTemplate() {
                     considered and you are still experiencing issues, please
                     contact WLT for further assistance{" "}
                     <span>
-                      <a href="https://www.whyleavetown.com/contact-us-here/" className="underline text-blue-500">
+                      <a
+                        href="https://www.whyleavetown.com/contact-us-here/"
+                        className="underline text-blue-500"
+                      >
                         here.
                       </a>
                     </span>
@@ -347,7 +355,6 @@ export default function MicrositeTemplate() {
             </Accordion>
           )}
           {/* Accordion */}
-
           {microsite.type === "consumer" && (
             <div className="flex justify-center items-center gap-2 mt-5">
               {Object.entries(microsite.socialLinks || {}).map(
@@ -416,7 +423,6 @@ export default function MicrositeTemplate() {
               </a>
             </div>
           )}
-
           <CardContent className="text-center p-0 ">
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
@@ -499,7 +505,7 @@ export default function MicrositeTemplate() {
                     target="_blank"
                     className="inline-flex items-center justify-center gap-2 w-full bg-gray-900 hover:bg-gray-800 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
                   >
-                    Learn More
+                    Purchase Now
                     <span className="group-hover:translate-x-1 transition-transform">
                       →
                     </span>
@@ -577,7 +583,7 @@ export default function MicrositeTemplate() {
                     target="_blank"
                     className="inline-flex items-center justify-center gap-2 w-full bg-gray-900 hover:bg-gray-800 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
                   >
-                    Learn More
+                    Purchase Now
                     <span className="group-hover:translate-x-1 transition-transform">
                       →
                     </span>
@@ -956,7 +962,6 @@ export default function MicrositeTemplate() {
               </div>
             )}
           </CardContent>
-
           <CardFooter className="bg-white rounded-2xl py-4">
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-2 items-center">

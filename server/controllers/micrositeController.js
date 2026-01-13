@@ -20,18 +20,33 @@ export const createMicroSite = async (req, res) => {
     if (existing) {
       return res.status(400).json({ error: "Slug already exists" });
     }
+
     const uploadedData = {};
-    if (req.files?.banner) {
-      uploadedData.banner = await uploadToImageKit(req.files.banner);
-    }
+
+    // Upload all single images
+    const singleImages = [
+      "banner",
+      "physicalImg",
+      "digitalImg",
+      "physicalBulkImg",
+      "digitalBulkImg",
+    ];
+    await Promise.all(
+      singleImages.map(async (field) => {
+        if (req.files?.[field]) {
+          uploadedData[field] = await uploadToImageKit(req.files[field]);
+        }
+      })
+    );
+
+    // Upload multiple marketing images
     if (req.files?.marketingImgs) {
       const images = Array.isArray(req.files.marketingImgs)
         ? req.files.marketingImgs
         : [req.files.marketingImgs];
-      const imageUrls = await Promise.all(
+      uploadedData.marketingImgs = await Promise.all(
         images.map((file) => uploadToImageKit(file))
       );
-      uploadedData.marketingImgs = imageUrls;
     }
 
     const microsite = await Microsite.create({
