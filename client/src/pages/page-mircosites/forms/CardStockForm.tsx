@@ -67,10 +67,7 @@ Number of Cards Needed: ${form.numberOfCards}
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="max-w-2xl mx-auto grid gap-5"
-    >
+    <form onSubmit={onSubmit} className="max-w-2xl mx-auto grid gap-5">
       <h2 className="text-2xl font-bold mb-2">Need More Card Stock?</h2>
       <p className="text-sm text-gray-600">
         Are you a load-up store and need more cards? Fill out the form below to

@@ -1,12 +1,9 @@
-// components/UpdateContactForm.tsx
-
-"use client";
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import toast from "react-hot-toast";
 
 export default function UpdateContactForm() {
   const [form, setForm] = useState({
@@ -19,16 +16,18 @@ export default function UpdateContactForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{ type: "idle" | "success" | "error"; message?: string }>({
-    type: "idle",
-  });
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
-  const update = (k: keyof typeof form, v: string) => setForm({ ...form, [k]: v });
+  // Update any field in the form
+  const handleChange = (field: string, value: string) => {
+    setForm({ ...form, [field]: value });
+  };
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setStatus({ type: "idle" });
+    setMessage("");
 
     try {
       const res = await fetch("/api/contact", {
@@ -49,8 +48,13 @@ Other Info: ${form.otherInfo}
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to send form");
-      setStatus({ type: "success", message: "Form submitted successfully." });
+      if (!res.ok) throw new Error("Failed to send");
+
+      // Success!
+      toast.success("Form submitted successfully!");
+      setIsError(false);
+
+      // Clear form
       setForm({
         businessName: "",
         contactName: "",
@@ -59,21 +63,21 @@ Other Info: ${form.otherInfo}
         businessAddress: "",
         otherInfo: "",
       });
-    } catch (err: any) {
-      setStatus({ type: "error", message: err.message || "Submission failed." });
+    } catch (err) {
+      // Error!
+      toast.error("Submission failed. Please try again.");
+      setIsError(true);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="max-w-2xl mx-auto  bg-white  grid gap-5"
-    >
+    <form onSubmit={onSubmit} className="max-w-2xl mx-auto bg-white grid gap-5">
       <h2 className="text-2xl font-bold mb-2">Update Contact Details</h2>
       <p className="text-sm text-gray-600">
-        Have your business details changed? Fill out the form below to update your information.
+        Have your business details changed? Fill out the form below to update
+        your information.
       </p>
 
       <div>
@@ -85,7 +89,7 @@ Other Info: ${form.otherInfo}
           required
           placeholder="Enter your answer"
           value={form.businessName}
-          onChange={(e) => update("businessName", e.target.value)}
+          onChange={(e) => handleChange("businessName", e.target.value)}
         />
       </div>
 
@@ -98,21 +102,22 @@ Other Info: ${form.otherInfo}
           id="contactName"
           placeholder="Enter your name"
           value={form.contactName}
-          onChange={(e) => update("contactName", e.target.value)}
+          onChange={(e) => handleChange("contactName", e.target.value)}
         />
       </div>
 
       <div>
         <Label htmlFor="contactEmail">Preferred Contact Email Address</Label>
         <p className="text-sm text-gray-500 mb-1">
-          All WLT correspondence will go to this address, including terminal management updates.
+          All WLT correspondence will go to this address, including terminal
+          management updates.
         </p>
         <Input
           id="contactEmail"
           type="email"
           placeholder="E.g. you@email.com"
           value={form.contactEmail}
-          onChange={(e) => update("contactEmail", e.target.value)}
+          onChange={(e) => handleChange("contactEmail", e.target.value)}
         />
       </div>
 
@@ -123,7 +128,7 @@ Other Info: ${form.otherInfo}
           type="tel"
           placeholder="Enter a number"
           value={form.contactPhone}
-          onChange={(e) => update("contactPhone", e.target.value)}
+          onChange={(e) => handleChange("contactPhone", e.target.value)}
         />
       </div>
 
@@ -133,33 +138,38 @@ Other Info: ${form.otherInfo}
           id="businessAddress"
           placeholder="Enter your answer"
           value={form.businessAddress}
-          onChange={(e) => update("businessAddress", e.target.value)}
+          onChange={(e) => handleChange("businessAddress", e.target.value)}
         />
       </div>
 
       <div>
         <Label htmlFor="otherInfo">Other</Label>
         <p className="text-sm text-gray-500 mb-1">
-          If there is anything else you would like to inform us about, please include it here.
+          If there is anything else you would like to inform us about, please
+          include it here.
         </p>
         <Textarea
           id="otherInfo"
           rows={5}
           placeholder="Enter additional details"
           value={form.otherInfo}
-          onChange={(e) => update("otherInfo", e.target.value)}
+          onChange={(e) => handleChange("otherInfo", e.target.value)}
         />
       </div>
 
-      <div className="flex items-center gap-3">
+      <div>
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Sending..." : "Submit"}
         </Button>
-        {status.type === "success" && (
-          <p className="text-green-600 text-sm">{status.message}</p>
-        )}
-        {status.type === "error" && (
-          <p className="text-red-600 text-sm">{status.message}</p>
+
+        {message && (
+          <p
+            className={`text-sm mt-2 ${
+              isError ? "text-red-600" : "text-green-600"
+            }`}
+          >
+            {message}
+          </p>
         )}
       </div>
     </form>
