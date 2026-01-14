@@ -1,13 +1,16 @@
 import express from "express";
 import nodemailer from "nodemailer";
+import { contactUpdateTemplate } from "../utils/emailTemplates.js";
 
 const router = express.Router();
 
-router.post("/api/contact", async (req, res) => {
+router.post("/contact", async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, formData } = req.body;
 
-    // Setup email sender
+    // Generate HTML based on form type or subject
+    const htmlContent = contactUpdateTemplate(formData);
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -16,12 +19,11 @@ router.post("/api/contact", async (req, res) => {
       },
     });
 
-    // Send the email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
       to: "info@whyleavetown.com",
       subject: subject,
-      text: message,
+      html: htmlContent,
       replyTo: email,
     });
 
