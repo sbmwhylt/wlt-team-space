@@ -140,20 +140,23 @@ export default function MicrositeTemplate() {
         <Card className="p-4 rounded-3xl bg-white/65 backdrop-blur-2xl ">
           {/* Banner container */}
           <div className="relative w-full">
-            <div
-              className="w-full h-72 bg-cover bg-center bg-gray-100 rounded-2xl"
-              style={{ backgroundImage: `url('${microsite.banner}')` }}
-            ></div>
+            <div className="w-full h-72 bg-gray-100 rounded-2xl overflow-hidden">
+              <img
+                src={microsite.banner}
+                alt="Banner"
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-            {/* Logo overlapping the bottom of banner */}
             <div className="absolute left-1/2 -bottom-12 transform -translate-x-1/2">
               <img
                 src="/logo-whyleavetown.png"
                 alt="Why Leave Town Logo"
-                className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+                className="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
               />
             </div>
           </div>
+
           <CardHeader className="text-center mt-12">
             <CardTitle className="font-bold text-3xl">
               {microsite.name}
@@ -358,72 +361,55 @@ export default function MicrositeTemplate() {
           {/* Accordion */}
           {microsite.type === "consumer" && (
             <div className="flex justify-center items-center gap-2 mt-5">
-              {Object.entries(microsite.socialLinks || {}).map(
-                ([platform, url]) => {
+              {Object.entries(microsite.socialLinks || {})
+                .filter(([_, url]) => typeof url === "string" && url)
+                .map(([platform, url]) => {
                   const typedPlatform = platform as keyof typeof icons;
-                  const hasLink = typeof url === "string" && url;
 
                   return (
                     <a
                       key={platform}
-                      href={hasLink ? url : undefined}
-                      target={hasLink ? "_blank" : undefined}
-                      rel={hasLink ? "noopener noreferrer" : undefined}
-                      className={`group relative 
-                        p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
-                          hasLink
-                            ? ":scale-105  cursor-pointer"
-                            : "border-gray-100 opacity-50 cursor-default"
-                        }`}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 hover:scale-105 cursor-pointer"
                     >
-                      <div
-                        className={`transition-all duration-300 ${
-                          hasLink
-                            ? "text-gray-600 group-hover:text-blue-600 group-hover:scale-110"
-                            : "text-gray-400"
-                        }`}
-                      >
+                      <div className="transition-all duration-300 text-gray-600 group-hover:text-blue-600 group-hover:scale-110">
                         {icons[typedPlatform] ?? null}
                       </div>
                     </a>
                   );
-                }
+                })}
+
+              {microsite.email && (
+                <a
+                  href={`mailto:${microsite.email}`}
+                  className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                >
+                  <Mail
+                    strokeWidth={2}
+                    size={24}
+                    className="p-1 rounded-full bg-red-400 text-white transition-transform duration-300 group-hover:scale-110"
+                  />
+                </a>
               )}
-              <a
-                href={microsite.email ? `mailto:${microsite.email}` : undefined}
-                className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
-                  microsite.email
-                    ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                    : "border-gray-100 opacity-50 cursor-default"
-                }`}
-              >
-                <Mail
-                  strokeWidth={2}
-                  size={24}
-                  className={`p-1 rounded-full bg-red-400 text-white transition-transform duration-300 ${
-                    microsite.email ? "group-hover:scale-110" : ""
-                  }`}
-                />
-              </a>
-              <a
-                href={microsite.phone ? `tel:${microsite.phone}` : undefined}
-                className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
-                  microsite.phone
-                    ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                    : "border-gray-100 opacity-50 cursor-default"
-                }`}
-              >
-                <Phone
-                  strokeWidth={0}
-                  size={24}
-                  fill="currentColor"
-                  className={`p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 ${
-                    microsite.phone ? "group-hover:scale-110" : ""
-                  }`}
-                />
-              </a>
+
+              {microsite.phone && (
+                <a
+                  href={`tel:${microsite.phone}`}
+                  className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                >
+                  <Phone
+                    strokeWidth={0}
+                    size={24}
+                    fill="currentColor"
+                    className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
+                  />
+                </a>
+              )}
             </div>
           )}
+
           <CardContent className="text-center p-0 ">
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
@@ -523,7 +509,7 @@ export default function MicrositeTemplate() {
                       "https://ik.imagekit.io/wlt/wlt-static-imgs/digital.png?updatedAt=1767672636048"
                     }
                     alt="Digital Card"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 "
                   />
                   <div className="absolute top-3 left-3 bg-gradient-to-r from-red-400 to-red-500 rounded-full p-2 text-white shadow-lg">
                     <ShoppingBasket strokeWidth={1.5} size={18} />
@@ -914,73 +900,53 @@ export default function MicrositeTemplate() {
 
             {/* Social Links */}
             {microsite.type === "consumer" && (
-              <div className="flex justify-center items-center gap-2 mt-8">
-                {Object.entries(microsite.socialLinks || {}).map(
-                  ([platform, url]) => {
+              <div className="flex justify-center items-center gap-2 mt-15 mb-4">
+                {Object.entries(microsite.socialLinks || {})
+                  .filter(([_, url]) => typeof url === "string" && url)
+                  .map(([platform, url]) => {
                     const typedPlatform = platform as keyof typeof icons;
-                    const hasLink = typeof url === "string" && url;
 
                     return (
                       <a
                         key={platform}
-                        href={hasLink ? url : undefined}
-                        target={hasLink ? "_blank" : undefined}
-                        rel={hasLink ? "noopener noreferrer" : undefined}
-                        className={`group relative 
-                        p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 ${
-                          hasLink
-                            ? ":scale-105  cursor-pointer"
-                            : "border-gray-100 opacity-50 cursor-default"
-                        }`}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 hover:scale-105 cursor-pointer"
                       >
-                        <div
-                          className={`transition-all duration-300 ${
-                            hasLink
-                              ? "text-gray-600 group-hover:text-blue-600 group-hover:scale-110"
-                              : "text-gray-400"
-                          }`}
-                        >
+                        <div className="transition-all duration-300 text-gray-600 group-hover:text-blue-600 group-hover:scale-110">
                           {icons[typedPlatform] ?? null}
                         </div>
                       </a>
                     );
-                  }
+                  })}
+
+                {microsite.email && (
+                  <a
+                    href={`mailto:${microsite.email}`}
+                    className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                  >
+                    <Mail
+                      strokeWidth={2}
+                      size={24}
+                      className="p-1 rounded-full bg-red-400 text-white transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </a>
                 )}
-                <a
-                  href={
-                    microsite.email ? `mailto:${microsite.email}` : undefined
-                  }
-                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
-                    microsite.email
-                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                      : "border-gray-100 opacity-50 cursor-default"
-                  }`}
-                >
-                  <Mail
-                    strokeWidth={2}
-                    size={24}
-                    className={`p-1 rounded-full bg-red-400 text-white transition-transform duration-300 ${
-                      microsite.email ? "group-hover:scale-110" : ""
-                    }`}
-                  />
-                </a>
-                <a
-                  href={microsite.phone ? `tel:${microsite.phone}` : undefined}
-                  className={`group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 ${
-                    microsite.phone
-                      ? "hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                      : "border-gray-100 opacity-50 cursor-default"
-                  }`}
-                >
-                  <Phone
-                    strokeWidth={0}
-                    size={24}
-                    fill="currentColor"
-                    className={`p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 ${
-                      microsite.phone ? "group-hover:scale-110" : ""
-                    }`}
-                  />
-                </a>
+
+                {microsite.phone && (
+                  <a
+                    href={`tel:${microsite.phone}`}
+                    className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
+                  >
+                    <Phone
+                      strokeWidth={0}
+                      size={24}
+                      fill="currentColor"
+                      className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </a>
+                )}
               </div>
             )}
           </CardContent>
