@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
+import slugify from "slugify"; 
 
 const Microsite = sequelize.define(
   "Microsite",

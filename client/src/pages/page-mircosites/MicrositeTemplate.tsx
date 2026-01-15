@@ -42,7 +42,7 @@ import {
   HandCoins,
   MessageCircleQuestionMark,
   BriefcaseBusiness,
-  Globe,
+  Earth,
   Facebook,
   Instagram,
   Palette,
@@ -65,9 +65,7 @@ export function Example() {
           delay: 2000,
         }),
       ]}
-    >
-      // ...
-    </Carousel>
+    ></Carousel>
   );
 }
 export default function MicrositeTemplate() {
@@ -116,7 +114,7 @@ export default function MicrositeTemplate() {
     ),
     x: <SocialIcon network="x" style={{ height: 24, width: 24 }} />,
     website: (
-      <Globe
+      <Earth
         strokeWidth={1.5}
         size={24}
         className="text-white p-1 rounded-full bg-purple-500"
@@ -358,7 +356,8 @@ export default function MicrositeTemplate() {
               </AccordionItem>
             </Accordion>
           )}
-          {/* Accordion */}
+
+          {/* Social Links */}
           {microsite.type === "consumer" && (
             <div className="flex justify-center items-center gap-2 mt-5">
               {Object.entries(microsite.socialLinks || {})
@@ -965,7 +964,7 @@ export default function MicrositeTemplate() {
 
               <div className="flex items-center gap-2">
                 <a href="https://whyleavetown.com/" target="_blank">
-                  <Globe
+                  <Earth
                     strokeWidth={1.5}
                     size={28}
                     className="rounded-full p-1.5 bg-secondary text-white"
