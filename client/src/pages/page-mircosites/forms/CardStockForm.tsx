@@ -1,11 +1,8 @@
-// components/NeedMoreCardStockForm.tsx
-
-"use client";
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import toast from "react-hot-toast";
 
 export default function CardStockForm() {
   const [form, setForm] = useState({
@@ -16,12 +13,6 @@ export default function CardStockForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{
-    type: "idle" | "success" | "error";
-    message?: string;
-  }>({
-    type: "idle",
-  });
 
   const update = (k: keyof typeof form, v: string) =>
     setForm({ ...form, [k]: v });
@@ -29,27 +20,28 @@ export default function CardStockForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setStatus({ type: "idle" });
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.contactName || "N/A",
           email: form.contactEmail || "N/A",
           subject: "Need More Card Stock",
-          message: `
-Business Name: ${form.businessName}
-Preferred Contact Name: ${form.contactName}
-Preferred Contact Email: ${form.contactEmail}
-Number of Cards Needed: ${form.numberOfCards}
-          `,
+          // Send as object for nice email formatting!
+          formData: {
+            "Business Name": form.businessName,
+            "Preferred Contact Name": form.contactName,
+            "Preferred Contact Email": form.contactEmail,
+            "Number of Cards Needed": form.numberOfCards,
+          },
         }),
       });
 
       if (!res.ok) throw new Error("Failed to send form");
-      setStatus({ type: "success", message: "Form submitted successfully." });
+      toast.success("Form submitted successfully!");
+
       setForm({
         businessName: "",
         contactName: "",
@@ -57,10 +49,7 @@ Number of Cards Needed: ${form.numberOfCards}
         numberOfCards: "",
       });
     } catch (err: any) {
-      setStatus({
-        type: "error",
-        message: err.message || "Submission failed.",
-      });
+      toast.error("Submission failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -133,12 +122,6 @@ Number of Cards Needed: ${form.numberOfCards}
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Sending..." : "Submit"}
         </Button>
-        {status.type === "success" && (
-          <p className="text-green-600 text-sm">{status.message}</p>
-        )}
-        {status.type === "error" && (
-          <p className="text-red-600 text-sm">{status.message}</p>
-        )}
       </div>
     </form>
   );

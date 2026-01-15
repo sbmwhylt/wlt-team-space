@@ -16,8 +16,6 @@ export default function UpdateContactForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
 
   // Update any field in the form
   const handleChange = (field: string, value: string) => {
@@ -27,7 +25,6 @@ export default function UpdateContactForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
@@ -37,22 +34,21 @@ export default function UpdateContactForm() {
           name: form.contactName,
           email: form.contactEmail,
           subject: "Update Contact Details",
-          message: `
-Business Name: ${form.businessName}
-Contact Name: ${form.contactName}
-Email: ${form.contactEmail}
-Phone: ${form.contactPhone}
-Business Address: ${form.businessAddress}
-Other Info: ${form.otherInfo}
-          `,
+          // Send as object instead of string!
+          formData: {
+            "Business Name": form.businessName,
+            "Contact Name": form.contactName,
+            Email: form.contactEmail,
+            Phone: form.contactPhone,
+            "Business Address": form.businessAddress,
+            "Other Info": form.otherInfo,
+          },
         }),
       });
 
       if (!res.ok) throw new Error("Failed to send");
 
-      // Success!
       toast.success("Form submitted successfully!");
-      setIsError(false);
 
       // Clear form
       setForm({
@@ -64,9 +60,7 @@ Other Info: ${form.otherInfo}
         otherInfo: "",
       });
     } catch (err) {
-      // Error!
       toast.error("Submission failed. Please try again.");
-      setIsError(true);
     } finally {
       setLoading(false);
     }
@@ -161,16 +155,6 @@ Other Info: ${form.otherInfo}
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Sending..." : "Submit"}
         </Button>
-
-        {message && (
-          <p
-            className={`text-sm mt-2 ${
-              isError ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {message}
-          </p>
-        )}
       </div>
     </form>
   );
