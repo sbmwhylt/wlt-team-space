@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import sequelize from "../config/db.js";
 import { userSeeder } from "./userSeeder.js";
 import { microSiteSeeder } from "./microSiteSeeder.js";
+import { storeSeeder } from "./storeSeeder.js";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ export const runSeeders = async () => {
     await sequelize.sync({ force: true });
     await userSeeder();
     await microSiteSeeder();
+    await storeSeeder();
     
     console.log("🌱 Seeding completed!");
     process.exit(0);
