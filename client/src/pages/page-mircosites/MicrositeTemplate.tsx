@@ -30,6 +30,7 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
+  DialogTitle,
   DialogHeader,
   DialogDescription,
 } from "@/components/ui/dialog";
@@ -837,35 +838,56 @@ export default function MicrositeTemplate() {
                 </DialogTrigger>
                 <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
                   <DialogHeader className="mx-auto text-center">
-                    {/* <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
-                    <Zap strokeWidth={1.5} />
-                  </div> */}
+                    <DialogTitle className="sr-only">Update Forms</DialogTitle>
                     <DialogDescription className="text-2xl text-black">
                       What needs an update?
                     </DialogDescription>
                   </DialogHeader>
                   <div className="grid grid-cols-3 gap-4">
+                    {/* Contact Details Dialog */}
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button variant="default">Contact Details</Button>
                       </DialogTrigger>
                       <DialogContent>
+                        <DialogTitle className="sr-only">
+                          Update Contact Details
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Update your business contact information
+                        </DialogDescription>
                         <UpdateContactForm />
                       </DialogContent>
                     </Dialog>
+
+                    {/* Terminal Details Dialog */}
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button variant="default">Terminal Details</Button>
                       </DialogTrigger>
                       <DialogContent>
+                        <DialogTitle className="sr-only">
+                          Update Terminal Details
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Update your terminal information
+                        </DialogDescription>
                         <UpdateTerminalForm />
                       </DialogContent>
                     </Dialog>
+
+                    {/* Card Stocks Dialog */}
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button variant="default">Card Stocks</Button>
                       </DialogTrigger>
                       <DialogContent>
+                        <DialogTitle className="sr-only">
+                          Update Card Stocks
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Update your card stock information
+                        </DialogDescription>
                         <CardStockForm />
                       </DialogContent>
                     </Dialog>

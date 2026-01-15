@@ -1,15 +1,9 @@
-// components/UpdateTerminalForm.tsx
-
-"use client";
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import toast from "react-hot-toast";
 
 export default function UpdateTerminalForm() {
   const [form, setForm] = useState({
@@ -22,38 +16,37 @@ export default function UpdateTerminalForm() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{ type: "idle" | "success" | "error"; message?: string }>({
-    type: "idle",
-  });
 
-  const update = (k: keyof typeof form, v: string) => setForm({ ...form, [k]: v });
+  const update = (k: keyof typeof form, v: string) =>
+    setForm({ ...form, [k]: v });
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setStatus({ type: "idle" });
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.contactName || "N/A",
           email: form.contactEmail || "N/A",
           subject: "Update Terminal Details",
-          message: `
-Business Name: ${form.businessName}
-Preferred Contact Name: ${form.contactName}
-Preferred Contact Email: ${form.contactEmail}
-Reason for Update: ${form.reasonForUpdate}
-Number of Terminals: ${form.numberOfTerminals}
-Type of Terminal: ${form.typeOfTerminal}
-          `,
+          // Send as object for nice email formatting!
+          formData: {
+            "Business Name": form.businessName,
+            "Preferred Contact Name": form.contactName,
+            "Preferred Contact Email": form.contactEmail,
+            "Reason for Update": form.reasonForUpdate,
+            "Number of Terminals": form.numberOfTerminals,
+            "Type of Terminal": form.typeOfTerminal,
+          },
         }),
       });
 
       if (!res.ok) throw new Error("Failed to send form");
-      setStatus({ type: "success", message: "Form submitted successfully." });
+      toast.success("Form submitted successfully!");
+
       setForm({
         businessName: "",
         contactName: "",
@@ -63,20 +56,18 @@ Type of Terminal: ${form.typeOfTerminal}
         typeOfTerminal: "",
       });
     } catch (err: any) {
-      setStatus({ type: "error", message: err.message || "Submission failed." });
+      toast.error("Submission failed. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="max-w-2xl mx-auto  grid gap-5"
-    >
+    <form onSubmit={onSubmit} className="max-w-2xl mx-auto  grid gap-5">
       <h2 className="text-2xl font-bold mb-2">Update Terminal Details</h2>
       <p className="text-sm text-gray-600">
-        Have your terminal details changed? Fill out the form below to update your records.
+        Have your terminal details changed? Fill out the form below to update
+        your records.
       </p>
 
       <div>
@@ -108,7 +99,8 @@ Type of Terminal: ${form.typeOfTerminal}
       <div>
         <Label htmlFor="contactEmail">Preferred Contact Email Address</Label>
         <p className="text-sm text-gray-500 mb-1">
-          All WLT correspondence will go to this address, including terminal management updates.
+          All WLT correspondence will go to this address, including terminal
+          management updates.
         </p>
         <Input
           id="contactEmail"
@@ -120,7 +112,9 @@ Type of Terminal: ${form.typeOfTerminal}
       </div>
 
       <div>
-        <Label>Reason for Update<span className="text-red-500">*</span></Label>
+        <Label>
+          Reason for Update<span className="text-red-500">*</span>
+        </Label>
         <p className="text-sm text-gray-500 mb-1">
           Please provide detailed feedback.
         </p>
@@ -180,12 +174,6 @@ Type of Terminal: ${form.typeOfTerminal}
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Sending..." : "Submit"}
         </Button>
-        {status.type === "success" && (
-          <p className="text-green-600 text-sm">{status.message}</p>
-        )}
-        {status.type === "error" && (
-          <p className="text-red-600 text-sm">{status.message}</p>
-        )}
       </div>
     </form>
   );
