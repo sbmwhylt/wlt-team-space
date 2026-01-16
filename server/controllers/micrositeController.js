@@ -69,7 +69,14 @@ export const createMicroSite = async (req, res) => {
 // -------------------- GET ALL MICROSITES
 export const getAllMicroSites = async (req, res) => {
   try {
-    const microsites = await Microsite.findAll();
+    const microsites = await Microsite.findAll({
+      include: [
+        {
+          model: db.Store,
+          as: "stores",
+        },
+      ],
+    });
     res.json({ microsites });
   } catch (err) {
     res.status(500).json({ error: err.message });

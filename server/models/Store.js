@@ -14,7 +14,7 @@ const Store = sequelize.define(
       references: { model: "Microsites", key: "id" },
     },
   },
-  { timestamps: true }
+  { timestamps: false }
 );
 
 export default Store;
