@@ -81,12 +81,6 @@ export default function StoreLocation() {
     }
   };
 
-  const handleGetDirections = (lat: number, lng: number) => {
-    // Google Maps directions URL - automatically uses user's current location as starting point
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-    window.open(url, "_blank");
-  };
-
   const renderStores = () => {
     if (!mapInstanceRef.current) return;
 
