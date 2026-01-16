@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { MicroSite } from "@/types/Microsite";
 import { SocialIcon } from "react-social-icons";
+import StoreLocation from "@/components/store-location";
 
 import {
   Card,
@@ -585,15 +586,17 @@ export default function MicrositeTemplate() {
               </div>
               <h2 className="text-2xl w-60">Where can I use my Gift Card?</h2>
             </div>
+
             {/* Map Section / Google Map Embed */}
             {microsite.type === "consumer" && (
-              <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
-                <iframe
-                  className="w-full h-full"
-                  src={microsite.mapLink}
-                  loading="lazy"
-                />
-              </div>
+              // <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
+              //   <iframe
+              //     className="w-full h-full"
+              //     src={microsite.mapLink}
+              //     loading="lazy"
+              //   />
+              // </div>
+              <StoreLocation />
             )}
 
             <div className="grid grid-cols-2 gap-4 mt-4">
