@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { MicroSite } from "@/types/Microsite";
 import { SocialIcon } from "react-social-icons";
-import StoreLocation from "@/components/store-location";
+import StoreLocation from "@/pages/page-mircosites/components/storeLocation";
 
 import {
   Card,
