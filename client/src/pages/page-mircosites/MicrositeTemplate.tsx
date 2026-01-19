@@ -367,17 +367,20 @@ export default function MicrositeTemplate() {
                   const typedPlatform = platform as keyof typeof icons;
 
                   return (
-                    <a
+                    <div
                       key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      onClick={() => window.open(url, "_blank")}
                       className="group relative p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 hover:scale-105 cursor-pointer"
+                      role="link"
+                      tabIndex={0}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" && window.open(url, "_blank")
+                      }
                     >
                       <div className="transition-all duration-300 text-gray-600 group-hover:text-blue-600 group-hover:scale-110">
                         {icons[typedPlatform] ?? null}
                       </div>
-                    </a>
+                    </div>
                   );
                 })}
 
@@ -589,14 +592,7 @@ export default function MicrositeTemplate() {
 
             {/* Map Section / Google Map Embed */}
             {microsite.type === "consumer" && (
-              // <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
-              //   <iframe
-              //     className="w-full h-full"
-              //     src={microsite.mapLink}
-              //     loading="lazy"
-              //   />
-              // </div>
-              <StoreLocation />
+              <StoreLocation micrositeId={microsite.id} />
             )}
 
             <div className="grid grid-cols-2 gap-4 mt-4">
@@ -909,17 +905,20 @@ export default function MicrositeTemplate() {
                     const typedPlatform = platform as keyof typeof icons;
 
                     return (
-                      <a
+                      <div
                         key={platform}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={() => window.open(url, "_blank")}
                         className="group relative p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 hover:scale-105 cursor-pointer"
+                        role="link"
+                        tabIndex={0}
+                        onKeyDown={(e) =>
+                          e.key === "Enter" && window.open(url, "_blank")
+                        }
                       >
                         <div className="transition-all duration-300 text-gray-600 group-hover:text-blue-600 group-hover:scale-110">
                           {icons[typedPlatform] ?? null}
                         </div>
-                      </a>
+                      </div>
                     );
                   })}
 
