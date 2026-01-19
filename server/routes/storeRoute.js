@@ -1,6 +1,7 @@
 import express from "express";
 import {
-  createStore,
+  createStore, 
+  createStores, 
   getAllStores,
   getStoreById,
   deleteStore,
@@ -8,7 +9,8 @@ import {
 
 const router = express.Router();
 
-router.post("/", createStore);
+router.post("/single", createStore);
+router.post("/", createStores);
 router.get("/", getAllStores);
 router.get("/:id", getStoreById);
 router.delete("/:id", deleteStore);

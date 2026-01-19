@@ -48,6 +48,47 @@ export const createStore = async (req, res) => {
   }
 };
 
+// -------------------- CREATE MULTIPLE STORES (BULK)
+export const createStores = async (req, res) => {
+  try {
+    const { micrositeId, stores } = req.body;
+
+    // Validate input
+    if (!micrositeId) {
+      return res.status(400).json({ error: "micrositeId is required" });
+    }
+
+    if (!stores || !Array.isArray(stores) || stores.length === 0) {
+      return res.status(400).json({ error: "stores array is required" });
+    }
+
+    // Verify the microsite exists
+    const microsite = await Microsite.findByPk(micrositeId);
+    if (!microsite) {
+      return res.status(404).json({ error: "Microsite not found" });
+    }
+
+    // Add micrositeId to each store
+    const storesWithMicrositeId = stores.map((store) => ({
+      name: store.name,
+      latitude: store.latitude,
+      longitude: store.longitude,
+      micrositeId,
+    }));
+
+    // Create all stores at once
+    const createdStores = await Store.bulkCreate(storesWithMicrositeId);
+
+    res.status(201).json({
+      msg: `${createdStores.length} stores created successfully`,
+      stores: createdStores,
+    });
+  } catch (error) {
+    console.error("Error creating stores:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 // -------------------- GET ALL MICROSITES (for dropdown/selection)
 export const getAllStores = async (req, res) => {
   try {
