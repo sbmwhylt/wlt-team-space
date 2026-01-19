@@ -14,8 +14,15 @@ declare global {
   }
 }
 
-export default function StoreLocation() {
+interface StoreLocationProps {
+  micrositeId?: string | number; // Optional prop to filter by specific microsite
+}
+
+export default function StoreLocation({ micrositeId }: StoreLocationProps) {
   const [microsites, setMicrosites] = useState<MicroSite[]>([]);
+  const [filteredStores, setFilteredStores] = useState<StoreWithMicrosite[]>(
+    []
+  );
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
@@ -33,6 +40,34 @@ export default function StoreLocation() {
     };
     fetchMicrosites();
   }, []);
+
+  // Filter stores when microsites or micrositeId changes
+  useEffect(() => {
+    if (microsites.length === 0) return;
+
+    let stores: StoreWithMicrosite[] = [];
+
+    if (micrositeId) {
+      // Filter by specific micrositeId
+      const microsite = microsites.find((ms) => ms.id === micrositeId);
+      if (microsite) {
+        stores = (microsite.stores || []).map((store) => ({
+          ...store,
+          micrositeName: microsite.name,
+        }));
+      }
+    } else {
+      // Show all stores from all microsites (original behavior)
+      stores = microsites.flatMap((microsite) =>
+        (microsite.stores || []).map((store) => ({
+          ...store,
+          micrositeName: microsite.name,
+        }))
+      );
+    }
+
+    setFilteredStores(stores);
+  }, [microsites, micrositeId]);
 
   useEffect(() => {
     // Load Leaflet CSS
@@ -58,10 +93,10 @@ export default function StoreLocation() {
   }, []);
 
   useEffect(() => {
-    if (mapInstanceRef.current && microsites.length > 0) {
+    if (mapInstanceRef.current && filteredStores.length > 0) {
       renderStores();
     }
-  }, [microsites]);
+  }, [filteredStores]);
 
   const initializeMap = () => {
     if (!mapRef.current || mapInstanceRef.current) return;
@@ -76,7 +111,7 @@ export default function StoreLocation() {
     mapInstanceRef.current = map;
 
     // Render stores if already loaded
-    if (microsites.length > 0) {
+    if (filteredStores.length > 0) {
       renderStores();
     }
   };
@@ -88,18 +123,14 @@ export default function StoreLocation() {
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
-    // Get all stores from all microsites
-    const allStores: StoreWithMicrosite[] = microsites.flatMap((microsite) =>
-      (microsite.stores || []).map((store) => ({
-        ...store,
-        micrositeName: microsite.name,
-      }))
-    );
-
-    if (allStores.length === 0) return;
+    if (filteredStores.length === 0) {
+      // If no stores, show default view
+      mapInstanceRef.current.setView([12.8797, 121.774], 6);
+      return;
+    }
 
     // Add markers for each store with popup
-    allStores.forEach((store) => {
+    filteredStores.forEach((store) => {
       if (store.latitude && store.longitude) {
         const marker = window.L.marker([store.latitude, store.longitude]).addTo(
           mapInstanceRef.current
@@ -135,7 +166,7 @@ export default function StoreLocation() {
 
     // Fit map to show all markers
     const bounds = window.L.latLngBounds(
-      allStores
+      filteredStores
         .filter((s) => s.latitude && s.longitude)
         .map((s) => [s.latitude, s.longitude])
     );
@@ -144,6 +175,19 @@ export default function StoreLocation() {
 
   return (
     <div className="w-full">
+      {/* Optional: Show which microsite is being displayed */}
+      {micrositeId && (
+        <div className="mb-4">
+          <p className="text-sm text-gray-600">
+            Showing stores for:{" "}
+            <span className="font-medium">
+              {microsites.find((ms) => ms.id === micrositeId)?.name ||
+                "Microsite"}
+            </span>
+          </p>
+        </div>
+      )}
+
       {/* Map Container - Full view */}
       <div className="w-full h-[450px] bg-gray-200 rounded-3xl overflow-hidden shadow-lg">
         <div ref={mapRef} className="w-full h-full"></div>
