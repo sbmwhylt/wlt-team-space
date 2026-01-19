@@ -444,8 +444,8 @@ export default function CreateMicrositeForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Register Business Form{" "}
-                  <span className="text-blue-500">(Business)</span>{" "}
+                  Register Business{" "}
+                  <span className="text-orange-500">(Consumer)</span>{" "}
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -725,7 +725,9 @@ export default function CreateMicrositeForm({
         </div>
 
         <hr />
-        <h3 className="text-lg ">Store Locator</h3>
+        <h3 className="text-lg ">
+          Store Locator <span className="text-orange-500">(Consumer)</span>{" "}
+        </h3>
         <StoreLocator onLocationsChange={setStoreLocations} />
 
         <div className="flex justify-end pt-2">
