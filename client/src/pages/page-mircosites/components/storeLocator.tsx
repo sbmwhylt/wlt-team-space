@@ -1,29 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, MapPin, X } from "lucide-react";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-interface Microsite {
-  id: string | number;
-  name: string;
-  type?: "consumer" | "business";
-  stores?: Store[];
-}
-
-interface Store {
-  id: string | number;
-  name: string;
-  latitude?: number;
-  longitude?: number;
-  micrositeId: string | number;
-}
 
 interface PendingLocation {
   id: string;
@@ -39,7 +17,7 @@ interface StoreLocationPickerProps {
       name: string;
       latitude: number;
       longitude: number;
-      micrositeId: string | number;
+      // Removed micrositeId since it will be added later
     }[]
   ) => void;
 }
@@ -47,16 +25,12 @@ interface StoreLocationPickerProps {
 export default function StoreLocationPicker({
   onLocationsChange,
 }: StoreLocationPickerProps) {
-  const [microsites, setMicrosites] = useState<Microsite[]>([]);
-  const [selectedMicrosite, ] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [storeName, setStoreName] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<{
     lat: number;
     lng: number;
   } | null>(null);
-  const [, setStores] = useState<Store[]>([]);
-  // const [showStoreDropdown, setShowStoreDropdown] = useState(false);
   const [pendingLocations, setPendingLocations] = useState<PendingLocation[]>(
     []
   );
@@ -105,50 +79,17 @@ export default function StoreLocationPicker({
     document.body.appendChild(script);
   }, []);
 
-  // Fetch microsites on load
-  useEffect(() => {
-    fetchMicrosites();
-  }, []);
-
-  // Fetch stores when microsite changes
-  useEffect(() => {
-    if (selectedMicrosite) {
-      const microsite = microsites.find(
-        (m) => String(m.id) === selectedMicrosite
-      );
-      setStores(microsite?.stores || []);
-    } else {
-      setStores([]);
-    }
-  }, [selectedMicrosite, microsites]);
-
   // Notify parent when locations change
   useEffect(() => {
-    if (onLocationsChange && selectedMicrosite) {
+    if (onLocationsChange) {
       const locations = pendingLocations.map((loc) => ({
         name: loc.name,
         latitude: loc.lat,
         longitude: loc.lng,
-        micrositeId: selectedMicrosite,
       }));
       onLocationsChange(locations);
     }
-  }, [pendingLocations, selectedMicrosite, onLocationsChange]);
-
-  const fetchMicrosites = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/microsites`
-      );
-      const data = await response.json();
-      const consumerMicrosites = (data.microsites || []).filter(
-        (m: Microsite) => m.type === "consumer"
-      );
-      setMicrosites(consumerMicrosites);
-    } catch (error) {
-      console.error("Error fetching microsites:", error);
-    }
-  };
+  }, [pendingLocations, onLocationsChange]);
 
   const handleSearchClick = async () => {
     if (!searchQuery) return;
@@ -188,28 +129,6 @@ export default function StoreLocationPicker({
       alert("Search failed. Please try again.");
     }
   };
-
-  // const handleSelectExistingStore = (store: Store) => {
-  //   if (store.latitude && store.longitude) {
-  //     setSelectedLocation({ lat: store.latitude, lng: store.longitude });
-  //     setStoreName(store.name);
-  //     setShowStoreDropdown(false);
-
-  //     if (leafletMapRef.current) {
-  //       const L = (window as any).L;
-  //       leafletMapRef.current.setView([store.latitude, store.longitude], 15);
-
-  //       if (markerRef.current) {
-  //         leafletMapRef.current.removeLayer(markerRef.current);
-  //       }
-
-  //       markerRef.current = L.marker([store.latitude, store.longitude])
-  //         .addTo(leafletMapRef.current)
-  //         .bindPopup(store.name)
-  //         .openPopup();
-  //     }
-  //   }
-  // };
 
   const addLocation = () => {
     if (!storeName || !selectedLocation) {
@@ -266,25 +185,6 @@ export default function StoreLocationPicker({
 
   return (
     <div className="space-y-4">
-      {/* Microsite Selector */}
-      {/* <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Select Microsite <span className="text-red-500">*</span>
-        </label>
-        <Select value={selectedMicrosite} onValueChange={setSelectedMicrosite}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Choose a Consumer Microsite" />
-          </SelectTrigger>
-          <SelectContent className="w-full">
-            {microsites.map((m) => (
-              <SelectItem key={m.id} value={String(m.id)}>
-                {m.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div> */}
-
       {/* Search Box */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">

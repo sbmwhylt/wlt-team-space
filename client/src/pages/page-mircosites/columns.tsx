@@ -13,6 +13,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDistanceToNow } from "date-fns";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 // Define the type to match your hook
 export type MicroSite = {
@@ -25,6 +33,40 @@ export type MicroSite = {
   createdAt?: Date;
   updatedAt?: Date;
 };
+
+function DeleteDialog({
+  microsite,
+  onDelete,
+  open,
+  onOpenChange,
+}: {
+  microsite: MicroSite;
+  onDelete: () => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Delete Microsite</DialogTitle>
+          <DialogDescription>
+            Are you sure you want to delete <strong>"{microsite.name}"</strong>?
+            This action cannot be undone.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex justify-end gap-3">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
+          <Button variant="destructive" onClick={onDelete}>
+            Delete
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 // Remove the parameter if you don't need actions, OR type it properly
 export const getColumns = (micrositesState?: {
@@ -169,6 +211,14 @@ export const getColumns = (micrositesState?: {
     enableHiding: false,
     cell: ({ row }) => {
       const microsite = row.original;
+      const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+      const handleDelete = () => {
+        if (micrositesState?.remove) {
+          micrositesState.remove(microsite.id);
+          setDeleteDialogOpen(false);
+        }
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -205,18 +255,21 @@ export const getColumns = (micrositesState?: {
             {micrositesState?.remove && (
               <DropdownMenuItem
                 className="text-red-500"
-                onClick={() => {
-                  if (
-                    confirm("Are you sure you want to delete this microsite?")
-                  ) {
-                    micrositesState.remove?.(microsite.id); // Add ?. here!
-                  }
-                }}
+                onClick={() => setDeleteDialogOpen(true)}
               >
                 Delete microsite
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
+
+          {micrositesState?.remove && (
+            <DeleteDialog
+              microsite={microsite}
+              onDelete={handleDelete}
+              open={deleteDialogOpen}
+              onOpenChange={setDeleteDialogOpen}
+            />
+          )}
         </DropdownMenu>
       );
     },

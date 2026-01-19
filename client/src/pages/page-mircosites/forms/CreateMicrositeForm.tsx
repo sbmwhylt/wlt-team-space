@@ -27,6 +27,7 @@ import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
 import { Upload, X } from "lucide-react";
 import StoreLocator from "../components/storeLocator";
+import { Spinner } from "@/components/ui/spinner";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -117,6 +118,8 @@ export default function CreateMicrositeForm({
         "aboutDesc",
         "communityLink",
         "businessLink",
+        "physicalCardOrderLink",
+        "digitalCardOrderLink",
       ];
 
       optionalFields.forEach((field) => {
@@ -150,39 +153,56 @@ export default function CreateMicrositeForm({
         });
       }
 
-      // Marketing videos
-      if (values.marketingVids?.length) {
-        values.marketingVids.forEach((vid) => {
-          formData.append("marketingVids", vid.file);
-        });
-      }
-
       // Social links as JSON
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
 
-      // Create the microsite FIRST and save the result
       const newMicrosite = await create(formData);
 
       // THEN create stores if any exist
       if (storeLocations.length > 0) {
-        await fetch(`${import.meta.env.VITE_API_URL}/stores`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            micrositeId: newMicrosite.id,
-            stores: storeLocations,
-          }),
-        });
+        try {
+          const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/stores`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                micrositeId: newMicrosite.id,
+                stores: storeLocations.map((store) => ({
+                  name: store.name,
+                  latitude: String(store.latitude), // Ensure string format
+                  longitude: String(store.longitude),
+                })),
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Failed to create stores");
+          }
+
+          const storeResult = await response.json();
+          toast.success(`${storeResult.msg || "Stores created successfully!"}`);
+        } catch (storeError) {
+          console.error("Store creation error:", storeError);
+          toast.error("Microsite created but failed to add store locations");
+          // You might want to delete the microsite here if store creation fails
+          // Or allow admin to add stores later
+        }
       }
 
       toast.success("Microsite created successfully!");
       form.reset();
+      setStoreLocations([]); // Clear store locations after successful creation
       onSuccess?.();
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error creating microsite");
+      toast.error(
+        error instanceof Error ? error.message : "Error creating microsite"
+      );
     }
   };
 
@@ -396,28 +416,49 @@ export default function CreateMicrositeForm({
               </FormItem>
             )}
           />
-        </div>
 
-        <FormField
-          control={form.control}
-          name="communityLink"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                Community Link{" "}
-                <span className="text-orange-500">(Consumer)</span>{" "}
-              </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="https://example.com"
-                  {...field}
-                  value={field.value || ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="communityLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Community Link{" "}
+                  <span className="text-orange-500">(Consumer)</span>{" "}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://example.com"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="businessLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Register Business Form{" "}
+                  <span className="text-blue-500">(Business)</span>{" "}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://example.com"
+                    {...field}
+                    value={field.value || ""}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}
@@ -689,7 +730,7 @@ export default function CreateMicrositeForm({
 
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Creating..." : "Create"}
+            {form.formState.isSubmitting ? <Spinner /> : "Create"}
           </Button>
         </div>
       </form>
