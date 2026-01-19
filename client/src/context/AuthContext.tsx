@@ -35,7 +35,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.getItem("token")
   );
 
-  const AUTO_LOGOUT_TIME = 3 * 24 * 60 * 60 * 1000; // 3 days
+  // const AUTO_LOGOUT_TIME = 3 * 24 * 60 * 60 * 1000;
+  const AUTO_LOGOUT_TIME = 1 * 60 * 60 * 1000; // 1 hour
 
   // --- Refresh user from backend ---
   const refreshUser = useCallback(async () => {

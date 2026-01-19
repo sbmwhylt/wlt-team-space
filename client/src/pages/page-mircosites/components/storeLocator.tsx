@@ -1,8 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import { Search, MapPin, X } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface Microsite {
   id: string | number;
   name: string;
+  type?: "consumer" | "business";
   stores?: Store[];
 }
 
@@ -14,21 +25,41 @@ interface Store {
   micrositeId: string | number;
 }
 
-interface SelectedLocation {
+interface PendingLocation {
+  id: string;
+  name: string;
   lat: number;
   lng: number;
+  marker?: any;
 }
 
-export default function StoreLocator() {
+interface StoreLocationPickerProps {
+  onLocationsChange?: (
+    locations: {
+      name: string;
+      latitude: number;
+      longitude: number;
+      micrositeId: string | number;
+    }[]
+  ) => void;
+}
+
+export default function StoreLocationPicker({
+  onLocationsChange,
+}: StoreLocationPickerProps) {
   const [microsites, setMicrosites] = useState<Microsite[]>([]);
-  const [selectedMicrosite, setSelectedMicrosite] = useState<string | number>(
-    ""
-  );
+  const [selectedMicrosite, setSelectedMicrosite] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [storeName, setStoreName] = useState("");
-  const [selectedLocation, setSelectedLocation] =
-    useState<SelectedLocation | null>(null);
-  const [stores, setStores] = useState<Store[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+  const [, setStores] = useState<Store[]>([]);
+  // const [showStoreDropdown, setShowStoreDropdown] = useState(false);
+  const [pendingLocations, setPendingLocations] = useState<PendingLocation[]>(
+    []
+  );
 
   const mapRef = useRef<HTMLDivElement>(null);
   const leafletMapRef = useRef<any>(null);
@@ -65,7 +96,7 @@ export default function StoreLocator() {
 
         markerRef.current = L.marker([e.latlng.lat, e.latlng.lng])
           .addTo(map)
-          .bindPopup("Selected location")
+          .bindPopup("Click 'Add Location' to save")
           .openPopup();
       });
 
@@ -82,10 +113,27 @@ export default function StoreLocator() {
   // Fetch stores when microsite changes
   useEffect(() => {
     if (selectedMicrosite) {
-      const microsite = microsites.find((m) => m.id === selectedMicrosite);
+      const microsite = microsites.find(
+        (m) => String(m.id) === selectedMicrosite
+      );
       setStores(microsite?.stores || []);
+    } else {
+      setStores([]);
     }
   }, [selectedMicrosite, microsites]);
+
+  // Notify parent when locations change
+  useEffect(() => {
+    if (onLocationsChange && selectedMicrosite) {
+      const locations = pendingLocations.map((loc) => ({
+        name: loc.name,
+        latitude: loc.lat,
+        longitude: loc.lng,
+        micrositeId: selectedMicrosite,
+      }));
+      onLocationsChange(locations);
+    }
+  }, [pendingLocations, selectedMicrosite, onLocationsChange]);
 
   const fetchMicrosites = async () => {
     try {
@@ -93,259 +141,275 @@ export default function StoreLocator() {
         `${import.meta.env.VITE_API_URL}/microsites`
       );
       const data = await response.json();
-      setMicrosites(data.microsites || []);
+      const consumerMicrosites = (data.microsites || []).filter(
+        (m: Microsite) => m.type === "consumer"
+      );
+      setMicrosites(consumerMicrosites);
     } catch (error) {
       console.error("Error fetching microsites:", error);
     }
   };
 
-  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchQuery) {
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-            searchQuery
-          )}`
-        );
-        const results = await response.json();
+  const handleSearchClick = async () => {
+    if (!searchQuery) return;
 
-        if (results.length > 0) {
-          const lat = parseFloat(results[0].lat);
-          const lng = parseFloat(results[0].lon);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          searchQuery
+        )}`
+      );
+      const results = await response.json();
 
-          setSelectedLocation({ lat, lng });
-          setStoreName(results[0].display_name.split(",")[0]);
+      if (results.length > 0) {
+        const lat = parseFloat(results[0].lat);
+        const lng = parseFloat(results[0].lon);
 
-          if (leafletMapRef.current) {
-            const L = (window as any).L;
-            leafletMapRef.current.setView([lat, lng], 15);
+        setSelectedLocation({ lat, lng });
+        setStoreName(results[0].display_name.split(",")[0]);
 
-            if (markerRef.current) {
-              leafletMapRef.current.removeLayer(markerRef.current);
-            }
+        if (leafletMapRef.current) {
+          const L = (window as any).L;
+          leafletMapRef.current.setView([lat, lng], 15);
 
-            markerRef.current = L.marker([lat, lng])
-              .addTo(leafletMapRef.current)
-              .bindPopup("Selected location")
-              .openPopup();
+          if (markerRef.current) {
+            leafletMapRef.current.removeLayer(markerRef.current);
           }
-        } else {
-          alert("Location not found. Try clicking on the map.");
+
+          markerRef.current = L.marker([lat, lng])
+            .addTo(leafletMapRef.current)
+            .bindPopup("Click 'Add Location' to save")
+            .openPopup();
         }
-      } catch (error) {
-        alert("Search failed. Please click on the map instead.");
+      } else {
+        alert("Location not found. Try clicking on the map.");
       }
+    } catch (error) {
+      alert("Search failed. Please try again.");
     }
   };
 
-  const handleSaveStore = async () => {
-    if (!storeName || !selectedLocation || !selectedMicrosite) {
-      alert("Please select a microsite, location, and enter a store name");
+  // const handleSelectExistingStore = (store: Store) => {
+  //   if (store.latitude && store.longitude) {
+  //     setSelectedLocation({ lat: store.latitude, lng: store.longitude });
+  //     setStoreName(store.name);
+  //     setShowStoreDropdown(false);
+
+  //     if (leafletMapRef.current) {
+  //       const L = (window as any).L;
+  //       leafletMapRef.current.setView([store.latitude, store.longitude], 15);
+
+  //       if (markerRef.current) {
+  //         leafletMapRef.current.removeLayer(markerRef.current);
+  //       }
+
+  //       markerRef.current = L.marker([store.latitude, store.longitude])
+  //         .addTo(leafletMapRef.current)
+  //         .bindPopup(store.name)
+  //         .openPopup();
+  //     }
+  //   }
+  // };
+
+  const addLocation = () => {
+    if (!storeName || !selectedLocation) {
+      alert("Please enter a store name and select a location");
       return;
     }
 
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/stores`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: storeName,
-          latitude: selectedLocation.lat,
-          longitude: selectedLocation.lng,
-          micrositeId: selectedMicrosite,
-        }),
-      });
+    const L = (window as any).L;
+    const newMarker = L.marker([selectedLocation.lat, selectedLocation.lng])
+      .addTo(leafletMapRef.current)
+      .bindPopup(`<strong>${storeName}</strong>`);
 
-      if (response.ok) {
-        alert("Store saved successfully! ✓");
-        setStoreName("");
-        setSelectedLocation(null);
-        setSearchQuery("");
+    const newLocation: PendingLocation = {
+      id: `${Date.now()}-${Math.random()}`,
+      name: storeName,
+      lat: selectedLocation.lat,
+      lng: selectedLocation.lng,
+      marker: newMarker,
+    };
 
-        // Refresh microsites to get updated stores
-        await fetchMicrosites();
+    setPendingLocations((prev) => [...prev, newLocation]);
 
-        if (markerRef.current && leafletMapRef.current) {
-          leafletMapRef.current.removeLayer(markerRef.current);
-        }
-      } else {
-        const error = await response.json();
-        alert("Error: " + error.error);
+    // Clear temp marker
+    if (markerRef.current) {
+      leafletMapRef.current.removeLayer(markerRef.current);
+      markerRef.current = null;
+    }
+
+    // Reset form
+    setStoreName("");
+    setSelectedLocation(null);
+    setSearchQuery("");
+  };
+
+  const removeLocation = (id: string) => {
+    setPendingLocations((prev) => {
+      const location = prev.find((loc) => loc.id === id);
+      if (location?.marker && leafletMapRef.current) {
+        leafletMapRef.current.removeLayer(location.marker);
       }
-    } catch (error) {
-      alert("Failed to save store");
-      console.error(error);
+      return prev.filter((loc) => loc.id !== id);
+    });
+  };
+
+  const clearSelection = () => {
+    setSelectedLocation(null);
+    setStoreName("");
+    setSearchQuery("");
+    if (markerRef.current && leafletMapRef.current) {
+      leafletMapRef.current.removeLayer(markerRef.current);
+      markerRef.current = null;
     }
   };
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
-        📍 Store Location Manager
-      </h1>
-
-      <div
-        style={{
-          background: "white",
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-        }}
-      >
-        <div
-          style={{
-            background: "#e7f3ff",
-            padding: "15px",
-            borderRadius: "5px",
-            marginBottom: "15px",
-          }}
-        >
-          <strong>How to add a store:</strong>
-          <br />
-          1. Select a microsite from the dropdown
-          <br />
-          2. Search for an address OR click on the map
-          <br />
-          3. Enter store name and save!
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "5px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Microsite:
-          </label>
-          <select
-            value={selectedMicrosite}
-            onChange={(e) => setSelectedMicrosite(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "12px",
-              fontSize: "16px",
-              border: "2px solid #ddd",
-              borderRadius: "5px",
-            }}
-          >
-            <option value="">-- Choose a Microsite --</option>
+    <div className="space-y-4">
+      {/* Microsite Selector */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Select Microsite <span className="text-red-500">*</span>
+        </label>
+        <Select value={selectedMicrosite} onValueChange={setSelectedMicrosite}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Choose a Consumer Microsite" />
+          </SelectTrigger>
+          <SelectContent className="w-full">
             {microsites.map((m) => (
-              <option key={m.id} value={m.id}>
+              <SelectItem key={m.id} value={String(m.id)}>
                 {m.name}
-              </option>
+              </SelectItem>
             ))}
-          </select>
-        </div>
-
-        <input
-          type="text"
-          placeholder="Search for an address (e.g., 'SM Mall of Asia, Manila') - Press Enter"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleSearch}
-          style={{
-            width: "100%",
-            padding: "12px",
-            fontSize: "16px",
-            border: "2px solid #ddd",
-            borderRadius: "5px",
-            marginBottom: "15px",
-          }}
-        />
-
-        <div
-          ref={mapRef}
-          style={{ height: "400px", borderRadius: "5px", marginBottom: "15px" }}
-        ></div>
-
-        {selectedLocation && (
-          <div style={{ marginBottom: "15px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                fontWeight: "bold",
-              }}
-            >
-              Store Name:
-            </label>
-            <input
-              type="text"
-              value={storeName}
-              onChange={(e) => setStoreName(e.target.value)}
-              placeholder="Enter store name"
-              style={{
-                width: "100%",
-                padding: "12px",
-                fontSize: "16px",
-                border: "2px solid #ddd",
-                borderRadius: "5px",
-              }}
-            />
-          </div>
-        )}
-
-        {selectedLocation && (
-          <div
-            style={{
-              background: "#f0f0f0",
-              padding: "10px",
-              borderRadius: "5px",
-              marginBottom: "15px",
-            }}
-          >
-            <small>
-              Selected: Lat {selectedLocation.lat.toFixed(4)}, Lng{" "}
-              {selectedLocation.lng.toFixed(4)}
-            </small>
-          </div>
-        )}
-
-        <button
-          onClick={handleSaveStore}
-          style={{
-            padding: "12px 24px",
-            background: "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            fontSize: "16px",
-            cursor: "pointer",
-            width: "100%",
-          }}
-        >
-          💾 Save Store
-        </button>
-
-        <div style={{ marginTop: "30px" }}>
-          <h3>Stores for Selected Microsite:</h3>
-          {stores.length === 0 ? (
-            <p style={{ color: "#999" }}>
-              No stores saved yet for this microsite.
-            </p>
-          ) : (
-            stores.map((store) => (
-              <div
-                key={store.id}
-                style={{
-                  background: "#f9f9f9",
-                  padding: "15px",
-                  marginBottom: "10px",
-                  borderRadius: "5px",
-                  borderLeft: "4px solid #007bff",
-                }}
-              >
-                <h4 style={{ margin: "0 0 5px 0" }}>{store.name}</h4>
-                <small>
-                  Lat: {store.latitude}, Lng: {store.longitude}
-                </small>
-              </div>
-            ))
-          )}
-        </div>
+          </SelectContent>
+        </Select>
       </div>
+
+      {/* Search Box */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Search Location
+        </label>
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            placeholder="e.g., '31 The Rocks, Sydney NSW'"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleSearchClick()}
+          />
+          <Button
+            type="button"
+            onClick={handleSearchClick}
+            className="flex items-center gap-2"
+          >
+            <Search className="w-4 h-4" />
+            Search
+          </Button>
+        </div>
+        <p className="text-xs text-gray-500 mt-1">
+          Or click directly on the map below
+        </p>
+      </div>
+
+      {/* Map */}
+      <div
+        ref={mapRef}
+        className="h-80 rounded-lg border border-gray-300"
+      ></div>
+
+      {/* Store Name Input */}
+      {selectedLocation && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Store Name <span className="text-red-500">*</span>
+          </label>
+          <Input
+            type="text"
+            value={storeName}
+            onChange={(e) => setStoreName(e.target.value)}
+            placeholder="Enter store name"
+          />
+        </div>
+      )}
+
+      {/* Selected Location Info */}
+      {selectedLocation && (
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-start justify-between">
+          <div>
+            <div className="text-sm font-medium text-gray-700">
+              Selected Location
+            </div>
+            <div className="text-xs text-gray-500 mt-1">
+              Lat: {selectedLocation.lat.toFixed(6)}, Lng:{" "}
+              {selectedLocation.lng.toFixed(6)}
+            </div>
+          </div>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={clearSelection}
+            className="text-gray-400 hover:text-red-500"
+          >
+            <X className="w-5 h-5" />
+          </Button>
+        </div>
+      )}
+
+      {/* Add Location Button */}
+      {selectedLocation && (
+        <Button
+          type="button"
+          onClick={addLocation}
+          className="w-full bg-blue-500 hover:bg-blue-600"
+        >
+          <MapPin className="w-4 h-4 mr-2" />
+          Add Location to List
+        </Button>
+      )}
+
+      {/* Pending Locations List */}
+      {pendingLocations.length > 0 && (
+        <div className="rounded-lg border border-gray-200 bg-white ">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+            <h3 className="text-sm font-medium text-gray-800">
+              Store Locations Added
+            </h3>
+            <span className="text-xs font-medium text-green-600">
+              {pendingLocations.length}
+            </span>
+          </div>
+
+          <div className="divide-y divide-gray-100">
+            {pendingLocations.map((loc) => (
+              <div
+                key={loc.id}
+                className="flex items-center justify-between px-4 py-2 "
+              >
+                <div className="min-w-0">
+                  <div className="text-sm font-medium text-gray-900 truncate">
+                    {loc.name}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {loc.lat.toFixed(6)}, {loc.lng.toFixed(6)}
+                  </div>
+                </div>
+
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => removeLocation(loc.id)}
+                  className="text-gray-400 hover:text-red-600"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

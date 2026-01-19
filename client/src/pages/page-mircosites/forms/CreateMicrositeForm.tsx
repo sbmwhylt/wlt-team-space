@@ -26,6 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
 import { Upload, X } from "lucide-react";
+import StoreLocator from "../components/storeLocator";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -44,7 +45,6 @@ const micrositeSchema = z.object({
   digitalCardOrderLink: z.string().url().optional().or(z.literal("")),
   physicalCardOrderLink: z.string().url().optional().or(z.literal("")),
   communityLink: z.string().url().optional().or(z.literal("")),
-  mapLink: z.string().url().optional().or(z.literal("")),
   businessLink: z.string().url().optional().or(z.literal("")),
   marketingImgs: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
@@ -84,7 +84,6 @@ export default function CreateMicrositeForm({
       digitalCardOrderLink: "",
       physicalCardOrderLink: "",
       communityLink: "",
-      mapLink: "",
       businessLink: "",
       marketingImgs: [],
       marketingVids: [],
@@ -107,7 +106,6 @@ export default function CreateMicrositeForm({
         "digitalCardOrderLink",
         "physicalCardOrderLink",
         "communityLink",
-        "mapLink",
       ];
       optionalFields.forEach((field) => {
         const value = values[field as keyof MicrositeFormValues];
@@ -343,49 +341,28 @@ export default function CreateMicrositeForm({
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="communityLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Community Link{" "}
-                  <span className="text-orange-500">(Consumer)</span>{" "}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="https://example.com"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="mapLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Store Location{" "}
-                  <span className="text-orange-500">(Consumer)</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="https://maps.app.goo.gl/bLiqMuCoLJNWWJvj9"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
+
+        <FormField
+          control={form.control}
+          name="communityLink"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Community Link{" "}
+                <span className="text-orange-500">(Consumer)</span>{" "}
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="https://example.com"
+                  {...field}
+                  value={field.value || ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}
@@ -455,7 +432,9 @@ export default function CreateMicrositeForm({
 
         <hr />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-7">
+        <h3 className="text-lg font-medium">Marketing Images</h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
           <FormField
             control={form.control}
             name="physicalImg"
@@ -648,6 +627,10 @@ export default function CreateMicrositeForm({
             )}
           />
         </div>
+
+        <hr />
+        <h3 className="text-lg ">Store Locator</h3>
+        <StoreLocator />
 
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>
