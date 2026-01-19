@@ -66,10 +66,6 @@ const Microsite = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    mapLink: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
     businessLink: {
       type: DataTypes.STRING,
       allowNull: true,
