@@ -97,30 +97,61 @@ export default function CreateMicrositeForm({
   const onSubmit = async (values: MicrositeFormValues) => {
     try {
       const formData = new FormData();
+
       // Required fields
       formData.append("name", values.name);
       formData.append("type", values.type);
-      // Optional text fields - loop through them
+
+      // Optional text fields
       const optionalFields = [
+        "email",
+        "phone",
         "aboutDesc",
-        "digitalCardOrderLink",
-        "physicalCardOrderLink",
         "communityLink",
+        "businessLink",
       ];
+
       optionalFields.forEach((field) => {
         const value = values[field as keyof MicrositeFormValues];
         if (value) formData.append(field, String(value));
       });
-      // Files
-      if (values.banner) formData.append("banner", values.banner);
+
+      // Banner file
+      if (values.banner) {
+        formData.append("banner", values.banner);
+      }
+
+      // Card images - THIS WAS MISSING!
+      if (values.physicalImg) {
+        formData.append("physicalImg", values.physicalImg);
+      }
+      if (values.digitalImg) {
+        formData.append("digitalImg", values.digitalImg);
+      }
+      if (values.physicalBulkImg) {
+        formData.append("physicalBulkImg", values.physicalBulkImg);
+      }
+      if (values.digitalBulkImg) {
+        formData.append("digitalBulkImg", values.digitalBulkImg);
+      }
+
       // Marketing images
       if (values.marketingImgs?.length) {
         values.marketingImgs.forEach((img) => {
           formData.append("marketingImgs", img.file);
         });
       }
+
+      // Marketing videos (if you have them)
+      if (values.marketingVids?.length) {
+        values.marketingVids.forEach((vid) => {
+          formData.append("marketingVids", vid.file);
+        });
+      }
+
       // Social links as JSON
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
+
       await create(formData);
       toast.success("Microsite created successfully!");
       form.reset();
@@ -432,7 +463,7 @@ export default function CreateMicrositeForm({
 
         <hr />
 
-        <h3 className="text-lg font-medium">Marketing Images</h3>
+        <h3 className="text-lg font-medium">Card Images</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
           <FormField

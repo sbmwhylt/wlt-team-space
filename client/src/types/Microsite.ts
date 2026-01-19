@@ -17,7 +17,6 @@ export interface MicroSite {
   digitalCardOrderLink?: string;
   physicalCardOrderLink?: string;
   communityLink?: string;
-  mapLink?: string;
   businessLink?: string;
   marketingImgs: string[];
   marketingVids?: string[];

@@ -29,8 +29,6 @@ export const microSiteSeeder = async () => {
           physicalCardOrderLink:
             "https://www.whyleavetown.com/product/stanthorpe-gift-card/",
           communityLink: "https://www.whyleavetown.com/community/stanthorpe/",
-          mapLink:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1023.8604545538805!2d149.7835285620878!3d-30.327001928392992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ba7345ab7a394fd%3A0xa99b23f394edc764!2sCentre%20of%20Town!5e0!3m2!1sen!2sph!4v1761092847014!5m2!1sen!2sph",
           businessLink:
             "https://forms.monday.com/forms/890cfe70c8a8dc371a450bad4c102a73?r=use1",
         },
