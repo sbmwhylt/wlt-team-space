@@ -65,6 +65,14 @@ export default function CreateMicrositeForm({
   const [] = useState(false);
   const { create } = useMicroSites();
 
+  const [storeLocations, setStoreLocations] = useState<
+    {
+      name: string;
+      latitude: number;
+      longitude: number;
+    }[]
+  >([]);
+
   const form = useForm<MicrositeFormValues>({
     resolver: zodResolver(micrositeSchema),
     defaultValues: {
@@ -121,7 +129,7 @@ export default function CreateMicrositeForm({
         formData.append("banner", values.banner);
       }
 
-      // Card images - THIS WAS MISSING!
+      // Card images
       if (values.physicalImg) {
         formData.append("physicalImg", values.physicalImg);
       }
@@ -142,7 +150,7 @@ export default function CreateMicrositeForm({
         });
       }
 
-      // Marketing videos (if you have them)
+      // Marketing videos
       if (values.marketingVids?.length) {
         values.marketingVids.forEach((vid) => {
           formData.append("marketingVids", vid.file);
@@ -152,7 +160,23 @@ export default function CreateMicrositeForm({
       // Social links as JSON
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
 
-      await create(formData);
+      // Create the microsite FIRST and save the result
+      const newMicrosite = await create(formData);
+
+      // THEN create stores if any exist
+      if (storeLocations.length > 0) {
+        await fetch(`${import.meta.env.VITE_API_URL}/stores`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            micrositeId: newMicrosite.id,
+            stores: storeLocations,
+          }),
+        });
+      }
+
       toast.success("Microsite created successfully!");
       form.reset();
       onSuccess?.();
@@ -661,7 +685,7 @@ export default function CreateMicrositeForm({
 
         <hr />
         <h3 className="text-lg ">Store Locator</h3>
-        <StoreLocator />
+        <StoreLocator onLocationsChange={setStoreLocations} />
 
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>

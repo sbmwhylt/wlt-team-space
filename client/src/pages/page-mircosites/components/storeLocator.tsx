@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, MapPin, X } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -48,7 +48,7 @@ export default function StoreLocationPicker({
   onLocationsChange,
 }: StoreLocationPickerProps) {
   const [microsites, setMicrosites] = useState<Microsite[]>([]);
-  const [selectedMicrosite, setSelectedMicrosite] = useState<string>("");
+  const [selectedMicrosite, ] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [storeName, setStoreName] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<{
@@ -267,7 +267,7 @@ export default function StoreLocationPicker({
   return (
     <div className="space-y-4">
       {/* Microsite Selector */}
-      <div>
+      {/* <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Select Microsite <span className="text-red-500">*</span>
         </label>
@@ -283,7 +283,7 @@ export default function StoreLocationPicker({
             ))}
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
 
       {/* Search Box */}
       <div>
