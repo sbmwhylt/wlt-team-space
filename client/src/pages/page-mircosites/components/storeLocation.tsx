@@ -15,7 +15,7 @@ declare global {
 }
 
 interface StoreLocationProps {
-  micrositeId?: string | number; // Optional prop to filter by specific microsite
+  micrositeId?: string | number; 
 }
 
 export default function StoreLocation({ micrositeId }: StoreLocationProps) {
