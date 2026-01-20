@@ -12,4 +12,5 @@ export const colors: Record<string, string> = {
   indigo: "bg-gradient-to-r from-indigo-400 to-indigo-600",
   lime: "bg-gradient-to-r from-lime-300 to-lime-500",
   gray: "bg-gradient-to-r from-gray-300 to-gray-500",
+  black: "bg-gradient-to-r from-gray-600 to-gray-900",
 };
