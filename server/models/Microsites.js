@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
+import slugify from "slugify"; 
 
 const Microsite = sequelize.define(
   "Microsite",
@@ -63,10 +64,6 @@ const Microsite = sequelize.define(
     },
     communityLink: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
-    mapLink: {
-      type: DataTypes.TEXT,
       allowNull: true,
     },
     businessLink: {

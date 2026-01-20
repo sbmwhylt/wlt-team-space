@@ -17,7 +17,6 @@ export interface MicroSite {
   digitalCardOrderLink?: string;
   physicalCardOrderLink?: string;
   communityLink?: string;
-  mapLink?: string;
   businessLink?: string;
   marketingImgs: string[];
   marketingVids?: string[];
@@ -25,4 +24,13 @@ export interface MicroSite {
   digitalImg?: string;
   physicalBulkImg?: string;
   digitalBulkImg?: string;
+  stores?: Store[];
+}
+
+export interface Store {
+  id: string | number;
+  name: string;
+  latitude?: number;
+  longitude?: number;
+  micrositeId: string | number;
 }

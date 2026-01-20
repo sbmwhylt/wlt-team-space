@@ -8,10 +8,12 @@ export const userSeeder = async () => {
     const existingUser = await User.findOne({
       where: { role: "super-admin" },
     });
+
     if (existingUser) {
       console.log("⚠️ User already exists. Skipping seeding.");
       return;
     }
+
     const hashedPassword = await bcrypt.hash("superadminpass123", 10);
     await User.create({
       firstName: "Shemrei",
@@ -26,6 +28,7 @@ export const userSeeder = async () => {
       avatar: "https://i.pinimg.com/1200x/21/f4/65/21f465e19888e48a60b84804bcdf142d.jpg"
     });
     console.log("✅ User seeded successfully");
+    
   } catch (error) {
     console.error("❌ Error seeding user:", error);
   }
