@@ -15,14 +15,15 @@ declare global {
 }
 
 interface StoreLocationProps {
-  micrositeId?: string | number; 
+  micrositeId?: string | number;
 }
 
 export default function StoreLocation({ micrositeId }: StoreLocationProps) {
   const [microsites, setMicrosites] = useState<MicroSite[]>([]);
   const [filteredStores, setFilteredStores] = useState<StoreWithMicrosite[]>(
-    []
+    [],
   );
+  const [isLoading, setIsLoading] = useState(true);
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const markersRef = useRef<any[]>([]);
@@ -30,12 +31,15 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
   useEffect(() => {
     const fetchMicrosites = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/microsites`
+          `${import.meta.env.VITE_API_URL}/microsites`,
         );
         setMicrosites(res.data.microsites);
       } catch (err) {
         console.error("Error fetching microsites:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchMicrosites();
@@ -62,7 +66,7 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
         (microsite.stores || []).map((store) => ({
           ...store,
           micrositeName: microsite.name,
-        }))
+        })),
       );
     }
 
@@ -109,11 +113,6 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
     }).addTo(map);
 
     mapInstanceRef.current = map;
-
-    // Render stores if already loaded
-    if (filteredStores.length > 0) {
-      renderStores();
-    }
   };
 
   const renderStores = () => {
@@ -133,7 +132,7 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
     filteredStores.forEach((store) => {
       if (store.latitude && store.longitude) {
         const marker = window.L.marker([store.latitude, store.longitude]).addTo(
-          mapInstanceRef.current
+          mapInstanceRef.current,
         ).bindPopup(`
             <div style="text-align: center; min-width: 180px; padding: 8px;">
               <strong style="font-size: 12px; color: #1f2937; display: block; margin-bottom: 4px;">${store.name}</strong>
@@ -168,7 +167,7 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
     const bounds = window.L.latLngBounds(
       filteredStores
         .filter((s) => s.latitude && s.longitude)
-        .map((s) => [s.latitude, s.longitude])
+        .map((s) => [s.latitude, s.longitude]),
     );
     mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50] });
   };
@@ -189,8 +188,20 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
       )}
 
       {/* Map Container - Full view */}
-      <div className="w-full h-[450px] bg-gray-200 rounded-3xl overflow-hidden shadow-lg">
+      <div className="w-full h-[450px] bg-gray-200 rounded-3xl overflow-hidden shadow-lg relative">
         <div ref={mapRef} className="w-full h-full"></div>
+
+        {/* Loading Indicator */}
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-[1000]">
+            <div className="text-center">
+              <div className="inline-block w-12 h-12 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
+              <p className="mt-3 text-sm text-gray-600 font-medium">
+                Loading stores...
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
