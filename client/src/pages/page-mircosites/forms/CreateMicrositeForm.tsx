@@ -28,6 +28,7 @@ import { toast } from "react-hot-toast";
 import { Upload, X } from "lucide-react";
 import StoreLocator from "../components/storeLocator";
 import { Spinner } from "@/components/ui/spinner";
+import { colors } from "@/constants/colors";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -53,6 +54,7 @@ const micrositeSchema = z.object({
   digitalImg: z.any().optional(),
   physicalBulkImg: z.any().optional(),
   digitalBulkImg: z.any().optional(),
+  color: z.enum(Object.keys(colors) as [string, ...string[]]),
 });
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
@@ -100,6 +102,7 @@ export default function CreateMicrositeForm({
       digitalImg: null,
       physicalBulkImg: null,
       digitalBulkImg: null,
+      color: "red",
     },
   });
 
@@ -110,6 +113,7 @@ export default function CreateMicrositeForm({
       // Required fields
       formData.append("name", values.name);
       formData.append("type", values.type);
+      formData.append("color", values.color);
 
       // Optional text fields
       const optionalFields = [
@@ -176,7 +180,7 @@ export default function CreateMicrositeForm({
                   longitude: String(store.longitude),
                 })),
               }),
-            }
+            },
           );
 
           if (!response.ok) {
@@ -189,19 +193,17 @@ export default function CreateMicrositeForm({
         } catch (storeError) {
           console.error("Store creation error:", storeError);
           toast.error("Microsite created but failed to add store locations");
-          // You might want to delete the microsite here if store creation fails
-          // Or allow admin to add stores later
         }
       }
 
       toast.success("Microsite created successfully!");
       form.reset();
-      setStoreLocations([]); // Clear store locations after successful creation
+      setStoreLocations([]);
       onSuccess?.();
     } catch (error) {
       console.error("Error:", error);
       toast.error(
-        error instanceof Error ? error.message : "Error creating microsite"
+        error instanceof Error ? error.message : "Error creating microsite",
       );
     }
   };
@@ -506,7 +508,7 @@ export default function CreateMicrositeForm({
                               type="button"
                               onClick={() => {
                                 const updated = images.filter(
-                                  (_, idx) => idx !== i
+                                  (_, idx) => idx !== i,
                                 );
                                 field.onChange(updated);
                               }}
@@ -524,6 +526,44 @@ export default function CreateMicrositeForm({
               </FormItem>
             );
           }}
+        />
+
+        <FormField
+          control={form.control}
+          name="color"
+          render={({ field }) => (
+            <FormItem className="mt-7 mb-7">
+              <FormLabel>Microsite Color Theme</FormLabel>
+              <FormControl>
+                <div className="grid grid-cols-7 gap-3 mt-2">
+                  {Object.entries(colors).map(([key, gradient]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => field.onChange(key)}
+                      className={`
+                h-10 rounded-lg transition-all
+                ${gradient}
+                ${
+                  field.value === key
+                    ? "ring-2 ring-offset-2 ring-gray-400 scale-105"
+                    : "opacity-80 hover:opacity-100"
+                }
+              `}
+                      aria-label={key}
+                    />
+                  ))}
+                </div>
+              </FormControl>
+
+              <p className="text-xs text-gray-500 mt-1">
+                Selected:{" "}
+                <span className="font-medium capitalize ">{field.value}</span>
+              </p>
+
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
         <hr />
