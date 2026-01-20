@@ -6,6 +6,5 @@ export const uploadToImageKit = async (file) => {
     fileName: file.name, 
     folder: "/uploads",
   });
-
   return result.url;
 };

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { MicroSite } from "@/types/Microsite";
 import { SocialIcon } from "react-social-icons";
+import StoreLocation from "@/pages/page-mircosites/components/storeLocation";
 
 import {
   Card,
@@ -42,7 +43,7 @@ import {
   HandCoins,
   MessageCircleQuestionMark,
   BriefcaseBusiness,
-  Globe,
+  Earth,
   Facebook,
   Instagram,
   Palette,
@@ -65,9 +66,7 @@ export function Example() {
           delay: 2000,
         }),
       ]}
-    >
-      // ...
-    </Carousel>
+    ></Carousel>
   );
 }
 export default function MicrositeTemplate() {
@@ -80,8 +79,8 @@ export default function MicrositeTemplate() {
       try {
         const res = await axios.get(
           `${import.meta.env.VITE_API_URL}/microsites/${encodeURIComponent(
-            type
-          )}/${encodeURIComponent(slug)}`
+            type,
+          )}/${encodeURIComponent(slug)}`,
         );
         setMicrosite(res.data.microsite);
       } catch (err) {
@@ -116,7 +115,7 @@ export default function MicrositeTemplate() {
     ),
     x: <SocialIcon network="x" style={{ height: 24, width: 24 }} />,
     website: (
-      <Globe
+      <Earth
         strokeWidth={1.5}
         size={24}
         className="text-white p-1 rounded-full bg-purple-500"
@@ -140,11 +139,11 @@ export default function MicrositeTemplate() {
         <Card className="p-4 rounded-3xl bg-white/65 backdrop-blur-2xl ">
           {/* Banner container */}
           <div className="relative w-full">
-            <div className="w-full h-72 bg-gray-100 rounded-2xl overflow-hidden">
+            <div className="w-full h-80 rounded-2xl overflow-hidden background-transparent">
               <img
                 src={microsite.banner}
                 alt="Banner"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
               />
             </div>
 
@@ -358,7 +357,8 @@ export default function MicrositeTemplate() {
               </AccordionItem>
             </Accordion>
           )}
-          {/* Accordion */}
+
+          {/* Social Links */}
           {microsite.type === "consumer" && (
             <div className="flex justify-center items-center gap-2 mt-5">
               {Object.entries(microsite.socialLinks || {})
@@ -367,17 +367,20 @@ export default function MicrositeTemplate() {
                   const typedPlatform = platform as keyof typeof icons;
 
                   return (
-                    <a
+                    <div
                       key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      onClick={() => window.open(url, "_blank")}
                       className="group relative p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 hover:scale-105 cursor-pointer"
+                      role="link"
+                      tabIndex={0}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" && window.open(url, "_blank")
+                      }
                     >
                       <div className="transition-all duration-300 text-gray-600 group-hover:text-blue-600 group-hover:scale-110">
                         {icons[typedPlatform] ?? null}
                       </div>
-                    </a>
+                    </div>
                   );
                 })}
 
@@ -423,7 +426,7 @@ export default function MicrositeTemplate() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Card 1 */}
               <div className="group relative bg-white border-2 border-gray-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.physicalImg ||
@@ -463,7 +466,7 @@ export default function MicrositeTemplate() {
 
               {/* Card 2 */}
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.physicalBulkImg ||
@@ -502,7 +505,7 @@ export default function MicrositeTemplate() {
 
               {/* Card 3 */}
               <div className="group relative bg-white border-2 border-purple-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-purple-200 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.digitalImg ||
@@ -541,7 +544,7 @@ export default function MicrositeTemplate() {
 
               {/* Card 4 */}
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.digitalBulkImg ||
@@ -586,15 +589,10 @@ export default function MicrositeTemplate() {
               </div>
               <h2 className="text-2xl w-60">Where can I use my Gift Card?</h2>
             </div>
+
             {/* Map Section / Google Map Embed */}
             {microsite.type === "consumer" && (
-              <div className="w-full h-[400px] bg-gray-400 rounded-3xl overflow-hidden">
-                <iframe
-                  className="w-full h-full"
-                  src={microsite.mapLink}
-                  loading="lazy"
-                />
-              </div>
+              <StoreLocation micrositeId={microsite.id} />
             )}
 
             <div className="grid grid-cols-2 gap-4 mt-4">
@@ -907,17 +905,20 @@ export default function MicrositeTemplate() {
                     const typedPlatform = platform as keyof typeof icons;
 
                     return (
-                      <a
+                      <div
                         key={platform}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={() => window.open(url, "_blank")}
                         className="group relative p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-2xl border-2 hover:scale-105 cursor-pointer"
+                        role="link"
+                        tabIndex={0}
+                        onKeyDown={(e) =>
+                          e.key === "Enter" && window.open(url, "_blank")
+                        }
                       >
                         <div className="transition-all duration-300 text-gray-600 group-hover:text-blue-600 group-hover:scale-110">
                           {icons[typedPlatform] ?? null}
                         </div>
-                      </a>
+                      </div>
                     );
                   })}
 
@@ -965,7 +966,7 @@ export default function MicrositeTemplate() {
 
               <div className="flex items-center gap-2">
                 <a href="https://whyleavetown.com/" target="_blank">
-                  <Globe
+                  <Earth
                     strokeWidth={1.5}
                     size={28}
                     className="rounded-full p-1.5 bg-secondary text-white"

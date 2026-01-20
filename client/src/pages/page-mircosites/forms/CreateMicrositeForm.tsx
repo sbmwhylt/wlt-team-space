@@ -26,6 +26,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
 import { Upload, X } from "lucide-react";
+import StoreLocator from "../components/storeLocator";
+import { Spinner } from "@/components/ui/spinner";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -44,7 +46,6 @@ const micrositeSchema = z.object({
   digitalCardOrderLink: z.string().url().optional().or(z.literal("")),
   physicalCardOrderLink: z.string().url().optional().or(z.literal("")),
   communityLink: z.string().url().optional().or(z.literal("")),
-  mapLink: z.string().url().optional().or(z.literal("")),
   businessLink: z.string().url().optional().or(z.literal("")),
   marketingImgs: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
@@ -65,6 +66,14 @@ export default function CreateMicrositeForm({
   const [] = useState(false);
   const { create } = useMicroSites();
 
+  const [storeLocations, setStoreLocations] = useState<
+    {
+      name: string;
+      latitude: number;
+      longitude: number;
+    }[]
+  >([]);
+
   const form = useForm<MicrositeFormValues>({
     resolver: zodResolver(micrositeSchema),
     defaultValues: {
@@ -84,7 +93,6 @@ export default function CreateMicrositeForm({
       digitalCardOrderLink: "",
       physicalCardOrderLink: "",
       communityLink: "",
-      mapLink: "",
       businessLink: "",
       marketingImgs: [],
       marketingVids: [],
@@ -98,38 +106,103 @@ export default function CreateMicrositeForm({
   const onSubmit = async (values: MicrositeFormValues) => {
     try {
       const formData = new FormData();
+
       // Required fields
       formData.append("name", values.name);
       formData.append("type", values.type);
-      // Optional text fields - loop through them
+
+      // Optional text fields
       const optionalFields = [
+        "email",
+        "phone",
         "aboutDesc",
-        "digitalCardOrderLink",
-        "physicalCardOrderLink",
         "communityLink",
-        "mapLink",
+        "businessLink",
+        "physicalCardOrderLink",
+        "digitalCardOrderLink",
       ];
+
       optionalFields.forEach((field) => {
         const value = values[field as keyof MicrositeFormValues];
         if (value) formData.append(field, String(value));
       });
-      // Files
-      if (values.banner) formData.append("banner", values.banner);
+
+      // Banner file
+      if (values.banner) {
+        formData.append("banner", values.banner);
+      }
+
+      // Card images
+      if (values.physicalImg) {
+        formData.append("physicalImg", values.physicalImg);
+      }
+      if (values.digitalImg) {
+        formData.append("digitalImg", values.digitalImg);
+      }
+      if (values.physicalBulkImg) {
+        formData.append("physicalBulkImg", values.physicalBulkImg);
+      }
+      if (values.digitalBulkImg) {
+        formData.append("digitalBulkImg", values.digitalBulkImg);
+      }
+
       // Marketing images
       if (values.marketingImgs?.length) {
         values.marketingImgs.forEach((img) => {
           formData.append("marketingImgs", img.file);
         });
       }
+
       // Social links as JSON
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
-      await create(formData);
+
+      const newMicrosite = await create(formData);
+
+      // THEN create stores if any exist
+      if (storeLocations.length > 0) {
+        try {
+          const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/stores`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                micrositeId: newMicrosite.id,
+                stores: storeLocations.map((store) => ({
+                  name: store.name,
+                  latitude: String(store.latitude), // Ensure string format
+                  longitude: String(store.longitude),
+                })),
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Failed to create stores");
+          }
+
+          const storeResult = await response.json();
+          toast.success(`${storeResult.msg || "Stores created successfully!"}`);
+        } catch (storeError) {
+          console.error("Store creation error:", storeError);
+          toast.error("Microsite created but failed to add store locations");
+          // You might want to delete the microsite here if store creation fails
+          // Or allow admin to add stores later
+        }
+      }
+
       toast.success("Microsite created successfully!");
       form.reset();
+      setStoreLocations([]); // Clear store locations after successful creation
       onSuccess?.();
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error creating microsite");
+      toast.error(
+        error instanceof Error ? error.message : "Error creating microsite"
+      );
     }
   };
 
@@ -367,16 +440,16 @@ export default function CreateMicrositeForm({
 
           <FormField
             control={form.control}
-            name="mapLink"
+            name="businessLink"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Store Location{" "}
-                  <span className="text-orange-500">(Consumer)</span>
+                  Register Business{" "}
+                  <span className="text-orange-500">(Consumer)</span>{" "}
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="https://maps.app.goo.gl/bLiqMuCoLJNWWJvj9"
+                    placeholder="https://example.com"
                     {...field}
                     value={field.value || ""}
                   />
@@ -455,7 +528,9 @@ export default function CreateMicrositeForm({
 
         <hr />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-7">
+        <h3 className="text-lg font-medium">Card Images</h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
           <FormField
             control={form.control}
             name="physicalImg"
@@ -649,9 +724,15 @@ export default function CreateMicrositeForm({
           />
         </div>
 
+        <hr />
+        <h3 className="text-lg ">
+          Store Locator <span className="text-orange-500">(Consumer)</span>{" "}
+        </h3>
+        <StoreLocator onLocationsChange={setStoreLocations} />
+
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Creating..." : "Create"}
+            {form.formState.isSubmitting ? <Spinner /> : "Create"}
           </Button>
         </div>
       </form>
