@@ -79,8 +79,8 @@ export default function MicrositeTemplate() {
       try {
         const res = await axios.get(
           `${import.meta.env.VITE_API_URL}/microsites/${encodeURIComponent(
-            type
-          )}/${encodeURIComponent(slug)}`
+            type,
+          )}/${encodeURIComponent(slug)}`,
         );
         setMicrosite(res.data.microsite);
       } catch (err) {
@@ -139,11 +139,11 @@ export default function MicrositeTemplate() {
         <Card className="p-4 rounded-3xl bg-white/65 backdrop-blur-2xl ">
           {/* Banner container */}
           <div className="relative w-full">
-            <div className="w-full h-72 bg-gray-100 rounded-2xl overflow-hidden">
+            <div className="w-full h-80 rounded-2xl overflow-hidden background-transparent">
               <img
                 src={microsite.banner}
                 alt="Banner"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
               />
             </div>
 
@@ -426,7 +426,7 @@ export default function MicrositeTemplate() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Card 1 */}
               <div className="group relative bg-white border-2 border-gray-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.physicalImg ||
@@ -466,7 +466,7 @@ export default function MicrositeTemplate() {
 
               {/* Card 2 */}
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.physicalBulkImg ||
@@ -505,7 +505,7 @@ export default function MicrositeTemplate() {
 
               {/* Card 3 */}
               <div className="group relative bg-white border-2 border-purple-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-purple-200 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.digitalImg ||
@@ -544,7 +544,7 @@ export default function MicrositeTemplate() {
 
               {/* Card 4 */}
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
-                <div className="relative h-40 overflow-hidden">
+                <div className="relative h-fit overflow-hidden">
                   <img
                     src={
                       microsite.digitalBulkImg ||
