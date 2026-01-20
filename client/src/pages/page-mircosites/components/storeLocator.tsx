@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Search, MapPin, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { Spinner } from "@/components/ui/spinner";
 import { debounce } from "lodash";
 
 interface PendingLocation {
@@ -53,6 +53,8 @@ export default function StoreLocationPicker({
   const markerRef = useRef<any>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  
+
   // Debounced search function
   const performSearch = useCallback(
     debounce(async (query: string) => {
@@ -92,7 +94,7 @@ export default function StoreLocationPicker({
     script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
     script.onload = () => {
       const L = (window as any).L;
-      const map = L.map(mapRef.current).setView([12.8797, 121.774], 6);
+      const map = L.map(mapRef.current).setView([-25.2744, 133.7751], 4);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
@@ -276,11 +278,11 @@ export default function StoreLocationPicker({
             placeholder="e.g., '31 The Rocks, Sydney NSW'"
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="pr-10"
+            className="pr-10 "
           />
           <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
             {isSearching ? (
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
+              <Spinner className="w-4 h-4 text-gray-400" />
             ) : (
               <Search className="w-4 h-4 text-gray-400" />
             )}
@@ -351,16 +353,7 @@ export default function StoreLocationPicker({
             placeholder="Enter store name"
             className="font-medium"
           />
-          {selectedLocation.address && (
-            <div className="mt-1">
-              <div
-                className="text-xs text-gray-500 truncate"
-                title={selectedLocation.address}
-              >
-                {selectedLocation.address}
-              </div>
-            </div>
-          )}
+          
         </div>
       )}
 
@@ -379,7 +372,7 @@ export default function StoreLocationPicker({
             {selectedLocation.address && (
               <div className="mt-2">
                 <div
-                  className="text-xs text-gray-600 line-clamp-2 break-words"
+                  className="text-xs text-gray-600 w-full"
                   title={selectedLocation.address}
                 >
                   {selectedLocation.address}
