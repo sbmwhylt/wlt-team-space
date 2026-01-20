@@ -25,6 +25,7 @@ export interface MicroSite {
   physicalBulkImg?: string;
   digitalBulkImg?: string;
   stores?: Store[];
+  color: string;
 }
 
 export interface Store {

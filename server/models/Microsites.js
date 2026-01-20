@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
-import slugify from "slugify"; 
+import slugify from "slugify";
 
 const Microsite = sequelize.define(
   "Microsite",
@@ -96,10 +96,14 @@ const Microsite = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 Microsite.beforeValidate((microsite) => {
