@@ -1,0 +1,15 @@
+export const colors: Record<string, string> = {
+  red: "bg-gradient-to-r from-red-400 to-red-500",
+  blue: "bg-gradient-to-r from-blue-400 to-blue-800",
+  yellow: "bg-gradient-to-r from-yellow-300 to-yellow-500",
+  green: "bg-gradient-to-r from-green-200 to-green-600",
+  brown: "bg-gradient-to-r from-amber-500 to-amber-800",
+  purple: "bg-gradient-to-r from-purple-400 to-purple-600",
+  pink: "bg-gradient-to-r from-pink-400 to-pink-600",
+  teal: "bg-gradient-to-r from-teal-300 to-teal-600",
+  orange: "bg-gradient-to-r from-orange-400 to-orange-600",
+  cyan: "bg-gradient-to-r from-cyan-300 to-cyan-500",
+  indigo: "bg-gradient-to-r from-indigo-400 to-indigo-600",
+  lime: "bg-gradient-to-r from-lime-300 to-lime-500",
+  gray: "bg-gradient-to-r from-gray-300 to-gray-500",
+};

@@ -31,6 +31,7 @@ export const microSiteSeeder = async () => {
           communityLink: "https://www.whyleavetown.com/community/stanthorpe/",
           businessLink:
             "https://forms.monday.com/forms/890cfe70c8a8dc371a450bad4c102a73?r=use1",
+          color: "red",
         },
         {
           name: "Stanthorpe - Business Hub",
@@ -59,7 +60,7 @@ export const microSiteSeeder = async () => {
           ],
         },
       ],
-      { returning: true }
+      { returning: true },
     );
 
     console.log("✅ Microsites seeded successfully");

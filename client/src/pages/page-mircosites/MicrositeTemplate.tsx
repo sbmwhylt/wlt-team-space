@@ -4,6 +4,7 @@ import axios from "axios";
 import type { MicroSite } from "@/types/Microsite";
 import { SocialIcon } from "react-social-icons";
 import StoreLocation from "@/pages/page-mircosites/components/storeLocation";
+import { colors } from "@/constants/colors";
 
 import {
   Card,
@@ -425,7 +426,7 @@ export default function MicrositeTemplate() {
             {/* Purchase Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Card 1 */}
-              <div className="group relative bg-white border-2 border-gray-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all duration-300">
+              <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
                   <img
                     src={
@@ -435,7 +436,9 @@ export default function MicrositeTemplate() {
                     alt="Physical Card"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-red-400 to-red-500 rounded-full p-2 text-white shadow-lg">
+                  <div
+                    className={`absolute top-3 left-3 rounded-full p-2 text-white shadow-lg ${colors[microsite.color]}`}
+                  >
                     <ShoppingBasket strokeWidth={1.5} size={18} />
                   </div>
                 </div>
@@ -454,7 +457,7 @@ export default function MicrositeTemplate() {
                   <a
                     href={microsite.physicalCardOrderLink}
                     target="_blank"
-                    className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-400 hover:to-red-500 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                    className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
                     <span className="group-hover:translate-x-1 transition-transform">
@@ -475,7 +478,9 @@ export default function MicrositeTemplate() {
                     alt="Bulk Physical"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-red-400 to-red-500 rounded-full p-2 text-white shadow-lg">
+                  <div
+                    className={`absolute top-3 left-3 rounded-full p-2 text-white shadow-lg ${colors[microsite.color]}`}
+                  >
                     <ShoppingBasket strokeWidth={1.5} size={18} />
                   </div>
                 </div>
@@ -493,7 +498,7 @@ export default function MicrositeTemplate() {
                   <a
                     href="https://www.whyleavetown.com/bulk-card-orders/"
                     target="_blank"
-                    className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-400 hover:to-red-500 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                    className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
                     <span className="group-hover:translate-x-1 transition-transform">
@@ -504,7 +509,7 @@ export default function MicrositeTemplate() {
               </div>
 
               {/* Card 3 */}
-              <div className="group relative bg-white border-2 border-purple-100 rounded-3xl overflow-hidden hover:shadow-xl hover:border-purple-200 transition-all duration-300">
+              <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
                   <img
                     src={
@@ -514,7 +519,9 @@ export default function MicrositeTemplate() {
                     alt="Digital Card"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 "
                   />
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-red-400 to-red-500 rounded-full p-2 text-white shadow-lg">
+                  <div
+                    className={`absolute top-3 left-3 rounded-full p-2 text-white shadow-lg ${colors[microsite.color]}`}
+                  >
                     <ShoppingBasket strokeWidth={1.5} size={18} />
                   </div>
                 </div>
@@ -532,7 +539,7 @@ export default function MicrositeTemplate() {
                   <a
                     href={microsite.digitalCardOrderLink}
                     target="_blank"
-                    className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-400 hover:to-red-500 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                    className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
                     <span className="group-hover:translate-x-1 transition-transform">
@@ -553,7 +560,9 @@ export default function MicrositeTemplate() {
                     alt="Bulk Digital"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-red-400 to-red-500 rounded-full p-2 text-white shadow-lg">
+                  <div
+                    className={`absolute top-3 left-3 rounded-full p-2 text-white shadow-lg ${colors[microsite.color]}`}
+                  >
                     <ShoppingBasket strokeWidth={1.5} size={18} />
                   </div>
                 </div>
@@ -571,7 +580,7 @@ export default function MicrositeTemplate() {
                   <a
                     href="https://www.whyleavetown.com/bulk-digital-card-orders/"
                     target="_blank"
-                    className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-400 hover:to-red-500 transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105"
+                    className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
                     <span className="group-hover:translate-x-1 transition-transform">
@@ -951,6 +960,7 @@ export default function MicrositeTemplate() {
               </div>
             )}
           </CardContent>
+
           <CardFooter className="bg-white rounded-2xl py-4">
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-2 items-center">
