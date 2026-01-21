@@ -36,18 +36,30 @@ export const createMicroSite = async (req, res) => {
         if (req.files?.[field]) {
           uploadedData[field] = await uploadToImageKit(req.files[field]);
         }
-      })
+      }),
     );
 
-    // Upload multiple marketing images
-    if (req.files?.marketingImgs) {
-      const images = Array.isArray(req.files.marketingImgs)
-        ? req.files.marketingImgs
-        : [req.files.marketingImgs];
-      uploadedData.marketingImgs = await Promise.all(
-        images.map((file) => uploadToImageKit(file))
-      );
-    }
+    // Upload marketing images by section
+    const sections = ["general", "redemption", "loadUp", "occasions"];
+    uploadedData.marketingImgs = {};
+
+    await Promise.all(
+      sections.map(async (section) => {
+        const fieldName = `marketingImgs_${section}`;
+
+        if (req.files?.[fieldName]) {
+          const images = Array.isArray(req.files[fieldName])
+            ? req.files[fieldName]
+            : [req.files[fieldName]];
+
+          uploadedData.marketingImgs[section] = await Promise.all(
+            images.map((file) => uploadToImageKit(file)),
+          );
+        } else {
+          uploadedData.marketingImgs[section] = null;
+        }
+      }),
+    );
 
     const microsite = await Microsite.create({
       name,
