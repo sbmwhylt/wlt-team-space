@@ -48,7 +48,11 @@ const micrositeSchema = z.object({
   physicalCardOrderLink: z.string().url().optional().or(z.literal("")),
   communityLink: z.string().url().optional().or(z.literal("")),
   businessLink: z.string().url().optional().or(z.literal("")),
-  marketingImgs: z.array(z.any()).optional(),
+  // Split marketing images into sections
+  marketingImgs_general: z.array(z.any()).optional(),
+  marketingImgs_redemption: z.array(z.any()).optional(),
+  marketingImgs_loadUp: z.array(z.any()).optional(),
+  marketingImgs_occasions: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
   physicalImg: z.any().optional(),
   digitalImg: z.any().optional(),
@@ -96,7 +100,11 @@ export default function CreateMicrositeForm({
       physicalCardOrderLink: "",
       communityLink: "",
       businessLink: "",
-      marketingImgs: [],
+      // Split marketing images into sections
+      marketingImgs_general: [],
+      marketingImgs_redemption: [],
+      marketingImgs_loadUp: [],
+      marketingImgs_occasions: [],
       marketingVids: [],
       physicalImg: null,
       digitalImg: null,
@@ -150,10 +158,28 @@ export default function CreateMicrositeForm({
         formData.append("digitalBulkImg", values.digitalBulkImg);
       }
 
-      // Marketing images
-      if (values.marketingImgs?.length) {
-        values.marketingImgs.forEach((img) => {
-          formData.append("marketingImgs", img.file);
+      // Marketing images - by section
+      if (values.marketingImgs_general?.length) {
+        values.marketingImgs_general.forEach((img) => {
+          formData.append("marketingImgs_general", img.file);
+        });
+      }
+
+      if (values.marketingImgs_redemption?.length) {
+        values.marketingImgs_redemption.forEach((img) => {
+          formData.append("marketingImgs_redemption", img.file);
+        });
+      }
+
+      if (values.marketingImgs_loadUp?.length) {
+        values.marketingImgs_loadUp.forEach((img) => {
+          formData.append("marketingImgs_loadUp", img.file);
+        });
+      }
+
+      if (values.marketingImgs_occasions?.length) {
+        values.marketingImgs_occasions.forEach((img) => {
+          formData.append("marketingImgs_occasions", img.file);
         });
       }
 
@@ -176,7 +202,7 @@ export default function CreateMicrositeForm({
                 micrositeId: newMicrosite.id,
                 stores: storeLocations.map((store) => ({
                   name: store.name,
-                  latitude: String(store.latitude), // Ensure string format
+                  latitude: String(store.latitude),
                   longitude: String(store.longitude),
                 })),
               }),
@@ -207,7 +233,6 @@ export default function CreateMicrositeForm({
       );
     }
   };
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -462,23 +487,23 @@ export default function CreateMicrositeForm({
           />
         </div>
 
+        {/* Marketing Images - General */}
         <FormField
           control={form.control}
-          name="marketingImgs"
+          name="marketingImgs_general"
           render={({ field }) => {
-            // Ensure we always work with an array
             const images: { file: File; preview: string }[] = field.value || [];
 
             return (
               <FormItem>
                 <FormLabel>
-                  Marketing Images{" "}
+                  Marketing Images - General{" "}
                   <span className="text-blue-500">(Business)</span>
                 </FormLabel>
                 <FormControl>
                   <div>
                     <Input
-                      id="marketingImgs"
+                      id="marketingImgs_general"
                       type="file"
                       accept="image/*"
                       multiple
@@ -488,7 +513,7 @@ export default function CreateMicrositeForm({
                           file,
                           preview: URL.createObjectURL(file),
                         }));
-                        field.onChange([...images, ...newImages]); // merge with existing
+                        field.onChange([...images, ...newImages]);
                       }}
                     />
 
@@ -501,7 +526,205 @@ export default function CreateMicrositeForm({
                           >
                             <img
                               src={img.preview}
-                              alt={`preview-${i}`}
+                              alt={`general-preview-${i}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = images.filter(
+                                  (_, idx) => idx !== i,
+                                );
+                                field.onChange(updated);
+                              }}
+                              className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+        {/* Marketing Images - Redemption */}
+        <FormField
+          control={form.control}
+          name="marketingImgs_redemption"
+          render={({ field }) => {
+            const images: { file: File; preview: string }[] = field.value || [];
+
+            return (
+              <FormItem>
+                <FormLabel>
+                  Marketing Images - Redemption Stores{" "}
+                  <span className="text-blue-500">(Business)</span>
+                </FormLabel>
+                <FormControl>
+                  <div>
+                    <Input
+                      id="marketingImgs_redemption"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files || []);
+                        const newImages = files.map((file) => ({
+                          file,
+                          preview: URL.createObjectURL(file),
+                        }));
+                        field.onChange([...images, ...newImages]);
+                      }}
+                    />
+
+                    {images.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2 mt-3">
+                        {images.map((img, i) => (
+                          <div
+                            key={i}
+                            className="relative w-full h-24 border rounded-md overflow-hidden"
+                          >
+                            <img
+                              src={img.preview}
+                              alt={`redemption-preview-${i}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = images.filter(
+                                  (_, idx) => idx !== i,
+                                );
+                                field.onChange(updated);
+                              }}
+                              className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+        {/* Marketing Images - Load Up */}
+        <FormField
+          control={form.control}
+          name="marketingImgs_loadUp"
+          render={({ field }) => {
+            const images: { file: File; preview: string }[] = field.value || [];
+
+            return (
+              <FormItem>
+                <FormLabel>
+                  Marketing Images - Load Up Stores{" "}
+                  <span className="text-blue-500">(Business)</span>
+                </FormLabel>
+                <FormControl>
+                  <div>
+                    <Input
+                      id="marketingImgs_loadUp"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files || []);
+                        const newImages = files.map((file) => ({
+                          file,
+                          preview: URL.createObjectURL(file),
+                        }));
+                        field.onChange([...images, ...newImages]);
+                      }}
+                    />
+
+                    {images.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2 mt-3">
+                        {images.map((img, i) => (
+                          <div
+                            key={i}
+                            className="relative w-full h-24 border rounded-md overflow-hidden"
+                          >
+                            <img
+                              src={img.preview}
+                              alt={`loadup-preview-${i}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = images.filter(
+                                  (_, idx) => idx !== i,
+                                );
+                                field.onChange(updated);
+                              }}
+                              className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+
+        {/* Marketing Images - Occasions */}
+        <FormField
+          control={form.control}
+          name="marketingImgs_occasions"
+          render={({ field }) => {
+            const images: { file: File; preview: string }[] = field.value || [];
+
+            return (
+              <FormItem>
+                <FormLabel>
+                  Marketing Images - Occasions{" "}
+                  <span className="text-blue-500">(Business)</span>
+                </FormLabel>
+                <FormControl>
+                  <div>
+                    <Input
+                      id="marketingImgs_occasions"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files || []);
+                        const newImages = files.map((file) => ({
+                          file,
+                          preview: URL.createObjectURL(file),
+                        }));
+                        field.onChange([...images, ...newImages]);
+                      }}
+                    />
+
+                    {images.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2 mt-3">
+                        {images.map((img, i) => (
+                          <div
+                            key={i}
+                            className="relative w-full h-24 border rounded-md overflow-hidden"
+                          >
+                            <img
+                              src={img.preview}
+                              alt={`occasions-preview-${i}`}
                               className="w-full h-full object-cover"
                             />
                             <button
