@@ -73,7 +73,7 @@ const Microsite = sequelize.define(
     marketingImgs: {
       type: DataTypes.JSON,
       allowNull: true,
-      defaultValue: [],
+      defaultValue: null, 
     },
     marketingVids: {
       type: DataTypes.JSON,
