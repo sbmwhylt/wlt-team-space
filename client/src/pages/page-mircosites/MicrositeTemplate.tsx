@@ -15,13 +15,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -54,23 +47,11 @@ import {
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import Autoplay from "embla-carousel-autoplay";
 import UpdateContactForm from "@/pages/page-mircosites/forms/UpdateContactForm";
 import UpdateTerminalForm from "@/pages/page-mircosites/forms/UpdateTerminalForm";
 import CardStockForm from "@/pages/page-mircosites/forms/CardStockForm";
 import MarketingImgs from "@/pages/page-mircosites/components/MarketingImgs";
 
-export function Example() {
-  return (
-    <Carousel
-      plugins={[
-        Autoplay({
-          delay: 2000,
-        }),
-      ]}
-    ></Carousel>
-  );
-}
 export default function MicrositeTemplate() {
   const { slug, type } = useParams();
   const [microsite, setMicrosite] = useState<MicroSite | null>(null);
@@ -668,30 +649,6 @@ export default function MicrositeTemplate() {
             )}
 
             {microsite.type === "business" && (
-              // <div className="w-full mb-4">
-              //   <Carousel className="w-full max-w-4xl mx-auto">
-              //     <CarouselContent className="">
-              //       {microsite.marketingImgs?.map((img, index) => (
-              //         <CarouselItem key={index} className="pl-4">
-              //           <div className="p-0">
-              //             <div className="relative w-full h-full p-4">
-              //               <img
-              //                 src={img}
-              //                 alt={`Marketing image ${index + 1}`}
-              //                 className="w-full h-full object-cover rounded-lg"
-              //               />
-              //             </div>
-              //           </div>
-              //         </CarouselItem>
-              //       ))}
-              //     </CarouselContent>
-
-              //     <div className="flex justify-center items-center gap-4 mt-6">
-              //       <CarouselPrevious className="static translate-y-0" />
-              //       <CarouselNext className="static translate-y-0" />
-              //     </div>
-              //   </Carousel>
-              // </div>
               <MarketingImgs microsite={microsite} />
             )}
 

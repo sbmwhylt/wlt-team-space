@@ -18,7 +18,12 @@ export interface MicroSite {
   physicalCardOrderLink?: string;
   communityLink?: string;
   businessLink?: string;
-  marketingImgs: string[];
+  marketingImgs?: {
+    general?: string[] | null;
+    redemption?: string[] | null;
+    loadUp?: string[] | null;
+    occasions?: string[] | null;
+  } | null;
   marketingVids?: string[];
   physicalImg?: string;
   digitalImg?: string;
