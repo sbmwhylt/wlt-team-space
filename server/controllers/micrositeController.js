@@ -113,17 +113,17 @@ export const getMicroSiteByTypeAndSlug = async (req, res) => {
 };
 
 // -------------------- GET MICROSITE BY ID
-// export const getMicroSiteById = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const microsite = await Microsite.findByPk(id);
-//     if (!microsite)
-//       return res.status(404).json({ error: "Microsite not found" });
-//     res.json({ microsite });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
+export const getMicroSiteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const microsite = await Microsite.findByPk(id);
+    if (!microsite)
+      return res.status(404).json({ error: "Microsite not found" });
+    res.json({ microsite });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 // -------------------- UPDATE MICROSITE
 export const updateMicroSite = async (req, res) => {

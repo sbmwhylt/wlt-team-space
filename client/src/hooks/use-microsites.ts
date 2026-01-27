@@ -65,14 +65,31 @@ export function useMicroSites() {
   };
 
   // --------------- UPDATE
-  const update = async (id: string | number, data: Partial<MicroSite>) => {
+  // --------------- UPDATE
+  const update = async (
+    id: string | number,
+    data: FormData | Partial<MicroSite>,
+  ) => {
+    setLoading(true);
     try {
-      const res = await axios.put(`${baseUrl}/${id}`, data);
-      setMicrosites((prev) =>
-        prev.map((m) => (m.id === id ? res.data.microsite : m))
-      );
+      const res = await axios.put(`${baseUrl}/${id}`, data, {
+        // Only set Content-Type header if it's FormData
+        headers:
+          data instanceof FormData
+            ? { "Content-Type": "multipart/form-data" }
+            : {},
+      });
+
+      // Invalidate cache and refresh list (same as create)
+      cachedMicrosites = null;
+      await get(); // Fetch fresh data to show updates
+
+      return res.data.microsite;
     } catch (err) {
       console.error("Update microsite failed:", err);
+      throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
