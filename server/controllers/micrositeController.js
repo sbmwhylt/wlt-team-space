@@ -129,10 +129,74 @@ export const getMicroSiteByTypeAndSlug = async (req, res) => {
 export const updateMicroSite = async (req, res) => {
   try {
     const { id } = req.params;
+    const { name, socialLinks, ...rest } = req.body;
+
     const microsite = await Microsite.findByPk(id);
-    if (!microsite)
+    if (!microsite) {
       return res.status(404).json({ error: "Microsite not found" });
-    await microsite.update(req.body);
+    }
+
+    // Parse social links if provided
+    const parsedSocialLinks = socialLinks
+      ? typeof socialLinks === "string"
+        ? JSON.parse(socialLinks)
+        : socialLinks
+      : undefined;
+
+    const uploadedData = {};
+
+    // Upload new single images (only if provided)
+    const singleImages = [
+      "banner",
+      "physicalImg",
+      "digitalImg",
+      "physicalBulkImg",
+      "digitalBulkImg",
+    ];
+
+    await Promise.all(
+      singleImages.map(async (field) => {
+        if (req.files?.[field]) {
+          uploadedData[field] = await uploadToImageKit(req.files[field]);
+        }
+      }),
+    );
+
+    // Upload new marketing images by section (only if provided)
+    const sections = ["general", "redemption", "loadUp", "occasions"];
+
+    const hasMarketingImgs = sections.some(
+      (section) => req.files?.[`marketingImgs_${section}`],
+    );
+
+    if (hasMarketingImgs) {
+      uploadedData.marketingImgs = { ...microsite.marketingImgs }; // Keep existing ones
+
+      await Promise.all(
+        sections.map(async (section) => {
+          const fieldName = `marketingImgs_${section}`;
+
+          if (req.files?.[fieldName]) {
+            const images = Array.isArray(req.files[fieldName])
+              ? req.files[fieldName]
+              : [req.files[fieldName]];
+
+            uploadedData.marketingImgs[section] = await Promise.all(
+              images.map((file) => uploadToImageKit(file)),
+            );
+          }
+        }),
+      );
+    }
+
+    // Update the microsite with all data
+    await microsite.update({
+      ...(name && { name }),
+      ...rest,
+      ...(parsedSocialLinks && { socialLinks: parsedSocialLinks }),
+      ...uploadedData,
+    });
+
     res.json({ msg: "Microsite updated successfully", microsite });
   } catch (err) {
     res.status(500).json({ error: err.message });
