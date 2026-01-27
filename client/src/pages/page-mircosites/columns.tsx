@@ -21,9 +21,23 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import UpdateMicrositeForm from "./forms/UpdateMicrositeForm"; // Import your update form
 
 // Define the type to match your hook
 export type MicroSite = {
+  physicalImg: string | undefined;
+  digitalImg: string | undefined;
+  physicalBulkImg: string | undefined;
+  digitalBulkImg: string | undefined;
+  marketingImgs: { general?: string[] | undefined; redemption?: string[] | undefined; loadUp?: string[] | undefined; occasions?: string[] | undefined; } | undefined;
+  email: string;
+  phone: string;
+  socialLinks: any;
+  digitalCardOrderLink: string;
+  physicalCardOrderLink: string;
+  communityLink: string;
+  businessLink: string;
+  color: string;
   id: string | number;
   name: string;
   slug: string;
@@ -63,6 +77,35 @@ function DeleteDialog({
             Delete
           </Button>
         </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function UpdateDialog({
+  microsite,
+  open,
+  onOpenChange,
+}: {
+  microsite: MicroSite;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Update Microsite</DialogTitle>
+          <DialogDescription>
+            Update the <strong>"{microsite.name}"</strong> microsite details.
+          </DialogDescription>
+        </DialogHeader>
+
+        {/* Pass the microsite data */}
+        <UpdateMicrositeForm
+          microsite={microsite}
+          onSuccess={() => onOpenChange(false)}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -212,6 +255,7 @@ export const getColumns = (micrositesState?: {
     cell: ({ row }) => {
       const microsite = row.original;
       const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+      const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
 
       const handleDelete = () => {
         if (micrositesState?.remove) {
@@ -219,49 +263,48 @@ export const getColumns = (micrositesState?: {
           setDeleteDialogOpen(false);
         }
       };
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(microsite.slug)}
-            >
-              Copy Link
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <a
-                href={`/microsites/${microsite.type}/${microsite.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View microsite
-              </a>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                // Edit logic here
-                console.log("Edit:", microsite.id);
-              }}
-            >
-              Edit microsite
-            </DropdownMenuItem>
-            {micrositesState?.remove && (
-              <DropdownMenuItem
-                className="text-red-500"
-                onClick={() => setDeleteDialogOpen(true)}
-              >
-                Delete microsite
-              </DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
 
+      return (
+        <>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(microsite.slug)}
+              >
+                Copy Link
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <a
+                  href={`/microsites/${microsite.type}/${microsite.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View microsite
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setUpdateDialogOpen(true)}>
+                Edit microsite
+              </DropdownMenuItem>
+              {micrositesState?.remove && (
+                <DropdownMenuItem
+                  className="text-red-500"
+                  onClick={() => setDeleteDialogOpen(true)}
+                >
+                  Delete microsite
+                </DropdownMenuItem>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Delete Dialog */}
           {micrositesState?.remove && (
             <DeleteDialog
               microsite={microsite}
@@ -270,7 +313,14 @@ export const getColumns = (micrositesState?: {
               onOpenChange={setDeleteDialogOpen}
             />
           )}
-        </DropdownMenu>
+
+          {/* Update Dialog */}
+          <UpdateDialog
+            microsite={microsite}
+            open={updateDialogOpen}
+            onOpenChange={setUpdateDialogOpen}
+          />
+        </>
       );
     },
   },
