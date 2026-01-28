@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { type Path } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import {
   Form,
   FormField,
@@ -255,36 +255,6 @@ export default function UpdateMicrositeForm({
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Type</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="consumer" className="text-orange-500">
-                    Consumer
-                  </SelectItem>
-                  <SelectItem value="business" className="text-blue-500">
-                    Business
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <div className="flex items-center gap-2 w-full">
           <FormField
             control={form.control}
@@ -449,7 +419,6 @@ export default function UpdateMicrositeForm({
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="physicalCardOrderLink"
@@ -467,452 +436,469 @@ export default function UpdateMicrositeForm({
               </FormItem>
             )}
           />
+          {microsite.type === "consumer" && (
+            <FormField
+              control={form.control}
+              name="communityLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Community Link{" "}
+                    <span className="text-orange-500">(Consumer)</span>{" "}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="https://example.com"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
-          <FormField
-            control={form.control}
-            name="communityLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Community Link{" "}
-                  <span className="text-orange-500">(Consumer)</span>{" "}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="https://example.com"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="businessLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Register Business{" "}
-                  <span className="text-orange-500">(Consumer)</span>{" "}
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="https://example.com"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {microsite.type === "consumer" && (
+            <FormField
+              control={form.control}
+              name="businessLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Register Business{" "}
+                    <span className="text-orange-500">(Consumer)</span>{" "}
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="https://example.com"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
         </div>
 
         {/* Marketing Images - General */}
-        <FormField
-          control={form.control}
-          name="marketingImgs_general"
-          render={({ field }) => {
-            const images: { file: File; preview: string }[] = field.value || [];
+        {microsite.type === "business" && (
+          <FormField
+            control={form.control}
+            name="marketingImgs_general"
+            render={({ field }) => {
+              const images: { file: File; preview: string }[] =
+                field.value || [];
 
-            return (
-              <FormItem>
-                <FormLabel>
-                  Marketing Images - General{" "}
-                  <span className="text-blue-500">(Business)</span>
-                </FormLabel>
-                <FormControl>
-                  <div>
-                    {/* Show existing images */}
-                    {existingImages.marketingImgs?.general?.length ? (
-                      <div className="mb-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          Current images:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {existingImages.marketingImgs.general.map(
-                            (img, i) => (
+              return (
+                <FormItem>
+                  <FormLabel>
+                    Marketing Images - General{" "}
+                    <span className="text-blue-500">(Business)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div>
+                      {/* Show existing images */}
+                      {existingImages.marketingImgs?.general?.length ? (
+                        <div className="mb-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            Current images:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {existingImages.marketingImgs.general.map(
+                              (img, i) => (
+                                <div
+                                  key={i}
+                                  className="relative w-full h-24 border rounded-md overflow-hidden"
+                                >
+                                  <img
+                                    src={img}
+                                    alt={`current-general-${i}`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
+                                    Current
+                                  </div>
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      <Input
+                        id="marketingImgs_general"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          const newImages = files.map((file) => ({
+                            file,
+                            preview: URL.createObjectURL(file),
+                          }));
+                          field.onChange([...images, ...newImages]);
+                        }}
+                      />
+
+                      {images.length > 0 && (
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            New images to upload:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {images.map((img, i) => (
                               <div
                                 key={i}
                                 className="relative w-full h-24 border rounded-md overflow-hidden"
                               >
                                 <img
-                                  src={img}
-                                  alt={`current-general-${i}`}
+                                  src={img.preview}
+                                  alt={`new-general-${i}`}
                                   className="w-full h-full object-cover"
                                 />
-                                <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                  Current
+                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
+                                  New
                                 </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const updated = images.filter(
+                                      (_, idx) => idx !== i,
+                                    );
+                                    field.onChange(updated);
+                                  }}
+                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                                >
+                                  ✕
+                                </button>
                               </div>
-                            ),
-                          )}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ) : null}
-
-                    <Input
-                      id="marketingImgs_general"
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={(e) => {
-                        const files = Array.from(e.target.files || []);
-                        const newImages = files.map((file) => ({
-                          file,
-                          preview: URL.createObjectURL(file),
-                        }));
-                        field.onChange([...images, ...newImages]);
-                      }}
-                    />
-
-                    {images.length > 0 && (
-                      <div className="mt-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          New images to upload:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {images.map((img, i) => (
-                            <div
-                              key={i}
-                              className="relative w-full h-24 border rounded-md overflow-hidden"
-                            >
-                              <img
-                                src={img.preview}
-                                alt={`new-general-${i}`}
-                                className="w-full h-full object-cover"
-                              />
-                              <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                New
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const updated = images.filter(
-                                    (_, idx) => idx !== i,
-                                  );
-                                  field.onChange(updated);
-                                }}
-                                className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                              >
-                                ✕
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+        )}
 
         {/* Marketing Images - Redemption */}
-        <FormField
-          control={form.control}
-          name="marketingImgs_redemption"
-          render={({ field }) => {
-            const images: { file: File; preview: string }[] = field.value || [];
+        {microsite.type === "business" && (
+          <FormField
+            control={form.control}
+            name="marketingImgs_redemption"
+            render={({ field }) => {
+              const images: { file: File; preview: string }[] =
+                field.value || [];
 
-            return (
-              <FormItem>
-                <FormLabel>
-                  Marketing Images - Redemption{" "}
-                  <span className="text-blue-500">(Business)</span>
-                </FormLabel>
-                <FormControl>
-                  <div>
-                    {existingImages.marketingImgs?.redemption?.length ? (
-                      <div className="mb-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          Current images:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {existingImages.marketingImgs.redemption.map(
-                            (img, i) => (
+              return (
+                <FormItem>
+                  <FormLabel>
+                    Marketing Images - Redemption{" "}
+                    <span className="text-blue-500">(Business)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div>
+                      {existingImages.marketingImgs?.redemption?.length ? (
+                        <div className="mb-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            Current images:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {existingImages.marketingImgs.redemption.map(
+                              (img, i) => (
+                                <div
+                                  key={i}
+                                  className="relative w-full h-24 border rounded-md overflow-hidden"
+                                >
+                                  <img
+                                    src={img}
+                                    alt={`current-redemption-${i}`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
+                                    Current
+                                  </div>
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      <Input
+                        id="marketingImgs_redemption"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          const newImages = files.map((file) => ({
+                            file,
+                            preview: URL.createObjectURL(file),
+                          }));
+                          field.onChange([...images, ...newImages]);
+                        }}
+                      />
+
+                      {images.length > 0 && (
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            New images to upload:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {images.map((img, i) => (
                               <div
                                 key={i}
                                 className="relative w-full h-24 border rounded-md overflow-hidden"
                               >
                                 <img
-                                  src={img}
-                                  alt={`current-redemption-${i}`}
+                                  src={img.preview}
+                                  alt={`new-redemption-${i}`}
                                   className="w-full h-full object-cover"
                                 />
-                                <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                  Current
+                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
+                                  New
                                 </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const updated = images.filter(
+                                      (_, idx) => idx !== i,
+                                    );
+                                    field.onChange(updated);
+                                  }}
+                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                                >
+                                  ✕
+                                </button>
                               </div>
-                            ),
-                          )}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ) : null}
-
-                    <Input
-                      id="marketingImgs_redemption"
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={(e) => {
-                        const files = Array.from(e.target.files || []);
-                        const newImages = files.map((file) => ({
-                          file,
-                          preview: URL.createObjectURL(file),
-                        }));
-                        field.onChange([...images, ...newImages]);
-                      }}
-                    />
-
-                    {images.length > 0 && (
-                      <div className="mt-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          New images to upload:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {images.map((img, i) => (
-                            <div
-                              key={i}
-                              className="relative w-full h-24 border rounded-md overflow-hidden"
-                            >
-                              <img
-                                src={img.preview}
-                                alt={`new-redemption-${i}`}
-                                className="w-full h-full object-cover"
-                              />
-                              <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                New
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const updated = images.filter(
-                                    (_, idx) => idx !== i,
-                                  );
-                                  field.onChange(updated);
-                                }}
-                                className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                              >
-                                ✕
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+        )}
 
         {/* Marketing Images - Load Up */}
-        <FormField
-          control={form.control}
-          name="marketingImgs_loadUp"
-          render={({ field }) => {
-            const images: { file: File; preview: string }[] = field.value || [];
+        {microsite.type === "business" && (
+          <FormField
+            control={form.control}
+            name="marketingImgs_loadUp"
+            render={({ field }) => {
+              const images: { file: File; preview: string }[] =
+                field.value || [];
 
-            return (
-              <FormItem>
-                <FormLabel>
-                  Marketing Images - Load Up{" "}
-                  <span className="text-blue-500">(Business)</span>
-                </FormLabel>
-                <FormControl>
-                  <div>
-                    {existingImages.marketingImgs?.loadUp?.length ? (
-                      <div className="mb-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          Current images:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {existingImages.marketingImgs.loadUp.map((img, i) => (
-                            <div
-                              key={i}
-                              className="relative w-full h-24 border rounded-md overflow-hidden"
-                            >
-                              <img
-                                src={img}
-                                alt={`current-loadup-${i}`}
-                                className="w-full h-full object-cover"
-                              />
-                              <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                Current
-                              </div>
-                            </div>
-                          ))}
+              return (
+                <FormItem>
+                  <FormLabel>
+                    Marketing Images - Load Up{" "}
+                    <span className="text-blue-500">(Business)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div>
+                      {existingImages.marketingImgs?.loadUp?.length ? (
+                        <div className="mb-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            Current images:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {existingImages.marketingImgs.loadUp.map(
+                              (img, i) => (
+                                <div
+                                  key={i}
+                                  className="relative w-full h-24 border rounded-md overflow-hidden"
+                                >
+                                  <img
+                                    src={img}
+                                    alt={`current-loadup-${i}`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
+                                    Current
+                                  </div>
+                                </div>
+                              ),
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ) : null}
+                      ) : null}
 
-                    <Input
-                      id="marketingImgs_loadUp"
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={(e) => {
-                        const files = Array.from(e.target.files || []);
-                        const newImages = files.map((file) => ({
-                          file,
-                          preview: URL.createObjectURL(file),
-                        }));
-                        field.onChange([...images, ...newImages]);
-                      }}
-                    />
+                      <Input
+                        id="marketingImgs_loadUp"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          const newImages = files.map((file) => ({
+                            file,
+                            preview: URL.createObjectURL(file),
+                          }));
+                          field.onChange([...images, ...newImages]);
+                        }}
+                      />
 
-                    {images.length > 0 && (
-                      <div className="mt-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          New images to upload:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {images.map((img, i) => (
-                            <div
-                              key={i}
-                              className="relative w-full h-24 border rounded-md overflow-hidden"
-                            >
-                              <img
-                                src={img.preview}
-                                alt={`new-loadup-${i}`}
-                                className="w-full h-full object-cover"
-                              />
-                              <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                New
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const updated = images.filter(
-                                    (_, idx) => idx !== i,
-                                  );
-                                  field.onChange(updated);
-                                }}
-                                className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                              >
-                                ✕
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-
-        {/* Marketing Images - Occasions */}
-        <FormField
-          control={form.control}
-          name="marketingImgs_occasions"
-          render={({ field }) => {
-            const images: { file: File; preview: string }[] = field.value || [];
-
-            return (
-              <FormItem>
-                <FormLabel>
-                  Marketing Images - Occasions{" "}
-                  <span className="text-blue-500">(Business)</span>
-                </FormLabel>
-                <FormControl>
-                  <div>
-                    {existingImages.marketingImgs?.occasions?.length ? (
-                      <div className="mb-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          Current images:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {existingImages.marketingImgs.occasions.map(
-                            (img, i) => (
+                      {images.length > 0 && (
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            New images to upload:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {images.map((img, i) => (
                               <div
                                 key={i}
                                 className="relative w-full h-24 border rounded-md overflow-hidden"
                               >
                                 <img
-                                  src={img}
-                                  alt={`current-occasions-${i}`}
+                                  src={img.preview}
+                                  alt={`new-loadup-${i}`}
                                   className="w-full h-full object-cover"
                                 />
-                                <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                  Current
+                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
+                                  New
                                 </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const updated = images.filter(
+                                      (_, idx) => idx !== i,
+                                    );
+                                    field.onChange(updated);
+                                  }}
+                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                                >
+                                  ✕
+                                </button>
                               </div>
-                            ),
-                          )}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ) : null}
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+        )}
 
-                    <Input
-                      id="marketingImgs_occasions"
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      onChange={(e) => {
-                        const files = Array.from(e.target.files || []);
-                        const newImages = files.map((file) => ({
-                          file,
-                          preview: URL.createObjectURL(file),
-                        }));
-                        field.onChange([...images, ...newImages]);
-                      }}
-                    />
+        {/* Marketing Images - Occasions */}
+        {microsite.type === "business" && (
+          <FormField
+            control={form.control}
+            name="marketingImgs_occasions"
+            render={({ field }) => {
+              const images: { file: File; preview: string }[] =
+                field.value || [];
 
-                    {images.length > 0 && (
-                      <div className="mt-3">
-                        <p className="text-sm text-gray-600 mb-2">
-                          New images to upload:
-                        </p>
-                        <div className="grid grid-cols-3 gap-2">
-                          {images.map((img, i) => (
-                            <div
-                              key={i}
-                              className="relative w-full h-24 border rounded-md overflow-hidden"
-                            >
-                              <img
-                                src={img.preview}
-                                alt={`new-occasions-${i}`}
-                                className="w-full h-full object-cover"
-                              />
-                              <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                New
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const updated = images.filter(
-                                    (_, idx) => idx !== i,
-                                  );
-                                  field.onChange(updated);
-                                }}
-                                className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+              return (
+                <FormItem>
+                  <FormLabel>
+                    Marketing Images - Occasions{" "}
+                    <span className="text-blue-500">(Business)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div>
+                      {existingImages.marketingImgs?.occasions?.length ? (
+                        <div className="mb-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            Current images:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {existingImages.marketingImgs.occasions.map(
+                              (img, i) => (
+                                <div
+                                  key={i}
+                                  className="relative w-full h-24 border rounded-md overflow-hidden"
+                                >
+                                  <img
+                                    src={img}
+                                    alt={`current-occasions-${i}`}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
+                                    Current
+                                  </div>
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      <Input
+                        id="marketingImgs_occasions"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          const newImages = files.map((file) => ({
+                            file,
+                            preview: URL.createObjectURL(file),
+                          }));
+                          field.onChange([...images, ...newImages]);
+                        }}
+                      />
+
+                      {images.length > 0 && (
+                        <div className="mt-3">
+                          <p className="text-sm text-gray-600 mb-2">
+                            New images to upload:
+                          </p>
+                          <div className="grid grid-cols-3 gap-2">
+                            {images.map((img, i) => (
+                              <div
+                                key={i}
+                                className="relative w-full h-24 border rounded-md overflow-hidden"
                               >
-                                ✕
-                              </button>
-                            </div>
-                          ))}
+                                <img
+                                  src={img.preview}
+                                  alt={`new-occasions-${i}`}
+                                  className="w-full h-full object-cover"
+                                />
+                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
+                                  New
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const updated = images.filter(
+                                      (_, idx) => idx !== i,
+                                    );
+                                    field.onChange(updated);
+                                  }}
+                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+        )}
 
         <FormField
           control={form.control}
@@ -951,8 +937,8 @@ export default function UpdateMicrositeForm({
         />
 
         <hr />
-        <h3 className="text-lg font-medium">Card Images</h3>
 
+        <h3 className="text-lg font-medium">Card Images</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
           {/* Physical Image */}
           <FormField

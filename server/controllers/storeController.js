@@ -115,6 +115,89 @@ export const getStoreById = async (req, res) => {
   }
 };
 
+// -------------------- UPDATE SINGLE STORE
+export const updateStore = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, latitude, longitude } = req.body;
+
+    // Find the store first
+    const store = await Store.findByPk(id);
+    if (!store) {
+      return res.status(404).json({ error: "Store not found" });
+    }
+
+    // Update only the fields that were provided
+    if (name !== undefined) store.name = name;
+    if (latitude !== undefined) store.latitude = latitude;
+    if (longitude !== undefined) store.longitude = longitude;
+
+    await store.save();
+
+    res.json({
+      msg: "Store updated successfully",
+      store,
+    });
+  } catch (error) {
+    console.error("Error updating store:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// -------------------- UPDATE ALL STORES FOR A MICROSITE (Bulk Replace)
+export const updateStoresForMicrosite = async (req, res) => {
+  try {
+    const { micrositeId } = req.params;
+    const { stores } = req.body;
+
+    // Validate input
+    if (!micrositeId) {
+      return res.status(400).json({ error: "micrositeId is required" });
+    }
+
+    if (!stores || !Array.isArray(stores)) {
+      return res.status(400).json({ error: "stores array is required" });
+    }
+
+    // Verify microsite exists
+    const microsite = await Microsite.findByPk(micrositeId);
+    if (!microsite) {
+      return res.status(404).json({ error: "Microsite not found" });
+    }
+
+    // Use a transaction - all changes succeed or all fail together
+    const result = await db.sequelize.transaction(async (t) => {
+      // 1. Delete all old stores for this microsite
+      await Store.destroy({
+        where: { micrositeId },
+        transaction: t,
+      });
+
+      // 2. Create all new stores
+      const storesWithMicrositeId = stores.map((store) => ({
+        name: store.name,
+        latitude: store.latitude,
+        longitude: store.longitude,
+        micrositeId,
+      }));
+
+      const createdStores = await Store.bulkCreate(storesWithMicrositeId, {
+        transaction: t,
+      });
+
+      return createdStores;
+    });
+
+    res.json({
+      msg: `Stores updated successfully. ${result.length} stores saved.`,
+      stores: result,
+    });
+  } catch (error) {
+    console.error("Error updating stores:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 //-------------------- DELETE STORE
 export const deleteStore = async (req, res) => {
   try {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,7 +22,9 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import UpdateMicrositeForm from "./forms/UpdateMicrositeForm"; // Import your update form
+import UpdateMicrositeForm from "./forms/UpdateMicrositeForm";
+import UpdateStoreLocator from "./components/updateStoreLocator";
+import toast from "react-hot-toast";
 
 // Define the type to match your hook
 export type MicroSite = {
@@ -29,7 +32,14 @@ export type MicroSite = {
   digitalImg: string | undefined;
   physicalBulkImg: string | undefined;
   digitalBulkImg: string | undefined;
-  marketingImgs: { general?: string[] | undefined; redemption?: string[] | undefined; loadUp?: string[] | undefined; occasions?: string[] | undefined; } | undefined;
+  marketingImgs:
+    | {
+        general?: string[] | undefined;
+        redemption?: string[] | undefined;
+        loadUp?: string[] | undefined;
+        occasions?: string[] | undefined;
+      }
+    | undefined;
   email: string;
   phone: string;
   socialLinks: any;
@@ -92,20 +102,107 @@ function UpdateDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   return (
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Update Microsite</DialogTitle>
+            <DialogDescription>
+              Update the <strong>"{microsite.name}"</strong> microsite details.
+            </DialogDescription>
+          </DialogHeader>
+
+          {/* Pass the microsite data */}
+          <UpdateMicrositeForm
+            microsite={microsite}
+            onSuccess={() => onOpenChange(false)}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+function UpdateStoreDialog({
+  microsite,
+  open,
+  onOpenChange,
+}: {
+  microsite: MicroSite;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const [stores, setStores] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (open) {
+      setLoading(true);
+      fetch(
+        `${import.meta.env.VITE_API_URL}/microsites/${microsite.type}/${microsite.slug}`,
+      )
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to fetch");
+          return res.json();
+        })
+        .then((data) => {
+          const micrositeStores = data.microsite?.stores || data.stores || [];
+          setStores(Array.isArray(micrositeStores) ? micrositeStores : []);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch stores:", err);
+          toast.error("Failed to load stores");
+          setStores([]);
+          setLoading(false);
+        });
+    }
+  }, [open, microsite.slug, microsite.type]);
+
+  // Handle successful save
+  const handleSuccess = () => {
+    onOpenChange(false); // Close dialog
+    toast.success("Stores updated successfully!");
+    // Optionally refresh the page or refetch data
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
+
+  // Handle cancel
+  const handleCancel = () => {
+    onOpenChange(false); // Close dialog
+  };
+
+  return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Update Microsite</DialogTitle>
+          <DialogTitle>Update Store Locations</DialogTitle>
           <DialogDescription>
-            Update the <strong>"{microsite.name}"</strong> microsite details.
+            Update the <strong>"{microsite.name}"</strong> store locations.
           </DialogDescription>
         </DialogHeader>
 
-        {/* Pass the microsite data */}
-        <UpdateMicrositeForm
-          microsite={microsite}
-          onSuccess={() => onOpenChange(false)}
-        />
+        {loading ? (
+          <div className="flex items-center justify-center p-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-3">Loading stores...</span>
+          </div>
+        ) : (
+          <UpdateStoreLocator
+            micrositeId={microsite.id as string}
+            initialLocations={stores.map((store) => ({
+              id: store.id,
+              name: store.name,
+              latitude: parseFloat(store.latitude),
+              longitude: parseFloat(store.longitude),
+              address: store.address,
+            }))}
+            onSuccess={handleSuccess}
+            onCancel={handleCancel}
+          />
+        )}
       </DialogContent>
     </Dialog>
   );
@@ -256,6 +353,7 @@ export const getColumns = (micrositesState?: {
       const microsite = row.original;
       const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
       const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
+      const [storeDialogOpen, setStoreDialogOpen] = useState(false);
 
       const handleDelete = () => {
         if (micrositesState?.remove) {
@@ -293,6 +391,11 @@ export const getColumns = (micrositesState?: {
               <DropdownMenuItem onClick={() => setUpdateDialogOpen(true)}>
                 Edit microsite
               </DropdownMenuItem>
+              {microsite.type === "consumer" && (
+                <DropdownMenuItem onClick={() => setStoreDialogOpen(true)}>
+                  Update Stores
+                </DropdownMenuItem>
+              )}
               {micrositesState?.remove && (
                 <DropdownMenuItem
                   className="text-red-500"
@@ -319,6 +422,13 @@ export const getColumns = (micrositesState?: {
             microsite={microsite}
             open={updateDialogOpen}
             onOpenChange={setUpdateDialogOpen}
+          />
+
+          {/* Store Update Dialog */}
+          <UpdateStoreDialog
+            microsite={microsite}
+            open={storeDialogOpen}
+            onOpenChange={setStoreDialogOpen}
           />
         </>
       );
