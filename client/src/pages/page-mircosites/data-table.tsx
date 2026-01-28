@@ -93,7 +93,7 @@ export function DataTable<TData, TValue>({
           />
         )}
         <Input
-          placeholder="Search..."
+          placeholder="Search by name, type, or slug..."
           value={filtering ?? ""}
           onChange={(event) => setFiltering(event.target.value)}
           className="max-w-sm"
