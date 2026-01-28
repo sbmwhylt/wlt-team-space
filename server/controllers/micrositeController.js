@@ -101,6 +101,12 @@ export const getMicroSiteByTypeAndSlug = async (req, res) => {
     const { type, slug } = req.params;
     const microsite = await Microsite.findOne({
       where: { slug, type },
+      include: [
+        {
+          model: db.Store,
+          as: "stores",
+        },
+      ],
     });
     if (!microsite) {
       return res.status(404).json({ error: "Microsite not found" });
