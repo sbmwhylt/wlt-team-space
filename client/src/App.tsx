@@ -8,6 +8,7 @@ import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
 import MicrositeTemplate from "@/pages/page-mircosites/MicrositeTemplate";
 import Profile from "@/pages/Profile";
+import NotFound from "@/pages/404";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
         />
 
         <Route path="/microsites/:type/:slug" element={<MicrositeTemplate />} />
-        
+
         <Route
           path="/users"
           element={
@@ -62,6 +63,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

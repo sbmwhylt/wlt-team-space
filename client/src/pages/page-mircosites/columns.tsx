@@ -342,12 +342,12 @@ export const getColumns = (micrositesState?: {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(microsite.slug)}
               >
                 Copy Link
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <a
                   href={`/microsites/${microsite.type}/${microsite.slug}`}
@@ -365,6 +365,7 @@ export const getColumns = (micrositesState?: {
                   Update Stores
                 </DropdownMenuItem>
               )}
+              <DropdownMenuSeparator />
               {micrositesState?.remove && (
                 <DropdownMenuItem
                   className="text-red-500"
