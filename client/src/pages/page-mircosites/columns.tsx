@@ -25,38 +25,7 @@ import { useState } from "react";
 import UpdateMicrositeForm from "./forms/UpdateMicrositeForm";
 import UpdateStoreLocator from "./components/updateStoreLocator";
 import toast from "react-hot-toast";
-
-// Define the type to match your hook
-export type MicroSite = {
-  physicalImg: string | undefined;
-  digitalImg: string | undefined;
-  physicalBulkImg: string | undefined;
-  digitalBulkImg: string | undefined;
-  marketingImgs:
-    | {
-        general?: string[] | undefined;
-        redemption?: string[] | undefined;
-        loadUp?: string[] | undefined;
-        occasions?: string[] | undefined;
-      }
-    | undefined;
-  email: string;
-  phone: string;
-  socialLinks: any;
-  digitalCardOrderLink: string;
-  physicalCardOrderLink: string;
-  communityLink: string;
-  businessLink: string;
-  color: string;
-  id: string | number;
-  name: string;
-  slug: string;
-  type?: "consumer" | "business";
-  banner?: string;
-  aboutDesc?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-};
+import { type MicroSite } from "@/types/Microsite";
 
 function DeleteDialog({
   microsite,
