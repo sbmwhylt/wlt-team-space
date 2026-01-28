@@ -19,10 +19,10 @@ export interface MicroSite {
   communityLink?: string;
   businessLink?: string;
   marketingImgs?: {
-    general?: string[] | null;
-    redemption?: string[] | null;
-    loadUp?: string[] | null;
-    occasions?: string[] | null;
+    general?: string[];
+    redemption?: string[];
+    loadUp?: string[];
+    occasions?: string[];
   } | null;
   marketingVids?: string[];
   physicalImg?: string;
