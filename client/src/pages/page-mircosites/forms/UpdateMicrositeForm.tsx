@@ -28,7 +28,8 @@ import { toast } from "react-hot-toast";
 import { Upload, X } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { colors } from "@/constants/colors";
-import type { MicroSite } from "../columns";
+import type { MicroSite } from "@/types/Microsite";
+export type { MicroSite } from "@/types/Microsite";
 
 const micrositeSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -130,7 +131,7 @@ export default function UpdateMicrositeForm({
       digitalImg: microsite.digitalImg,
       physicalBulkImg: microsite.physicalBulkImg,
       digitalBulkImg: microsite.digitalBulkImg,
-      marketingImgs: microsite.marketingImgs,
+      marketingImgs: microsite.marketingImgs || undefined,
     });
 
     // Pre-fill form with existing data
