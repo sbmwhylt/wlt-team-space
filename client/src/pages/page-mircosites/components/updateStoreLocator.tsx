@@ -280,19 +280,48 @@ export default function UpdateStoreLocator({
     setSelectedLocation(null);
     setSearchQuery("");
     setSearchResults([]);
-
-    toast.success("Store added to list");
   };
 
-  const removeLocation = (id: string) => {
-    setStoreLocations((prev) => {
-      const location = prev.find((loc) => loc.id === id);
-      if (location?.marker && leafletMapRef.current) {
-        leafletMapRef.current.removeLayer(location.marker);
+  const removeLocation = async (id: string) => {
+    // If it's a new store (not saved yet), just remove it from the list
+    if (String(id).startsWith("new-")) {
+      setStoreLocations((prev) => {
+        const location = prev.find((loc) => loc.id === id);
+        if (location?.marker && leafletMapRef.current) {
+          leafletMapRef.current.removeLayer(location.marker);
+        }
+        return prev.filter((loc) => loc.id !== id);
+      });
+
+      return;
+    }
+
+    // If it's an existing store, delete it from the server
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/stores/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete store");
       }
-      return prev.filter((loc) => loc.id !== id);
-    });
-    toast.success("Store removed from list");
+
+      // Remove from map and list
+      setStoreLocations((prev) => {
+        const location = prev.find((loc) => loc.id === id);
+        if (location?.marker && leafletMapRef.current) {
+          leafletMapRef.current.removeLayer(location.marker);
+        }
+        return prev.filter((loc) => loc.id !== id);
+      });
+
+      toast.success("Store deleted successfully");
+    } catch (error) {
+      toast.error("Failed to delete store. Please try again.");
+    }
   };
 
   const clearSelection = () => {
@@ -306,58 +335,57 @@ export default function UpdateStoreLocator({
     }
   };
 
-  // NEW: Handle save all stores
+  // Handle save all stores
   const handleSaveStores = async () => {
     if (storeLocations.length === 0) {
       toast.error("Please add at least one store");
       return;
     }
 
-    try {
-      setIsSaving(true);
-
-      // Format stores for the API
-      const stores = storeLocations.map((loc) => ({
+    const newStores = storeLocations
+      .filter((loc) => String(loc.id).startsWith("new-"))
+      .map((loc) => ({
         name: loc.name,
         latitude: loc.lat,
         longitude: loc.lng,
         address: loc.address,
       }));
 
-      const response = await fetch(`/api/microsites/${micrositeId}/stores`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+    if (newStores.length === 0) {
+      toast.error("No new stores to save");
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/microsites/${micrositeId}/stores`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ stores: newStores }),
         },
-        body: JSON.stringify({
-          micrositeId,
-          stores,
-        }),
-      });
+      );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to update stores");
+        throw new Error("Failed to save stores");
       }
 
-      const data = await response.json();
+      toast.success(`${newStores.length} new stores added successfully!`);
 
-      toast.success(data.msg || "Stores updated successfully!");
-
-      // Call the success callback if provided
       if (onSuccess) {
         onSuccess();
       }
     } catch (error) {
-      console.error("Error updating stores:", error);
-      toast.error(
-        error instanceof Error ? error.message : "Failed to update stores",
-      );
+      console.error("Error saving stores:", error);
+      toast.error("Failed to save stores. Please try again.");
     } finally {
       setIsSaving(false);
     }
   };
-
   return (
     <div className="space-y-4">
       {storeLocations.length > 0 && (

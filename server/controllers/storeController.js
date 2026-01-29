@@ -165,35 +165,22 @@ export const updateStoresForMicrosite = async (req, res) => {
       return res.status(404).json({ error: "Microsite not found" });
     }
 
-    // Use a transaction - all changes succeed or all fail together
-    const result = await db.sequelize.transaction(async (t) => {
-      // 1. Delete all old stores for this microsite
-      await Store.destroy({
-        where: { micrositeId },
-        transaction: t,
-      });
+    // Just ADD new stores, don't delete old ones
+    const storesWithMicrositeId = stores.map((store) => ({
+      name: store.name,
+      latitude: store.latitude,
+      longitude: store.longitude,
+      micrositeId,
+    }));
 
-      // 2. Create all new stores
-      const storesWithMicrositeId = stores.map((store) => ({
-        name: store.name,
-        latitude: store.latitude,
-        longitude: store.longitude,
-        micrositeId,
-      }));
-
-      const createdStores = await Store.bulkCreate(storesWithMicrositeId, {
-        transaction: t,
-      });
-
-      return createdStores;
-    });
+    const createdStores = await Store.bulkCreate(storesWithMicrositeId);
 
     res.json({
-      msg: `Stores updated successfully. ${result.length} stores saved.`,
-      stores: result,
+      msg: `${createdStores.length} new stores added successfully.`,
+      stores: createdStores,
     });
   } catch (error) {
-    console.error("Error updating stores:", error);
+    console.error("Error adding stores:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
