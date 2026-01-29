@@ -7,17 +7,16 @@ import {
   deleteMicroSite,
   uploadImages,
 } from "../controllers/micrositeController.js";
+import { updateStoresForMicrosite } from "../controllers/storeController.js";
 
 const router = express.Router();
 
-// CRUD routes
 router.post("/", createMicroSite);
 router.get("/", getAllMicroSites);
 router.get("/:type/:slug", getMicroSiteByTypeAndSlug);
 router.put("/:id", updateMicroSite);
 router.delete("/:id", deleteMicroSite);
-
-// Image Upload (NO middleware needed!)
 router.post("/upload", uploadImages);
+router.put("/:micrositeId/stores", updateStoresForMicrosite);
 
 export default router;
