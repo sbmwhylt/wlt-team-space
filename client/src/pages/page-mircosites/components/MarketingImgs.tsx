@@ -179,14 +179,14 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
     <div>
       {/* Tabs - Only show tabs with images */}
       <div className="max-w-4xl mx-auto mb-8">
-        <div className="flex justify-center border-b border-gray-300">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 border-gray-300">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 text-sm font-medium transition ${
+              className={`px-6 py-3 text-sm transition-all  text-center ${
                 activeTab === tab.id
-                  ? "border-b-2 border-blue-600 text-blue-600"
+                  ? " text-blue-700 font-bold tracking-wider border-blue-700"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
