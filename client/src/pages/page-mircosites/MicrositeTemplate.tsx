@@ -41,8 +41,8 @@ import {
   Facebook,
   Instagram,
   Palette,
-  Mail,
-  Phone,
+  // Mail,
+  // Phone,
   CircleOff,
 } from "lucide-react";
 import { SpinnerCustom } from "@/components/ui/spinner";
@@ -118,8 +118,8 @@ export default function MicrositeTemplate() {
 
       {/* Optional overlay for contrast */}
       <div className="absolute inset-0 bg-black/30" />
-      <section className="max-w-lg mx-auto p-5">
-        <Card className="p-4 rounded-3xl bg-white/65 backdrop-blur-2xl ">
+      <section className="max-w-lg mx-auto p-2">
+        <Card className="p-2 md:p-3 lg:p-4 rounded-3xl bg-white/65 backdrop-blur-2xl ">
           {/* Banner container */}
           <div className="relative w-full">
             <div className="w-full h-80 rounded-2xl overflow-hidden background-transparent">
@@ -144,10 +144,11 @@ export default function MicrositeTemplate() {
               {microsite.name}
             </CardTitle>
 
-            <CardDescription className="text-lg pt-4  text-gray-700">
+            <CardDescription className="text-lg pt-4 text-gray-700">
               {microsite.aboutDesc}
             </CardDescription>
           </CardHeader>
+
           {microsite.type === "business" && (
             <div className="section-title mt-6 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
@@ -367,7 +368,7 @@ export default function MicrositeTemplate() {
                   );
                 })}
 
-              {microsite.email && (
+              {/* {microsite.email && (
                 <a
                   href={`mailto:${microsite.email}`}
                   className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
@@ -392,7 +393,7 @@ export default function MicrositeTemplate() {
                     className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
                   />
                 </a>
-              )}
+              )} */}
             </div>
           )}
 
@@ -406,7 +407,7 @@ export default function MicrositeTemplate() {
             </div>
 
             {/* Purchase Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* Card 1 */}
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
@@ -586,7 +587,7 @@ export default function MicrositeTemplate() {
               <StoreLocation micrositeId={microsite.id} />
             )}
 
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-2 gap-3 mt-4">
               <a
                 href={microsite.communityLink}
                 target="_blank"
@@ -602,7 +603,7 @@ export default function MicrositeTemplate() {
                       />
                     </div>
 
-                    <h2 className="text-base font-bold text-gray-900 text-center px-6  transition-colors">
+                    <h2 className="text-md md:text-md lg:text-lg font-bold text-gray-900 text-center px-6 transition-colors">
                       Where to spend the gift card?
                     </h2>
                   </div>
@@ -624,7 +625,7 @@ export default function MicrositeTemplate() {
                       />
                     </div>
 
-                    <h2 className="text-base font-bold text-gray-900 text-center px-6 transition-colors">
+                    <h2 className="text-md md:text-md lg:text-lg font-bold text-gray-900 text-center px-6 transition-colors">
                       Check card balance or expiry?
                     </h2>
                   </div>
@@ -890,7 +891,7 @@ export default function MicrositeTemplate() {
                     );
                   })}
 
-                {microsite.email && (
+                {/* {microsite.email && (
                   <a
                     href={`mailto:${microsite.email}`}
                     className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
@@ -915,7 +916,7 @@ export default function MicrositeTemplate() {
                       className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
                     />
                   </a>
-                )}
+                )} */}
               </div>
             )}
           </CardContent>
