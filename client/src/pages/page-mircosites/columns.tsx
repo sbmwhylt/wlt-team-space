@@ -128,19 +128,16 @@ function UpdateStoreDialog({
     }
   }, [open, microsite.slug, microsite.type]);
 
-  // Handle successful save
   const handleSuccess = () => {
-    onOpenChange(false); // Close dialog
+    onOpenChange(false);
     toast.success("Stores updated successfully!");
-    // Optionally refresh the page or refetch data
     setTimeout(() => {
       window.location.reload();
     }, 1000);
   };
 
-  // Handle cancel
   const handleCancel = () => {
-    onOpenChange(false); // Close dialog
+    onOpenChange(false);
   };
 
   return (
@@ -328,6 +325,7 @@ export const getColumns = (micrositesState?: {
         if (micrositesState?.remove) {
           micrositesState.remove(microsite.id);
           setDeleteDialogOpen(false);
+          toast.success("Microsite deleted successfully!");
         }
       };
 
