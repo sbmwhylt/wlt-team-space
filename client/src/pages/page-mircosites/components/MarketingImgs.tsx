@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Dialog,
@@ -38,6 +38,13 @@ type SectionKey = "general" | "redemption" | "loadUp" | "occasions";
 function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Reset index if it goes out of bounds when images change
+  useEffect(() => {
+    if (currentIndex >= images.length && images.length > 0) {
+      setCurrentIndex(0);
+    }
+  }, [images.length, currentIndex]);
+
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
@@ -52,6 +59,12 @@ function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
     );
   }
 
+  // Extra safety check before rendering
+  const currentImage = images[currentIndex];
+  if (!currentImage) {
+    return <div className="text-center text-gray-500 py-8">Loading...</div>;
+  }
+
   return (
     <div className="w-full mb-4">
       <div className="w-full max-w-4xl mx-auto">
@@ -61,8 +74,8 @@ function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
           className="relative w-full h-96 bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90 transition"
         >
           <img
-            src={images[currentIndex].url}
-            alt={images[currentIndex].alt}
+            src={currentImage.url}
+            alt={currentImage.alt}
             className="w-full h-full object-cover"
           />
         </div>
@@ -142,6 +155,11 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
     tabs.length > 0 ? tabs[0].id : null,
   );
 
+  const handleTabChange = (tabId: SectionKey) => {
+    setActiveTab(tabId);
+    setModalImageIndex(0); // Reset to first image
+  };
+
   // If no images at all, show message
   if (tabs.length === 0) {
     return (
@@ -183,10 +201,10 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 text-sm transition-all  text-center ${
+              onClick={() => handleTabChange(tab.id)}
+              className={`px-6 py-3 text-sm text-center ${
                 activeTab === tab.id
-                  ? " text-blue-700 font-bold tracking-wider border-blue-700"
+                  ? " text-blue-700 border-b-2 border-blue-700"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
