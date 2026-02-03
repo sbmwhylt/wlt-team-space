@@ -15,39 +15,6 @@
       <button type="submit">Upload</button>
     </form>
 
-    <hr />
-
-    <h2>Create Microsite with Images</h2>
-    <form id="micrositeForm">
-      <input
-        type="text"
-        name="name"
-        placeholder="Microsite Name"
-        required
-      /><br />
-      <input type="text" name="type" value="consumer" /><br />
-      <input type="text" name="link" placeholder="Link" required /><br />
-
-      <label>Banner:</label>
-      <input type="file" id="banner" name="banner" accept="image/*" /><br />
-
-      <label>Logo:</label>
-      <input type="file" id="logo" name="logo" accept="image/*" /><br />
-
-      <label>Marketing Images:</label>
-      <input
-        type="file"
-        id="marketingImgs"
-        name="marketingImgs"
-        accept="image/*"
-        multiple
-      /><br />
-
-      <button type="submit">Create Microsite</button>
-    </form>
-
-    <div id="result"></div>
-
     <script>
       document
         .getElementById("micrositeForm")
