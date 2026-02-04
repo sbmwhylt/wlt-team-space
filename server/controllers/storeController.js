@@ -92,7 +92,16 @@ export const createStores = async (req, res) => {
 // -------------------- GET ALL MICROSITES (for dropdown/selection)
 export const getAllStores = async (req, res) => {
   try {
-    const stores = await Store.findAll();
+    const stores = await Store.findAll({
+      include: [
+        {
+          model: db.Microsite,
+          as: "microsite",
+          attributes: ["slug"],
+        },
+      ],
+    });
+
     res.json({ stores });
   } catch (error) {
     console.error("Error fetching stores:", error);
