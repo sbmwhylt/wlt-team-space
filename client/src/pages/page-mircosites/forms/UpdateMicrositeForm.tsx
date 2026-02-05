@@ -5,13 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { type Path } from "react-hook-form";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import {
   Form,
   FormField,
@@ -49,10 +42,10 @@ const micrositeSchema = z.object({
   physicalCardOrderLink: z.string().url().optional().or(z.literal("")),
   communityLink: z.string().url().optional().or(z.literal("")),
   businessLink: z.string().url().optional().or(z.literal("")),
-  marketingImgs_general: z.array(z.any()).optional(),
-  marketingImgs_redemption: z.array(z.any()).optional(),
-  marketingImgs_loadUp: z.array(z.any()).optional(),
-  marketingImgs_occasions: z.array(z.any()).optional(),
+  marketingImgs_brandAssets: z.array(z.any()).optional(),
+  marketingImgs_campaignsAndPromos: z.array(z.any()).optional(),
+  marketingImgs_socialContent: z.array(z.any()).optional(),
+  marketingImgs_participationContent: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
   physicalImg: z.any().optional(),
   digitalImg: z.any().optional(),
@@ -82,10 +75,10 @@ export default function UpdateMicrositeForm({
     physicalBulkImg?: string;
     digitalBulkImg?: string;
     marketingImgs?: {
-      general?: string[];
-      redemption?: string[];
-      loadUp?: string[];
-      occasions?: string[];
+      brandAssets?: string[];
+      campaginsAndPromos?: string[];
+      socialContent?: string[];
+      participationContent?: string[];
     };
   }>({});
 
@@ -109,10 +102,10 @@ export default function UpdateMicrositeForm({
       physicalCardOrderLink: "",
       communityLink: "",
       businessLink: "",
-      marketingImgs_general: [],
-      marketingImgs_redemption: [],
-      marketingImgs_loadUp: [],
-      marketingImgs_occasions: [],
+      marketingImgs_brandAssets: [],
+      marketingImgs_campaignsAndPromos: [],
+      marketingImgs_socialContent: [],
+      marketingImgs_participationContent: [],
       marketingVids: [],
       physicalImg: null,
       digitalImg: null,
@@ -159,10 +152,10 @@ export default function UpdateMicrositeForm({
       digitalImg: null,
       physicalBulkImg: null,
       digitalBulkImg: null,
-      marketingImgs_general: [],
-      marketingImgs_redemption: [],
-      marketingImgs_loadUp: [],
-      marketingImgs_occasions: [],
+      marketingImgs_brandAssets: [],
+      marketingImgs_campaignsAndPromos: [],
+      marketingImgs_socialContent: [],
+      marketingImgs_participationContent: [],
     });
   }, [microsite, form]);
 
@@ -201,27 +194,27 @@ export default function UpdateMicrositeForm({
         formData.append("digitalBulkImg", values.digitalBulkImg);
 
       // Add NEW marketing images by section
-      if (values.marketingImgs_general?.length) {
-        values.marketingImgs_general.forEach((img) => {
-          formData.append("marketingImgs_general", img.file);
+      if (values.marketingImgs_brandAssets?.length) {
+        values.marketingImgs_brandAssets.forEach((img) => {
+          formData.append("marketingImgs_brandAssets", img.file);
         });
       }
 
-      if (values.marketingImgs_redemption?.length) {
-        values.marketingImgs_redemption.forEach((img) => {
-          formData.append("marketingImgs_redemption", img.file);
+      if (values.marketingImgs_campaignsAndPromos?.length) {
+        values.marketingImgs_campaignsAndPromos.forEach((img) => {
+          formData.append("marketingImgs_campaignsAndPromos", img.file);
         });
       }
 
-      if (values.marketingImgs_loadUp?.length) {
-        values.marketingImgs_loadUp.forEach((img) => {
-          formData.append("marketingImgs_loadUp", img.file);
+      if (values.marketingImgs_socialContent?.length) {
+        values.marketingImgs_socialContent.forEach((img) => {
+          formData.append("marketingImgs_socialContent", img.file);
         });
       }
 
-      if (values.marketingImgs_occasions?.length) {
-        values.marketingImgs_occasions.forEach((img) => {
-          formData.append("marketingImgs_occasions", img.file);
+      if (values.marketingImgs_participationContent?.length) {
+        values.marketingImgs_participationContent.forEach((img) => {
+          formData.append("marketingImgs_participationContent", img.file);
         });
       }
 
@@ -484,11 +477,14 @@ export default function UpdateMicrositeForm({
           )}
         </div>
 
-        {/* Marketing Images - General */}
+        <hr />
+        <h3 className="text-lg ">Marketing Images</h3>
+
+        {/* Marketing Images - Brand Assets*/}
         {microsite.type === "business" && (
           <FormField
             control={form.control}
-            name="marketingImgs_general"
+            name="marketingImgs_brandAssets"
             render={({ field }) => {
               const images: { file: File; preview: string }[] =
                 field.value || [];
@@ -496,19 +492,19 @@ export default function UpdateMicrositeForm({
               return (
                 <FormItem>
                   <FormLabel>
-                    Marketing Images - General{" "}
+                    Brand Assets{" "}
                     <span className="text-blue-500">(Business)</span>
                   </FormLabel>
                   <FormControl>
                     <div>
                       {/* Show existing images */}
-                      {existingImages.marketingImgs?.general?.length ? (
+                      {existingImages.marketingImgs?.brandAssets?.length ? (
                         <div className="mb-3">
                           <p className="text-sm text-gray-600 mb-2">
                             Current images:
                           </p>
                           <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.general.map(
+                            {existingImages.marketingImgs.brandAssets.map(
                               (img, i) => (
                                 <div
                                   key={i}
@@ -516,7 +512,7 @@ export default function UpdateMicrositeForm({
                                 >
                                   <img
                                     src={img}
-                                    alt={`current-general-${i}`}
+                                    alt={`current-brandAssets-${i}`}
                                     className="w-full h-full object-cover"
                                   />
                                   <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
@@ -530,7 +526,7 @@ export default function UpdateMicrositeForm({
                       ) : null}
 
                       <Input
-                        id="marketingImgs_general"
+                        id="marketingImgs_brandAssets"
                         type="file"
                         accept="image/*"
                         multiple
@@ -557,7 +553,7 @@ export default function UpdateMicrositeForm({
                               >
                                 <img
                                   src={img.preview}
-                                  alt={`new-general-${i}`}
+                                  alt={`new-brandAssets-${i}`}
                                   className="w-full h-full object-cover"
                                 />
                                 <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
@@ -589,11 +585,11 @@ export default function UpdateMicrositeForm({
           />
         )}
 
-        {/* Marketing Images - Redemption */}
+        {/* Marketing Images - Campaigns And Promos */}
         {microsite.type === "business" && (
           <FormField
             control={form.control}
-            name="marketingImgs_redemption"
+            name="marketingImgs_campaignsAndPromos"
             render={({ field }) => {
               const images: { file: File; preview: string }[] =
                 field.value || [];
@@ -601,18 +597,19 @@ export default function UpdateMicrositeForm({
               return (
                 <FormItem>
                   <FormLabel>
-                    Marketing Images - Redemption{" "}
+                    Campaigns And Promos{" "}
                     <span className="text-blue-500">(Business)</span>
                   </FormLabel>
                   <FormControl>
                     <div>
-                      {existingImages.marketingImgs?.redemption?.length ? (
+                      {existingImages.marketingImgs?.campaginsAndPromos
+                        ?.length ? (
                         <div className="mb-3">
                           <p className="text-sm text-gray-600 mb-2">
                             Current images:
                           </p>
                           <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.redemption.map(
+                            {existingImages.marketingImgs.campaginsAndPromos.map(
                               (img, i) => (
                                 <div
                                   key={i}
@@ -620,7 +617,7 @@ export default function UpdateMicrositeForm({
                                 >
                                   <img
                                     src={img}
-                                    alt={`current-redemption-${i}`}
+                                    alt={`current-campaignsAndPromos-${i}`}
                                     className="w-full h-full object-cover"
                                   />
                                   <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
@@ -634,7 +631,7 @@ export default function UpdateMicrositeForm({
                       ) : null}
 
                       <Input
-                        id="marketingImgs_redemption"
+                        id="marketingImgs_campaignsAndPromos"
                         type="file"
                         accept="image/*"
                         multiple
@@ -661,7 +658,7 @@ export default function UpdateMicrositeForm({
                               >
                                 <img
                                   src={img.preview}
-                                  alt={`new-redemption-${i}`}
+                                  alt={`new-campaignsAndPromos-${i}`}
                                   className="w-full h-full object-cover"
                                 />
                                 <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
@@ -693,11 +690,11 @@ export default function UpdateMicrositeForm({
           />
         )}
 
-        {/* Marketing Images - Load Up */}
+        {/* Marketing Images - Social Content*/}
         {microsite.type === "business" && (
           <FormField
             control={form.control}
-            name="marketingImgs_loadUp"
+            name="marketingImgs_socialContent"
             render={({ field }) => {
               const images: { file: File; preview: string }[] =
                 field.value || [];
@@ -705,18 +702,18 @@ export default function UpdateMicrositeForm({
               return (
                 <FormItem>
                   <FormLabel>
-                    Marketing Images - Load Up{" "}
+                    Social Content{" "}
                     <span className="text-blue-500">(Business)</span>
                   </FormLabel>
                   <FormControl>
                     <div>
-                      {existingImages.marketingImgs?.loadUp?.length ? (
+                      {existingImages.marketingImgs?.socialContent?.length ? (
                         <div className="mb-3">
                           <p className="text-sm text-gray-600 mb-2">
                             Current images:
                           </p>
                           <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.loadUp.map(
+                            {existingImages.marketingImgs.socialContent.map(
                               (img, i) => (
                                 <div
                                   key={i}
@@ -724,7 +721,7 @@ export default function UpdateMicrositeForm({
                                 >
                                   <img
                                     src={img}
-                                    alt={`current-loadup-${i}`}
+                                    alt={`current-socialContent-${i}`}
                                     className="w-full h-full object-cover"
                                   />
                                   <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
@@ -738,7 +735,7 @@ export default function UpdateMicrositeForm({
                       ) : null}
 
                       <Input
-                        id="marketingImgs_loadUp"
+                        id="marketingImgs_socialContent"
                         type="file"
                         accept="image/*"
                         multiple
@@ -765,7 +762,7 @@ export default function UpdateMicrositeForm({
                               >
                                 <img
                                   src={img.preview}
-                                  alt={`new-loadup-${i}`}
+                                  alt={`new-socialContent-${i}`}
                                   className="w-full h-full object-cover"
                                 />
                                 <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
@@ -797,11 +794,11 @@ export default function UpdateMicrositeForm({
           />
         )}
 
-        {/* Marketing Images - Occasions */}
+        {/* Marketing Images - Participation Content*/}
         {microsite.type === "business" && (
           <FormField
             control={form.control}
-            name="marketingImgs_occasions"
+            name="marketingImgs_participationContent"
             render={({ field }) => {
               const images: { file: File; preview: string }[] =
                 field.value || [];
@@ -809,18 +806,19 @@ export default function UpdateMicrositeForm({
               return (
                 <FormItem>
                   <FormLabel>
-                    Marketing Images - Occasions{" "}
+                    Participation Content{" "}
                     <span className="text-blue-500">(Business)</span>
                   </FormLabel>
                   <FormControl>
                     <div>
-                      {existingImages.marketingImgs?.occasions?.length ? (
+                      {existingImages.marketingImgs?.participationContent
+                        ?.length ? (
                         <div className="mb-3">
                           <p className="text-sm text-gray-600 mb-2">
                             Current images:
                           </p>
                           <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.occasions.map(
+                            {existingImages.marketingImgs.participationContent.map(
                               (img, i) => (
                                 <div
                                   key={i}
@@ -828,7 +826,7 @@ export default function UpdateMicrositeForm({
                                 >
                                   <img
                                     src={img}
-                                    alt={`current-occasions-${i}`}
+                                    alt={`current-participationContent-${i}`}
                                     className="w-full h-full object-cover"
                                   />
                                   <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
@@ -842,7 +840,7 @@ export default function UpdateMicrositeForm({
                       ) : null}
 
                       <Input
-                        id="marketingImgs_occasions"
+                        id="marketingImgs_participationContent"
                         type="file"
                         accept="image/*"
                         multiple
@@ -869,7 +867,7 @@ export default function UpdateMicrositeForm({
                               >
                                 <img
                                   src={img.preview}
-                                  alt={`new-occasions-${i}`}
+                                  alt={`new-participationContent-${i}`}
                                   className="w-full h-full object-cover"
                                 />
                                 <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">

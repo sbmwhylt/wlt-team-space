@@ -34,13 +34,22 @@ export const createMicroSite = async (req, res) => {
     await Promise.all(
       singleImages.map(async (field) => {
         if (req.files?.[field]) {
-          uploadedData[field] = await uploadToImageKit(req.files[field]);
+          const folderPath = `/${slug}/static-imgs`;
+          uploadedData[field] = await uploadToImageKit(
+            req.files[field],
+            folderPath,
+          );
         }
       }),
     );
 
     // Upload marketing images by section
-    const sections = ["general", "redemption", "loadUp", "occasions"];
+    const sections = [
+      "brandAssets",
+      "campaignsAndPromos",
+      "socialContent",
+      "participationContent",
+    ];
     uploadedData.marketingImgs = {};
 
     await Promise.all(
@@ -52,8 +61,10 @@ export const createMicroSite = async (req, res) => {
             ? req.files[fieldName]
             : [req.files[fieldName]];
 
+          const folderPath = `/${slug}/marketing-imgs/${section}`;
+
           uploadedData.marketingImgs[section] = await Promise.all(
-            images.map((file) => uploadToImageKit(file)),
+            images.map((file) => uploadToImageKit(file, folderPath)),
           );
         } else {
           uploadedData.marketingImgs[section] = null;
@@ -163,13 +174,22 @@ export const updateMicroSite = async (req, res) => {
     await Promise.all(
       singleImages.map(async (field) => {
         if (req.files?.[field]) {
-          uploadedData[field] = await uploadToImageKit(req.files[field]);
+          const folderPath = `/${slug}/static-imgs`;
+          uploadedData[field] = await uploadToImageKit(
+            req.files[field],
+            folderPath,
+          );
         }
       }),
     );
 
     // Upload new marketing images by section (only if provided)
-    const sections = ["general", "redemption", "loadUp", "occasions"];
+    const sections = [
+      "brandAssets",
+      "campaignsAndPromos",
+      "socialContent",
+      "participationContent",
+    ];
 
     const hasMarketingImgs = sections.some(
       (section) => req.files?.[`marketingImgs_${section}`],
@@ -187,9 +207,13 @@ export const updateMicroSite = async (req, res) => {
               ? req.files[fieldName]
               : [req.files[fieldName]];
 
+            const folderPath = `/${slug}/marketing-imgs/${section}`;
+
             uploadedData.marketingImgs[section] = await Promise.all(
-              images.map((file) => uploadToImageKit(file)),
+              images.map((file) => uploadToImageKit(file, folderPath)),
             );
+          } else {
+            uploadedData.marketingImgs[section] = null;
           }
         }),
       );
