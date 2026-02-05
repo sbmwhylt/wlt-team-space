@@ -13,10 +13,10 @@ interface ImageData {
 }
 
 interface MarketingImgs {
-  general?: string[] | null;
-  redemption?: string[] | null;
-  loadUp?: string[] | null;
-  occasions?: string[] | null;
+  brandAssets?: string[] | null;
+  campaignsAndPromos?: string[] | null;
+  socialContent?: string[] | null;
+  participationContent?: string[] | null;
 }
 
 interface Microsite {
@@ -32,7 +32,11 @@ interface TabbedGalleryProps {
   microsite: Microsite;
 }
 
-type SectionKey = "general" | "redemption" | "loadUp" | "occasions";
+type SectionKey =
+  | "brandAssets"
+  | "campaignsAndPromos"
+  | "socialContent"
+  | "participationContent";
 
 // Separate Gallery Component
 function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
@@ -113,38 +117,42 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
 
   // Process microsite data into gallery format
   const galleryData: Record<SectionKey, ImageData[]> = {
-    general:
-      microsite?.marketingImgs?.general?.map((url: string, index: number) => ({
-        url,
-        alt: `General ${index + 1}`,
-      })) || [],
-    redemption:
-      microsite?.marketingImgs?.redemption?.map(
+    brandAssets:
+      microsite?.marketingImgs?.brandAssets?.map(
         (url: string, index: number) => ({
           url,
-          alt: `Redemption ${index + 1}`,
+          alt: `brandAssets ${index + 1}`,
         }),
       ) || [],
-    loadUp:
-      microsite?.marketingImgs?.loadUp?.map((url: string, index: number) => ({
-        url,
-        alt: `Load Up ${index + 1}`,
-      })) || [],
-    occasions:
-      microsite?.marketingImgs?.occasions?.map(
+    campaignsAndPromos:
+      microsite?.marketingImgs?.campaignsAndPromos?.map(
         (url: string, index: number) => ({
           url,
-          alt: `Occasions ${index + 1}`,
+          alt: `campaignsAndPromos ${index + 1}`,
+        }),
+      ) || [],
+    socialContent:
+      microsite?.marketingImgs?.socialContent?.map(
+        (url: string, index: number) => ({
+          url,
+          alt: `socialContent ${index + 1}`,
+        }),
+      ) || [],
+    participationContent:
+      microsite?.marketingImgs?.participationContent?.map(
+        (url: string, index: number) => ({
+          url,
+          alt: `participationContent ${index + 1}`,
         }),
       ) || [],
   };
 
   // Define all possible tabs
   const allTabs: { id: SectionKey; label: string }[] = [
-    { id: "general", label: "General" },
-    { id: "redemption", label: "Redemption Stores" },
-    { id: "loadUp", label: "Load Up Stores" },
-    { id: "occasions", label: "Occasions" },
+    { id: "brandAssets", label: "Brand Assets" },
+    { id: "campaignsAndPromos", label: "Campaigns & Promos" },
+    { id: "socialContent", label: "Social Content" },
+    { id: "participationContent", label: "Participation Content" },
   ];
 
   // Filter tabs to only show sections with images

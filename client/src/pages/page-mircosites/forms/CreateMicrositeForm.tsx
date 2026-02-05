@@ -49,10 +49,10 @@ const micrositeSchema = z.object({
   communityLink: z.string().url().optional().or(z.literal("")),
   businessLink: z.string().url().optional().or(z.literal("")),
   // Split marketing images into sections
-  marketingImgs_general: z.array(z.any()).optional(),
-  marketingImgs_redemption: z.array(z.any()).optional(),
-  marketingImgs_loadUp: z.array(z.any()).optional(),
-  marketingImgs_occasions: z.array(z.any()).optional(),
+  marketingImgs_brandAssets: z.array(z.any()).optional(),
+  marketingImgs_campaignsAndPromos: z.array(z.any()).optional(),
+  marketingImgs_socialContent: z.array(z.any()).optional(),
+  marketingImgs_participationContent: z.array(z.any()).optional(),
   marketingVids: z.array(z.any()).optional(),
   physicalImg: z.any().optional(),
   digitalImg: z.any().optional(),
@@ -101,10 +101,10 @@ export default function CreateMicrositeForm({
       communityLink: "",
       businessLink: "",
       // Split marketing images into sections
-      marketingImgs_general: [],
-      marketingImgs_redemption: [],
-      marketingImgs_loadUp: [],
-      marketingImgs_occasions: [],
+      marketingImgs_brandAssets: [],
+      marketingImgs_campaignsAndPromos: [],
+      marketingImgs_socialContent: [],
+      marketingImgs_participationContent: [],
       marketingVids: [],
       physicalImg: null,
       digitalImg: null,
@@ -159,27 +159,27 @@ export default function CreateMicrositeForm({
       }
 
       // Marketing images - by section
-      if (values.marketingImgs_general?.length) {
-        values.marketingImgs_general.forEach((img) => {
-          formData.append("marketingImgs_general", img.file);
+      if (values.marketingImgs_brandAssets?.length) {
+        values.marketingImgs_brandAssets.forEach((img) => {
+          formData.append("marketingImgs_brandAssets", img.file);
         });
       }
 
-      if (values.marketingImgs_redemption?.length) {
-        values.marketingImgs_redemption.forEach((img) => {
-          formData.append("marketingImgs_redemption", img.file);
+      if (values.marketingImgs_campaignsAndPromos?.length) {
+        values.marketingImgs_campaignsAndPromos.forEach((img) => {
+          formData.append("marketingImgs_campaignsAndPromos", img.file);
         });
       }
 
-      if (values.marketingImgs_loadUp?.length) {
-        values.marketingImgs_loadUp.forEach((img) => {
-          formData.append("marketingImgs_loadUp", img.file);
+      if (values.marketingImgs_socialContent?.length) {
+        values.marketingImgs_socialContent.forEach((img) => {
+          formData.append("marketingImgs_socialContent", img.file);
         });
       }
 
-      if (values.marketingImgs_occasions?.length) {
-        values.marketingImgs_occasions.forEach((img) => {
-          formData.append("marketingImgs_occasions", img.file);
+      if (values.marketingImgs_participationContent?.length) {
+        values.marketingImgs_participationContent.forEach((img) => {
+          formData.append("marketingImgs_participationContent", img.file);
         });
       }
 
@@ -487,23 +487,25 @@ export default function CreateMicrositeForm({
           />
         </div>
 
-        {/* Marketing Images - General */}
+        <hr className="" />
+        <h3 className="text-lg ">Marketing Images</h3>
+
+        {/* Marketing Images - brandAssets */}
         <FormField
           control={form.control}
-          name="marketingImgs_general"
+          name="marketingImgs_brandAssets"
           render={({ field }) => {
             const images: { file: File; preview: string }[] = field.value || [];
 
             return (
               <FormItem>
                 <FormLabel>
-                  Marketing Images - General{" "}
-                  <span className="text-blue-500">(Business)</span>
+                  Brand Assets <span className="text-blue-500">(Business)</span>
                 </FormLabel>
                 <FormControl>
                   <div>
                     <Input
-                      id="marketingImgs_general"
+                      id="marketingImgs_brandAssets"
                       type="file"
                       accept="image/*"
                       multiple
@@ -526,7 +528,7 @@ export default function CreateMicrositeForm({
                           >
                             <img
                               src={img.preview}
-                              alt={`general-preview-${i}`}
+                              alt={`brandAssets-preview-${i}`}
                               className="w-full h-full object-cover"
                             />
                             <button
@@ -553,23 +555,23 @@ export default function CreateMicrositeForm({
           }}
         />
 
-        {/* Marketing Images - Redemption */}
+        {/* Marketing Images - Campaigns and Promos */}
         <FormField
           control={form.control}
-          name="marketingImgs_redemption"
+          name="marketingImgs_campaignsAndPromos"
           render={({ field }) => {
             const images: { file: File; preview: string }[] = field.value || [];
 
             return (
               <FormItem>
                 <FormLabel>
-                  Marketing Images - Redemption Stores{" "}
+                  Campaigns and Promos{" "}
                   <span className="text-blue-500">(Business)</span>
                 </FormLabel>
                 <FormControl>
                   <div>
                     <Input
-                      id="marketingImgs_redemption"
+                      id="marketingImgs_campaignsAndPromos"
                       type="file"
                       accept="image/*"
                       multiple
@@ -592,7 +594,7 @@ export default function CreateMicrositeForm({
                           >
                             <img
                               src={img.preview}
-                              alt={`redemption-preview-${i}`}
+                              alt={`campaignsAndPromos-preview-${i}`}
                               className="w-full h-full object-cover"
                             />
                             <button
@@ -619,23 +621,23 @@ export default function CreateMicrositeForm({
           }}
         />
 
-        {/* Marketing Images - Load Up */}
+        {/* Marketing Images - Social Content */}
         <FormField
           control={form.control}
-          name="marketingImgs_loadUp"
+          name="marketingImgs_socialContent"
           render={({ field }) => {
             const images: { file: File; preview: string }[] = field.value || [];
 
             return (
               <FormItem>
                 <FormLabel>
-                  Marketing Images - Load Up Stores{" "}
+                  Social Content Stores{" "}
                   <span className="text-blue-500">(Business)</span>
                 </FormLabel>
                 <FormControl>
                   <div>
                     <Input
-                      id="marketingImgs_loadUp"
+                      id="marketingImgs_socialContent"
                       type="file"
                       accept="image/*"
                       multiple
@@ -658,7 +660,7 @@ export default function CreateMicrositeForm({
                           >
                             <img
                               src={img.preview}
-                              alt={`loadup-preview-${i}`}
+                              alt={`socialContent-preview-${i}`}
                               className="w-full h-full object-cover"
                             />
                             <button
@@ -685,23 +687,23 @@ export default function CreateMicrositeForm({
           }}
         />
 
-        {/* Marketing Images - Occasions */}
+        {/* Marketing Images - Participation Content */}
         <FormField
           control={form.control}
-          name="marketingImgs_occasions"
+          name="marketingImgs_participationContent"
           render={({ field }) => {
             const images: { file: File; preview: string }[] = field.value || [];
 
             return (
               <FormItem>
                 <FormLabel>
-                  Marketing Images - Occasions{" "}
+                  Participation Content{" "}
                   <span className="text-blue-500">(Business)</span>
                 </FormLabel>
                 <FormControl>
                   <div>
                     <Input
-                      id="marketingImgs_occasions"
+                      id="marketingImgs_participationContent"
                       type="file"
                       accept="image/*"
                       multiple
@@ -724,7 +726,7 @@ export default function CreateMicrositeForm({
                           >
                             <img
                               src={img.preview}
-                              alt={`occasions-preview-${i}`}
+                              alt={`participationContent-preview-${i}`}
                               className="w-full h-full object-cover"
                             />
                             <button
