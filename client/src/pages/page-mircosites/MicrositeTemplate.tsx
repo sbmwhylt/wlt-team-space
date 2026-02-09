@@ -669,14 +669,18 @@ export default function MicrositeTemplate() {
             >
               <AccordionItem value="item-2">
                 <AccordionTrigger className="text-md">
-                  How do I get a Why Leave Town Gift Card?{" "}
+                  How can I get a Why Leave Town Gift Card?{" "}
                 </AccordionTrigger>
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
-                    You can purchase a Why Leave Town Gift Card online or from
-                    participating local outlets. The cards can be used at a wide
-                    range of local stores and services — making it the perfect
-                    way to support businesses in our region.
+                    You can purchase a Why Leave Town Gift Card online see
+                    purchase options in the links above or from participating
+                    local outlets{" "}
+                    <span>
+                      <a href="" className="text-blue-600 underline">
+                        here.
+                      </a>
+                    </span>
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -687,8 +691,9 @@ export default function MicrositeTemplate() {
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
                     Gift cards can be spent at any participating business
-                    featured on this site. Look for the “Why Leave Town Gift
-                    Cards Accepted Here” badge on listings, or check the full
+                    featured on this site. <strong>See map above. </strong>
+                    Look for the “Why Leave Town Gift Cards Accepted Here” badge
+                    on <strong>shop doors & windows</strong>, or check the full
                     list of businesses in the Where to Spend section.
                   </p>
                 </AccordionContent>
@@ -699,28 +704,39 @@ export default function MicrositeTemplate() {
                 </AccordionTrigger>
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
-                    Click the <strong>check card balance above</strong> link on
-                    this website and enter your card number. You’ll see your
-                    remaining balance and expiry date instantly.
+                    Click the{" "}
+                    <span className="font-bold">
+                      check card balance or expiry
+                    </span>{" "}
+                    link above or go to our website{" "}
+                    <a
+                      href="https://www.whyleavetown.com/check-card-balance/"
+                      className="text-blue-600 underline"
+                    >
+                      check my balance here
+                    </a>{" "}
+                    and enter your card number. You’ll see your remaining
+                    balance and expiry date instantly.
                   </p>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-5">
                 <AccordionTrigger className="text-md">
-                  Can I feature my business like this
+                  Can my business be a part of the program?
                 </AccordionTrigger>
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
                     Absolutely! If you’re a local business owner and want to be
-                    part of the platform, just get in touch at{" "}
+                    part of the program, just get in touch at
+                    info@whyleavetown.com. We’ll guide you through how to list
+                    your business and promote what you offer. register{" "}
                     <a
-                      href="mailto:info@whyleavetown.com"
-                      className="text-blue-600 hover:underline"
+                      href="https://forms.monday.com/forms/890cfe70c8a8dc371a450bad4c102a73?r=use1"
+                      className="text-blue-600 underline"
                     >
-                      info@whyleavetown.com
-                    </a>
-                    . We’ll guide you through how to list your business and
-                    promote what you offer.
+                      here
+                    </a>{" "}
+                    today!
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -930,7 +946,8 @@ export default function MicrositeTemplate() {
                   className="w-8 border rounded"
                 />
                 <p className="text-xs text-gray-600 w-35">
-                  © 2025, WhyLeaveTown. All Rights Reserverd
+                  &copy; {new Date().getFullYear()}, WhyLeaveTown. All Rights
+                  Reserverd
                 </p>
               </div>
 
