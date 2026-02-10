@@ -226,6 +226,9 @@ export default function CreateMicrositeForm({
       form.reset();
       setStoreLocations([]);
       onSuccess?.();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); 
     } catch (error) {
       console.error("Error:", error);
       toast.error(
