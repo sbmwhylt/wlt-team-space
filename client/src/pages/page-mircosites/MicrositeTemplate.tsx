@@ -674,13 +674,8 @@ export default function MicrositeTemplate() {
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
                     You can purchase a Why Leave Town Gift Card online see
-                    purchase options in the links above or from participating
-                    local outlets{" "}
-                    <span>
-                      <a href="" className="text-blue-600 underline">
-                        here.
-                      </a>
-                    </span>
+                    purchase options in the links above or from designated load
+                    up stores in your area.
                   </p>
                 </AccordionContent>
               </AccordionItem>
