@@ -1,4 +1,5 @@
 name,latitude,longitude,micrositeSlug
+<<<<<<< HEAD
 9XO Canapes & Cocktail (DIGITAL CARD ONLY),-25.2856,152.8678,fraser-coast
 50’s Diner Hervey Bay,-25.2861,152.8465,fraser-coast
 AATEC Office National Hervey Bay,-25.2875,152.8492,fraser-coast
@@ -202,3 +203,7 @@ World Treasure Designs (DIGITAL CARD ONLY),-25.2865,152.854,fraser-coast
 Xtreme Rejuvenation Clinic,-25.2872,152.8549,fraser-coast
 Zarraffa’s Coffee Pialba Drive Thru,-25.289,152.8515,fraser-coast
 Zip Print Australia,-25.2876,152.8552,fraser-coast
+=======
+50â€™s Diner Hervey Bay,-25.2844,152.8553,fraser-coast
+Aatec Office National,-25.2856,152.8319,fraser-coast
+>>>>>>> d70fafec2e705aba6f8d8e333b00360596fc3057

@@ -75,7 +75,7 @@ function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
         {/* Image Display - Clickable */}
         <div
           onClick={() => onImageClick(currentIndex)}
-          className="relative w-full h-96 bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90 transition"
+          className="relative w-full h-120 bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90 transition"
         >
           <img
             src={currentImage.url}
