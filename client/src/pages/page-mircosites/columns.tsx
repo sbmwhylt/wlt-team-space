@@ -268,7 +268,7 @@ export const getColumns = (micrositesState?: {
       const slug = row.getValue("slug") as string;
       return (
         <a
-          href={`/microsites/${row.original.type}/${slug}`}
+          href={`https://wlt-microsites.vercel.app/microsites/${row.original.type}/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-700 hover:underline inline-flex items-center gap-1"
@@ -342,13 +342,17 @@ export const getColumns = (micrositesState?: {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(microsite.slug)}
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    `https://wlt-microsites.vercel.app/microsites/${microsite.type}/${microsite.slug}`,
+                  )
+                }
               >
                 Copy Link
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <a
-                  href={`/microsites/${microsite.type}/${microsite.slug}`}
+                  href={`https://wlt-microsites.vercel.app/microsites/${microsite.type}/${microsite.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
