@@ -397,6 +397,113 @@ export default function MicrositeTemplate() {
             </div>
           )}
 
+          {/* Business Page */}
+          {microsite.type === "business" ? (
+            <>
+              <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
+                <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                  <BriefcaseBusiness strokeWidth={1.5} />
+                </div>
+                <h2 className="text-2xl w-60">Program Operations</h2>
+                <p className="text-lg lg:px-10 text-gray-600 ">
+                  Forms used to update, modify, and maintain program
+                  details—covering changes to schedules, configurations,
+                  requirements, and other operational information to keep
+                  programs accurate and up to date.
+                </p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
+                <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                  <BriefcaseBusiness strokeWidth={1.5} />
+                </div>
+                <h2 className="text-2xl w-60">Business Owners</h2>
+                <p className="text-lg lg:px-10 max-w-xl text-gray-700">
+                  Do you want to accept the{" "}
+                  <span className="text-blue-600 font-medium">
+                    {microsite.name}
+                  </span>{" "}
+                  Gift Card at your business? Join the Why Leave Town network
+                  today and start attracting more local customers while
+                  supporting your community.
+                </p>
+              </div>
+            </>
+          )}
+
+          {microsite.type === "business" && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="w-fit mt-6 mx-auto"
+                >
+                  Update forms
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+                <DialogHeader className="mx-auto text-center">
+                  <DialogTitle className="sr-only">Update Forms</DialogTitle>
+                  <DialogDescription className="text-2xl text-black">
+                    What needs an update?
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid grid-cols-3 gap-2">
+                  {/* Contact Details Dialog */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="default">Contact Details</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogTitle className="sr-only">
+                        Update Contact Details
+                      </DialogTitle>
+                      <DialogDescription className="sr-only">
+                        Update your business contact information
+                      </DialogDescription>
+                      <UpdateContactForm />
+                    </DialogContent>
+                  </Dialog>
+
+                  {/* Terminal Details Dialog */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="default">Terminal Details</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogTitle className="sr-only">
+                        Update Terminal Details
+                      </DialogTitle>
+                      <DialogDescription className="sr-only">
+                        Update your terminal information
+                      </DialogDescription>
+                      <UpdateTerminalForm />
+                    </DialogContent>
+                  </Dialog>
+
+                  {/* Card Stocks Dialog */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="default">Card Stocks</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogTitle className="sr-only">
+                        Update Card Stocks
+                      </DialogTitle>
+                      <DialogDescription className="sr-only">
+                        Update your card stock information
+                      </DialogDescription>
+                      <CardStockForm />
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+
           <CardContent className="text-center p-0 ">
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
@@ -756,109 +863,6 @@ export default function MicrositeTemplate() {
                 <span className="relative z-10">Terms & Conditions</span>
               </a>
             </div>
-
-            {/* Business Page */}
-            {microsite.type === "business" ? (
-              <>
-                <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
-                  <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
-                    <BriefcaseBusiness strokeWidth={1.5} />
-                  </div>
-                  <h2 className="text-2xl w-60">Program Operations</h2>
-                  <p className="text-lg lg:px-10 text-gray-600 ">
-                    Forms used to update, modify, and maintain program
-                    details—covering changes to schedules, configurations,
-                    requirements, and other operational information to keep
-                    programs accurate and up to date.
-                  </p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
-                  <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
-                    <BriefcaseBusiness strokeWidth={1.5} />
-                  </div>
-                  <h2 className="text-2xl w-60">Business Owners</h2>
-                  <p className="text-lg lg:px-10 max-w-xl text-gray-700">
-                    Do you want to accept the{" "}
-                    <span className="text-blue-600 font-medium">
-                      {microsite.name}
-                    </span>{" "}
-                    Gift Card at your business? Join the Why Leave Town network
-                    today and start attracting more local customers while
-                    supporting your community.
-                  </p>
-                </div>
-              </>
-            )}
-
-            {microsite.type === "business" && (
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="default" size="lg" className="w-fit mt-6">
-                    Update forms
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
-                  <DialogHeader className="mx-auto text-center">
-                    <DialogTitle className="sr-only">Update Forms</DialogTitle>
-                    <DialogDescription className="text-2xl text-black">
-                      What needs an update?
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid grid-cols-3 gap-4">
-                    {/* Contact Details Dialog */}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="default">Contact Details</Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogTitle className="sr-only">
-                          Update Contact Details
-                        </DialogTitle>
-                        <DialogDescription className="sr-only">
-                          Update your business contact information
-                        </DialogDescription>
-                        <UpdateContactForm />
-                      </DialogContent>
-                    </Dialog>
-
-                    {/* Terminal Details Dialog */}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="default">Terminal Details</Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogTitle className="sr-only">
-                          Update Terminal Details
-                        </DialogTitle>
-                        <DialogDescription className="sr-only">
-                          Update your terminal information
-                        </DialogDescription>
-                        <UpdateTerminalForm />
-                      </DialogContent>
-                    </Dialog>
-
-                    {/* Card Stocks Dialog */}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="default">Card Stocks</Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogTitle className="sr-only">
-                          Update Card Stocks
-                        </DialogTitle>
-                        <DialogDescription className="sr-only">
-                          Update your card stock information
-                        </DialogDescription>
-                        <CardStockForm />
-                      </DialogContent>
-                    </Dialog>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
 
             {microsite.type === "consumer" && (
               <a
