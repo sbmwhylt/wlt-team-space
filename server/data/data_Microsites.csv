@@ -1,29 +1,4527 @@
 name,slug,type,email,phone,banner,aboutDesc,socialLinks,digitalCardOrderLink,physicalCardOrderLink,communityLink,businessLink,marketingImgs,marketingVids,physicalImg,digitalImg,physicalBulkImg,digitalBulkImg,color,createdAt,updatedAt
-Fraser Coast,fraser-coast,consumer,enquiry@frasercoast.qld.gov.au,,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%201.png?updatedAt=1770689297836,"Brought to you by the Fraser Coast Regional Council and operated by shop local experts Why Leave Town, the Fraser Coast Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{""facebook"":""https://www.facebook.com/FraserCoastCouncil/"",""instagram"":""https://www.instagram.com/frasercoastregionalcouncil/?hl=en"",""website"":""https://www.frasercoast.qld.gov.au/""}",https://www.whyleavetown.com/product/fraser-coast-digital-gift-card/,https://www.whyleavetown.com/product/fraser-coast-gift-card/,https://www.whyleavetown.com/community/fraser-coast/,https://wkf.ms/42YISkp,[],[],https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%204.png?updatedAt=1770689297842,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%206.png?updatedAt=1770689297840,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%202.png?updatedAt=1770689297885,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%207.png?updatedAt=1770689297948,teal,NOW(),NOW()
-Fraser Coast - Business,fraser-coast-business,business,enquiry@frasercoast.qld.gov.au,,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%201.png?updatedAt=1770689297836,"Brought to you by the Fraser Coast Regional Council and operated by shop local experts Why Leave Town, the Fraser Coast Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{""facebook"":""https://www.facebook.com/FraserCoastCouncil/"",""instagram"":""https://www.instagram.com/frasercoastregionalcouncil/?hl=en"",""website"":""https://www.frasercoast.qld.gov.au/""}",https://www.whyleavetown.com/product/fraser-coast-digital-gift-card/,https://www.whyleavetown.com/product/fraser-coast-gift-card/,https://www.whyleavetown.com/community/fraser-coast/,,"{
+Armidale  ,armidale ,consumer,council@armidale.nsw.gov.au,(02) 6771 1177,https://ik.imagekit.io/wlt/microsites-assets/Armidale%20Design%20Element%201.png?updatedAt=1770859360736,"Brought to you by the Armidale Regional Council and operated by shop local experts Why Leave Town, the Armidale Regional Council Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{
+  ""facebook"": ""https://www.facebook.com/arc2350/"",
+  ""instagram"": ""https://www.instagram.com/armidaleregionalcouncil/"",
+  ""website"": ""https://www.armidale.nsw.gov.au/Home""
+}",,https://www.whyleavetown.com/product/armidale-gift-card/,https://www.whyleavetown.com/community/armidale/,https://forms.monday.com/forms/8faeb023d2f75ca6fe710995e61849da,"{
   ""brandAssets"": [
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Redemption%20Store%201.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Redemption%20Store%204.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%2011.png""
+      ""-"",
+      ""-"",
+      ""-""
     ],
     ""campaignsAndPromos"": [
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%2013.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%203.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Redemption%20Store%202.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%2014.png""
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
     ],
     ""socialContent"": [
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%206.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%207.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%208.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%2012.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%209.png""
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
     ],
     ""participationContent"": [
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%205.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%2015.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%201.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Social%20Post%2016.png"",
-      ""https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Redemption%20Store%205.png""
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
     ]
- }",[],https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%204.png?updatedAt=1770689297842,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%206.png?updatedAt=1770689297840,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%202.png?updatedAt=1770689297885,https://ik.imagekit.io/wlt/microsites-assets/Fraser%20Coast%20Design%20Element%207.png?updatedAt=1770689297948,teal,NOW(),NOW()
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Armidale%20Design%20Element%204.png?updatedAt=1770859358194,,https://ik.imagekit.io/wlt/microsites-assets/Armidale%20Design%20Element%202.png?updatedAt=1770859359428,,orange,NOW(),NOW()
+Armidale - Business,armidale-business,business,council@armidale.nsw.gov.au,(02) 6771 1177,https://ik.imagekit.io/wlt/microsites-assets/Armidale%20Design%20Element%201.png?updatedAt=1770859360736,Welcome to the Armidale Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Armidale Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/arc2350/"",
+  ""instagram"": ""https://www.instagram.com/armidaleregionalcouncil/"",
+  ""website"": ""https://www.armidale.nsw.gov.au/Home""
+}",,https://www.whyleavetown.com/product/armidale-gift-card/,https://www.whyleavetown.com/community/armidale/,https://forms.monday.com/forms/8faeb023d2f75ca6fe710995e61849da,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Armidale%20Design%20Element%204.png?updatedAt=1770859358194,,https://ik.imagekit.io/wlt/microsites-assets/Armidale%20Design%20Element%202.png?updatedAt=1770859359428,,orange,NOW(),NOW()
+Bombala  ,bombala,consumer,info@bombalachamber.com,,https://ik.imagekit.io/wlt/microsites-assets/1.png?updatedAt=1770859394538,"Brought to you by Bombala & District Chamber of Commerce and operated by shop local experts Why Leave Town, Bombala & District Chamber Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{
+  ""facebook"": ""https://www.facebook.com/bombalachamber/"",
+  ""instagram"": ""https://www.instagram.com/visitbombala/"",
+  ""website"": ""https://www.bombalachamber.com/""
+}",,https://www.whyleavetown.com/product/bombala-district-gift-card/,https://www.whyleavetown.com/community/bombala-district/,https://forms.monday.com/forms/7627b6f08070298d2dd8d3d0938658de,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/4.png?updatedAt=1770859391960,,https://ik.imagekit.io/wlt/microsites-assets/2.png?updatedAt=1770859395683,,blue,NOW(),NOW()
+Bombala - Business,bombala-business,business,,,https://ik.imagekit.io/wlt/microsites-assets/1.png?updatedAt=1770859394538,Welcome to the Bombala Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Bombala Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/bombalachamber/"",
+  ""instagram"": ""https://www.instagram.com/visitbombala/"",
+  ""website"": ""https://www.bombalachamber.com/""
+}",,https://www.whyleavetown.com/product/bombala-district-gift-card/,https://www.whyleavetown.com/community/bombala-district/,https://forms.monday.com/forms/7627b6f08070298d2dd8d3d0938658de,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/4.png?updatedAt=1770859391960,,https://ik.imagekit.io/wlt/microsites-assets/2.png?updatedAt=1770859395683,,blue,NOW(),NOW()
+Campbelltown  ,campbelltown,consumer,mail@campbelltown.sa.gov.au,,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%201.png?updatedAt=1770859438658,"Brought to you by the Campbelltown City Council and operated by shop local experts Why Leave Town, the Campbelltown Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{
+  ""facebook"": ""https://www.facebook.com/CampbelltownSA/"",
+  ""instagram"": ""https://www.instagram.com/campbelltownsa/"",
+  ""website"": ""https://www.campbelltown.sa.gov.au/""
+}",https://www.whyleavetown.com/product/campbelltown-digital-gift-card/,https://www.whyleavetown.com/product/campbelltown-sa-gift-card/,https://www.whyleavetown.com/community/campbelltown-sa/,https://forms.monday.com/forms/ca2bb96e5de55c795ccda04e44029d42?r=use1,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%205.png?updatedAt=1770859436093,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%206.png?updatedAt=1770859436585,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%202.png?updatedAt=1770859432957,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%207.png?updatedAt=1770859434036,orange,NOW(),NOW()
+Campbelltown - Business,campbelltown-business,business,mail@campbelltown.sa.gov.au,,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%201.png?updatedAt=1770859438658,Welcome to the Campbelltown Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Campbelltown Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/CampbelltownSA/"",
+  ""instagram"": ""https://www.instagram.com/campbelltownsa/"",
+  ""website"": ""https://www.campbelltown.sa.gov.au/""
+}",https://www.whyleavetown.com/product/campbelltown-digital-gift-card/,https://www.whyleavetown.com/product/campbelltown-sa-gift-card/,https://www.whyleavetown.com/community/campbelltown-sa/,https://forms.monday.com/forms/ca2bb96e5de55c795ccda04e44029d42?r=use1,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%205.png?updatedAt=1770859436093,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%206.png?updatedAt=1770859436585,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%202.png?updatedAt=1770859432957,https://ik.imagekit.io/wlt/microsites-assets/Campbelltown%20Design%20Element%207.png?updatedAt=1770859434036,orange,NOW(),NOW()
+Circular Head,circular,consumer,chgiftcardgroup@gmail.com,,https://ik.imagekit.io/wlt/microsites-assets/Circular%20Head%20Design%20Element%201.png?updatedAt=1770859481516,"Brought to you by the Circular Head Gift Card Group and operated by shop local experts Why Leave Town, Circular Head Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{
+  ""facebook"": ""https://www.facebook.com/circularheadgiftcard/"",
+  ""instagram"": ""https://www.instagram.com/circularheadcouncil/"",
+  ""website"": ""https://www.circularhead.tas.gov.au/""
+}",,https://www.whyleavetown.com/product/circular-head-gift-card/,https://www.whyleavetown.com/community/circular-head/,https://forms.monday.com/forms/93c5dd0320ad77ba7b864332f837cff5,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Circular%20Head%20Design%20Element%204.png?updatedAt=1770859479520,,https://ik.imagekit.io/wlt/microsites-assets/Circular%20Head%20Design%20Element%202.png?updatedAt=1770859480782,,green,NOW(),NOW()
+Circular Head - Business,circular-head-business,business,chgiftcardgroup@gmail.com,,https://ik.imagekit.io/wlt/microsites-assets/Circular%20Head%20Design%20Element%201.png?updatedAt=1770859481516,Welcome to the Circular Head Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Circular Head Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/circularheadgiftcard/"",
+  ""instagram"": ""https://www.instagram.com/circularheadcouncil/"",
+  ""website"": ""https://www.circularhead.tas.gov.au/""
+}",,https://www.whyleavetown.com/product/circular-head-gift-card/,https://www.whyleavetown.com/community/circular-head/,https://forms.monday.com/forms/93c5dd0320ad77ba7b864332f837cff5,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Circular%20Head%20Design%20Element%204.png?updatedAt=1770859479520,,https://ik.imagekit.io/wlt/microsites-assets/Circular%20Head%20Design%20Element%202.png?updatedAt=1770859480782,,green,NOW(),NOW()
+Condobolin  ,condobolin,consumer,chgiftcardgroup@gmail.com,,https://ik.imagekit.io/wlt/microsites-assets/Condobolin%20Design%20Element%201.png?updatedAt=1770859522516,"Brought to you by the Condoblin Chamber of Commerce and sponsored by Evolution Mining and operated by shop local experts Why Leave Town, Condoblin Chamber Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{
+  ""facebook"": ""https://www.facebook.com/condobolinchamberofcommerce/"",
+  ""instagram"": """",
+  ""website"": ""https://www.lachlan.nsw.gov.au/Business/Business-Support/Condobolin-Chamber-of-Commerce""
+}",,https://www.whyleavetown.com/product/condobolin-gift-card/,https://www.whyleavetown.com/community/condobolin/,https://forms.monday.com/forms/45152ba6e8f556a13432eed1f7e384e7,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Condobolin%20Design%20Element%204.png?updatedAt=1770859522012,,https://ik.imagekit.io/wlt/microsites-assets/Condobolin%20Design%20Element%202.png?updatedAt=1770859523428,,brown,NOW(),NOW()
+Condobolin - Business,condobolin-business,business,chgiftcardgroup@gmail.com,,https://ik.imagekit.io/wlt/microsites-assets/Condobolin%20Design%20Element%201.png?updatedAt=1770859522516,Welcome to the Condobolin Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Condobland Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/condobolinchamberofcommerce/"",
+  ""instagram"": """",
+  ""website"": ""https://www.lachlan.nsw.gov.au/Business/Business-Support/Condobolin-Chamber-of-Commerce""
+}",,https://www.whyleavetown.com/product/condobolin-gift-card/,https://www.whyleavetown.com/community/condobolin/,https://forms.monday.com/forms/45152ba6e8f556a13432eed1f7e384e7,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Condobolin%20Design%20Element%204.png?updatedAt=1770859522012,,https://ik.imagekit.io/wlt/microsites-assets/Condobolin%20Design%20Element%202.png?updatedAt=1770859523428,,brown,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
+,,,,,,,"{
+  ""facebook"": """",
+  ""instagram"": """",
+  ""website"": """"
+}",,,,,"{
+  ""brandAssets"": [
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""campaignsAndPromos"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""socialContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ],
+    ""participationContent"": [
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-"",
+      ""-""
+    ]
+ }",,,,,,teal,NOW(),NOW()
