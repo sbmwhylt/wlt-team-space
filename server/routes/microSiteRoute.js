@@ -2,7 +2,7 @@ import express from "express";
 import {
   createMicroSite,
   getAllMicroSites,
-  getMicroSiteByTypeAndSlug,
+  getMicroSiteBySlug,
   updateMicroSite,
   deleteMicroSite,
   uploadImages,
@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post("/", createMicroSite);
 router.get("/", getAllMicroSites);
-router.get("/:type/:slug", getMicroSiteByTypeAndSlug);
+router.get("/:slug", getMicroSiteBySlug);
 router.put("/:id", updateMicroSite);
 router.delete("/:id", deleteMicroSite);
 router.post("/upload", uploadImages);

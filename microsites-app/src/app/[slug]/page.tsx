@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import MicrositeTemplate from "@/microsite/MicrositeTemplate";
 
 type Props = {
-  params: Promise<{ type: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { type, slug } = await params; 
+  const { slug } = await params;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/microsites/${type}/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/microsites/${slug}`,
   );
+
   const data = await res.json();
   const m = data.microsite;
   return {
-    title: `${m.name} | ${m.type}`,
+    title: m.name,
     description: m.aboutDesc,
     openGraph: {
       title: m.name,
@@ -24,10 +25,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { type, slug } = await params;
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/microsites/${type}/${slug}`,
-  );
+  const { slug } = await params;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/microsites/${slug}`;
+  console.log("Fetching URL:", url); // 👈 move here
+  const res = await fetch(url);
+  console.log("Status:", res.status); // 👈 add this
   const data = await res.json();
   if (!data.microsite) {
     return <div>Microsite not found</div>;

@@ -107,11 +107,11 @@ export const getAllMicroSites = async (req, res) => {
 };
 
 // -------------------- GET MICROSITE BY SLUG
-export const getMicroSiteByTypeAndSlug = async (req, res) => {
+export const getMicroSiteBySlug = async (req, res) => {
   try {
-    const { type, slug } = req.params;
+    const { slug } = req.params;
     const microsite = await Microsite.findOne({
-      where: { slug, type },
+      where: { slug },
       include: [
         {
           model: db.Store,
