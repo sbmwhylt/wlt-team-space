@@ -6,7 +6,7 @@ import Dashboard from "@/pages/Dashboard";
 import Microsites from "@/pages/Microsites";
 import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
-import MicrositeTemplate from "@/pages/page-mircosites/MicrositeTemplate";
+// import MicrositeTemplate from "@/pages/page-mircosites/MicrositeTemplate"; -> in system microsite
 import Profile from "@/pages/Profile";
 import NotFound from "@/pages/404";
 
@@ -34,8 +34,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-        <Route path="/microsites/:type/:slug" element={<MicrositeTemplate />} />
 
         <Route
           path="/users"

@@ -1,5 +1,113 @@
 name,latitude,longitude,micrositeSlug
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+Alpha Furnishers,-30.5105,151.6658,armidale
+Armidale Bicycle Centre,-30.514,151.659,armidale
+Armidale Coffee House,-30.5146,151.6612,armidale
+Armidale Framing & Art Supplies – Gallery 126,-30.5144,151.6595,armidale
+Armidale Golf Club,-30.5239,151.6403,armidale
+Armidale Pet Shop,-30.5142,151.6601,armidale
+Armidale Visitor Information Centre,-30.5108,151.6653,armidale
+Barbeques Galore Armidale,-30.5143,151.66,armidale
+Bicycle Central On Marsh,-30.514,151.659,armidale
+Boobooks,-30.5145,151.6608,armidale
+Botanica Beauty Studio,-30.5105,151.6658,armidale
+Brennan & Smith Optometrists,-30.5144,151.6607,armidale
+Carr’s Newsxpress Armidale,-30.5143,151.6602,armidale
+Concepts Of Armidale,-30.5144,151.66,armidale
+Daily Ritual,-30.5145,151.6605,armidale
+Era Espresso,-30.5146,151.661,armidale
+Face To Face Beauty Salon,-30.5143,151.6604,armidale
+Graham Betts Motors,-30.5115,151.662,armidale
+Hustle Co Cafe,-30.5147,151.6613,armidale
+JJ’s Newsagency Plus,-30.5142,151.6603,armidale
+Move Better For Life,-30.5141,151.6609,armidale
+Mycar Sound & Communications,-30.514,151.6607,armidale
+New England Hatters,-30.5144,151.6606,armidale
+New England Honeybees Photography & Design,-30.5145,151.6608,armidale
+New England Locksmiths,-30.5143,151.6605,armidale
+New England Regional Art Museum,-30.5149,151.668,armidale
+Reader’s Companion,-30.5144,151.6607,armidale
+Renee Maree,-30.5143,151.6604,armidale
+Richardsons Hardware And Agriculture,-30.5142,151.6601,armidale
+Rosemerin Florist,-30.5143,151.6602,armidale
+Royal Hotel Armidale,-30.5141,151.66,armidale
+Royal Hotel Guyra,-30.218,151.671,armidale
+Skin & Tonic Armidale,-30.5144,151.6606,armidale
+Specsavers Armidale,-30.5143,151.6605,armidale
+Sportspower Armidale,-30.5142,151.6604,armidale
+The Shop,-30.5143,151.6603,armidale
+Westside Espresso,-30.515,151.6575,armidale
+Bombala Cycles & Chainsaws,-36.909,149.238,bombala
+Bombala Electrical & Hardware (BiRite),-36.9088,149.2379,bombala
+Bombala Pharmacy,-36.9087,149.2381,bombala
+Bombala Post Office,-36.9086,149.238,bombala
+Bombala Servo,-36.9082,149.2369,bombala
+Club Bombala,-36.9089,149.2375,bombala
+Delegate Café,-37.0445,148.932,bombala
+Delegate Progress Association,-37.0444,148.9321,bombala
+Friendly Grocer Bombala,-36.9085,149.2382,bombala
+Herbs With Altitude,-36.9089,149.2383,bombala
+IGA Bombala,-36.9084,149.2384,bombala
+Imperial Hotel Bombala,-36.9083,149.238,bombala
+Ingram Quality Meats,-36.9086,149.2382,bombala
+Lou Lous,-36.9087,149.2383,bombala
+Maybe Decor,-36.9088,149.2384,bombala
+Merrita’s Fruit Cakes,-36.9091,149.2385,bombala
+Murphy’s Transport & Building Supplies,-36.9093,149.2378,bombala
+Nicky’s Hair Room,-36.9089,149.2381,bombala
+Priscilla’s At The Heritage,-36.9082,149.2386,bombala
+The Cozy Corner,-36.9084,149.2387,bombala
+The Heritage Guest House,-36.9081,149.2385,bombala
+Altaira Allied Health,-34.8805,138.662,campbelltown
+Campbelltown Public Library,-34.8809,138.6624,campbelltown
+Fine Food Cucina,-34.8807,138.6622,campbelltown
+Glynde Mitre 10,-34.8894,138.6603,campbelltown
+Indian Club SA,-34.8806,138.6621,campbelltown
+Indigo Espresso Cafe,-34.8808,138.6625,campbelltown
+Mercato,-34.889,138.6601,campbelltown
+Okami Japanese Restaurant,-34.8804,138.6623,campbelltown
+Paradise Mazda,-34.8739,138.6532,campbelltown
+REZZ Hotel,-34.8802,138.662,campbelltown
+The ARC Campbelltown,-34.8801,138.6626,campbelltown
+The Family Cook,-34.8803,138.6627,campbelltown
+Tony & Mark’s (Jan St),-34.88,138.6628,campbelltown
+Tony & Mark’s (Montacute Rd),-34.8892,138.6605,campbelltown
+{Noun} A Place For Things,-40.8435,145.123,circular-head
+Armour Timber & Hardware,-40.8437,145.1232,circular-head
+Bridge Hotel,-40.8439,145.1234,circular-head
+Clarkson Sports & Cycles,-40.8438,145.1231,circular-head
+IGA Everyday Smithton,-40.8436,145.1233,circular-head
+It’s All Good Health & Gift,-40.8434,145.1235,circular-head
+Lizzy’s This N That,-40.8433,145.1236,circular-head
+Perry’s Quality Meats,-40.8432,145.1237,circular-head
+Smithton Club Inc.,-40.8431,145.1238,circular-head
+Smithton Showcase Jewellers,-40.843,145.1239,circular-head
+Stanley Hotel,-40.7605,145.299,circular-head
+Tall Timbers Tasmania,-40.8428,145.1229,circular-head
+Treena’s Garden Supplies,-40.8427,145.1228,circular-head
+Affordable Furniture,-33.0884,147.1512,condobolin
+Betta Home Living,-33.0886,147.151,condobolin
+Central West Tyres,-33.0888,147.1509,condobolin
+Chamens IGA,-33.0885,147.1513,condobolin
+Condo Quality Meats,-33.0887,147.1511,condobolin
+Condobolin Newsagents,-33.0886,147.1514,condobolin
+Condobolin Sports Club Limited,-33.0892,147.1508,condobolin
+Don Lark Motorcycles,-33.0889,147.1507,condobolin
+Equipment & Service Co,-33.089,147.1506,condobolin
+Foodworks,-33.0883,147.1515,condobolin
+Gallery 104,-33.0882,147.1516,condobolin
+Railway Hotel,-33.0881,147.1505,condobolin
+Red Cattle Dog,-33.088,147.1517,condobolin
+Royal Hotel Condobolin,-33.0879,147.1504,condobolin
+Shortis and Timmins Pharmacy,-33.0884,147.1518,condobolin
+The Hall,-33.0878,147.1519,condobolin
+The Royal Laundry,-33.0877,147.152,condobolin
+Wradjuri Condobolin,-33.0876,147.1521,condobolin
+=======
+<<<<<<< HEAD
+>>>>>>> 26eaa7466a628863953e4659bae22176bb827f85
 9XO Canapes & Cocktail (DIGITAL CARD ONLY),-25.2856,152.8678,fraser-coast
 50’s Diner Hervey Bay,-25.2861,152.8465,fraser-coast
 AATEC Office National Hervey Bay,-25.2875,152.8492,fraser-coast
@@ -207,3 +315,7 @@ Zip Print Australia,-25.2876,152.8552,fraser-coast
 50â€™s Diner Hervey Bay,-25.2844,152.8553,fraser-coast
 Aatec Office National,-25.2856,152.8319,fraser-coast
 >>>>>>> d70fafec2e705aba6f8d8e333b00360596fc3057
+<<<<<<< HEAD
+=======
+>>>>>>> f229d0cfc56a5bac6f4fb25e7a49a4b11b7f2c32
+>>>>>>> 26eaa7466a628863953e4659bae22176bb827f85

@@ -1,9 +1,8 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+"use client";
+
 import type { MicroSite } from "@/types/Microsite";
 import { SocialIcon } from "react-social-icons";
-import StoreLocation from "@/pages/page-mircosites/components/storeLocation";
+import StoreLocation from "@/microsite/components/storeLocation";
 import { colors } from "@/constants/colors";
 
 import {
@@ -41,51 +40,20 @@ import {
   Facebook,
   Instagram,
   Palette,
-  // Mail,
-  // Phone,
   CircleOff,
 } from "lucide-react";
-import { SpinnerCustom } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import UpdateContactForm from "@/pages/page-mircosites/forms/UpdateContactForm";
-import UpdateTerminalForm from "@/pages/page-mircosites/forms/UpdateTerminalForm";
-import CardStockForm from "@/pages/page-mircosites/forms/CardStockForm";
-import MarketingImgs from "@/pages/page-mircosites/components/MarketingImgs";
+import UpdateContactForm from "@/microsite/forms/UpdateContactForm";
+import UpdateTerminalForm from "@/microsite/forms/UpdateTerminalForm";
+import CardStockForm from "@/microsite/forms/CardStockForm";
+import MarketingImgs from "@/microsite/components/MarketingImgs";
 
-export default function MicrositeTemplate() {
-  const { slug, type } = useParams();
-  const [microsite, setMicrosite] = useState<MicroSite | null>(null);
+// ✅ Accept microsite as a prop instead of fetching it
+interface Props {
+  microsite: MicroSite;
+}
 
-  useEffect(() => {
-    const fetchMicrosite = async () => {
-      if (!slug || !type) return;
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/microsites/${encodeURIComponent(
-            type,
-          )}/${encodeURIComponent(slug)}`,
-        );
-        setMicrosite(res.data.microsite);
-      } catch (err) {
-        console.error("Error fetching microsite:", err);
-      }
-    };
-    fetchMicrosite();
-  }, [slug, type]);
-
-  useEffect(() => {
-    if (microsite?.name) {
-      document.title = `${microsite.name} | ${microsite.type}`;
-    }
-  }, [microsite]);
-
-  if (!microsite)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <SpinnerCustom />
-      </div>
-    );
-
+export default function MicrositeTemplate({ microsite }: Props) {
   const icons = {
     facebook: (
       <SocialIcon
@@ -227,7 +195,7 @@ export default function MicrositeTemplate() {
                 <AccordionContent className="w-full">
                   <div className="text-gray-700 text-md space-y-4">
                     <p>
-                      If a transaction fails because the terminal isn’t reading
+                      If a transaction fails because the terminal isn't reading
                       the card, there could be several reasons behind this. Here
                       are some of the most common causes:
                     </p>
@@ -251,7 +219,7 @@ export default function MicrositeTemplate() {
                       <li>
                         <strong>Damaged terminal:</strong>
                         If the card is not reading when swiped, it may be
-                        because the terminal’s swipe functionality isn’t working
+                        because the terminal's swipe functionality isn't working
                         properly. This could be be due to a technical issue,
                         such as a damaged or faulty terminal, or because the
                         swipe functionality on your terminal has not been
@@ -288,7 +256,7 @@ export default function MicrositeTemplate() {
                   <div className="text-gray-700 text-md space-y-4">
                     <p>
                       If the transaction is declined due to an incorrect PIN,
-                      it’s usually because the wrong PIN was entered. This can
+                      it's usually because the wrong PIN was entered. This can
                       happen if a customer accidentally presses a wrong digit.
                     </p>
                     <p>
@@ -309,10 +277,10 @@ export default function MicrositeTemplate() {
                     If you{" "}
                     <span>
                       <a href="https://www.whyleavetown.com/check-card-balance/">
-                        check the card’s balance{" "}
+                        check the card's balance{" "}
                       </a>
                     </span>
-                    and receive the message “The given credentials are invalid”,
+                    and receive the message "The given credentials are invalid",
                     it likely means the card has expired. In line with
                     government legislation, a card expires three years after the
                     purchase date, and it can therefore no longer be used.
@@ -367,141 +335,91 @@ export default function MicrositeTemplate() {
                     </div>
                   );
                 })}
-
-              {/* {microsite.email && (
-                <a
-                  href={`mailto:${microsite.email}`}
-                  className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                >
-                  <Mail
-                    strokeWidth={2}
-                    size={24}
-                    className="p-1 rounded-full bg-red-400 text-white transition-transform duration-300 group-hover:scale-110"
-                  />
-                </a>
-              )}
-
-              {microsite.phone && (
-                <a
-                  href={`tel:${microsite.phone}`}
-                  className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                >
-                  <Phone
-                    strokeWidth={0}
-                    size={24}
-                    fill="currentColor"
-                    className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
-                  />
-                </a>
-              )} */}
             </div>
           )}
 
           {/* Business Page */}
-          {microsite.type === "business" ? (
+          {microsite.type === "business" && (
             <>
               <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
                 <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
                   <BriefcaseBusiness strokeWidth={1.5} />
                 </div>
                 <h2 className="text-2xl w-60">Program Operations</h2>
-                <p className="text-lg lg:px-10 text-gray-600 ">
+                <p className="text-lg lg:px-10 text-gray-600">
                   Forms used to update, modify, and maintain program
                   details—covering changes to schedules, configurations,
                   requirements, and other operational information to keep
                   programs accurate and up to date.
                 </p>
               </div>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="default"
+                    size="lg"
+                    className="w-fit mt-6 mx-auto"
+                  >
+                    Update forms
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+                  <DialogHeader className="mx-auto text-center">
+                    <DialogTitle className="sr-only">Update Forms</DialogTitle>
+                    <DialogDescription className="text-2xl text-black">
+                      What needs an update?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid grid-cols-3 gap-2">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default">Contact Details</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogTitle className="sr-only">
+                          Update Contact Details
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Update your business contact information
+                        </DialogDescription>
+                        <UpdateContactForm />
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default">Terminal Details</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogTitle className="sr-only">
+                          Update Terminal Details
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Update your terminal information
+                        </DialogDescription>
+                        <UpdateTerminalForm />
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="default">Card Stocks</Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogTitle className="sr-only">
+                          Update Card Stocks
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Update your card stock information
+                        </DialogDescription>
+                        <CardStockForm />
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </>
-          ) : (
-            <>
-              <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
-                <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
-                  <BriefcaseBusiness strokeWidth={1.5} />
-                </div>
-                <h2 className="text-2xl w-60">Business Owners</h2>
-                <p className="text-lg lg:px-10 max-w-xl text-gray-700">
-                  Do you want to accept the{" "}
-                  <span className="text-blue-600 font-medium">
-                    {microsite.name}
-                  </span>{" "}
-                  Gift Card at your business? Join the Why Leave Town network
-                  today and start attracting more local customers while
-                  supporting your community.
-                </p>
-              </div>
-            </>
-          )}
-
-          {microsite.type === "business" && (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="default"
-                  size="lg"
-                  className="w-fit mt-6 mx-auto"
-                >
-                  Update forms
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
-                <DialogHeader className="mx-auto text-center">
-                  <DialogTitle className="sr-only">Update Forms</DialogTitle>
-                  <DialogDescription className="text-2xl text-black">
-                    What needs an update?
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid grid-cols-3 gap-2">
-                  {/* Contact Details Dialog */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="default">Contact Details</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogTitle className="sr-only">
-                        Update Contact Details
-                      </DialogTitle>
-                      <DialogDescription className="sr-only">
-                        Update your business contact information
-                      </DialogDescription>
-                      <UpdateContactForm />
-                    </DialogContent>
-                  </Dialog>
-
-                  {/* Terminal Details Dialog */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="default">Terminal Details</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogTitle className="sr-only">
-                        Update Terminal Details
-                      </DialogTitle>
-                      <DialogDescription className="sr-only">
-                        Update your terminal information
-                      </DialogDescription>
-                      <UpdateTerminalForm />
-                    </DialogContent>
-                  </Dialog>
-
-                  {/* Card Stocks Dialog */}
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="default">Card Stocks</Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogTitle className="sr-only">
-                        Update Card Stocks
-                      </DialogTitle>
-                      <DialogDescription className="sr-only">
-                        Update your card stock information
-                      </DialogDescription>
-                      <CardStockForm />
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </DialogContent>
-            </Dialog>
           )}
 
           <CardContent className="text-center p-0 ">
@@ -700,9 +618,9 @@ export default function MicrositeTemplate() {
                 target="_blank"
                 className="group"
               >
-                <div className="relative rounded-3xl bg-gradient-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-blue-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div className="relative rounded-3xl bg-linear-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-blue-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
                   <div className="relative z-10 flex flex-col items-center gap-4">
-                    <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-3 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <div className="bg-linear-to-br from-blue-600 to-indigo-600 p-3 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <Store
                         size={26}
                         className="text-white"
@@ -722,9 +640,9 @@ export default function MicrositeTemplate() {
                 target="_blank"
                 className="group"
               >
-                <div className="relative rounded-3xl bg-gradient-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-green-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div className="relative rounded-3xl bg-linear-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-green-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
                   <div className="relative z-10 flex flex-col items-center gap-4">
-                    <div className="bg-gradient-to-br from-green-600 to-emerald-600 p-3 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <div className="bg-linear-to-br from-green-600 to-emerald-600 p-3 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <HandCoins
                         size={26}
                         className="text-white"
@@ -741,7 +659,6 @@ export default function MicrositeTemplate() {
             </div>
 
             {microsite.type === "business" && (
-              // Section Title
               <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
                 <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
                   <Palette strokeWidth={1.5} />
@@ -794,7 +711,7 @@ export default function MicrositeTemplate() {
                   <p className="text-gray-700 text-md">
                     Gift cards can be spent at any participating business
                     featured on this site. <strong>See map above. </strong>
-                    Look for the “Why Leave Town Gift Cards Accepted Here” badge
+                    Look for the "Why Leave Town Gift Cards Accepted Here" badge
                     on <strong>shop doors & windows</strong>, or check the full
                     list of businesses in the Where to Spend section.
                   </p>
@@ -817,7 +734,7 @@ export default function MicrositeTemplate() {
                     >
                       check my balance here
                     </a>{" "}
-                    and enter your card number. You’ll see your remaining
+                    and enter your card number. You'll see your remaining
                     balance and expiry date instantly.
                   </p>
                 </AccordionContent>
@@ -828,9 +745,9 @@ export default function MicrositeTemplate() {
                 </AccordionTrigger>
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
-                    Absolutely! If you’re a local business owner and want to be
+                    Absolutely! If you're a local business owner and want to be
                     part of the program, just get in touch at
-                    info@whyleavetown.com. We’ll guide you through how to list
+                    info@whyleavetown.com. We'll guide you through how to list
                     your business and promote what you offer. register{" "}
                     <a
                       href="https://forms.monday.com/forms/890cfe70c8a8dc371a450bad4c102a73?r=use1"
@@ -865,19 +782,34 @@ export default function MicrositeTemplate() {
             </div>
 
             {microsite.type === "consumer" && (
-              <a
-                href={microsite.businessLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="default"
-                  size="lg"
-                  className="w-fit mt-6 cursor-pointer"
+              <div className="section-title mt-14 flex flex-col justify-center items-center text-center gap-3">
+                <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
+                  <BriefcaseBusiness strokeWidth={1.5} />
+                </div>
+                <h2 className="text-2xl w-60">Business Owners</h2>
+                <p className="text-lg lg:px-10 max-w-xl text-gray-700">
+                  Do you want to accept the{" "}
+                  <span className="text-blue-600 font-medium">
+                    {microsite.name}
+                  </span>{" "}
+                  Gift Card at your business? Join the Why Leave Town network
+                  today and start attracting more local customers while
+                  supporting your community.
+                </p>
+                <a
+                  href={microsite.businessLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  Go to form
-                </Button>
-              </a>
+                  <Button
+                    variant="default"
+                    size="lg"
+                    className="w-fit mt-6 cursor-pointer"
+                  >
+                    Go to form
+                  </Button>
+                </a>
+              </div>
             )}
 
             {/* Social Links */}
@@ -905,33 +837,6 @@ export default function MicrositeTemplate() {
                       </div>
                     );
                   })}
-
-                {/* {microsite.email && (
-                  <a
-                    href={`mailto:${microsite.email}`}
-                    className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                  >
-                    <Mail
-                      strokeWidth={2}
-                      size={24}
-                      className="p-1 rounded-full bg-red-400 text-white transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </a>
-                )}
-
-                {microsite.phone && (
-                  <a
-                    href={`tel:${microsite.phone}`}
-                    className="group p-2 bg-white rounded-2xl flex items-center justify-center transition-all duration-300 shadow-lg border-2 hover:shadow-2xl text-gray-600 hover:text-blue-600 cursor-pointer"
-                  >
-                    <Phone
-                      strokeWidth={0}
-                      size={24}
-                      fill="currentColor"
-                      className="p-1 rounded-full bg-emerald-400 text-white transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </a>
-                )} */}
               </div>
             )}
           </CardContent>

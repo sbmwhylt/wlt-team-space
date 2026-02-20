@@ -108,7 +108,7 @@ function UpdateStoreDialog({
     if (open) {
       setLoading(true);
       fetch(
-        `${import.meta.env.VITE_API_URL}/microsites/${microsite.type}/${microsite.slug}`,
+        `${import.meta.env.VITE_API_URL}/microsites/${microsite.slug}`,
       )
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch");
@@ -268,7 +268,7 @@ export const getColumns = (micrositesState?: {
       const slug = row.getValue("slug") as string;
       return (
         <a
-          href={`/microsites/${row.original.type}/${slug}`}
+          href={`https://wlt-microsites.vercel.app/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-700 hover:underline inline-flex items-center gap-1"
@@ -342,13 +342,17 @@ export const getColumns = (micrositesState?: {
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(microsite.slug)}
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    `https://wlt-microsites.vercel.app/${microsite.slug}`,
+                  )
+                }
               >
                 Copy Link
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <a
-                  href={`/microsites/${microsite.type}/${microsite.slug}`}
+                  href={`https://wlt-microsites.vercel.app/${microsite.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
