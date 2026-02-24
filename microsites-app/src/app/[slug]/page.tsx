@@ -27,9 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { slug } = await params;
   const url = `${process.env.NEXT_PUBLIC_API_URL}/microsites/${slug}`;
-  console.log("Fetching URL:", url); // 👈 move here
+  console.log("Fetching URL:", url); 
   const res = await fetch(url);
-  console.log("Status:", res.status); // 👈 add this
+  console.log("Status:", res.status); 
   const data = await res.json();
   if (!data.microsite) {
     return <div>Microsite not found</div>;
