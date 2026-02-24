@@ -481,7 +481,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   <img
                     src={
                       microsite.physicalBulkImg ||
-                      "https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-physical.png?updatedAt=1767672636033"
+                      "https://ik.imagekit.io/wlt/wlt-static-imgs/bulk-physical.png"
                     }
                     alt="Bulk Physical"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"

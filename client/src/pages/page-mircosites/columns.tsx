@@ -107,9 +107,7 @@ function UpdateStoreDialog({
   useEffect(() => {
     if (open) {
       setLoading(true);
-      fetch(
-        `${import.meta.env.VITE_API_URL}/microsites/${microsite.slug}`,
-      )
+      fetch(`${import.meta.env.VITE_API_URL}/microsites/${microsite.slug}`)
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch");
           return res.json();
@@ -266,9 +264,10 @@ export const getColumns = (micrositesState?: {
     header: "Microsite Link",
     cell: ({ row }) => {
       const slug = row.getValue("slug") as string;
+      const msAppUrl = import.meta.env.VITE_MS_APP_URL;
       return (
         <a
-          href={`https://wlt-microsites.vercel.app/${slug}`}
+          href={`${msAppUrl}/${slug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-700 hover:underline inline-flex items-center gap-1"
