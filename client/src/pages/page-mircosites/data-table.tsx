@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/table";
 import CreateMicrositeDialog from "@/pages/page-mircosites/dialog/CreateMicrositeDialog";
 import { Spinner } from "@/components/ui/spinner";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -100,7 +101,15 @@ export function DataTable<TData, TValue>({
           onChange={(event) => setFiltering(event.target.value)}
           className="max-w-sm"
         />
-        <div className="flex gap-2">
+        <a
+          href="https://wlt-microsites.vercel.app"
+          target="_blank"
+          className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-800 transitionn"
+        >
+          <SquareArrowOutUpRight className="h-3 w-3 text-gray-600 cursor-pointer" />
+          Microsites Page
+        </a>
+        <div className="flex gap-2 items-center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">

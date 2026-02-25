@@ -23,9 +23,8 @@ export default function HomePage() {
         return res.json();
       })
       .then((data) => {
-        // Only show consumer microsites
         const consumerOnly = data.microsites.filter(
-          (m: Microsite) => m.type === "consumer"
+          (m: Microsite) => m.type === "consumer",
         );
         setMicrosites(consumerOnly);
         setLoading(false);

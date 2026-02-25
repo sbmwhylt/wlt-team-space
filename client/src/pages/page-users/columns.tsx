@@ -2,10 +2,9 @@
 
 import { useContext, useState } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 // import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowUpDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +28,7 @@ import { toast } from "react-hot-toast";
 import UpdateUsersForm from "@/pages/page-users/forms/UpdateUserForm";
 
 export const getColumns = (
-  usersState: ReturnType<typeof useUsers>
+  usersState: ReturnType<typeof useUsers>,
 ): ColumnDef<User>[] => [
   // {
   //   id: "select",
@@ -76,8 +75,8 @@ export const getColumns = (
           className="h-8 w-8 rounded-lg object-cover"
         />
       ) : (
-        <div className="h-8 w-8 rounded-lg flex items-center justify-center text-gray-400 bg-gray-100">
-          N/A
+        <div className="h-8 w-8 rounded-lg flex items-center justify-center text-orange-500 bg-orange-100">
+          <User2 className="h-5 w-5" />
         </div>
       );
     },
