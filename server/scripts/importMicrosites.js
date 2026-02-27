@@ -3,13 +3,11 @@ import csv from "csv-parser";
 import Microsite from "../models/Microsites.js";
 import sequelize from "../config/db.js";
 
-// Connect to database first
 await sequelize.authenticate();
 console.log("📦 Connected to database");
 
 const microsites = [];
 
-// Step 1: Read all rows from CSV
 fs.createReadStream("./data/data_Microsites.csv")
   .pipe(
     csv({
@@ -17,7 +15,7 @@ fs.createReadStream("./data/data_Microsites.csv")
       quote: '"',
       escape: '"',
       skipLines: 0,
-      mapHeaders: ({ header }) => header.trim().replace(/^\uFEFF/, ""), // Remove BOM!
+      mapHeaders: ({ header }) => header.trim().replace(/^\uFEFF/, ""), 
     }),
   )
   .on("data", (row) => {
@@ -29,7 +27,6 @@ fs.createReadStream("./data/data_Microsites.csv")
 
     for (const row of microsites) {
       try {
-        // Parse JSON fields - handle multi-line JSON
         let socialLinks = {};
         let marketingImgs = [];
         let marketingVids = [];
