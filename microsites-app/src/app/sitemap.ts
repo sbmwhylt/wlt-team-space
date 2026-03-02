@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://wlt-microsites.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://shoplocal.whyleavetown.com";
 
 type Microsite = {
   slug: string;

@@ -264,7 +264,7 @@ export const getColumns = (micrositesState?: {
     header: "Microsite Link",
     cell: ({ row }) => {
       const slug = row.getValue("slug") as string;
-      const msAppUrl = import.meta.env.VITE_MS_APP_URL;
+      const msAppUrl = import.meta.env.VITE_PROD_URL;
       return (
         <a
           href={`${msAppUrl}/${slug}`}
@@ -343,7 +343,7 @@ export const getColumns = (micrositesState?: {
               <DropdownMenuItem
                 onClick={() =>
                   navigator.clipboard.writeText(
-                    `https://wlt-microsites.vercel.app/${microsite.slug}`,
+                    `${import.meta.env.VITE_PROD_URL}/${microsite.slug}`,
                   )
                 }
               >
@@ -351,7 +351,7 @@ export const getColumns = (micrositesState?: {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <a
-                  href={`https://wlt-microsites.vercel.app/${microsite.slug}`}
+                  href={`${import.meta.env.VITE_PROD_URL}/${microsite.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
