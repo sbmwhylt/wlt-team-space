@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://wlt-microsites.vercel.app";
@@ -120,6 +121,7 @@ export default async function HomePage() {
       <footer className="py-10 text-center text-sm text-gray-400">
         © {new Date().getFullYear()} Why Leave Town. All rights reserved.
       </footer>
+      <SpeedInsights />
     </main>
   );
 }

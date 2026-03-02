@@ -215,12 +215,12 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
       </div>
 
       {/* Map Container - Full view */}
-      <div className="w-full h-[450px] bg-gray-200 rounded-3xl overflow-hidden shadow-lg relative">
+      <div className="w-full h-112.5 bg-gray-200 rounded-3xl overflow-hidden shadow-lg relative">
         <div ref={mapRef} className="w-full h-full"></div>
 
         {/* Loading Indicator */}
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-[1000]">
+          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 z-1000">
             <div className="text-center">
               <div className="inline-block w-12 h-12 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
             </div>
