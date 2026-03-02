@@ -1,7 +1,21 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://wlt-microsites.vercel.app";
+
+export const metadata: Metadata = {
+  title: "Community Gift Card Programs",
+  description:
+    "Browse Why Leave Town gift card programs near you — every dollar you spend stays right where it belongs, in your local community.",
+  openGraph: {
+    title: "Why Leave Town — Community Gift Card Programs",
+    description:
+      "Browse local community gift card programs near you and support your community.",
+    type: "website",
+    url: SITE_URL,
+  },
+};
 
 type Microsite = {
   id: number;
@@ -11,29 +25,23 @@ type Microsite = {
   type: "business" | "consumer";
 };
 
-export default function HomePage() {
-  const [microsites, setMicrosites] = useState<Microsite[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+async function getMicrosites(): Promise<Microsite[]> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/microsites`, {
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.microsites as Microsite[]).filter(
+      (m) => m.type === "consumer",
+    );
+  } catch {
+    return [];
+  }
+}
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/microsites`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
-      })
-      .then((data) => {
-        const consumerOnly = data.microsites.filter(
-          (m: Microsite) => m.type === "consumer",
-        );
-        setMicrosites(consumerOnly);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Could not load programs. Try again later.");
-        setLoading(false);
-      });
-  }, []);
+export default async function HomePage() {
+  const microsites = await getMicrosites();
 
   return (
     <main className="min-h-screen bg-[#fafaf8]">
@@ -45,6 +53,7 @@ export default function HomePage() {
           width={180}
           height={80}
           className="mb-8 object-contain"
+          priority
         />
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           Shop local,{" "}
@@ -64,27 +73,14 @@ export default function HomePage() {
           Community Programs
         </h2>
 
-        {loading && (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="h-24 animate-pulse rounded-2xl bg-gray-200"
-              />
-            ))}
-          </div>
-        )}
-
-        {error && (
+        {microsites.length === 0 ? (
           <p className="rounded-lg border-l-4 border-red-400 bg-red-50 px-4 py-3 text-red-600">
-            {error}
+            Could not load programs. Try again later.
           </p>
-        )}
-
-        {!loading && !error && (
+        ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {microsites.map((site) => {
-              const url = `https://wlt-microsites.vercel.app/${site.slug}`;
+              const url = `${SITE_URL}/${site.slug}`;
               return (
                 <a
                   key={site.id}
