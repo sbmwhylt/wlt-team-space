@@ -93,7 +93,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
             <div className="w-full h-80 rounded-2xl overflow-hidden background-transparent">
               <img
                 src={microsite.banner}
-                alt="Banner"
+                alt={`${microsite.name} banner`}
                 className="w-full h-full object-cover "
               />
             </div>
@@ -166,6 +166,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                           href="https://www.whyleavetown.com/check-card-balance/"
                           className="text-blue-600 underline"
                           target="_blank"
+                          rel="noopener noreferrer"
                         >
                           here.
                         </a>
@@ -239,6 +240,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                             href="https://www.whyleavetown.com/contact-us-here/"
                             className="text-blue-600 underline"
                             target="_blank"
+                            rel="noopener noreferrer"
                           >
                             here.
                           </a>
@@ -465,6 +467,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   <a
                     href={microsite.physicalCardOrderLink}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
@@ -506,6 +509,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   <a
                     href="https://www.whyleavetown.com/bulk-card-orders/"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
@@ -547,6 +551,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   <a
                     href={microsite.digitalCardOrderLink}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
@@ -588,6 +593,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   <a
                     href="https://www.whyleavetown.com/bulk-digital-card-orders/"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className={`inline-flex items-center justify-center gap-2 w-full ${colors[microsite.color]} hover:${colors[microsite.color]} transition-all px-4 py-2.5 text-white rounded-xl text-sm font-medium shadow-md hover:shadow-lg hover:scale-105`}
                   >
                     Purchase Now
@@ -616,6 +622,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
               <a
                 href={microsite.communityLink}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="group"
               >
                 <div className="relative rounded-3xl bg-linear-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-blue-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
@@ -638,6 +645,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
               <a
                 href="https://www.whyleavetown.com/check-card-balance/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="group"
               >
                 <div className="relative rounded-3xl bg-linear-to-br from-white to-gray-50 h-44 flex flex-col justify-center items-center gap-4 border-2 border-gray-200 hover:border-green-400 hover:shadow-xl transition-all duration-300 overflow-hidden">
@@ -856,7 +864,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
               </div>
 
               <div className="flex items-center gap-2">
-                <a href="https://whyleavetown.com/" target="_blank">
+                <a href="https://whyleavetown.com/" target="_blank" rel="noopener noreferrer">
                   <Earth
                     strokeWidth={1.5}
                     size={28}
@@ -866,6 +874,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                 <a
                   href="https://www.facebook.com/whyleavetown/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Facebook
                     strokeWidth={1.5}
@@ -876,6 +885,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                 <a
                   href="https://www.instagram.com/whyleavetown/?hl=en"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Instagram
                     strokeWidth={1.5}

@@ -3,7 +3,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://wlt-microsites.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://shoplocal.whyleavetown.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -44,6 +44,9 @@ export const metadata: Metadata = {
       "Browse Why Leave Town community gift card programs near you and support local businesses.",
     images: ["/logo-whyleavetown.png"],
   },
+  verification: {
+    google: "0545c663a89b6213",
+  },
   robots: {
     index: true,
     follow: true,
@@ -63,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en-AU">
       <body>
         {children}
         <Toaster position="bottom-right" />

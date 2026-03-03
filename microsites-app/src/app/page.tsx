@@ -3,12 +3,15 @@ import Image from "next/image";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://wlt-microsites.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://shoplocal.whyleavetown.com";
 
 export const metadata: Metadata = {
   title: "Community Gift Card Programs",
   description:
     "Browse Why Leave Town gift card programs near you — every dollar you spend stays right where it belongs, in your local community.",
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     title: "Why Leave Town — Community Gift Card Programs",
     description:
@@ -44,8 +47,54 @@ async function getMicrosites(): Promise<Microsite[]> {
 export default async function HomePage() {
   const microsites = await getMicrosites();
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Why Leave Town",
+    url: SITE_URL,
+    description:
+      "Why Leave Town community gift card programs help you shop local and support your community.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/{search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const itemListJsonLd =
+    microsites.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Why Leave Town Community Gift Card Programs",
+          description:
+            "Browse all Why Leave Town community gift card programs across Australia.",
+          numberOfItems: microsites.length,
+          itemListElement: microsites.map((site, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: site.name,
+            url: `${SITE_URL}/${site.slug}`,
+            image: site.banner,
+          })),
+        }
+      : null;
+
   return (
     <main className="min-h-screen bg-[#fafaf8]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      {itemListJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        />
+      )}
       {/* Hero */}
       <section className="flex flex-col items-center justify-center px-6 py-16 text-center">
         <Image
