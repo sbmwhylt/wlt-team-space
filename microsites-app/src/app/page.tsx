@@ -6,16 +6,16 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://shoplocal.whyleavetown.com";
 
 export const metadata: Metadata = {
-  title: "Community Gift Card Programs",
+  title: "Australian Gift Cards — Shop Local Australia | Why Leave Town",
   description:
-    "Browse Why Leave Town gift card programs near you — every dollar you spend stays right where it belongs, in your local community.",
+    "Browse Australian gift cards from Why Leave Town — shop local Australia and keep every dollar in your community. Find gift card programs near you today.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Why Leave Town — Community Gift Card Programs",
+    title: "Why Leave Town — Australian Gift Cards & Shop Local Programs",
     description:
-      "Browse local community gift card programs near you and support your community.",
+      "Browse Australian gift cards and community gift card programs from Why Leave Town. Shop local Australia and support your community.",
     type: "website",
     url: SITE_URL,
   },
@@ -53,7 +53,7 @@ export default async function HomePage() {
     name: "Why Leave Town",
     url: SITE_URL,
     description:
-      "Why Leave Town community gift card programs help you shop local and support your community.",
+      "Why Leave Town offers Australian gift cards and community gift card programs to help you shop local Australia and support your community.",
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -69,9 +69,9 @@ export default async function HomePage() {
       ? {
           "@context": "https://schema.org",
           "@type": "ItemList",
-          name: "Why Leave Town Community Gift Card Programs",
+          name: "Why Leave Town Australian Gift Card Programs",
           description:
-            "Browse all Why Leave Town community gift card programs across Australia.",
+            "Browse all Why Leave Town Australian gift cards and community gift card programs across Australia.",
           numberOfItems: microsites.length,
           itemListElement: microsites.map((site, index) => ({
             "@type": "ListItem",
@@ -106,12 +106,12 @@ export default async function HomePage() {
           priority
         />
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Shop local,{" "}
+          Shop local Australia,{" "}
           <span className="text-gray-500">support your community.</span>
         </h1>
         <p className="mt-4 max-w-xl text-lg text-gray-500">
-          Browse Why Leave Town gift card programs near you — every dollar you
-          spend stays right where it belongs, in your local community.
+          Browse Why Leave Town Australian gift cards near you — every dollar
+          you spend stays right where it belongs, in your local community.
         </p>
       </section>
 

@@ -8,40 +8,41 @@ const SITE_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Why Leave Town — Shop Local Gift Cards",
+    default: "Why Leave Town — Australian Gift Cards & Shop Local Programs",
     template: "%s | Why Leave Town",
   },
   description:
-    "Why Leave Town community gift card programs help you shop local and support your community. Browse gift card programs near you.",
+    "Why Leave Town offers Australian gift cards to help you shop local Australia and support your community. Browse community gift card programs across Australia and keep spending local.",
   keywords: [
     "Why Leave Town",
+    "Australian gift cards",
     "local gift cards",
     "community gift cards",
+    "shop local Australia",
     "shop local",
     "support local business",
-    "Australian gift cards",
   ],
   openGraph: {
     type: "website",
     locale: "en_AU",
     siteName: "Why Leave Town",
-    title: "Why Leave Town — Shop Local Gift Cards",
+    title: "Why Leave Town — Australian Gift Cards & Shop Local Programs",
     description:
-      "Why Leave Town community gift card programs help you shop local and support your community. Browse gift card programs near you.",
+      "Browse Australian gift card programs from Why Leave Town. Shop local Australia and support your community — every dollar stays right where it belongs.",
     images: [
       {
         url: "/logo-whyleavetown.png",
         width: 400,
         height: 400,
-        alt: "Why Leave Town Logo",
+        alt: "Why Leave Town — Australian Gift Cards",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Why Leave Town — Shop Local Gift Cards",
+    title: "Why Leave Town — Australian Gift Cards & Shop Local Programs",
     description:
-      "Browse Why Leave Town community gift card programs near you and support local businesses.",
+      "Browse Australian gift card programs from Why Leave Town and shop local Australia. Support your community with every purchase.",
     images: ["/logo-whyleavetown.png"],
   },
   verification: {

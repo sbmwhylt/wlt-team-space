@@ -30,22 +30,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!m) {
     return {
       title: "Program Not Found",
-      description: "This community gift card program could not be found.",
+      description: "This Australian gift card program could not be found.",
     };
   }
 
   const canonicalUrl = `${SITE_URL}/${slug}`;
+  const title = `${m.name} — Australian Gift Cards | Why Leave Town`;
   const description =
     m.aboutDesc ||
-    `${m.name} gift card program — shop local and support your community with Why Leave Town.`;
+    `${m.name} is an Australian gift card program by Why Leave Town — shop local Australia and support your community with every purchase.`;
 
   return {
-    title: m.name,
+    title,
     description,
     keywords: [
       m.name,
+      "Australian gift cards",
       "local gift cards",
       "community gift cards",
+      "shop local Australia",
       "shop local",
       "Why Leave Town",
       "support local",
@@ -54,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: m.name,
+      title,
       description,
       url: canonicalUrl,
       type: "website",
@@ -66,7 +69,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: m.name,
+      title,
       description,
       images: m.banner ? [m.banner] : [],
     },
@@ -84,7 +87,7 @@ export default async function Page({ params }: Props) {
   const canonicalUrl = `${SITE_URL}/${slug}`;
   const description =
     microsite.aboutDesc ||
-    `${microsite.name} community gift card program by Why Leave Town.`;
+    `${microsite.name} is an Australian gift card program by Why Leave Town. Shop local Australia and support your community with every purchase.`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -130,18 +133,18 @@ export default async function Page({ params }: Props) {
         mainEntity: [
           {
             "@type": "Question",
-            name: "How can I get a Why Leave Town Gift Card?",
+            name: "How can I get a Why Leave Town Australian gift card?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "You can purchase a Why Leave Town Gift Card online or from designated load up stores in your area.",
+              text: "You can purchase a Why Leave Town Australian gift card online or from designated load up stores in your area. It's the easiest way to shop local Australia and support businesses in your community.",
             },
           },
           {
             "@type": "Question",
-            name: "Where can I use my gift card?",
+            name: "Where can I use my Australian gift card?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: `Gift cards can be spent at any participating business in the ${microsite.name} program. Look for the "Why Leave Town Gift Cards Accepted Here" badge on shop doors & windows, or check the full list of businesses in the Where to Spend section.`,
+              text: `Your Australian gift card can be spent at any participating local business in the ${microsite.name} program. Look for the "Why Leave Town Gift Cards Accepted Here" badge on shop doors & windows, or check the full list in the Where to Spend section.`,
             },
           },
           {
