@@ -102,7 +102,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
         <a
-          href="https://wlt-microsites.vercel.app"
+          href={import.meta.env.VITE_PROD_URL}
           target="_blank"
           className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-800 transitionn"
         >
