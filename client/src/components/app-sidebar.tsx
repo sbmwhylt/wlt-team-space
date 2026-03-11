@@ -1,5 +1,6 @@
 "use client";
 
+import { useContext } from "react";
 import {
   Settings,
   CircleQuestionMark,
@@ -20,54 +21,56 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import SupportDialog from "@/pages/dialog/SupportDialog";
+import { AuthContext } from "@/context/AuthContext";
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+const navMain = [
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+    isActive: true,
   },
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-      isActive: true,
-    },
-    // {
-    //   title: "Time Tracker",
-    //   url: "/time-tracker",
-    //   icon: ClipboardClock,
-    //   items: [
-    //     /* ... */
-    //   ],
-    // },
-    {
-      title: "Microsites",
-      url: "/microsites",
-      icon: Globe,
-    },
-    {
-      title: "User Management",
-      url: "/users",
-      icon: Users,
-      items: [
-        /* ... */
-      ],
-    },
-  ],
-  navSecondary: [
-    { title: "Settings", url: "/settings", icon: Settings },
-    {
-      title: "Support",
-      url: "/support",
-      icon: CircleQuestionMark,
-      dialog: SupportDialog,
-    },
-  ],
-};
+  // {
+  //   title: "Time Tracker",
+  //   url: "/time-tracker",
+  //   icon: ClipboardClock,
+  //   items: [
+  //     /* ... */
+  //   ],
+  // },
+  {
+    title: "Microsites",
+    url: "/microsites",
+    icon: Globe,
+  },
+  {
+    title: "User Management",
+    url: "/users",
+    icon: Users,
+    roles: ["admin", "super-admin"],
+    items: [
+      /* ... */
+    ],
+  },
+];
+
+const navSecondary = [
+  { title: "Settings", url: "/settings", icon: Settings },
+  {
+    title: "Support",
+    url: "/support",
+    icon: CircleQuestionMark,
+    dialog: SupportDialog,
+  },
+];
 
 export function AppSidebar({ ...props }) {
+  const { user } = useContext(AuthContext);
+
+  const filteredNavMain = navMain.filter(
+    (item) => !item.roles || (user && item.roles.includes(user.role))
+  );
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -90,8 +93,8 @@ export function AppSidebar({ ...props }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={filteredNavMain} />
+        <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
 
       <SidebarFooter>
