@@ -67,7 +67,12 @@ export default function UpdateUsersForm({
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/users/${userId}`
+        `${import.meta.env.VITE_API_URL}/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (!response.ok) throw new Error("Failed to fetch user data");
       const data = await response.json();
