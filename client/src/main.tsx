@@ -15,7 +15,7 @@ createRoot(rootElement).render(
   <AuthProvider>
     <Router>
       <App />
-      <Toaster position="bottom-right" />
+      <Toaster position="top-center" />
     </Router>
   </AuthProvider>
 );

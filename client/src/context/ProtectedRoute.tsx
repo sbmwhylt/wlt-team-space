@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "@/context/AuthContext";
+import toast from "react-hot-toast";
 
 import type { PropsWithChildren } from "react";
 
@@ -16,6 +17,7 @@ export default function ProtectedRoute({ children, roles }: ProtectedRouteProps)
   }
 
   if (roles && user && !roles.includes(user.role)) {
+    toast.error("You are not authorized to access this page");
     return <Navigate to="/dashboard" replace />;
   }
 

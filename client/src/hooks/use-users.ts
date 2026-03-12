@@ -11,6 +11,9 @@ export function useUsers() {
   const [loading, setLoading] = useState(false);
 
   const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
+  const authHeader = () => ({
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
 
   // --------------- GET all users
   const get = async () => {
@@ -21,7 +24,7 @@ export function useUsers() {
     }
     setLoading(true);
     try {
-      const res = await axios.get(baseUrl);
+      const res = await axios.get(baseUrl, authHeader());
       cachedUsers = res.data.users || [];
       cachedAt = Date.now();
       setUsers(cachedUsers || []);
@@ -49,7 +52,7 @@ export function useUsers() {
 
   // --------------- UPDATE
   const update = async (id: string | number, data: Partial<User>) => {
-    const res = await axios.put(`${baseUrl}/${id}`, data);
+    const res = await axios.put(`${baseUrl}/${id}`, data, authHeader());
     cachedUsers =
       cachedUsers?.map((u) => (u.id === id ? res.data.user : u)) || [];
     setUsers(cachedUsers || []);
@@ -58,7 +61,7 @@ export function useUsers() {
 
   // --------------- DELETE
   const remove = async (id: string | number) => {
-    await axios.delete(`${baseUrl}/${id}`);
+    await axios.delete(`${baseUrl}/${id}`, authHeader());
     cachedUsers = cachedUsers?.filter((u) => u.id !== id) || [];
     setUsers(cachedUsers || []);
   };
