@@ -59,13 +59,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Save to localStorage
       localStorage.setItem("user", JSON.stringify(updatedUser));
       setUser(updatedUser);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to refresh user:", err);
-      // remove invalid data
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      setUser(null);
-      setToken(null);
+      // Only clear auth on 401 (invalid/expired token), not on 403 (insufficient permissions)
+      if (err?.response?.status === 401) {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        setUser(null);
+        setToken(null);
+      }
     }
   }, []);
 

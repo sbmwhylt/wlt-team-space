@@ -1,17 +1,16 @@
-import express from 'express';
+import express from "express";
 import {
   getAllUsers,
   getUserById,
   updateUser,
   deleteUser,
 } from "../controllers/userController.js";
-import { authMiddleware, isAdminOrSuperAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", authMiddleware, isAdminOrSuperAdmin, getAllUsers);
-router.get("/:id", authMiddleware, isAdminOrSuperAdmin, getUserById);
-router.put("/:id", authMiddleware, isAdminOrSuperAdmin, updateUser);
-router.delete("/:id", authMiddleware, isAdminOrSuperAdmin, deleteUser);
+router.get("/", getAllUsers);
+router.get("/:id", getUserById);
+router.put("/:id", updateUser);
+router.delete("/:id", deleteUser);
 
 export default router;
