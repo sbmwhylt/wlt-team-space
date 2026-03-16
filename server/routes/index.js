@@ -3,6 +3,7 @@ import authRoutes from "./authRoute.js";
 import userRoutes from "./userRoute.js";
 import microSiteRoutes from "./microSiteRoute.js";
 import storeRoutes from "./storeRoute.js";
+import noticePostRoutes from "./noticePostRoute.js";
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
 router.use("/microsites", microSiteRoutes);
 router.use("/stores", storeRoutes);
+router.use("/notice-posts", noticePostRoutes);
 
 export default router;

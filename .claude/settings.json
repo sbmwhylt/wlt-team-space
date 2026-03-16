@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"VITE_API_URL\" /c/Development/wlt-team-space/client/.env*)"
+    ]
+  }
+}
