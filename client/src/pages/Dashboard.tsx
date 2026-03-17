@@ -14,7 +14,7 @@ export default function Dashboard() {
       </div>
 
       {/* Extra placeholder content */}
-      <div className="bg-muted/50 min-h-[50vh] flex-1 rounded-xl md:min-h-min mt-6" />
+      <div className="bg-muted/50 min-h-[50vh] flex-1 rounded-xl md:min-h-min " />
     </MainLayout>
   );
 }

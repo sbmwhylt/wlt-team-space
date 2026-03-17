@@ -32,6 +32,12 @@ export default function NoticeBoard() {
 
   const isAdmin = user?.role === "admin" || user?.role === "super-admin";
 
+  const isNewPost = (dateStr: string) => {
+    const created = new Date(dateStr).getTime();
+    const now = Date.now();
+    return now - created < 24 * 60 * 60 * 1000;
+  };
+
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("en-US", {
       month: "short",
@@ -79,54 +85,66 @@ export default function NoticeBoard() {
         </Card>
       )}
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-2">
         {posts.map((post: NoticePost) => (
           <Card
             key={post.id}
             className="group shadow-none p-0 overflow-hidden transition-all duration-200 hover:shadow-md hover:border-primary/20"
           >
             {post.image ? (
-              <div className="relative aspect-video w-full overflow-hidden ">
+              <div className="relative aspect-video w-full overflow-hidden">
                 <img
                   src={post.image}
                   alt={post.title}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                {isNewPost(post.createdAt) && (
+                  <Badge className="absolute top-2 right-2 bg-red-500 hover:bg-red-500 text-white text-[10px] px-1.5 py-0.5">
+                    New
+                  </Badge>
+                )}
               </div>
             ) : (
               <div className="relative flex items-center justify-center aspect-video w-full bg-gradient-to-br from-muted/40 to-muted/80">
                 <ImageIcon className="size-12 text-muted-foreground/20" />
-              </div>
-            )}
-            <CardHeader className="pb-2">
-              <div className="items-center justify-between">
-                <CardTitle className="text-base font-semibold line-clamp-1">
-                  {post.title}
-                </CardTitle>
-                {isAdmin && (
-                  <CardAction>
-                    <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <EditPostDialog
-                        post={post}
-                        noticeBoardState={noticeBoardState}
-                      >
-                        <Button variant="ghost" size="icon-sm">
-                          <Pencil className="size-3.5" />
-                        </Button>
-                      </EditPostDialog>
-                      <DeletePostDialog
-                        post={post}
-                        noticeBoardState={noticeBoardState}
-                      >
-                        <Button variant="ghost" size="icon-sm">
-                          <Trash2 className="size-3.5 text-destructive" />
-                        </Button>
-                      </DeletePostDialog>
-                    </div>
-                  </CardAction>
+                {isNewPost(post.createdAt) && (
+                  <Badge className="absolute top-2 right-2 bg-red-500 hover:bg-red-500 text-white text-[10px] px-1.5 py-0.5">
+                    New
+                  </Badge>
                 )}
               </div>
+            )}
+            <CardHeader className="">
+              <CardTitle className="text-lg font-semibold line-clamp-1">
+                {post.title}
+              </CardTitle>
+              <div className="flex items-center gap-1">
+                <Calendar size={10} />
+                <p className="text-[10px]">{formatDate(post.createdAt)}</p>
+              </div>
+              {isAdmin && (
+                <CardAction>
+                  <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <EditPostDialog
+                      post={post}
+                      noticeBoardState={noticeBoardState}
+                    >
+                      <Button variant="ghost" size="icon-sm">
+                        <Pencil className="size-3.5" />
+                      </Button>
+                    </EditPostDialog>
+                    <DeletePostDialog
+                      post={post}
+                      noticeBoardState={noticeBoardState}
+                    >
+                      <Button variant="ghost" size="icon-sm">
+                        <Trash2 className="size-3.5 text-destructive" />
+                      </Button>
+                    </DeletePostDialog>
+                  </div>
+                </CardAction>
+              )}
               <CardDescription className="flex items-center gap-2">
                 <Avatar className="size-5">
                   <AvatarFallback className="text-[10px] bg-primary/10 text-primary">
@@ -139,17 +157,10 @@ export default function NoticeBoard() {
                   </AvatarFallback>
                 </Avatar>
                 <span>{post.authorName}</span>
-                <Badge
-                  variant="secondary"
-                  className="text-[10px] px-1.5 py-0 font-normal gap-1"
-                >
-                  <Calendar className="size-2.5" />
-                  {formatDate(post.createdAt)}
-                </Badge>
               </CardDescription>
             </CardHeader>
-            <CardContent className="pt-0">
-              <p className="text-sm text-muted-foreground whitespace-pre-line line-clamp-2 leading-relaxed">
+            <CardContent className="pb-2">
+              <p className="text-sm text-muted-foreground whitespace-pre-line line-clamp-3 leading-relaxed">
                 {post.content}
               </p>
             </CardContent>
