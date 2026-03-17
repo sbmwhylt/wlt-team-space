@@ -2,6 +2,7 @@ import db from "../models/index.js";
 import { uploadToImageKit } from "../middleware/upload.js";
 
 const NoticePost = db.NoticePost;
+const User = db.User;
 
 // -------------------- CREATE POST
 export const createNoticePost = async (req, res) => {
@@ -17,12 +18,16 @@ export const createNoticePost = async (req, res) => {
       imageUrl = await uploadToImageKit(req.files.image, "/notice-board");
     }
 
+    const author = await User.findByPk(req.user.id, {
+      attributes: ["firstName", "lastName"],
+    });
+
     const post = await NoticePost.create({
       title,
       content,
       image: imageUrl,
       authorId: req.user.id,
-      authorName: `${req.user.firstName} ${req.user.lastName}`,
+      authorName: `${author.firstName} ${author.lastName}`,
     });
 
     res.status(201).json({ msg: "Post created successfully", post });
@@ -37,8 +42,25 @@ export const getAllNoticePosts = async (req, res) => {
   try {
     const posts = await NoticePost.findAll({
       order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: ["firstName", "lastName"],
+        },
+      ],
     });
-    res.json({ posts });
+
+    const formatted = posts.map((p) => {
+      const post = p.toJSON();
+      if (post.author) {
+        post.authorName = `${post.author.firstName} ${post.author.lastName}`;
+      }
+      delete post.author;
+      return post;
+    });
+
+    res.json({ posts: formatted });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -47,8 +69,23 @@ export const getAllNoticePosts = async (req, res) => {
 // -------------------- GET POST BY ID
 export const getNoticePostById = async (req, res) => {
   try {
-    const post = await NoticePost.findByPk(req.params.id);
-    if (!post) return res.status(404).json({ error: "Post not found" });
+    const p = await NoticePost.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: "author",
+          attributes: ["firstName", "lastName"],
+        },
+      ],
+    });
+    if (!p) return res.status(404).json({ error: "Post not found" });
+
+    const post = p.toJSON();
+    if (post.author) {
+      post.authorName = `${post.author.firstName} ${post.author.lastName}`;
+    }
+    delete post.author;
+
     res.json({ post });
   } catch (err) {
     res.status(500).json({ error: err.message });
