@@ -7,10 +7,10 @@ export default function Dashboard() {
       {/* <h1 className="text-2xl font-bold">Dashboard</h1> */}
       {/* Example grid (from your layout) */}
       <div className="grid auto-rows-min gap-4 md:grid-cols-2 mt-6">
-        <div className="bg-muted/50 aspect-video rounded-xl p-4">
+        <div className=" aspect-video rounded-xl">
           <NoticeBoard />
         </div>
-        <div className="bg-muted/50 aspect-video rounded-xl" />
+        <div className="aspect-video rounded-xl" />
       </div>
 
       {/* Extra placeholder content */}
