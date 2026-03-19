@@ -7,6 +7,7 @@ import {
   Globe,
   LayoutDashboard,
   Users,
+  Megaphone,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -38,6 +39,12 @@ const navMain = [
   //     /* ... */
   //   ],
   // },
+  {
+    title: "Announcements",
+    url: "/announcements",
+    icon: Megaphone,
+
+  },
   {
     title: "Microsites",
     url: "/microsites",

@@ -4,7 +4,11 @@
       "Bash(grep -n \"VITE_API_URL\" /c/Development/wlt-team-space/client/.env*)",
       "Bash(xargs grep:*)",
       "Bash(find /c/Development/wlt-team-space/server -type f \\\\\\(-name *.ts -o -name *.js \\\\\\))",
-      "Bash(find /c/Development/wlt-team-space/server -type f -name *route* -o -name *router*)"
+      "Bash(find /c/Development/wlt-team-space/server -type f -name *route* -o -name *router*)",
+      "Bash(npx tsc:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Development\\wlt-team-space\\client\\src\\pages\\page-announcements"
     ]
   }
 }

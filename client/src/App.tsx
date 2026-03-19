@@ -3,6 +3,7 @@ import ProtectedRoute from "@/context/ProtectedRoute";
 
 import Login from "@/pages/auth/Login";
 import Dashboard from "@/pages/Dashboard";
+import Announcements from "@/pages/Announcements";
 import Microsites from "@/pages/Microsites";
 import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
@@ -22,6 +23,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/announcements"
+          element={
+            <ProtectedRoute>
+              <Announcements />
             </ProtectedRoute>
           }
         />

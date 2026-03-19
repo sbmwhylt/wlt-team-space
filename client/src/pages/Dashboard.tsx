@@ -6,10 +6,11 @@ export default function Dashboard() {
     <MainLayout>
       {/* <h1 className="text-2xl font-bold">Dashboard</h1> */}
       {/* Example grid (from your layout) */}
-      <div className="grid auto-rows-min gap-4 md:grid-cols-2 mt-6">
-        <div className=" aspect-video rounded-xl">
+      <div className="grid auto-rows-min gap-4 md:grid-cols-2 mt-2">
+        <div className="border p-4 aspect-video rounded-xl">
           <NoticeBoard />
         </div>
+        <div className="border p-4 aspect-video rounded-xl"></div>
         <div className="aspect-video rounded-xl" />
       </div>
 

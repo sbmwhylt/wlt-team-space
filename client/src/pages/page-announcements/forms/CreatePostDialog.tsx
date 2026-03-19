@@ -89,7 +89,7 @@ export default function CreatePostDialog({ noticeBoardState, children }: Props) 
         <DialogHeader>
           <DialogTitle>New Announcement</DialogTitle>
           <DialogDescription>
-            Create a new notice board post visible to all team members.
+            Create a new announcement visible to all team members.
           </DialogDescription>
         </DialogHeader>
 

@@ -40,7 +40,6 @@ export default function EditPostDialog({
 
   const { update } = noticeBoardState;
 
-  // Sync state when post prop changes
   useEffect(() => {
     setTitle(post.title);
     setContent(post.content);
