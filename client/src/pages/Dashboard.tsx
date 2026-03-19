@@ -11,7 +11,7 @@ export default function Dashboard() {
           <NoticeBoard />
         </div>
         <div className="border p-4 aspect-video rounded-xl"></div>
-        <div className="aspect-video rounded-xl" />
+        <div className="aspect-video rounded-xl bg-gray-400" />
       </div>
 
       {/* Extra placeholder content */}
