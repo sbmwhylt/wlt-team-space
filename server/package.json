@@ -9,7 +9,15 @@
     "seed": "node ./seeders/index.js",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
-    "migrate:fresh": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "migrate:fresh": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "import:prod-microsites": "node --env-file=.env scripts/importProdMicrosites.js",
+    "import:microsites": "node --env-file=.env scripts/importMicrosites.js",
+    "import:stores": "node --env-file=.env scripts/importStores.js",
+    "import:stores-bulk": "node --env-file=.env scripts/bulkStoreImport.js",
+    "undo:import-prod-microsites": "node --env-file=.env scripts/undoImportProdMicrosites.js",
+    "undo:import-microsites": "node --env-file=.env scripts/undoImportMicrosites.js",
+    "undo:import-stores": "node --env-file=.env scripts/undoImportStores.js",
+    "undo:import-stores-bulk": "node --env-file=.env scripts/undoBulkStoreImport.js"
   },
   "keywords": [],
   "author": "",
