@@ -16,6 +16,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 1,
     },
+    {
+      url: `${SITE_URL}/business`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
   ];
 
   try {
@@ -27,14 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const data = await res.json();
     const microsites: Microsite[] = data.microsites ?? [];
 
-    const dynamicPages: MetadataRoute.Sitemap = microsites
-      .filter((m) => m.type === "consumer")
-      .map((m) => ({
-        url: `${SITE_URL}/${m.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-      }));
+    const dynamicPages: MetadataRoute.Sitemap = microsites.map((m) => ({
+      url: `${SITE_URL}/${m.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }));
 
     return [...staticPages, ...dynamicPages];
   } catch {
