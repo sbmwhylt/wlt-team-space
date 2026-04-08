@@ -54,7 +54,11 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [filtering, setFiltering] = React.useState("");
+  const [typeFilter, setTypeFilter] = React.useState<
+    "all" | "business" | "consumer"
+  >("all");
   const [, setOpen] = React.useState(false);
+
   const isLoading = data.length === 0;
 
   const table = useReactTable({
@@ -80,6 +84,13 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const handleTypeFilter = (value: "all" | "business" | "consumer") => {
+    setTypeFilter(value);
+    table
+      .getColumn("type")
+      ?.setFilterValue(value === "all" ? undefined : value);
+  };
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4 justify-between gap-2">
@@ -95,12 +106,30 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         )}
-        <Input
-          placeholder="Search by name, type, or slug..."
-          value={filtering ?? ""}
-          onChange={(event) => setFiltering(event.target.value)}
-          className="max-w-sm"
-        />
+        <div className="flex items-center gap-3 w-lg">
+          <Input
+            placeholder="Search by name, type, or slug..."
+            value={filtering ?? ""}
+            onChange={(event) => setFiltering(event.target.value)}
+            className="max-w-sm"
+          />
+          <div className="flex items-center gap-1 rounded-md border p-1">
+            {(["all", "business", "consumer"] as const).map((val) => (
+              <button
+                key={val}
+                onClick={() => handleTypeFilter(val)}
+                className={`rounded px-3 py-1 text-sm font-medium capitalize transition ${
+                  typeFilter === val
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                {val}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <a
           href={import.meta.env.VITE_PROD_URL}
           target="_blank"

@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, ExternalLink } from "lucide-react";
+import {
+  ArrowUpDown,
+  MoreHorizontal,
+  Copy,
+  Check,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -265,16 +270,34 @@ export const getColumns = (micrositesState?: {
     cell: ({ row }) => {
       const slug = row.getValue("slug") as string;
       const msAppUrl = import.meta.env.VITE_PROD_URL;
+      const [copied, setCopied] = React.useState(false);
+
+      const handleCopy = (e: React.MouseEvent) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(`${msAppUrl}/${slug}`);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+        toast.success("Microsite link copied to clipboard!");
+      };
+
       return (
-        <a
-          href={`${msAppUrl}/${slug}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-700 hover:underline inline-flex items-center gap-1"
-        >
-          {slug}
-          <ExternalLink className="w-3 h-3" />
-        </a>
+        <div className="inline-flex items-center gap-2">
+          <a
+            href={`${msAppUrl}/${slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-700 hover:underline inline-flex items-center gap-1"
+          >
+            {slug}
+          </a>
+          <button
+            onClick={handleCopy}
+            className="text-gray-400 hover:text-gray-600 transition cursor-pointer"
+            title="Copy link"
+          >
+            {copied ? <Check className="text-green-500" /> : <Copy size={15} />}
+          </button>
+        </div>
       );
     },
   },
