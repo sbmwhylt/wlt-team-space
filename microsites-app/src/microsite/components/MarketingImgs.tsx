@@ -116,35 +116,16 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
   const [modalImageIndex, setModalImageIndex] = useState(0);
 
   // Process microsite data into gallery format
+  const toImageData = (urls: string[] | null | undefined, label: string): ImageData[] =>
+    (urls ?? [])
+      .filter((url) => typeof url === "string" && url.trim() !== "")
+      .map((url, index) => ({ url, alt: `${label} ${index + 1}` }));
+
   const galleryData: Record<SectionKey, ImageData[]> = {
-    brandAssets:
-      microsite?.marketingImgs?.brandAssets?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `brandAssets ${index + 1}`,
-        }),
-      ) || [],
-    campaignsAndPromos:
-      microsite?.marketingImgs?.campaignsAndPromos?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `campaignsAndPromos ${index + 1}`,
-        }),
-      ) || [],
-    socialContent:
-      microsite?.marketingImgs?.socialContent?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `socialContent ${index + 1}`,
-        }),
-      ) || [],
-    participationContent:
-      microsite?.marketingImgs?.participationContent?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `participationContent ${index + 1}`,
-        }),
-      ) || [],
+    brandAssets: toImageData(microsite?.marketingImgs?.brandAssets, "brandAssets"),
+    campaignsAndPromos: toImageData(microsite?.marketingImgs?.campaignsAndPromos, "campaignsAndPromos"),
+    socialContent: toImageData(microsite?.marketingImgs?.socialContent, "socialContent"),
+    participationContent: toImageData(microsite?.marketingImgs?.participationContent, "participationContent"),
   };
 
   // Define all possible tabs
@@ -205,7 +186,7 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
     <div>
       {/* Tabs - Only show tabs with images */}
       <div className="max-w-4xl mx-auto mb-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 border-gray-300">
+        <div className="flex justify-center gap-2 border-gray-300">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -240,7 +221,7 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
               <button
                 key={index}
                 onClick={() => openPreview(index)}
-                className="aspect-square overflow-hidden hover:opacity-80 transition cursor-pointer"
+                className="h-28 overflow-hidden hover:opacity-80 transition cursor-pointer"
               >
                 <img
                   src={img.url}
