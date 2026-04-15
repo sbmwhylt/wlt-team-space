@@ -758,7 +758,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                     info@whyleavetown.com. We'll guide you through how to list
                     your business and promote what you offer. register{" "}
                     <a
-                      href="https://forms.monday.com/forms/890cfe70c8a8dc371a450bad4c102a73?r=use1"
+                      href={microsite.businessLink}
                       className="text-blue-600 underline"
                     >
                       here

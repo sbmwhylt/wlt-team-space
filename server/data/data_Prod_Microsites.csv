@@ -1,65 +1,24 @@
 name,slug,type,email,phone,banner,aboutDesc,socialLinks,digitalCardOrderLink,physicalCardOrderLink,communityLink,businessLink,marketingImgs,marketingVids,physicalImg,digitalImg,physicalBulkImg,digitalBulkImg,color,createdAt,updatedAt
-Numurkah,numurkah,consumer,amcson@bigpond.net.au,,https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%201.png?updatedAt=1775619537503,"Brought to you by Numurkah Love Our Lifestyle and proudly supported by Moira Shire Council and Bendigo Bank Numurkah Branch and operated by shop local experts Why Leave Town, Numurkah Gift Card is aimed at encouraging people to shop local. Each card that is purchased can only be spent in local participating businesses...meaning all the money stays local!","{
-  ""facebook"": ""https://www.facebook.com/numurkahloveourlifestyle/"",
-  ""instagram"": ""https://www.instagram.com/numurkahloveourlifestyle/?hl=en"",
-  ""website"": ""https://visitnumurkah.wixsite.com/numurkah""
-}",,https://www.whyleavetown.com/product/numurkah-gift-card/,https://www.whyleavetown.com/community/numurkah/,https://forms.monday.com/forms/ebeaa0e07c57734bb36092ee9e1ffd1f,"{
+Hobart,hobart,consumer,business@hobartcity.com.au,610362382711,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%201.png,"Brought to you by the City of Hobart, Hello Hobart showcases the people, places, and businesses that make the city unique. From local retailers and cafes to restaurants and lifestyle spots, it highlights the stories behind them while encouraging residents and visitors to explore and support Hobart’s vibrant local scene.","{
+  ""facebook"": ""https://www.facebook.com/hellohobarttasmania/"",
+  ""instagram"": ""https://www.instagram.com/hellohobarttasmania/?hl=en"",
+  ""website"": ""https://hellohobart.com.au/""
+}",,,https://www.whyleavetown.com/community/hobart/,,,,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%205.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%203.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%207.png,pink,NOW(),NOW()
+Hobart - Business,hobart-business,business,business@hobartcity.com.au,610362382711,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%201.png,Welcome to the Hobart Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Hobart Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/hellohobarttasmania/"",
+  ""instagram"": ""https://www.instagram.com/hellohobarttasmania/?hl=en"",
+  ""website"": ""https://hellohobart.com.au/""
+}",,,,,"{
   ""brandAssets"": [
-      """","""",""""
+      ""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%203.png?updatedAt=1776216289894"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%206.png?updatedAt=1776216283110"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%207.png?updatedAt=1776216262259"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png?updatedAt=1776216262283"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png?updatedAt=1776216262283"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%201.png?updatedAt=1776216255523"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%205.png?updatedAt=1776216254157"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Physical%20Card%20Design%20v1%2018.03.26.jpg?updatedAt=1776216250299""
     ],
     ""campaignsAndPromos"": [
-      """","""",""""
+      ""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Birthday%20Post%201.png?updatedAt=1776216278730"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Birthday%20Post%202.png?updatedAt=1776216257086"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%202.png?updatedAt=1776216284788"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%204.png?updatedAt=1776216282329"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%205.png?updatedAt=1776216276865"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%203.png?updatedAt=1776216274151"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%201.png?updatedAt=1776216264041"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Congratulations%20Post.png?updatedAt=1776216254084"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Easter%20Post%202.png?updatedAt=1776216286996"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Easter%20Post%201.png?updatedAt=1776216277958"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Easter%20Post%203.png?updatedAt=1776216264318"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Father's%20Day%20Post%203.png?updatedAt=1776216267719"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Father's%20Day%20Post%203.png?updatedAt=1776216267719"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Father's%20Day%20Post%202.png?updatedAt=1776216254351"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Mother's%20Day%20Post%203.png?updatedAt=1776216280531"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Mother's%20Day%20Post%202.png?updatedAt=1776216262147"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Mother's%20Day%20Post%201.png?updatedAt=1776216254463"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Thank%20You%20Post.png?updatedAt=1776216270237"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Valentine's%20Day%20Post%202.png?updatedAt=1776216280201"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Valentine's%20Day%20Post%203.png?updatedAt=1776216272222"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Valentine's%20Day%20Post%201.png?updatedAt=1776216268921""
     ],
     ""socialContent"":[
-      """","""",""""
+      ""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%204.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%207.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%205.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%203.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%201.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%206.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%202.png""
     ],
     ""participationContent"":[
-      """","""",""""
+      ""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Redemption%20Store%203.png?updatedAt=1776216281100"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Redemption%20Store%201.png?updatedAt=1776216265645"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Redemption%20Store%202.png?updatedAt=1776216259034"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Load%20Up%20Store%203.png?updatedAt=1776216265517"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Load%20Up%20Store%202.png?updatedAt=1776216252638"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Load%20Up%20Store%201.png?updatedAt=1776216251520""
     ]
- }",,https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%205.png?updatedAt=1775619532597,,https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%202.png?updatedAt=1775619521742,,blue,NOW(),NOW()
-Numurkah - Business,numurkah-business,business,amcson@bigpond.net.au,,https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%201.png?updatedAt=1775619537503,Welcome to the Numurkah Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Numurkah Gift Card.,"{
-  ""facebook"": ""https://www.facebook.com/numurkahloveourlifestyle/"",
-  ""instagram"": ""https://www.instagram.com/numurkahloveourlifestyle/?hl=en"",
-  ""website"": ""https://visitnumurkah.wixsite.com/numurkah""
-}",,https://www.whyleavetown.com/product/numurkah-gift-card/,,,"{
-  ""brandAssets"": [
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%201.png?updatedAt=1775619537503"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%202.png?updatedAt=1775619521742"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%203.png?updatedAt=1775619517456"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%205.png?updatedAt=1775619532597""
-  ],
-  ""campaignsAndPromos"": [
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Congratulations.png?updatedAt=1775619529122"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Thank%20You.png?updatedAt=1775619529666"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Christmas%20Post%201.png?updatedAt=1775619538143"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Birthday%20Post%202.png?updatedAt=1775619537527"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Christmas%20Post%204.png?updatedAt=1775619535226"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Christmas%20Post%203.png?updatedAt=1775619527456"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Easter%20Post%201.png?updatedAt=1775619533897"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Birthday%20Post%201.png?updatedAt=1775619515842"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Christmas%20Post%202.png?updatedAt=1775619516224"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Easter%20Post%202.png?updatedAt=1775619513645"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Easter%20Post%203.png?updatedAt=1775619512994"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Valentine's%20Day%20Post%201.png?updatedAt=1775619542189"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Mother's%20Day%20Post%202.png?updatedAt=1775619541400"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Father's%20Day%20Post%201.png?updatedAt=1775619537974"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Father's%20Day%20Post%202.png?updatedAt=1775619534398"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Mother's%20Day%20Post%201.png?updatedAt=1775619528377""
-  ],
-  ""socialContent"": [
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%202.png?updatedAt=1775619540438"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%207.png?updatedAt=1775619539980"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%206.png?updatedAt=1775619525639"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%205.png?updatedAt=1775619523279"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%204.png?updatedAt=1775619523439"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%203.png?updatedAt=1775619521801"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Social%20Post%201.png?updatedAt=1775619522538""
-  ],
-  ""participationContent"": [
-    ""https://ik.imagekit.io/wlt/microsites-assets/%20Numurkah%20Load%20Up%20Store%201%20Up%20Stores.png?updatedAt=1775619526087"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/%20Numurkah%20Load%20Up%20Store%203.png?updatedAt=1775619519675"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/%20Numurkah%20Load%20Up%20Store%202.png?updatedAt=1775619530705"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Redemption%20Store%201.png?updatedAt=1775619515730"",
-    ""https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Redemption%20Store%203.png?updatedAt=1775619517706""
-  ]
-}",,https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%205.png?updatedAt=1775619532597,,https://ik.imagekit.io/wlt/microsites-assets/Numurkah%20Design%20Element%202.png?updatedAt=1775619521742,,blue,NOW(),NOW()
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%205.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%203.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%207.png,pink,NOW(),NOW()
