@@ -13,7 +13,7 @@ async function getMicrosite(slug: string): Promise<MicroSite | null> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/microsites/${slug}`,
-      { next: { revalidate: 3600 } },
+      { next: { revalidate: 60 } },
     );
     if (!res.ok) return null;
     const data = await res.json();

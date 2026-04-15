@@ -756,14 +756,23 @@ export default function MicrositeTemplate({ microsite }: Props) {
                     Absolutely! If you're a local business owner and want to be
                     part of the program, just get in touch at
                     info@whyleavetown.com. We'll guide you through how to list
-                    your business and promote what you offer. register{" "}
-                    <a
-                      href={microsite.businessLink}
-                      className="text-blue-600 underline"
-                    >
-                      here
-                    </a>{" "}
-                    today!
+                    your business and promote what you offer.{" "}
+                    {microsite.businessLink ? (
+                      <>
+                        register{" "}
+                        <a
+                          href={microsite.businessLink}
+                          className="text-blue-600 underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          here
+                        </a>{" "}
+                        today!
+                      </>
+                    ) : (
+                      "Register today!"
+                    )}
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -804,19 +813,21 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   today and start attracting more local customers while
                   supporting your community.
                 </p>
-                <a
-                  href={microsite.businessLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    variant="default"
-                    size="lg"
-                    className="w-fit mt-6 cursor-pointer"
+                {microsite.businessLink && (
+                  <a
+                    href={microsite.businessLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Go to form
-                  </Button>
-                </a>
+                    <Button
+                      variant="default"
+                      size="lg"
+                      className="w-fit mt-6 cursor-pointer"
+                    >
+                      Go to form
+                    </Button>
+                  </a>
+                )}
               </div>
             )}
 
