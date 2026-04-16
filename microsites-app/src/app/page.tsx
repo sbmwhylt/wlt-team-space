@@ -106,14 +106,18 @@ export default async function HomePage() {
           }}
         />
         <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 pb-20 pt-16 text-center sm:pb-28 sm:pt-24">
-          <Image
-            src="/logo-whyleavetown.png"
-            alt="Why Leave Town"
-            width={180}
-            height={80}
-            className="mb-10 object-contain"
-            priority
-          />
+          <div className="rounded-full object-fit overflow-hidden mb-14 border-10 border-orange-400/80">
+            {" "}
+            <Image
+              src="/logo-whyleavetown.png"
+              alt="Why Leave Town"
+              width={180}
+              height={80}
+              className="object-contain"
+              priority
+            />
+          </div>
+
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
             Shop Local Gift Cards
             <span className="mt-2 block bg-linear-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
@@ -329,7 +333,7 @@ export default async function HomePage() {
             </h2>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div className="relative text-center">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br from-orange-500 to-amber-500 text-xl font-bold text-white shadow-md shadow-orange-500/20">
                 1

@@ -1,24 +1,71 @@
 name,slug,type,email,phone,banner,aboutDesc,socialLinks,digitalCardOrderLink,physicalCardOrderLink,communityLink,businessLink,marketingImgs,marketingVids,physicalImg,digitalImg,physicalBulkImg,digitalBulkImg,color,createdAt,updatedAt
-Hobart,hobart,consumer,business@hobartcity.com.au,610362382711,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%201.png,"Brought to you by the City of Hobart, Hello Hobart showcases the people, places, and businesses that make the city unique. From local retailers and cafes to restaurants and lifestyle spots, it highlights the stories behind them while encouraging residents and visitors to explore and support Hobart’s vibrant local scene.","{
-  ""facebook"": ""https://www.facebook.com/hellohobarttasmania/"",
-  ""instagram"": ""https://www.instagram.com/hellohobarttasmania/?hl=en"",
-  ""website"": ""https://hellohobart.com.au/""
-}",,,https://www.whyleavetown.com/community/hobart/,,,,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%205.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%203.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%207.png,pink,NOW(),NOW()
-Hobart - Business,hobart-business,business,business@hobartcity.com.au,610362382711,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%201.png,Welcome to the Hobart Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Hobart Gift Card.,"{
-  ""facebook"": ""https://www.facebook.com/hellohobarttasmania/"",
-  ""instagram"": ""https://www.instagram.com/hellohobarttasmania/?hl=en"",
-  ""website"": ""https://hellohobart.com.au/""
+Kew Junction,kew-junction,consumer,info@kewjunction.com.au,,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%205.png,"Brought to you by the Kew Junction business community and supported by local stakeholders, Kew Junction is designed to showcase and support a thriving local economy. Located in Melbourne’s inner eastern suburbs, this vibrant shopping strip is home to over 600 high-quality businesses—from restaurants, cafes, bars, and pubs offering exceptional food and beverages, to professional, health and medical, legal, and financial services—ensuring that whatever you’re looking for, you’ll find it right in the heart of Kew","{
+  ""facebook"": ""https://www.facebook.com/KewJunction.Melbourne"",
+  ""instagram"": ""https://www.instagram.com/kewjunctionau/"",
+  ""website"": ""https://kewjunction.com.au/""
+}",,,https://www.whyleavetown.com/community/kewjunction/,https://forms.monday.com/forms/ae4381a32d99e1cfb70afba469a7beca?r=use1,,,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%208.png,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%201.png,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%206.png,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%204.png,orange,NOW(),NOW()
+Kew Junction - Business,kew-junction-business,business,info@kewjunction.com.au,,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%205.png,Welcome to the Kew Junction Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Kew Junction Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/KewJunction.Melbourne"",
+  ""instagram"": ""https://www.instagram.com/kewjunctionau/"",
+  ""website"": ""https://kewjunction.com.au/""
 }",,,,,"{
   ""brandAssets"": [
-      ""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%203.png?updatedAt=1776216289894"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%206.png?updatedAt=1776216283110"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%207.png?updatedAt=1776216262259"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png?updatedAt=1776216262283"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png?updatedAt=1776216262283"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%201.png?updatedAt=1776216255523"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%205.png?updatedAt=1776216254157"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Physical%20Card%20Design%20v1%2018.03.26.jpg?updatedAt=1776216250299""
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%201.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%202.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%203.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%204.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%205.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%206.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%207.png"",
+    ""https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%208.png""
+  ],
+  ""campaignsAndPromos"": [],
+  ""socialContent"": [],
+  ""participationContent"": []
+}",,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%208.png,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%201.png,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%206.png,https://ik.imagekit.io/wlt/microsites-assets/Kew%20Junction%20Design%20Element%204.png,orange,NOW(),NOW()
+Maling Road,maling-road,consumer,,,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%205.png?updatedAt=1776300637586,"Brought to you by the Maling Road precinct and supported by local traders, Mailing Road Australia is designed to highlight a refined village shopping experience in Melbourne’s Canterbury area. This boutique, tree-lined strip is a community-focused destination known for its heritage charm and curated mix of high-end fashion retailers, specialty stores, cafés, restaurants, and professional services.","{
+  ""facebook"": ""http://facebook.com/malingroad"",
+  ""instagram"": ""http://instagram.com/malingroad"",
+  ""website"": ""https://malingroad.com.au/contact/""
+}",,,https://www.whyleavetown.com/community/malingroad/,https://wkf.ms/4uok1T8,,,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%208.png?updatedAt=1776300641393,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%201.png?updatedAt=1776300636927,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%206.png?updatedAt=1776300638948,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%204.png?updatedAt=1776300640693,black,NOW(),NOW()
+Maling Road - Business,maling-road-business,business,,,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%205.png?updatedAt=1776300637586,Welcome to the Maling Road Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Maling Road Gift Card.,"{
+  ""facebook"": ""http://facebook.com/malingroad"",
+  ""instagram"": ""http://instagram.com/malingroad"",
+  ""website"": ""https://malingroad.com.au/contact/""
+}",,,,,"{
+  ""brandAssets"": [
+      ""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%203.png?updatedAt=1776300642696"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%208.png?updatedAt=1776300641393"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%206.png?updatedAt=1776300638948"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%204.png?updatedAt=1776300640693"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%207.png?updatedAt=1776300638118"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%205.png?updatedAt=1776300637586"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%202.png?updatedAt=1776300636423"",""https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%201.png?updatedAt=1776300636927""
     ],
     ""campaignsAndPromos"": [
-      ""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Birthday%20Post%201.png?updatedAt=1776216278730"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Birthday%20Post%202.png?updatedAt=1776216257086"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%202.png?updatedAt=1776216284788"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%204.png?updatedAt=1776216282329"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%205.png?updatedAt=1776216276865"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%203.png?updatedAt=1776216274151"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Christmas%20Post%201.png?updatedAt=1776216264041"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Congratulations%20Post.png?updatedAt=1776216254084"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Easter%20Post%202.png?updatedAt=1776216286996"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Easter%20Post%201.png?updatedAt=1776216277958"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Easter%20Post%203.png?updatedAt=1776216264318"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Father's%20Day%20Post%203.png?updatedAt=1776216267719"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Father's%20Day%20Post%203.png?updatedAt=1776216267719"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Father's%20Day%20Post%202.png?updatedAt=1776216254351"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Mother's%20Day%20Post%203.png?updatedAt=1776216280531"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Mother's%20Day%20Post%202.png?updatedAt=1776216262147"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Mother's%20Day%20Post%201.png?updatedAt=1776216254463"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Thank%20You%20Post.png?updatedAt=1776216270237"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Valentine's%20Day%20Post%202.png?updatedAt=1776216280201"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Valentine's%20Day%20Post%203.png?updatedAt=1776216272222"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Valentine's%20Day%20Post%201.png?updatedAt=1776216268921""
+      """","""",""""
     ],
     ""socialContent"":[
-      ""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%204.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%207.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%205.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%203.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%201.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%206.png"",""https://ik.imagekit.io/wlt/microsites-assets/Hobard%20Social%20Post%202.png""
+      """","""",""""
     ],
     ""participationContent"":[
-      ""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Redemption%20Store%203.png?updatedAt=1776216281100"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Redemption%20Store%201.png?updatedAt=1776216265645"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Redemption%20Store%202.png?updatedAt=1776216259034"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Load%20Up%20Store%203.png?updatedAt=1776216265517"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Load%20Up%20Store%202.png?updatedAt=1776216252638"",""https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Load%20Up%20Store%201.png?updatedAt=1776216251520""
+      """","""",""""
     ]
- }",,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%205.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%203.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%202.png,https://ik.imagekit.io/wlt/microsites-assets/Hobart%20Design%20Element%207.png,pink,NOW(),NOW()
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%208.png?updatedAt=1776300641393,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%201.png?updatedAt=1776300636927,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%206.png?updatedAt=1776300638948,https://ik.imagekit.io/wlt/microsites-assets/Maling%20Road%20Design%20Element%204.png?updatedAt=1776300640693,black,NOW(),NOW()
+Surf Coast,surf-coast,consumer,info@surfcoast.vic.gov.au,352610600,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%201.png,"Brought to you by the Surf Coast Shire Council and supported by regional data partners, Surf Coast Shire showcases a distinctive coastal region at the start of the Great Ocean Road. It is home to eleven unique townships including Torquay, Lorne, Anglesea, Jan Juc, Aireys Inlet and Winchelsea, each with its own identity and strong community focus.","{
+  ""facebook"": ""https://www.facebook.com/SurfCoastShireCouncil/"",
+  ""instagram"": ""https://www.instagram.com/surfcoastshire/"",
+  ""website"": ""https://www.surfcoast.vic.gov.au/""
+}",,,https://www.whyleavetown.com/community/surf-coast/,https://wkf.ms/4bOVJti,,,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%204.png,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%203.png,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%202.png,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%206.png,blue,NOW(),NOW()
+Surf Coast - Business,surf-coast-business,business,info@surfcoast.vic.gov.au,352610600,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%201.png,Welcome to the Surf Coast Gift Card Business Hub. This dedicated platform is designed to provide participating businesses with all the essential information and resources you need to successfully promote and utilize the Surf Coast Gift Card.,"{
+  ""facebook"": ""https://www.facebook.com/SurfCoastShireCouncil/"",
+  ""instagram"": ""https://www.instagram.com/surfcoastshire/"",
+  ""website"": ""https://www.surfcoast.vic.gov.au/""
+}",,,,,"{
+  ""brandAssets"": [
+      ""https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%202.png"",""https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%206.png"",""https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%201.png"",""https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%205.png"",""https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%203.png"",""https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%204.png""
+    ],
+    ""campaignsAndPromos"": [
+      """","""",""""
+    ],
+    ""socialContent"":[
+      """","""",""""
+    ],
+    ""participationContent"":[
+      """","""",""""
+    ]
+ }",,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%204.png,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%203.png,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%202.png,https://ik.imagekit.io/wlt/microsites-assets/Surf%20Coast%20Design%20Element%206.png,blue,NOW(),NOW()
