@@ -31,6 +31,7 @@ export interface MicroSite {
   digitalBulkImg?: string;
   stores?: Store[];
   color: string;
+  isPromotional?: boolean;
 }
 
 export interface Store {

@@ -404,20 +404,22 @@ export default function MicrositeTemplate({ microsite }: Props) {
                       </DialogContent>
                     </Dialog>
 
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="default">Card Stocks</Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogTitle className="sr-only">
-                          Update Card Stocks
-                        </DialogTitle>
-                        <DialogDescription className="sr-only">
-                          Update your card stock information
-                        </DialogDescription>
-                        <CardStockForm />
-                      </DialogContent>
-                    </Dialog>
+                    {!microsite.isPromotional && (
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="default">Card Stocks</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogTitle className="sr-only">
+                            Update Card Stocks
+                          </DialogTitle>
+                          <DialogDescription className="sr-only">
+                            Update your card stock information
+                          </DialogDescription>
+                          <CardStockForm />
+                        </DialogContent>
+                      </Dialog>
+                    )}
                   </div>
                 </DialogContent>
               </Dialog>
@@ -425,6 +427,9 @@ export default function MicrositeTemplate({ microsite }: Props) {
           )}
 
           <CardContent className="text-center p-0 ">
+            {/* Purchase Cards */}
+            {!microsite.isPromotional && (
+              <>
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
               <div className="rounded-full bg-primary text-white w-fit flex items-center justify-center p-2">
@@ -433,7 +438,6 @@ export default function MicrositeTemplate({ microsite }: Props) {
               <h2 className="text-2xl ">Purchase Cards</h2>
             </div>
 
-            {/* Purchase Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* Card 1 */}
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
@@ -604,6 +608,8 @@ export default function MicrositeTemplate({ microsite }: Props) {
                 </div>
               </div>
             </div>
+              </>
+            )}
 
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
@@ -699,18 +705,20 @@ export default function MicrositeTemplate({ microsite }: Props) {
               className="w-full text-left bg-white/90 px-4 rounded-2xl"
               defaultValue="item-1"
             >
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="text-md">
-                  How can I get a Why Leave Town Gift Card?{" "}
-                </AccordionTrigger>
-                <AccordionContent className="w-full">
-                  <p className="text-gray-700 text-md">
-                    You can purchase a Why Leave Town Gift Card online see
-                    purchase options in the links above or from designated load
-                    up stores in your area.
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
+              {!microsite.isPromotional && (
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className="text-md">
+                    How can I get a Why Leave Town Gift Card?{" "}
+                  </AccordionTrigger>
+                  <AccordionContent className="w-full">
+                    <p className="text-gray-700 text-md">
+                      You can purchase a Why Leave Town Gift Card online see
+                      purchase options in the links above or from designated load
+                      up stores in your area.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              )}
               <AccordionItem value="item-3">
                 <AccordionTrigger className="text-md">
                   Where can I use my gift card?{" "}

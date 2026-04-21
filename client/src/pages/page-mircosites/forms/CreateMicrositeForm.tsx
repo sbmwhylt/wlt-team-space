@@ -26,6 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
 import { Upload, X } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import StoreLocator from "../components/storeLocator";
 import { Spinner } from "@/components/ui/spinner";
 import { colors } from "@/constants/colors";
@@ -59,6 +60,7 @@ const micrositeSchema = z.object({
   physicalBulkImg: z.any().optional(),
   digitalBulkImg: z.any().optional(),
   color: z.enum(Object.keys(colors) as [string, ...string[]]),
+  isPromotional: z.boolean(),
 });
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
@@ -111,6 +113,7 @@ export default function CreateMicrositeForm({
       physicalBulkImg: null,
       digitalBulkImg: null,
       color: "red",
+      isPromotional: false,
     },
   });
 
@@ -122,6 +125,7 @@ export default function CreateMicrositeForm({
       formData.append("name", values.name);
       formData.append("type", values.type);
       formData.append("color", values.color);
+      formData.append("isPromotional", String(values.isPromotional));
 
       // Optional text fields
       const optionalFields = [
@@ -997,6 +1001,29 @@ export default function CreateMicrositeForm({
           Store Locator <span className="text-orange-500">(Consumer)</span>{" "}
         </h3>
         <StoreLocator onLocationsChange={setStoreLocations} />
+
+        <hr />
+
+        <FormField
+          control={form.control}
+          name="isPromotional"
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-3">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel className="!mt-0 cursor-pointer">
+                Promotional Microsite{" "}
+                <span className="text-gray-500 font-normal text-xs">
+                  (hides Purchase Cards, Card Stocks, and "How can I get a card" FAQ)
+                </span>
+              </FormLabel>
+            </FormItem>
+          )}
+        />
 
         <div className="flex justify-end pt-2">
           <Button type="submit" disabled={form.formState.isSubmitting}>

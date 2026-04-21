@@ -7,7 +7,7 @@ const Microsite = db.Microsite;
 // -------------------- CREATE MICROSITE
 export const createMicroSite = async (req, res) => {
   try {
-    const { name, socialLinks, ...rest } = req.body;
+    const { name, socialLinks, isPromotional, ...rest } = req.body;
 
     if (!name) {
       return res.status(400).json({ error: "Microsite name is required" });
@@ -75,6 +75,7 @@ export const createMicroSite = async (req, res) => {
       name,
       slug,
       ...rest,
+      isPromotional: isPromotional === "true",
       socialLinks: parsedSocialLinks,
       ...uploadedData,
     });
@@ -146,7 +147,7 @@ export const getMicroSiteById = async (req, res) => {
 export const updateMicroSite = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, socialLinks, marketingImgs, ...rest } = req.body;
+    const { name, socialLinks, marketingImgs, isPromotional, ...rest } = req.body;
 
     const microsite = await Microsite.findByPk(id);
     if (!microsite) {
@@ -214,6 +215,7 @@ export const updateMicroSite = async (req, res) => {
     await microsite.update({
       ...(name && { name }),
       ...rest,
+      ...(isPromotional !== undefined && { isPromotional: isPromotional === "true" }),
       ...(parsedSocialLinks && { socialLinks: parsedSocialLinks }),
       ...uploadedData,
     });
