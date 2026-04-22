@@ -2,12 +2,7 @@
 
 import React, { useEffect } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  MoreHorizontal,
-  Copy,
-  Check,
-} from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -264,6 +259,7 @@ export const getColumns = (micrositesState?: {
       );
     },
   },
+
   {
     accessorKey: "slug",
     header: "Microsite Link",
@@ -332,6 +328,30 @@ export const getColumns = (micrositesState?: {
       const date = new Date(row.getValue("updatedAt"));
       const timeAgo = formatDistanceToNow(date, { addSuffix: true });
       return <div className="text-sm text-muted-foreground">{timeAgo}</div>;
+    },
+  },
+  {
+    accessorKey: "isPromotional",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Promotional
+        <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const isPromotional = row.getValue("isPromotional") as boolean;
+      return isPromotional ? (
+        <div className="py-1 px-2 w-fit text-sm rounded-ful text-black">
+          Promotional
+        </div>
+      ) : (
+        <div className="py-1 px-2 w-fit text-sm rounded-full  text-gray-400 font-medium">
+          Standard
+        </div>
+      );
     },
   },
   {

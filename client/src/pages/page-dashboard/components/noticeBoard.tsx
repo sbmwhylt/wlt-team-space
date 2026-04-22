@@ -42,7 +42,7 @@ export default function NoticeBoard() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Megaphone className="size-5 text-primary" />
-          <h2 className="text-lg font-semibold text-gray-600">Notice Board</h2>
+          <h2 className="text-lg font-medium text-gray-600 dark:text-gray-200">Notice Board</h2>
         </div>
         {isAdmin && (
           <CreatePostDialog noticeBoardState={noticeBoardState}>

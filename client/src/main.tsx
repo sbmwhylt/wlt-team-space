@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import "leaflet/dist/leaflet.css";
 
@@ -12,10 +13,12 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
-  <AuthProvider>
-    <Router>
-      <App />
-      <Toaster position="top-center" />
-    </Router>
-  </AuthProvider>
+  <ThemeProvider>
+    <AuthProvider>
+      <Router>
+        <App />
+        <Toaster position="top-center" />
+      </Router>
+    </AuthProvider>
+  </ThemeProvider>
 );
