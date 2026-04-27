@@ -1,17 +1,16 @@
-Scripts for Microsite Scritps
+Scripts for Microsite & Store imports
 
------- Run this	
+------ Run this
 
-npm run import:prod-microsites	
-
-npm run import:microsites	
-npm run import:stores	
-npm run import:stores-bulk	
+npm run import:prod-microsites
+npm run import:prod-stores
 
 ------ Undo with
 
 npm run undo:import-prod-microsites
+npm run undo:import-prod-stores
 
-npm run undo:import-microsites
-npm run undo:import-stores|
-npm run undo:import-stores-bulk
+------ Single store file (import or undo)
+
+npm run stores import (store)
+npm run stores undo (store)
