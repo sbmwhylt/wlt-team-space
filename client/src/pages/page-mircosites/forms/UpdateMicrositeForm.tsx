@@ -18,10 +18,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
-import { Upload, X } from "lucide-react";
+import { Upload, X, ImagePlus, Plus, Trash2 } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import { Checkbox } from "@/components/ui/checkbox";
 import { colors } from "@/constants/colors";
+import { cn } from "@/lib/utils";
 import type { MicroSite } from "@/types/Microsite";
 export type { MicroSite } from "@/types/Microsite";
 
@@ -63,13 +64,215 @@ interface UpdateMicrositeFormProps {
   onSuccess?: () => void;
 }
 
+// ─── Reusable single-image upload field ──────────────────────────────────────
+interface SingleImageUploadProps {
+  id: string;
+  existingUrl?: string;
+  newFile: File | null;
+  label: string;
+  onChange: (file: File | null) => void;
+}
+
+function SingleImageUpload({
+  id,
+  existingUrl,
+  newFile,
+  label,
+  onChange,
+}: SingleImageUploadProps) {
+  return (
+    <div className="space-y-2">
+      {/* Existing image */}
+      {!newFile && existingUrl && (
+        <div className="relative w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+          <img
+            src={existingUrl}
+            alt={`Current ${label}`}
+            className="w-full h-full object-cover"
+          />
+          <span className="absolute top-2 left-2 bg-blue-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
+            Current
+          </span>
+        </div>
+      )}
+
+      {/* New file preview */}
+      {newFile ? (
+        <div className="relative w-full h-32 rounded-xl overflow-hidden border-2 border-green-400">
+          <img
+            src={URL.createObjectURL(newFile)}
+            alt="New preview"
+            className="w-full h-full object-cover"
+          />
+          <span className="absolute top-2 left-2 bg-green-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">
+            New
+          </span>
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-full transition shadow"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      ) : (
+        <label
+          htmlFor={id}
+          className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition-all text-gray-400 hover:text-blue-500"
+        >
+          <Upload className="w-6 h-6 mb-1.5" />
+          <span className="text-sm font-medium">
+            {existingUrl ? "Replace image" : `Upload ${label}`}
+          </span>
+          <Input
+            id={id}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => onChange(e.target.files?.[0] ?? null)}
+          />
+        </label>
+      )}
+    </div>
+  );
+}
+
+// ─── Reusable multi-image marketing section ───────────────────────────────────
+interface MarketingImageSectionProps {
+  label: string;
+  inputId: string;
+  existingImages: string[];
+  newImages: { file: File; preview: string }[];
+  onDeleteExisting: (index: number) => void;
+  onAddNew: (files: FileList) => void;
+  onRemoveNew: (index: number) => void;
+}
+
+function MarketingImageSection({
+  label,
+  inputId,
+  existingImages,
+  newImages,
+  onDeleteExisting,
+  onAddNew,
+  onRemoveNew,
+}: MarketingImageSectionProps) {
+  const totalCount = existingImages.length + newImages.length;
+
+  return (
+    <div className="rounded-xl border border-gray-200 bg-gray-50/40 p-4 space-y-3">
+      {/* Section header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-semibold text-gray-800">{label}</span>
+          <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">
+            Business
+          </span>
+        </div>
+        {totalCount > 0 && (
+          <span className="text-xs text-gray-400">
+            {totalCount} {totalCount === 1 ? "image" : "images"}
+          </span>
+        )}
+      </div>
+
+      {/* Image grid */}
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+        {/* Existing images */}
+        {existingImages.map((url, i) => (
+          <div
+            key={`existing-${i}`}
+            className="group relative aspect-square rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm"
+          >
+            <img
+              src={url}
+              alt={`${label} ${i + 1}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all" />
+            <button
+              type="button"
+              onClick={() => onDeleteExisting(i)}
+              className="absolute top-1.5 right-1.5 p-1 bg-red-500 hover:bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all shadow"
+              title="Delete image"
+            >
+              <Trash2 className="w-3 h-3" />
+            </button>
+            <span className="absolute bottom-1 left-1 bg-black/50 text-white text-[9px] px-1.5 py-0.5 rounded-full pointer-events-none">
+              Saved
+            </span>
+          </div>
+        ))}
+
+        {/* New (staged) images */}
+        {newImages.map((img, i) => (
+          <div
+            key={`new-${i}`}
+            className="group relative aspect-square rounded-lg overflow-hidden border-2 border-green-400 bg-white shadow-sm"
+          >
+            <img
+              src={img.preview}
+              alt={`new-${label}-${i}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all" />
+            <button
+              type="button"
+              onClick={() => onRemoveNew(i)}
+              className="absolute top-1.5 right-1.5 p-1 bg-red-500 hover:bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all shadow"
+              title="Remove"
+            >
+              <X className="w-3 h-3" />
+            </button>
+            <span className="absolute bottom-1 left-1 bg-green-500 text-white text-[9px] px-1.5 py-0.5 rounded-full pointer-events-none">
+              New
+            </span>
+          </div>
+        ))}
+
+        {/* Add tile */}
+        <label
+          htmlFor={inputId}
+          className="aspect-square rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all text-gray-400 hover:text-blue-500"
+        >
+          <Plus className="w-5 h-5 mb-0.5" />
+          <span className="text-[11px] font-medium">Add</span>
+        </label>
+      </div>
+
+      {/* Empty state */}
+      {totalCount === 0 && (
+        <label
+          htmlFor={inputId}
+          className="flex flex-col items-center justify-center w-full py-8 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 transition-all text-gray-400 hover:text-blue-500"
+        >
+          <ImagePlus className="w-7 h-7 mb-2" />
+          <span className="text-sm font-medium">Upload images</span>
+          <span className="text-xs mt-0.5 text-gray-400">
+            PNG, JPG — multiple allowed
+          </span>
+        </label>
+      )}
+
+      <input
+        id={inputId}
+        type="file"
+        accept="image/*"
+        multiple
+        className="hidden"
+        onChange={(e) => e.target.files && onAddNew(e.target.files)}
+      />
+    </div>
+  );
+}
+
+// ─── Main form ────────────────────────────────────────────────────────────────
 export default function UpdateMicrositeForm({
   microsite,
   onSuccess,
 }: UpdateMicrositeFormProps) {
   const { update } = useMicroSites();
 
-  // Store existing image URLs
   const [existingImages, setExistingImages] = useState<{
     banner?: string;
     physicalImg?: string;
@@ -78,11 +281,12 @@ export default function UpdateMicrositeForm({
     digitalBulkImg?: string;
     marketingImgs?: {
       brandAssets?: string[];
-      campaginsAndPromos?: string[];
+      campaignsAndPromos?: string[];
       socialContent?: string[];
       participationContent?: string[];
     };
   }>({});
+
 
   const form = useForm<MicrositeFormValues>({
     resolver: zodResolver(micrositeSchema),
@@ -118,19 +322,23 @@ export default function UpdateMicrositeForm({
     },
   });
 
-  // Load existing microsite data
   useEffect(() => {
-    // Set existing images for display
     setExistingImages({
       banner: microsite.banner,
       physicalImg: microsite.physicalImg,
       digitalImg: microsite.digitalImg,
       physicalBulkImg: microsite.physicalBulkImg,
       digitalBulkImg: microsite.digitalBulkImg,
-      marketingImgs: microsite.marketingImgs || undefined,
+      marketingImgs: microsite.marketingImgs
+        ? {
+            brandAssets: microsite.marketingImgs.brandAssets ?? [],
+            campaignsAndPromos: microsite.marketingImgs.campaignsAndPromos ?? [],
+            socialContent: microsite.marketingImgs.socialContent ?? [],
+            participationContent: microsite.marketingImgs.participationContent ?? [],
+          }
+        : undefined,
     });
 
-    // Pre-fill form with existing data
     form.reset({
       name: microsite.name || "",
       type: microsite.type || "consumer",
@@ -150,7 +358,6 @@ export default function UpdateMicrositeForm({
       businessLink: microsite.businessLink || "",
       color: microsite.color || "red",
       isPromotional: microsite.isPromotional ?? false,
-      // Don't pre-fill file fields
       banner: null,
       physicalImg: null,
       digitalImg: null,
@@ -163,11 +370,25 @@ export default function UpdateMicrositeForm({
     });
   }, [microsite, form]);
 
+  // Delete an existing (saved) marketing image by section
+  const deleteExistingMarketingImg = (
+    section: "brandAssets" | "campaignsAndPromos" | "socialContent" | "participationContent",
+    index: number,
+  ) => {
+    // Remove from local display — remaining URLs are sent to backend on submit
+    setExistingImages((prev) => ({
+      ...prev,
+      marketingImgs: {
+        ...prev.marketingImgs,
+        [section]: prev.marketingImgs?.[section]?.filter((_, i) => i !== index) ?? [],
+      },
+    }));
+  };
+
   const onSubmit = async (values: MicrositeFormValues) => {
     try {
       const formData = new FormData();
 
-      // Add text fields
       formData.append("name", values.name);
       formData.append("type", values.type);
       formData.append("color", values.color);
@@ -188,40 +409,46 @@ export default function UpdateMicrositeForm({
         if (value) formData.append(field, String(value));
       });
 
-      // Add NEW images only (if user uploaded new ones)
       if (values.banner) formData.append("banner", values.banner);
-      if (values.physicalImg)
-        formData.append("physicalImg", values.physicalImg);
+      if (values.physicalImg) formData.append("physicalImg", values.physicalImg);
       if (values.digitalImg) formData.append("digitalImg", values.digitalImg);
       if (values.physicalBulkImg)
         formData.append("physicalBulkImg", values.physicalBulkImg);
       if (values.digitalBulkImg)
         formData.append("digitalBulkImg", values.digitalBulkImg);
 
-      // Add NEW marketing images by section
-      if (values.marketingImgs_brandAssets?.length) {
-        values.marketingImgs_brandAssets.forEach((img) => {
-          formData.append("marketingImgs_brandAssets", img.file);
-        });
-      }
+      // New marketing image files
+      values.marketingImgs_brandAssets?.forEach((img) =>
+        formData.append("marketingImgs_brandAssets", img.file),
+      );
+      values.marketingImgs_campaignsAndPromos?.forEach((img) =>
+        formData.append("marketingImgs_campaignsAndPromos", img.file),
+      );
+      values.marketingImgs_socialContent?.forEach((img) =>
+        formData.append("marketingImgs_socialContent", img.file),
+      );
+      values.marketingImgs_participationContent?.forEach((img) =>
+        formData.append("marketingImgs_participationContent", img.file),
+      );
 
-      if (values.marketingImgs_campaignsAndPromos?.length) {
-        values.marketingImgs_campaignsAndPromos.forEach((img) => {
-          formData.append("marketingImgs_campaignsAndPromos", img.file);
-        });
-      }
-
-      if (values.marketingImgs_socialContent?.length) {
-        values.marketingImgs_socialContent.forEach((img) => {
-          formData.append("marketingImgs_socialContent", img.file);
-        });
-      }
-
-      if (values.marketingImgs_participationContent?.length) {
-        values.marketingImgs_participationContent.forEach((img) => {
-          formData.append("marketingImgs_participationContent", img.file);
-        });
-      }
+      // Send the remaining existing URLs for each section so the backend
+      // knows exactly which saved images to keep (after any deletions).
+      formData.append(
+        "remainingBrandAssets",
+        JSON.stringify(existingImages.marketingImgs?.brandAssets ?? []),
+      );
+      formData.append(
+        "remainingCampaignsAndPromos",
+        JSON.stringify(existingImages.marketingImgs?.campaignsAndPromos ?? []),
+      );
+      formData.append(
+        "remainingSocialContent",
+        JSON.stringify(existingImages.marketingImgs?.socialContent ?? []),
+      );
+      formData.append(
+        "remainingParticipationContent",
+        JSON.stringify(existingImages.marketingImgs?.participationContent ?? []),
+      );
 
       formData.append("socialLinks", JSON.stringify(values.socialLinks));
 
@@ -239,7 +466,8 @@ export default function UpdateMicrositeForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        {/* ── Basic Info ── */}
         <FormField
           control={form.control}
           name="name"
@@ -254,7 +482,7 @@ export default function UpdateMicrositeForm({
           )}
         />
 
-        <div className="flex items-center gap-2 w-full">
+        <div className="flex items-center gap-3 w-full">
           <FormField
             control={form.control}
             name="email"
@@ -283,68 +511,21 @@ export default function UpdateMicrositeForm({
           />
         </div>
 
-        {/* Banner Upload */}
+        {/* ── Banner ── */}
         <FormField
           control={form.control}
           name="banner"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-2">
+            <FormItem>
               <FormLabel>Banner</FormLabel>
               <FormControl>
-                <div>
-                  {/* Show existing banner if no new file */}
-                  {!field.value && existingImages.banner ? (
-                    <div className="relative w-full h-32 border rounded-lg overflow-hidden mb-2">
-                      <img
-                        src={existingImages.banner}
-                        alt="Current banner"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                        Current
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {!field.value ? (
-                    <label
-                      htmlFor="banner"
-                      className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
-                    >
-                      <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                      <span className="text-sm text-gray-500">
-                        {existingImages.banner
-                          ? "Upload New Banner"
-                          : "Click to upload Banner"}
-                      </span>
-                      <Input
-                        id="banner"
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => field.onChange(e.target.files?.[0])}
-                      />
-                    </label>
-                  ) : (
-                    <div className="relative w-full h-32 border rounded-lg overflow-hidden">
-                      <img
-                        src={URL.createObjectURL(field.value)}
-                        alt="New preview"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                        New
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => field.onChange(null)}
-                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <SingleImageUpload
+                  id="banner"
+                  label="Banner"
+                  existingUrl={existingImages.banner}
+                  newFile={field.value}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -370,10 +551,12 @@ export default function UpdateMicrositeForm({
 
         <hr />
 
-        {/* Social Links Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-medium">Social Links</h3>
-          <div className="grid grid-cols-2 gap-2 pb-4">
+        {/* ── Social Links ── */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            Social Links
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
             {Object.keys(form.watch("socialLinks") || {}).map((platform) => (
               <FormField
                 key={platform}
@@ -398,53 +581,19 @@ export default function UpdateMicrositeForm({
         </div>
 
         <hr />
-        <h3 className="text-lg ">Other Details</h3>
 
-        <div className="grid grid-cols-2 gap-2">
-          <FormField
-            control={form.control}
-            name="digitalCardOrderLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Digital Card Order Link</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="https://example.com"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="physicalCardOrderLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Physical Card Order Link</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="https://example.com"
-                    {...field}
-                    value={field.value || ""}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {microsite.type === "consumer" && (
+        {/* ── Other Links ── */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            Other Details
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
             <FormField
               control={form.control}
-              name="communityLink"
+              name="digitalCardOrderLink"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Community Link{" "}
-                    <span className="text-orange-500">(Consumer)</span>{" "}
-                  </FormLabel>
+                  <FormLabel>Digital Card Order Link</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="https://example.com"
@@ -456,18 +605,12 @@ export default function UpdateMicrositeForm({
                 </FormItem>
               )}
             />
-          )}
-
-          {microsite.type === "consumer" && (
             <FormField
               control={form.control}
-              name="businessLink"
+              name="physicalCardOrderLink"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Register Business{" "}
-                    <span className="text-orange-500">(Consumer)</span>{" "}
-                  </FormLabel>
+                  <FormLabel>Physical Card Order Link</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="https://example.com"
@@ -479,436 +622,223 @@ export default function UpdateMicrositeForm({
                 </FormItem>
               )}
             />
-          )}
+            {microsite.type === "consumer" && (
+              <FormField
+                control={form.control}
+                name="communityLink"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Community Link{" "}
+                      <span className="text-orange-500 font-normal">(Consumer)</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="https://example.com"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {microsite.type === "consumer" && (
+              <FormField
+                control={form.control}
+                name="businessLink"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Register Business{" "}
+                      <span className="text-orange-500 font-normal">(Consumer)</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="https://example.com"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+          </div>
         </div>
 
-        <hr />
-        <h3 className="text-lg ">Marketing Images</h3>
-
-        {/* Marketing Images - Brand Assets*/}
+        {/* ── Marketing Images ── */}
         {microsite.type === "business" && (
-          <FormField
-            control={form.control}
-            name="marketingImgs_brandAssets"
-            render={({ field }) => {
-              const images: { file: File; preview: string }[] =
-                field.value || [];
+          <>
+            <hr />
+            <div className="space-y-3">
+              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                Marketing Images
+              </h3>
 
-              return (
-                <FormItem>
-                  <FormLabel>
-                    Brand Assets{" "}
-                    <span className="text-blue-500">(Business)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div>
-                      {/* Show existing images */}
-                      {existingImages.marketingImgs?.brandAssets?.length ? (
-                        <div className="mb-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            Current images:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.brandAssets.map(
-                              (img, i) => (
-                                <div
-                                  key={i}
-                                  className="relative w-full h-24 border rounded-md overflow-hidden"
-                                >
-                                  <img
-                                    src={img}
-                                    alt={`current-brandAssets-${i}`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                    Current
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </div>
-                      ) : null}
+              {/* Brand Assets */}
+              <FormField
+                control={form.control}
+                name="marketingImgs_brandAssets"
+                render={({ field }) => {
+                  const newImages: { file: File; preview: string }[] =
+                    field.value || [];
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <MarketingImageSection
+                          label="Brand Assets"
+                          inputId="marketingImgs_brandAssets"
+                          existingImages={
+                            existingImages.marketingImgs?.brandAssets ?? []
+                          }
+                          newImages={newImages}
+                          onDeleteExisting={(i) =>
+                            deleteExistingMarketingImg("brandAssets", i)
+                          }
+                          onAddNew={(files) => {
+                            const added = Array.from(files).map((file) => ({
+                              file,
+                              preview: URL.createObjectURL(file),
+                            }));
+                            field.onChange([...newImages, ...added]);
+                          }}
+                          onRemoveNew={(i) =>
+                            field.onChange(newImages.filter((_, idx) => idx !== i))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
 
-                      <Input
-                        id="marketingImgs_brandAssets"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={(e) => {
-                          const files = Array.from(e.target.files || []);
-                          const newImages = files.map((file) => ({
-                            file,
-                            preview: URL.createObjectURL(file),
-                          }));
-                          field.onChange([...images, ...newImages]);
-                        }}
-                      />
+              {/* Campaigns & Promos */}
+              <FormField
+                control={form.control}
+                name="marketingImgs_campaignsAndPromos"
+                render={({ field }) => {
+                  const newImages: { file: File; preview: string }[] =
+                    field.value || [];
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <MarketingImageSection
+                          label="Campaigns & Promos"
+                          inputId="marketingImgs_campaignsAndPromos"
+                          existingImages={
+                            existingImages.marketingImgs?.campaignsAndPromos ?? []
+                          }
+                          newImages={newImages}
+                          onDeleteExisting={(i) =>
+                            deleteExistingMarketingImg("campaignsAndPromos", i)
+                          }
+                          onAddNew={(files) => {
+                            const added = Array.from(files).map((file) => ({
+                              file,
+                              preview: URL.createObjectURL(file),
+                            }));
+                            field.onChange([...newImages, ...added]);
+                          }}
+                          onRemoveNew={(i) =>
+                            field.onChange(newImages.filter((_, idx) => idx !== i))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
 
-                      {images.length > 0 && (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            New images to upload:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {images.map((img, i) => (
-                              <div
-                                key={i}
-                                className="relative w-full h-24 border rounded-md overflow-hidden"
-                              >
-                                <img
-                                  src={img.preview}
-                                  alt={`new-brandAssets-${i}`}
-                                  className="w-full h-full object-cover"
-                                />
-                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                  New
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const updated = images.filter(
-                                      (_, idx) => idx !== i,
-                                    );
-                                    field.onChange(updated);
-                                  }}
-                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                                >
-                                  ✕
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+              {/* Social Content */}
+              <FormField
+                control={form.control}
+                name="marketingImgs_socialContent"
+                render={({ field }) => {
+                  const newImages: { file: File; preview: string }[] =
+                    field.value || [];
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <MarketingImageSection
+                          label="Social Content"
+                          inputId="marketingImgs_socialContent"
+                          existingImages={
+                            existingImages.marketingImgs?.socialContent ?? []
+                          }
+                          newImages={newImages}
+                          onDeleteExisting={(i) =>
+                            deleteExistingMarketingImg("socialContent", i)
+                          }
+                          onAddNew={(files) => {
+                            const added = Array.from(files).map((file) => ({
+                              file,
+                              preview: URL.createObjectURL(file),
+                            }));
+                            field.onChange([...newImages, ...added]);
+                          }}
+                          onRemoveNew={(i) =>
+                            field.onChange(newImages.filter((_, idx) => idx !== i))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+
+              {/* Participation Content */}
+              <FormField
+                control={form.control}
+                name="marketingImgs_participationContent"
+                render={({ field }) => {
+                  const newImages: { file: File; preview: string }[] =
+                    field.value || [];
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <MarketingImageSection
+                          label="Participation Content"
+                          inputId="marketingImgs_participationContent"
+                          existingImages={
+                            existingImages.marketingImgs?.participationContent ?? []
+                          }
+                          newImages={newImages}
+                          onDeleteExisting={(i) =>
+                            deleteExistingMarketingImg("participationContent", i)
+                          }
+                          onAddNew={(files) => {
+                            const added = Array.from(files).map((file) => ({
+                              file,
+                              preview: URL.createObjectURL(file),
+                            }));
+                            field.onChange([...newImages, ...added]);
+                          }}
+                          onRemoveNew={(i) =>
+                            field.onChange(newImages.filter((_, idx) => idx !== i))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            </div>
+          </>
         )}
 
-        {/* Marketing Images - Campaigns And Promos */}
-        {microsite.type === "business" && (
-          <FormField
-            control={form.control}
-            name="marketingImgs_campaignsAndPromos"
-            render={({ field }) => {
-              const images: { file: File; preview: string }[] =
-                field.value || [];
-
-              return (
-                <FormItem>
-                  <FormLabel>
-                    Campaigns And Promos{" "}
-                    <span className="text-blue-500">(Business)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div>
-                      {existingImages.marketingImgs?.campaginsAndPromos
-                        ?.length ? (
-                        <div className="mb-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            Current images:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.campaginsAndPromos.map(
-                              (img, i) => (
-                                <div
-                                  key={i}
-                                  className="relative w-full h-24 border rounded-md overflow-hidden"
-                                >
-                                  <img
-                                    src={img}
-                                    alt={`current-campaignsAndPromos-${i}`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                    Current
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      <Input
-                        id="marketingImgs_campaignsAndPromos"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={(e) => {
-                          const files = Array.from(e.target.files || []);
-                          const newImages = files.map((file) => ({
-                            file,
-                            preview: URL.createObjectURL(file),
-                          }));
-                          field.onChange([...images, ...newImages]);
-                        }}
-                      />
-
-                      {images.length > 0 && (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            New images to upload:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {images.map((img, i) => (
-                              <div
-                                key={i}
-                                className="relative w-full h-24 border rounded-md overflow-hidden"
-                              >
-                                <img
-                                  src={img.preview}
-                                  alt={`new-campaignsAndPromos-${i}`}
-                                  className="w-full h-full object-cover"
-                                />
-                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                  New
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const updated = images.filter(
-                                      (_, idx) => idx !== i,
-                                    );
-                                    field.onChange(updated);
-                                  }}
-                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                                >
-                                  ✕
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-        )}
-
-        {/* Marketing Images - Social Content*/}
-        {microsite.type === "business" && (
-          <FormField
-            control={form.control}
-            name="marketingImgs_socialContent"
-            render={({ field }) => {
-              const images: { file: File; preview: string }[] =
-                field.value || [];
-
-              return (
-                <FormItem>
-                  <FormLabel>
-                    Social Content{" "}
-                    <span className="text-blue-500">(Business)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div>
-                      {existingImages.marketingImgs?.socialContent?.length ? (
-                        <div className="mb-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            Current images:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.socialContent.map(
-                              (img, i) => (
-                                <div
-                                  key={i}
-                                  className="relative w-full h-24 border rounded-md overflow-hidden"
-                                >
-                                  <img
-                                    src={img}
-                                    alt={`current-socialContent-${i}`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                    Current
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      <Input
-                        id="marketingImgs_socialContent"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={(e) => {
-                          const files = Array.from(e.target.files || []);
-                          const newImages = files.map((file) => ({
-                            file,
-                            preview: URL.createObjectURL(file),
-                          }));
-                          field.onChange([...images, ...newImages]);
-                        }}
-                      />
-
-                      {images.length > 0 && (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            New images to upload:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {images.map((img, i) => (
-                              <div
-                                key={i}
-                                className="relative w-full h-24 border rounded-md overflow-hidden"
-                              >
-                                <img
-                                  src={img.preview}
-                                  alt={`new-socialContent-${i}`}
-                                  className="w-full h-full object-cover"
-                                />
-                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                  New
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const updated = images.filter(
-                                      (_, idx) => idx !== i,
-                                    );
-                                    field.onChange(updated);
-                                  }}
-                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                                >
-                                  ✕
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-        )}
-
-        {/* Marketing Images - Participation Content*/}
-        {microsite.type === "business" && (
-          <FormField
-            control={form.control}
-            name="marketingImgs_participationContent"
-            render={({ field }) => {
-              const images: { file: File; preview: string }[] =
-                field.value || [];
-
-              return (
-                <FormItem>
-                  <FormLabel>
-                    Participation Content{" "}
-                    <span className="text-blue-500">(Business)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div>
-                      {existingImages.marketingImgs?.participationContent
-                        ?.length ? (
-                        <div className="mb-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            Current images:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {existingImages.marketingImgs.participationContent.map(
-                              (img, i) => (
-                                <div
-                                  key={i}
-                                  className="relative w-full h-24 border rounded-md overflow-hidden"
-                                >
-                                  <img
-                                    src={img}
-                                    alt={`current-participationContent-${i}`}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-1 rounded">
-                                    Current
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </div>
-                      ) : null}
-
-                      <Input
-                        id="marketingImgs_participationContent"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={(e) => {
-                          const files = Array.from(e.target.files || []);
-                          const newImages = files.map((file) => ({
-                            file,
-                            preview: URL.createObjectURL(file),
-                          }));
-                          field.onChange([...images, ...newImages]);
-                        }}
-                      />
-
-                      {images.length > 0 && (
-                        <div className="mt-3">
-                          <p className="text-sm text-gray-600 mb-2">
-                            New images to upload:
-                          </p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {images.map((img, i) => (
-                              <div
-                                key={i}
-                                className="relative w-full h-24 border rounded-md overflow-hidden"
-                              >
-                                <img
-                                  src={img.preview}
-                                  alt={`new-participationContent-${i}`}
-                                  className="w-full h-full object-cover"
-                                />
-                                <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 rounded">
-                                  New
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const updated = images.filter(
-                                      (_, idx) => idx !== i,
-                                    );
-                                    field.onChange(updated);
-                                  }}
-                                  className="absolute top-1 right-1 bg-black/50 text-white p-1 rounded-full text-xs"
-                                >
-                                  ✕
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-        )}
-
+        {/* ── Color Theme ── */}
         <FormField
           control={form.control}
           name="color"
           render={({ field }) => (
-            <FormItem className="mt-7 mb-7">
+            <FormItem>
               <FormLabel>Microsite Color Theme</FormLabel>
               <FormControl>
                 <div className="grid grid-cols-7 gap-3 mt-2">
@@ -917,15 +847,13 @@ export default function UpdateMicrositeForm({
                       key={key}
                       type="button"
                       onClick={() => field.onChange(key)}
-                      className={`
-                h-10 rounded-lg transition-all
-                ${gradient}
-                ${
-                  field.value === key
-                    ? "ring-2 ring-offset-2 ring-gray-400 scale-105"
-                    : "opacity-80 hover:opacity-100"
-                }
-              `}
+                      className={cn(
+                        "h-10 rounded-lg transition-all",
+                        gradient,
+                        field.value === key
+                          ? "ring-2 ring-offset-2 ring-gray-400 scale-105"
+                          : "opacity-80 hover:opacity-100",
+                      )}
                       aria-label={key}
                     />
                   ))}
@@ -933,7 +861,7 @@ export default function UpdateMicrositeForm({
               </FormControl>
               <p className="text-xs text-gray-500 mt-1">
                 Selected:{" "}
-                <span className="font-medium capitalize ">{field.value}</span>
+                <span className="font-medium capitalize">{field.value}</span>
               </p>
               <FormMessage />
             </FormItem>
@@ -942,275 +870,92 @@ export default function UpdateMicrositeForm({
 
         <hr />
 
-        <h3 className="text-lg font-medium">Card Images</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
-          {/* Physical Image */}
-          <FormField
-            control={form.control}
-            name="physicalImg"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel>Physical Image</FormLabel>
-                <FormControl>
-                  <div>
-                    {!field.value && existingImages.physicalImg ? (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden mb-2">
-                        <img
-                          src={existingImages.physicalImg}
-                          alt="Current"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                          Current
-                        </div>
-                      </div>
-                    ) : null}
+        {/* ── Card Images ── */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            Card Images
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="physicalImg"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Physical Image</FormLabel>
+                  <FormControl>
+                    <SingleImageUpload
+                      id="physicalImg"
+                      label="Physical Image"
+                      existingUrl={existingImages.physicalImg}
+                      newFile={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                    {!field.value ? (
-                      <label
-                        htmlFor="physicalImg"
-                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
-                      >
-                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                        <span className="text-sm text-gray-500">
-                          {existingImages.physicalImg
-                            ? "Upload New Image"
-                            : "Upload Physical Image"}
-                        </span>
-                        <Input
-                          id="physicalImg"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => field.onChange(e.target.files?.[0])}
-                        />
-                      </label>
-                    ) : (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
-                        <img
-                          src={URL.createObjectURL(field.value)}
-                          alt="New preview"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                          New
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => field.onChange(null)}
-                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="digitalImg"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Digital Image</FormLabel>
+                  <FormControl>
+                    <SingleImageUpload
+                      id="digitalImg"
+                      label="Digital Image"
+                      existingUrl={existingImages.digitalImg}
+                      newFile={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {/* Digital Image */}
-          <FormField
-            control={form.control}
-            name="digitalImg"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel>Digital Image</FormLabel>
-                <FormControl>
-                  <div>
-                    {!field.value && existingImages.digitalImg ? (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden mb-2">
-                        <img
-                          src={existingImages.digitalImg}
-                          alt="Current"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                          Current
-                        </div>
-                      </div>
-                    ) : null}
+            <FormField
+              control={form.control}
+              name="physicalBulkImg"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Physical Bulk Image</FormLabel>
+                  <FormControl>
+                    <SingleImageUpload
+                      id="physicalBulkImg"
+                      label="Physical Bulk Image"
+                      existingUrl={existingImages.physicalBulkImg}
+                      newFile={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                    {!field.value ? (
-                      <label
-                        htmlFor="digitalImg"
-                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
-                      >
-                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                        <span className="text-sm text-gray-500">
-                          {existingImages.digitalImg
-                            ? "Upload New Image"
-                            : "Upload Digital Image"}
-                        </span>
-                        <Input
-                          id="digitalImg"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => field.onChange(e.target.files?.[0])}
-                        />
-                      </label>
-                    ) : (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
-                        <img
-                          src={URL.createObjectURL(field.value)}
-                          alt="New preview"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                          New
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => field.onChange(null)}
-                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Physical Bulk Image */}
-          <FormField
-            control={form.control}
-            name="physicalBulkImg"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel>Physical Bulk Image</FormLabel>
-                <FormControl>
-                  <div>
-                    {!field.value && existingImages.physicalBulkImg ? (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden mb-2">
-                        <img
-                          src={existingImages.physicalBulkImg}
-                          alt="Current"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                          Current
-                        </div>
-                      </div>
-                    ) : null}
-
-                    {!field.value ? (
-                      <label
-                        htmlFor="physicalBulkImg"
-                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
-                      >
-                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                        <span className="text-sm text-gray-500">
-                          {existingImages.physicalBulkImg
-                            ? "Upload New Image"
-                            : "Upload Physical Bulk Image"}
-                        </span>
-                        <Input
-                          id="physicalBulkImg"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => field.onChange(e.target.files?.[0])}
-                        />
-                      </label>
-                    ) : (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
-                        <img
-                          src={URL.createObjectURL(field.value)}
-                          alt="New preview"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                          New
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => field.onChange(null)}
-                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Digital Bulk Image */}
-          <FormField
-            control={form.control}
-            name="digitalBulkImg"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-2">
-                <FormLabel>Digital Bulk Image</FormLabel>
-                <FormControl>
-                  <div>
-                    {!field.value && existingImages.digitalBulkImg ? (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden mb-2">
-                        <img
-                          src={existingImages.digitalBulkImg}
-                          alt="Current"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                          Current
-                        </div>
-                      </div>
-                    ) : null}
-
-                    {!field.value ? (
-                      <label
-                        htmlFor="digitalBulkImg"
-                        className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50"
-                      >
-                        <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                        <span className="text-sm text-gray-500">
-                          {existingImages.digitalBulkImg
-                            ? "Upload New Image"
-                            : "Upload Digital Bulk Image"}
-                        </span>
-                        <Input
-                          id="digitalBulkImg"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => field.onChange(e.target.files?.[0])}
-                        />
-                      </label>
-                    ) : (
-                      <div className="relative w-full h-32 border rounded-lg overflow-hidden">
-                        <img
-                          src={URL.createObjectURL(field.value)}
-                          alt="New preview"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                          New
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => field.onChange(null)}
-                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="digitalBulkImg"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Digital Bulk Image</FormLabel>
+                  <FormControl>
+                    <SingleImageUpload
+                      id="digitalBulkImg"
+                      label="Digital Bulk Image"
+                      existingUrl={existingImages.digitalBulkImg}
+                      newFile={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
 
         <hr />
@@ -1229,7 +974,8 @@ export default function UpdateMicrositeForm({
               <FormLabel className="!mt-0 cursor-pointer">
                 Promotional Microsite{" "}
                 <span className="text-gray-500 font-normal text-xs">
-                  (hides Purchase Cards, Card Stocks, and "How can I get a card" FAQ)
+                  (hides Purchase Cards, Card Stocks, and "How can I get a
+                  card" FAQ)
                 </span>
               </FormLabel>
             </FormItem>

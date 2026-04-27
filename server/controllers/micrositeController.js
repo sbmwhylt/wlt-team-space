@@ -147,7 +147,7 @@ export const getMicroSiteById = async (req, res) => {
 export const updateMicroSite = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, socialLinks, marketingImgs, isPromotional, ...rest } = req.body;
+    const { name, socialLinks, isPromotional, ...rest } = req.body;
 
     const microsite = await Microsite.findByPk(id);
     if (!microsite) {
@@ -156,11 +156,6 @@ export const updateMicroSite = async (req, res) => {
 
     const parsedSocialLinks =
       typeof socialLinks === "string" ? JSON.parse(socialLinks) : socialLinks;
-
-    const parsedMarketingImgs =
-      typeof marketingImgs === "string"
-        ? JSON.parse(marketingImgs)
-        : marketingImgs;
 
     const uploadedData = {};
     const folderPath = "/microsites-assets";
@@ -191,14 +186,27 @@ export const updateMicroSite = async (req, res) => {
       "participationContent",
     ];
 
-    // Start with existing URLs from body (if provided)
-    if (parsedMarketingImgs) {
-      uploadedData.marketingImgs = parsedMarketingImgs;
-    } else {
-      uploadedData.marketingImgs = { ...microsite.marketingImgs };
-    }
+    // The client sends the exact remaining URLs it wants kept for each section.
+    // Fall back to the current DB value if the field wasn't sent.
+    const existing = microsite.marketingImgs || {};
+    const remainingMap = {
+      brandAssets: req.body.remainingBrandAssets
+        ? JSON.parse(req.body.remainingBrandAssets)
+        : existing.brandAssets || [],
+      campaignsAndPromos: req.body.remainingCampaignsAndPromos
+        ? JSON.parse(req.body.remainingCampaignsAndPromos)
+        : existing.campaignsAndPromos || [],
+      socialContent: req.body.remainingSocialContent
+        ? JSON.parse(req.body.remainingSocialContent)
+        : existing.socialContent || [],
+      participationContent: req.body.remainingParticipationContent
+        ? JSON.parse(req.body.remainingParticipationContent)
+        : existing.participationContent || [],
+    };
 
-    // Upload any NEW files (this will override the URLs for those sections)
+    // Start from the client-supplied remaining URLs, then append new uploads
+    uploadedData.marketingImgs = { ...remainingMap };
+
     for (const section of sections) {
       const fieldName = `marketingImgs_${section}`;
       if (req.files?.[fieldName]) {
@@ -206,9 +214,14 @@ export const updateMicroSite = async (req, res) => {
           ? req.files[fieldName]
           : [req.files[fieldName]];
 
-        uploadedData.marketingImgs[section] = await Promise.all(
+        const newUrls = await Promise.all(
           images.map((file) => uploadToImageKit(file, folderPath)),
         );
+
+        uploadedData.marketingImgs[section] = [
+          ...uploadedData.marketingImgs[section],
+          ...newUrls,
+        ];
       }
     }
 

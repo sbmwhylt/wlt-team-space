@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Trash2, ZoomIn, Images, ImageOff } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 interface ImageData {
   url: string;
@@ -23,131 +24,46 @@ interface Microsite {
   marketingImgs?: MarketingImgs | null;
 }
 
-interface ImageCarouselProps {
-  images: ImageData[];
-  onImageClick: (index: number) => void;
-}
-
-interface TabbedGalleryProps {
-  microsite: Microsite;
-}
-
 type SectionKey =
   | "brandAssets"
   | "campaignsAndPromos"
   | "socialContent"
   | "participationContent";
 
-// Separate Gallery Component
-function ImageCarousel({ images, onImageClick }: ImageCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Reset index if it goes out of bounds when images change
-  useEffect(() => {
-    if (currentIndex >= images.length && images.length > 0) {
-      setCurrentIndex(0);
-    }
-  }, [images.length, currentIndex]);
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const goToPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  if (!images || images.length === 0) {
-    return (
-      <div className="text-center text-gray-500 py-8">No images available</div>
-    );
-  }
-
-  // Extra safety check before rendering
-  const currentImage = images[currentIndex];
-  if (!currentImage) {
-    return <div className="text-center text-gray-500 py-8">Loading...</div>;
-  }
-
-  return (
-    <div className="w-full mb-4">
-      <div className="w-full max-w-4xl mx-auto">
-        {/* Image Display - Clickable */}
-        <div
-          onClick={() => onImageClick(currentIndex)}
-          className="relative w-full h-120 bg-gray-200 overflow-hidden cursor-pointer hover:opacity-90 transition"
-        >
-          <img
-            src={currentImage.url}
-            alt={currentImage.alt}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Navigation Controls */}
-        <div className="flex justify-center items-center gap-4 mt-6">
-          <button
-            onClick={goToPrev}
-            className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition"
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          <span className="text-sm text-gray-600">
-            {currentIndex + 1} / {images.length}
-          </span>
-
-          <button
-            onClick={goToNext}
-            className="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+interface TabbedGalleryProps {
+  microsite: Microsite;
+  onDeleteImage?: (section: SectionKey, index: number) => void;
 }
 
-// Main Component with Tabs
-export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function TabbedGallery({ microsite, onDeleteImage }: TabbedGalleryProps) {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [modalImageIndex, setModalImageIndex] = useState(0);
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
-  // Process microsite data into gallery format
   const galleryData: Record<SectionKey, ImageData[]> = {
     brandAssets:
-      microsite?.marketingImgs?.brandAssets?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `brandAssets ${index + 1}`,
-        }),
-      ) || [],
+      microsite?.marketingImgs?.brandAssets?.map((url, i) => ({
+        url,
+        alt: `Brand Asset ${i + 1}`,
+      })) || [],
     campaignsAndPromos:
-      microsite?.marketingImgs?.campaignsAndPromos?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `campaignsAndPromos ${index + 1}`,
-        }),
-      ) || [],
+      microsite?.marketingImgs?.campaignsAndPromos?.map((url, i) => ({
+        url,
+        alt: `Campaign ${i + 1}`,
+      })) || [],
     socialContent:
-      microsite?.marketingImgs?.socialContent?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `socialContent ${index + 1}`,
-        }),
-      ) || [],
+      microsite?.marketingImgs?.socialContent?.map((url, i) => ({
+        url,
+        alt: `Social Content ${i + 1}`,
+      })) || [],
     participationContent:
-      microsite?.marketingImgs?.participationContent?.map(
-        (url: string, index: number) => ({
-          url,
-          alt: `participationContent ${index + 1}`,
-        }),
-      ) || [],
+      microsite?.marketingImgs?.participationContent?.map((url, i) => ({
+        url,
+        alt: `Participation ${i + 1}`,
+      })) || [],
   };
 
-  // Define all possible tabs
   const allTabs: { id: SectionKey; label: string }[] = [
     { id: "brandAssets", label: "Brand Assets" },
     { id: "campaignsAndPromos", label: "Campaigns & Promos" },
@@ -155,137 +71,249 @@ export default function TabbedGallery({ microsite }: TabbedGalleryProps) {
     { id: "participationContent", label: "Participation Content" },
   ];
 
-  // Filter tabs to only show sections with images
   const tabs = allTabs.filter((tab) => galleryData[tab.id]?.length > 0);
 
-  // Set initial active tab to first available tab
   const [activeTab, setActiveTab] = useState<SectionKey | null>(
     tabs.length > 0 ? tabs[0].id : null,
   );
 
-  const handleTabChange = (tabId: SectionKey) => {
-    setActiveTab(tabId);
-    setModalImageIndex(0); // Reset to first image
-  };
+  useEffect(() => {
+    setCarouselIndex(0);
+  }, [activeTab]);
 
-  // If no images at all, show message
   if (tabs.length === 0) {
     return (
-      <div className="p-2">
-        <div className="text-center text-gray-500 py-8">
-          No marketing images available
-        </div>
+      <div className="flex flex-col items-center justify-center py-16 gap-3 text-gray-400">
+        <ImageOff className="w-10 h-10 opacity-40" />
+        <p className="text-sm font-medium">No marketing images available</p>
       </div>
     );
   }
 
   const currentImages = activeTab ? galleryData[activeTab] : [];
+  const currentImage = currentImages[carouselIndex];
 
-  const openModal = (index: number) => {
-    setModalImageIndex(index);
-    setIsModalOpen(true);
+  const handleTabChange = (id: SectionKey) => {
+    setActiveTab(id);
+    setCarouselIndex(0);
   };
 
+  const goNext = () =>
+    setCarouselIndex((prev) => (prev + 1) % currentImages.length);
+  const goPrev = () =>
+    setCarouselIndex(
+      (prev) => (prev - 1 + currentImages.length) % currentImages.length,
+    );
+
   const openPreview = (index: number) => {
-    setModalImageIndex(index);
+    setPreviewIndex(index);
     setIsPreviewOpen(true);
   };
 
-  const goToNextModal = () => {
-    setModalImageIndex((prev) => (prev + 1) % currentImages.length);
-  };
-
-  const goToPrevModal = () => {
-    setModalImageIndex(
+  const goNextPreview = () =>
+    setPreviewIndex((prev) => (prev + 1) % currentImages.length);
+  const goPrevPreview = () =>
+    setPreviewIndex(
       (prev) => (prev - 1 + currentImages.length) % currentImages.length,
     );
-  };
 
   return (
-    <div>
-      {/* Tabs - Only show tabs with images */}
-      <div className="max-w-4xl mx-auto mb-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 border-gray-300">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
-              className={`px-6 py-3 text-sm text-center ${
+    <div className="space-y-4">
+      {/* Pill Tabs */}
+      <div className="flex flex-wrap gap-2">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => handleTabChange(tab.id)}
+            className={cn(
+              "flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all",
+              activeTab === tab.id
+                ? "bg-blue-600 text-white shadow-sm"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200",
+            )}
+          >
+            {tab.label}
+            <span
+              className={cn(
+                "text-xs px-1.5 py-0.5 rounded-full font-semibold",
                 activeTab === tab.id
-                  ? " text-blue-700 border-b-2 border-blue-700"
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-500",
+              )}
             >
-              {tab.label}
+              {galleryData[tab.id].length}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Main Carousel */}
+      {currentImage && (
+        <div className="relative rounded-xl overflow-hidden bg-gray-100 aspect-video group cursor-pointer">
+          <img
+            src={currentImage.url}
+            alt={currentImage.alt}
+            className="w-full h-full object-cover transition-all duration-300"
+            onClick={() => openPreview(carouselIndex)}
+          />
+
+          {/* Gradient overlay on hover */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all pointer-events-none" />
+
+          {/* View all button */}
+          <button
+            onClick={() => setIsGalleryOpen(true)}
+            className="absolute top-3 right-3 flex items-center gap-1.5 bg-black/60 hover:bg-black/80 text-white text-xs px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all"
+          >
+            <Images className="w-3.5 h-3.5" />
+            All images ({currentImages.length})
+          </button>
+
+          {/* Arrow nav */}
+          {currentImages.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goPrev();
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goNext();
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </>
+          )}
+
+          {/* Counter badge */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/55 text-white text-xs px-3 py-1 rounded-full pointer-events-none">
+            {carouselIndex + 1} / {currentImages.length}
+          </div>
+        </div>
+      )}
+
+      {/* Thumbnail Strip */}
+      {currentImages.length > 1 && (
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
+          {currentImages.map((img, i) => (
+            <button
+              key={i}
+              onClick={() => setCarouselIndex(i)}
+              className={cn(
+                "flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all",
+                i === carouselIndex
+                  ? "border-blue-500 ring-2 ring-blue-200 scale-105"
+                  : "border-transparent opacity-55 hover:opacity-90 hover:border-gray-300",
+              )}
+            >
+              <img
+                src={img.url}
+                alt={img.alt}
+                className="w-full h-full object-cover"
+              />
             </button>
           ))}
         </div>
-      </div>
+      )}
 
-      {/* Gallery based on active tab */}
-      <ImageCarousel images={currentImages} onImageClick={openModal} />
-
-      {/* Modal Dialog with Grid Gallery */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-5xl h-fit">
+      {/* Gallery Grid Modal */}
+      <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
+        <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle>
-              {tabs.find((t) => t.id === activeTab)?.label} Gallery
+            <DialogTitle className="flex items-center gap-2 text-base">
+              <Images className="w-4 h-4 text-gray-500" />
+              {tabs.find((t) => t.id === activeTab)?.label}
+              <span className="text-sm font-normal text-gray-400">
+                — {currentImages.length}{" "}
+                {currentImages.length === 1 ? "image" : "images"}
+              </span>
             </DialogTitle>
           </DialogHeader>
 
-          {/* Grid of Images */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 max-h-[70vh] overflow-y-auto">
-            {currentImages.map((img: ImageData, index: number) => (
-              <button
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[65vh] overflow-y-auto pr-1">
+            {currentImages.map((img, index) => (
+              <div
                 key={index}
-                onClick={() => openPreview(index)}
-                className="aspect-square overflow-hidden hover:opacity-80 transition cursor-pointer"
+                className="relative group aspect-square rounded-xl overflow-hidden bg-gray-100 border border-gray-200"
               >
                 <img
                   src={img.url}
                   alt={img.alt}
                   className="w-full h-full object-cover"
                 />
-              </button>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-all" />
+
+                {/* Hover action buttons */}
+                <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                  <button
+                    onClick={() => {
+                      openPreview(index);
+                      setIsGalleryOpen(false);
+                    }}
+                    className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition"
+                    title="Preview"
+                  >
+                    <ZoomIn className="w-4 h-4 text-gray-700" />
+                  </button>
+                  {onDeleteImage && activeTab && (
+                    <button
+                      onClick={() => onDeleteImage(activeTab, index)}
+                      className="p-2 bg-red-500 text-white rounded-full shadow-md hover:bg-red-600 transition"
+                      title="Delete image"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Index badge */}
+                <div className="absolute bottom-1.5 left-1.5 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-all">
+                  {index + 1}
+                </div>
+              </div>
             ))}
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* Preview Dialog */}
+      {/* Fullscreen Preview Modal */}
       <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
-        <DialogContent className="max-w-5xl p-2">
-          <div className="flex-1 flex flex-col items-center justify-center relative">
-            {/* Main Image */}
-            <div className="relative w-full flex-1 flex items-center justify-center">
-              <img
-                src={currentImages[modalImageIndex]?.url}
-                alt={currentImages[modalImageIndex]?.alt}
-                className="max-w-full max-h-full object-contain rounded"
-              />
+        <DialogContent className="max-w-4xl p-4 bg-black/95 border-none">
+          <div className="relative flex items-center justify-center min-h-[55vh]">
+            <img
+              src={currentImages[previewIndex]?.url}
+              alt={currentImages[previewIndex]?.alt}
+              className="max-w-full max-h-[72vh] object-contain rounded-lg"
+            />
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={goToPrevModal}
-                className="absolute left-4 p-3 rounded-full bg-white hover:bg-gray-100 transition"
-              >
-                <ChevronLeft size={24} />
-              </button>
-
-              <button
-                onClick={goToNextModal}
-                className="absolute right-4 p-3 rounded-full bg-white hover:bg-gray-100 transition"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-
-            {/* Image Counter */}
-            <div className="text-sm text-gray-600 mt-2">
-              {modalImageIndex + 1} / {currentImages.length}
-            </div>
+            {currentImages.length > 1 && (
+              <>
+                <button
+                  onClick={goPrevPreview}
+                  className="absolute left-2 p-3 bg-white/15 hover:bg-white/30 text-white rounded-full transition"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={goNextPreview}
+                  className="absolute right-2 p-3 bg-white/15 hover:bg-white/30 text-white rounded-full transition"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </>
+            )}
           </div>
+          <p className="text-center text-sm text-white/50 mt-2">
+            {previewIndex + 1} of {currentImages.length}
+          </p>
         </DialogContent>
       </Dialog>
     </div>
