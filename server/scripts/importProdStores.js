@@ -43,6 +43,22 @@ for (const file of files) {
 
   console.log(`📄 ${file}: ${rows.length} rows`);
 
+  // Pre-check: see if all rows already exist
+  let allExist = true;
+  for (const row of rows) {
+    const microsite = await Microsite.findOne({ where: { slug: row.micrositeSlug } });
+    if (!microsite) continue;
+    const existing = await Store.findOne({ where: { name: row.name, micrositeId: microsite.id } });
+    if (!existing) { allExist = false; break; }
+  }
+
+  if (allExist) {
+    console.log(`⏭️  Skipped — all data already exists`);
+    skipped += rows.length;
+    console.log();
+    continue;
+  }
+
   for (const row of rows) {
     try {
       const microsite = await Microsite.findOne({
@@ -50,9 +66,6 @@ for (const file of files) {
       });
 
       if (!microsite) {
-        console.log(
-          `⚠️  Skipped: ${row.name} (microsite '${row.micrositeSlug}' not found)`,
-        );
         skipped++;
         continue;
       }
@@ -62,7 +75,6 @@ for (const file of files) {
       });
 
       if (existing) {
-        console.log(`⏭️  Skipped (already exists): ${row.name}`);
         skipped++;
         continue;
       }

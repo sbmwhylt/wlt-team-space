@@ -42,13 +42,28 @@ for (const file of files) {
 
   console.log(`📄 ${file}: ${rows.length} rows`);
 
+  // Pre-check: see if none of the rows exist (nothing to delete)
+  let noneExist = true;
+  for (const row of rows) {
+    const microsite = await Microsite.findOne({ where: { slug: row.micrositeSlug } });
+    if (!microsite) continue;
+    const existing = await Store.findOne({ where: { name: row.name, micrositeId: microsite.id } });
+    if (existing) { noneExist = false; break; }
+  }
+
+  if (noneExist) {
+    console.log(`⏭️  Skipped — data not found`);
+    skipped += rows.length;
+    console.log();
+    continue;
+  }
+
   for (const row of rows) {
     const microsite = await Microsite.findOne({
       where: { slug: row.micrositeSlug },
     });
 
     if (!microsite) {
-      console.log(`⏭️  Skipped (microsite not found): ${row.name}`);
       skipped++;
       continue;
     }
@@ -58,7 +73,6 @@ for (const file of files) {
     });
 
     if (!existing) {
-      console.log(`⏭️  Skipped (not found): ${row.name}`);
       skipped++;
       continue;
     }
