@@ -5,6 +5,7 @@ import fileUpload from "express-fileupload";
 import db from "./models/index.js";
 import routes from "./routes/index.js";
 import contactRouter from "./api/contactRouter.js";
+import toolsRouter from "./api/toolsRouter.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 // ------------------------ All Routes
 app.use("/api/", routes);
 app.use("/api/", contactRouter);
+app.use("/api/", toolsRouter);
 
 // ------------------------ DB connection
 db.sequelize

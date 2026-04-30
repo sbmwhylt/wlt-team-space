@@ -9,6 +9,8 @@ import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
 // import MicrositeTemplate from "@/pages/page-mircosites/MicrositeTemplate"; -> in system microsite
 import Profile from "@/pages/Profile";
+import Apps from "@/pages/Apps";
+import PdfToCsv from "@/pages/apps/PdfToCsv";
 import NotFound from "@/pages/404";
 
 function App() {
@@ -68,6 +70,24 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/apps"
+          element={
+            <ProtectedRoute>
+              <Apps />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/apps/pdf-to-csv"
+          element={
+            <ProtectedRoute>
+              <PdfToCsv />
             </ProtectedRoute>
           }
         />

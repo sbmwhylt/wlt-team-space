@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Users,
   Megaphone,
+  AppWindow,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -59,6 +60,11 @@ const navMain = [
       /* ... */
     ],
   },
+  // {
+  //   title: "Apps",
+  //   url: "/apps",
+  //   icon: AppWindow,
+  // },
 ];
 
 const navSecondary = [
