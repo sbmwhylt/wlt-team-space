@@ -8,7 +8,7 @@ import {
   LayoutDashboard,
   Users,
   Megaphone,
-  AppWindow,
+  // AppWindow,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
