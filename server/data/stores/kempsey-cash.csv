@@ -1,45 +1,41 @@
 name,latitude,longitude,micrositeSlug
-"Amcal Pharmacy Kempsey",-31.0811154,152.8420914,"kempsey-cash"
-"Arcade Shoes",-31.0793555,152.8415795,"kempsey-cash"
-"Beaux Laidy",-31.0797675,152.8415438,"kempsey-cash"
-"Bucket Brewery",-31.0878142,152.8318052,"kempsey-cash"
-"Cetnaj Electrical Wholesalers",-31.0804426,152.8294551,"kempsey-cash"
-"Dee-Amber Rural Supplies",-31.0986878,152.8383411,"kempsey-cash"
-"Echo Voice & Data - Telstra Partner",-31.078817,152.8420892,"kempsey-cash"
-"Ellerslie Flowers",-31.0795101,152.8414021,"kempsey-cash"
-"Finding Grace Wellness & Sustainability",-31.0799828,152.8310055,"kempsey-cash"
-"Hot n Tasty Bakery",-31.0796201,152.840352,"kempsey-cash"
-"Jabiru Printing / Randalls Stationery",-31.0788248,152.8415224,"kempsey-cash"
-"K & A Boutique",-31.0793776,152.8416451,"kempsey-cash"
-"Kempsey Betta",-31.0793614,152.8422982,"kempsey-cash"
-"Kempsey Carpet Court",-31.0750249,152.8445345,"kempsey-cash"
-"Just Lingerie",-31.0793555,152.8415795,"kempsey-cash"
-"Kempsey Corporate and Workwear",-31.0793047,152.8416725,"kempsey-cash"
-"Kempsey Macleay RSL Club",-31.0800867,152.8429162,"kempsey-cash"
-"Kempsey Pawnbrokers & Macleay Valley Gems",-31.0801333,152.8421757,"kempsey-cash"
-"Kempsey Produce & Saddlery",-31.0810739,152.8394654,"kempsey-cash"
-"Kempsey Skip Bins",-31.0987801,152.8238575,"kempsey-cash"
-"Keystone Health",-31.0796201,152.840352,"kempsey-cash"
-"L-Bo Butchery",-31.0803489,152.829649,"kempsey-cash"
-"Macleay Treated Timbers and Pools",-31.0793685,152.8364826,"kempsey-cash"
-"Mavin Petroleum (Central Kempsey)",-31.0804019,152.8380787,"kempsey-cash"
-"Mavin Petroleum (South Kempsey)",-31.0962744,152.8374107,"kempsey-cash"
-"Offbeat Fashions & Homewares",-31.080122,152.8414912,"kempsey-cash"
-"Preen Engineering",-31.0791285,152.8432393,"kempsey-cash"
-"Rebecca's Salon",-31.0804341,152.8414649,"kempsey-cash"
-"Rosscos Cafe",-31.0804341,152.8414649,"kempsey-cash"
-"Rotary Club of Kempsey",-31.0792789,152.842482,"kempsey-cash"
-"Six Cats Emporium",-31.08115819999999,152.8418292,"kempsey-cash"
-"Terroir Australis",-31.080935,152.8421677,"kempsey-cash"
-"The Depot",-31.080935,152.8421677,"kempsey-cash"
-"The Gourmet Chicken Shop",-31.08115819999999,152.8418292,"kempsey-cash"
-"Tracies Gifts and Homewares",-31.0797085,152.841568,"kempsey-cash"
-"Zodiac Coffee Co",-31.096702,152.8350719,"kempsey-cash"
-"Birdie and Basil on the Green",-31.1031091,152.8310673,"kempsey-cash"
-"Folk Road",-31.0802646,152.8299489,"kempsey-cash"
-"HT Aesthetics and IV",-31.079946,152.8396491,"kempsey-cash"
-"Macleays Deli",-31.0556634,152.7906081,"kempsey-cash"
-"Kempsey Outdoors",-31.0790049,152.8415275,"kempsey-cash"
-"Mahogany Collective",-31.0815402,152.8456986,"kempsey-cash"
-"Montem Hub and Bike Tours",-31.10325049999999,152.8276918,"kempsey-cash"
-"Kempsey Health Food Shop & Cafe",-31.0795101,152.8414021,"kempsey-cash"
+"Amcal Pharmacy Kempsey",-31.0811154,152.8420914,kempsey-cash
+"Arcade Shoes",-31.0793555,152.8415795,kempsey-cash
+"Beaux Laidy",-31.0797675,152.8415438,kempsey-cash
+"Bucket Brewery",-31.0878142,152.8318052,kempsey-cash
+"Cetnaj Electrical Wholesalers",-31.0804426,152.8294551,kempsey-cash
+"Dee-Amber Rural Supplies",-31.0986878,152.8383411,kempsey-cash
+"Echo Voice & Data - Telstra Partner",-31.078817,152.8420892,kempsey-cash
+"Ellerslie Flowers",-31.0795101,152.8414021,kempsey-cash
+"Finding Grace Wellness & Sustainability",-31.0799828,152.8310055,kempsey-cash
+"Hot n Tasty Bakery",-31.0796201,152.840352,kempsey-cash
+"Jabiru Printing / Randalls Stationery",-31.0788248,152.8415224,kempsey-cash
+"K & A Boutique",-31.0793776,152.8416451,kempsey-cash
+"Kempsey Betta",-31.0793614,152.8422982,kempsey-cash
+"Kempsey Carpet Court",-31.0750249,152.8445345,kempsey-cash
+"Just Lingerie",-31.0793555,152.8415795,kempsey-cash
+"Kempsey Corporate and Workwear",-31.0793047,152.8416725,kempsey-cash
+"Kempsey Macleay RSL Club",-31.0800867,152.8429162,kempsey-cash
+"Kempsey Pawnbrokers & Macleay Valley Gems",-31.0801333,152.8421757,kempsey-cash
+"Kempsey Produce & Saddlery",-31.0810739,152.8394654,kempsey-cash
+"Kempsey Skip Bins",-31.0987801,152.8238575,kempsey-cash
+"Keystone Health",-31.0796201,152.840352,kempsey-cash
+"L-Bo Butchery",-31.0803489,152.829649,kempsey-cash
+"Macleay Treated Timbers and Pools",-31.0793685,152.8364826,kempsey-cash
+"Mavin Petroleum (Central Kempsey)",-31.0804019,152.8380787,kempsey-cash
+"Mavin Petroleum (South Kempsey)",-31.0962744,152.8374107,kempsey-cash
+"Offbeat Fashions & Homewares",-31.080122,152.8414912,kempsey-cash
+"Preen Engineering",-31.0791285,152.8432393,kempsey-cash
+"Rebecca's Salon",-31.0804341,152.8414649,kempsey-cash
+"Rosscos Cafe",-31.0804341,152.8414649,kempsey-cash
+"Rotary Club of Kempsey",-31.0792789,152.842482,kempsey-cash
+"Six Cats Emporium",-31.08115819999999,152.8418292,kempsey-cash
+"Terroir Australis",-31.080935,152.8421677,kempsey-cash
+"The Depot",-31.080935,152.8421677,kempsey-cash
+"The Gourmet Chicken Shop",-31.08115819999999,152.8418292,kempsey-cash
+"Tracies Gifts and Homewares",-31.0797085,152.841568,kempsey-cash
+"Zodiac Coffee Co",-31.096702,152.8350719,kempsey-cash
+"Birdie and Basil on the Green",-31.1031091,152.8310673,kempsey-cash
+"Folk Road",-31.0802646,152.8299489,kempsey-cash
+"HT Aesthetics and IV",-31.079946,152.8396491,kempsey-cash
+"Macleays Deli",-31.0556634,152.7906081,kempsey-cash

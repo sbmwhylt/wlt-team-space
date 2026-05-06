@@ -1,51 +1,38 @@
 name,latitude,longitude,micrositeSlug
-"My Design (awaiting new rego)",-28.5470981,150.3053424,"goondiwindi"
-"Dreamtime Nursery & Garden Ornaments",-28.4729524,151.2113825,"goondiwindi"
-"Albert Street Bakery Inglewood",-28.414545,151.0813678,"goondiwindi"
-"Allen's Pharmacy",-28.5471542,150.3055539,"goondiwindi"
-"Ascot Lodge Motor Inn (Cascades Restaurant)",-28.5482476,150.3202071,"goondiwindi"
-"Bi Rite O'Sheas Electrical",-28.5463474,150.3046203,"goondiwindi"
-"Border Builders Mitre 10",-28.5462143,150.3070361,"goondiwindi"
-"Foodworks Goondiwindi",-28.5474337,150.3052937,"goondiwindi"
-"Gather 4390",-28.5477278,150.3093777,"goondiwindi"
-"Goondiwindi & District Vet Services",-28.5416922,150.3008772,"goondiwindi"
-"Goondiwindi Chamber of Commerce",-28.547348,150.3068084,"goondiwindi"
-"Goondiwindi Cinema",-28.547266,150.3065835,"goondiwindi"
-"Goondiwindi PCYC",-28.5352824,150.2947715,"goondiwindi"
-"Goondiwindi Regional Council",-28.547261,150.30684,"goondiwindi"
-"Goondiwindi Regional Visitor Information Centre",-28.547348,150.3068084,"goondiwindi"
-"Inglewood Highway Meats",-28.4152101,151.0806399,"goondiwindi"
-"Little Tots Treasures",-28.5466365,150.3071121,"goondiwindi"
-"Meld Lifestyle",-28.5469634,150.3061297,"goondiwindi"
-"North West Rural Supplies Pty Ltd",-28.5300675,150.2961071,"goondiwindi"
-"Peco Trading Co.",-28.5470008,150.308937,"goondiwindi"
-"SPAR Inglewood",-28.4145037,151.0815498,"goondiwindi"
-"Stephen Sparke Jewellers",-28.547183,150.306337,"goondiwindi"
-"Sutto’s Inglewood Newsagency",-28.4153722,151.080316,"goondiwindi"
-"Tait Motors",-28.5411731,150.2988543,"goondiwindi"
-"The Queensland Hotel",-28.5474555,150.3102116,"goondiwindi"
-"Porky's Pizza HQ",-28.5475667,150.3095707,"goondiwindi"
-"Lucy Walker Pharmacy",-28.546581,150.3060027,"goondiwindi"
-"Arthur Schofield & Co",-28.5465761,150.3045288,"goondiwindi"
-"Twidale Auto & Motorcycles",-28.5376709,150.3138592,"goondiwindi"
-"Gibson's Family Butchery",-28.5460496,150.305672,"goondiwindi"
-"Victoria Hotel",-28.5461451,150.3050936,"goondiwindi"
-"Goondiwindi Mower & Bearings",-28.5295829,150.2955169,"goondiwindi"
-"Oh Travel Co",-28.5463944,150.3044396,"goondiwindi"
-"Goondiwindi Cotton",-28.5437859,150.3053449,"goondiwindi"
-"MacKenzies Home Timber & Hardware",-28.5348309,150.28735,"goondiwindi"
-"Goondiwindi Communications",-28.5466695,150.3030534,"goondiwindi"
-"Goondiwindi Tyre Service",-28.5410052,150.3078883,"goondiwindi"
-"O'Shea's Royal Hotel",-28.5467727,150.3040705,"goondiwindi"
-"Gundy Clothing",-28.546124,150.3036583,"goondiwindi"
-"Boars Barbell Club",-28.5515322,150.3196372,"goondiwindi"
-"Inglewood Bargain Buys",-28.4155629,151.0800029,"goondiwindi"
-"Inglewood Coffee Shop & Tea Garden",-28.4159271,151.0799924,"goondiwindi"
-"Inglewood Pharmacy",-28.4154593,151.0802759,"goondiwindi"
-"Life Chiropractic Goondiwindi",-28.5468643,150.3097517,"goondiwindi"
-"Nutmeg Home",-28.5467155,150.307094,"goondiwindi"
-"Shot 2 U Coffee Shop",-28.4151077,151.0814588,"goondiwindi"
-"Stage One Fashions",-28.5465415,150.3061838,"goondiwindi"
-"The Perfect Polish",-28.5471933,150.3070588,"goondiwindi"
-"Plaine",-28.5464971,150.3060912,"goondiwindi"
-"Jolly Swagman Motor inn",-28.550424,150.3191946,"goondiwindi"
+"Albert Street Bakery Inglewood",-28.414545,151.0813678,goondiwindi
+"Allen's Pharmacy",-28.5471542,150.3055539,goondiwindi
+"Ascot Lodge Motor Inn (Cascades Restaurant)",-28.5482476,150.3202071,goondiwindi
+"Bi Rite O'Sheas Electrical",-28.5463474,150.3046203,goondiwindi
+"Border Builders Mitre 10",-28.5462143,150.3070361,goondiwindi
+"Foodworks Goondiwindi",-28.5474337,150.3052937,goondiwindi
+"Gather 4390",-28.5477278,150.3093777,goondiwindi
+"Goondiwindi & District Vet Services",-28.5416922,150.3008772,goondiwindi
+"Goondiwindi Chamber of Commerce",-28.547348,150.3068084,goondiwindi
+"Goondiwindi Cinema",-28.547266,150.3065835,goondiwindi
+"Goondiwindi PCYC",-28.5352824,150.2947715,goondiwindi
+"Goondiwindi Regional Council",-28.547261,150.30684,goondiwindi
+"Goondiwindi Regional Visitor Information Centre",-28.547348,150.3068084,goondiwindi
+"Inglewood Highway Meats",-28.4152101,151.0806399,goondiwindi
+"Little Tots Treasures",-28.5466365,150.3071121,goondiwindi
+"Meld Lifestyle",-28.5469634,150.3061297,goondiwindi
+"North West Rural Supplies Pty Ltd",-28.5300675,150.2961071,goondiwindi
+"Peco Trading Co.",-28.5470008,150.308937,goondiwindi
+"SPAR Inglewood",-28.4145037,151.0815498,goondiwindi
+"Stephen Sparke Jewellers",-28.547183,150.306337,goondiwindi
+"Sutto’s Inglewood Newsagency",-28.4153722,151.080316,goondiwindi
+"Tait Motors",-28.5411731,150.2988543,goondiwindi
+"The Queensland Hotel",-28.5474555,150.3102116,goondiwindi
+"Porky's Pizza HQ",-28.5475667,150.3095707,goondiwindi
+"Lucy Walker Pharmacy",-28.546581,150.3060027,goondiwindi
+"Arthur Schofield & Co",-28.5465761,150.3045288,goondiwindi
+"Twidale Auto & Motorcycles",-28.5376709,150.3138592,goondiwindi
+"Gibson's Family Butchery",-28.5460496,150.305672,goondiwindi
+"Victoria Hotel",-28.5461451,150.3050936,goondiwindi
+"Goondiwindi Mower & Bearings",-28.5295829,150.2955169,goondiwindi
+"Oh Travel Co",-28.5463944,150.3044396,goondiwindi
+"Goondiwindi Cotton",-28.5437859,150.3053449,goondiwindi
+"MacKenzies Home Timber & Hardware",-28.5348309,150.28735,goondiwindi
+"Goondiwindi Communications",-28.5466695,150.3030534,goondiwindi
+"Goondiwindi Tyre Service",-28.5410052,150.3078883,goondiwindi
+"O'Shea's Royal Hotel",-28.5467727,150.3040705,goondiwindi
+"Gundy Clothing",-28.546124,150.3036583,goondiwindi
