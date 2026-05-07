@@ -52,54 +52,11 @@ export default function MicrositeCard({
             style={{ backgroundColor: microsite.color || "#e5e7eb" }}
           />
         )}
-
-        <div className="absolute top-2 right-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="h-7 w-7">
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleCopy}>
-                Copy Link
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href={fullUrl} target="_blank" rel="noopener noreferrer">
-                  View microsite
-                </a>
-              </DropdownMenuItem>
-              {onEdit && (
-                <DropdownMenuItem onClick={() => onEdit(microsite)}>
-                  Edit microsite
-                </DropdownMenuItem>
-              )}
-              {microsite.type === "consumer" && onUpdateStores && (
-                <DropdownMenuItem onClick={() => onUpdateStores(microsite)}>
-                  Update Stores
-                </DropdownMenuItem>
-              )}
-              {onDelete && (
-                <>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="text-red-500"
-                    onClick={() => onDelete(microsite)}
-                  >
-                    Delete microsite
-                  </DropdownMenuItem>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
       </div>
 
       <div className="flex flex-col gap-1 p-3 flex-1">
         <div className="flex justify-between items-center">
-          <p className="font-semibold text-xl leading-tight truncate">
+          <p className="font-semibold text-md leading-tight truncate">
             {microsite.name}
           </p>
 
