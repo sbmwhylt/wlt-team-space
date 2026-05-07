@@ -14,7 +14,7 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LayoutGrid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -34,6 +34,8 @@ import {
 import CreateMicrositeDialog from "@/pages/page-mircosites/dialog/CreateMicrositeDialog";
 import { Spinner } from "@/components/ui/spinner";
 import { SquareArrowOutUpRight } from "lucide-react";
+import MicrositeCard from "@/pages/page-mircosites/MicrositeCard";
+import { type MicroSite } from "@/types/Microsite";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,7 +48,9 @@ export function DataTable<TData, TValue>({
   data,
   filterColumn,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([
+    { id: "updatedAt", desc: true },
+  ]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
@@ -58,6 +62,7 @@ export function DataTable<TData, TValue>({
     "all" | "business" | "consumer"
   >("all");
   const [, setOpen] = React.useState(false);
+  const [view, setView] = React.useState<"table" | "grid">("table");
 
   const isLoading = data.length === 0;
 
@@ -68,6 +73,7 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 15 } },
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
@@ -128,17 +134,35 @@ export function DataTable<TData, TValue>({
               </button>
             ))}
           </div>
+          <div className="flex items-center rounded-md border">
+            <button
+              onClick={() => setView("table")}
+              className={`p-1.5 rounded-l-md transition ${view === "table" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
+              title="Table view"
+            >
+              <List size={22} />
+            </button>
+            <button
+              onClick={() => setView("grid")}
+              className={`p-1.5 rounded-r-md transition ${view === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
+              title="Grid view"
+            >
+              <LayoutGrid size={22} />
+            </button>
+          </div>
         </div>
 
-        <a
-          href={import.meta.env.VITE_PROD_URL}
-          target="_blank"
-          className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-800 transitionn"
-        >
-          <SquareArrowOutUpRight className="h-3 w-3 text-gray-600 cursor-pointer" />
-          Microsites Page
-        </a>
         <div className="flex gap-2 items-center">
+          <Button
+            onClick={() => window.open(import.meta.env.VITE_PROD_URL, "_blank")}
+            rel="noopener noreferrer"
+            variant="outline"
+            className="cursor-pointer"
+          >
+            <SquareArrowOutUpRight />
+            Microsites Page
+          </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
@@ -175,101 +199,126 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
+      {view === "table" ? (
+        <>
+          <div className="overflow-hidden rounded-md border">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    ))}
+                  </TableRow>
                 ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 ">
-                  <Spinner className="mx-auto h-4 w-4" />
-                </TableCell>
-              </TableRow>
-            ) : table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+              </TableHeader>
+              <TableBody>
+                {isLoading ? (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className="h-24 ">
+                      <Spinner className="mx-auto h-4 w-4" />
                     </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+                  </TableRow>
+                ) : table.getRowModel().rows.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+          <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="text-muted-foreground flex-1 text-sm">
+              {table.getFilteredSelectedRowModel().rows.length} of{" "}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
 
-        <div className="flex items-center space-x-2">
-          <span className="text-sm">Rows per page:</span>
-          <select
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => table.setPageSize(Number(e.target.value))}
-            className="border rounded-md px-2 py-1 text-sm"
-          >
-            {[5, 10, 20, 50].map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm">Rows per page:</span>
+              <select
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => table.setPageSize(Number(e.target.value))}
+                className="border rounded-md px-2 py-1 text-sm"
+              >
+                {[5, 10, 15, 20, 50].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
-      </div>
+            <div className="space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              >
+                Previous
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Spinner className="h-4 w-4" />
+            </div>
+          ) : table.getFilteredRowModel().rows.length ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 py-4">
+              {table.getFilteredRowModel().rows.map((row) => (
+                <MicrositeCard
+                  key={row.id}
+                  microsite={row.original as MicroSite}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="py-12 text-center text-muted-foreground text-sm">
+              No results.
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

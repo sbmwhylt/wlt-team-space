@@ -32,6 +32,8 @@ export interface MicroSite {
   stores?: Store[];
   color: string;
   isPromotional?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Store {
