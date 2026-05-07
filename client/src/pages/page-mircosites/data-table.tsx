@@ -112,7 +112,7 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         )}
-        <div className="flex items-center gap-3 w-lg">
+        <div className="flex items-center gap-3 w-xl">
           <Input
             placeholder="Search by name, type, or slug..."
             value={filtering ?? ""}
@@ -134,20 +134,20 @@ export function DataTable<TData, TValue>({
               </button>
             ))}
           </div>
-          <div className="flex items-center rounded-md border">
+          <div className="flex items-center gap-1 rounded-md border p-1">
             <button
               onClick={() => setView("table")}
-              className={`p-1.5 rounded-l-md transition ${view === "table" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
+              className={`rounded py-1.5 px-2 text-sm font-medium transition ${view === "table" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
               title="Table view"
             >
-              <List size={22} />
+              <List size={16} />
             </button>
             <button
               onClick={() => setView("grid")}
-              className={`p-1.5 rounded-r-md transition ${view === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
+              className={`rounded py-1.5 px-2 text-sm font-medium transition ${view === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"}`}
               title="Grid view"
             >
-              <LayoutGrid size={22} />
+              <LayoutGrid size={16} />
             </button>
           </div>
         </div>

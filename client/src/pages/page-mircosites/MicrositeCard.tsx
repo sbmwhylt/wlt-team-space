@@ -102,15 +102,47 @@ export default function MicrositeCard({
           <p className="font-semibold text-xl leading-tight truncate">
             {microsite.name}
           </p>
-          <div
-            className={`text-xs font-medium capitalize py-0.5 px-2 rounded-full w-fit ${
-              microsite.type === "consumer"
-                ? "bg-blue-200 text-blue-800"
-                : "bg-orange-200 text-orange-800"
-            }`}
-          >
-            {microsite.type || "—"}
-          </div>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon" className="h-7 w-7">
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleCopy}>
+                Copy Link
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href={fullUrl} target="_blank" rel="noopener noreferrer">
+                  View microsite
+                </a>
+              </DropdownMenuItem>
+              {onEdit && (
+                <DropdownMenuItem onClick={() => onEdit(microsite)}>
+                  Edit microsite
+                </DropdownMenuItem>
+              )}
+              {microsite.type === "consumer" && onUpdateStores && (
+                <DropdownMenuItem onClick={() => onUpdateStores(microsite)}>
+                  Update Stores
+                </DropdownMenuItem>
+              )}
+              {onDelete && (
+                <>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="text-red-500"
+                    onClick={() => onDelete(microsite)}
+                  >
+                    Delete microsite
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -134,14 +166,25 @@ export default function MicrositeCard({
             )}
           </button>
         </div>
-        {microsite.updatedAt && (
-          <p className="text-xs text-muted-foreground mt-auto pt-2">
-            Updated{" "}
-            {formatDistanceToNow(new Date(microsite.updatedAt as string), {
-              addSuffix: true,
-            })}
-          </p>
-        )}
+        <div className="flex justify-between items-center">
+          {microsite.updatedAt && (
+            <p className="text-xs text-muted-foreground mt-auto pt-2">
+              Updated{" "}
+              {formatDistanceToNow(new Date(microsite.updatedAt as string), {
+                addSuffix: true,
+              })}
+            </p>
+          )}{" "}
+          <div
+            className={`text-xs font-medium capitalize py-0.5 px-2 rounded-full w-fit ${
+              microsite.type === "consumer"
+                ? "bg-blue-200 text-blue-800"
+                : "bg-orange-200 text-orange-800"
+            }`}
+          >
+            {microsite.type || "—"}
+          </div>
+        </div>
       </div>
     </div>
   );
