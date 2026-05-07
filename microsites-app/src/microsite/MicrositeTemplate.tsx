@@ -366,14 +366,14 @@ export default function MicrositeTemplate({ microsite }: Props) {
                     Update forms
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
-                  <DialogHeader className="mx-auto text-center">
+                <DialogContent className="max-w-md max-h-[80vh] flex flex-col items-center ">
+                  <DialogHeader className="w-full text-center mt-5">
                     <DialogTitle className="sr-only">Update Forms</DialogTitle>
-                    <DialogDescription className="text-2xl text-black">
+                    <DialogDescription className="text-2xl text-black text-center">
                       What needs an update?
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="flex gap-2 items-center justify-center">
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button variant="default">Contact Details</Button>
