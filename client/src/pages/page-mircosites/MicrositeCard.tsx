@@ -150,7 +150,7 @@ export default function MicrositeCard({
             href={fullUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="truncate text-blue-600 hover:underline flex items-center gap-1 "
+            className="truncate text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 "
           >
             <ExternalLink className="h-3 w-3 shrink-0 " />
             {microsite.slug}
@@ -178,8 +178,8 @@ export default function MicrositeCard({
           <div
             className={`text-xs font-medium capitalize py-0.5 px-2 rounded-full w-fit ${
               microsite.type === "consumer"
-                ? "bg-blue-200 text-blue-800"
-                : "bg-orange-200 text-orange-800"
+                ? "bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                : "bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
             }`}
           >
             {microsite.type || "—"}

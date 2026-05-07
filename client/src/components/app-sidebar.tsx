@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Users,
   Megaphone,
+  
   // AppWindow,
 } from "lucide-react";
 
@@ -32,14 +33,6 @@ const navMain = [
     icon: LayoutDashboard,
     isActive: true,
   },
-  // {
-  //   title: "Time Tracker",
-  //   url: "/time-tracker",
-  //   icon: ClipboardClock,
-  //   items: [
-  //     /* ... */
-  //   ],
-  // },
   {
     title: "Announcements",
     url: "/announcements",

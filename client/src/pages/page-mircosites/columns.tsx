@@ -250,8 +250,8 @@ export const getColumns = (micrositesState?: {
         <div
           className={`capitalize font-medium py-1 px-2 w-fit text-xs rounded-full ${
             type === "consumer"
-              ? "bg-blue-200 text-blue-800"
-              : "bg-orange-200 text-orange-800"
+              ? "bg-blue-200 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+              : "bg-orange-200 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
           }`}
         >
           {type || "—"}
@@ -282,7 +282,7 @@ export const getColumns = (micrositesState?: {
             href={`${msAppUrl}/${slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-700 hover:underline inline-flex items-center gap-1"
+            className="text-blue-700 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
           >
             {slug}
           </a>
