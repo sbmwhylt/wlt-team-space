@@ -5,12 +5,19 @@ export default function Dashboard() {
   return (
     <MainLayout>
       {/* <h1 className="text-2xl font-bold">Dashboard</h1> */}
-      {/* Example grid (from your layout) */}
-      <div className="grid auto-rows-min gap-4 md:grid-cols-2 mt-2">
-        <div className="border p-4 aspect-video rounded-xl">
+
+      <div className="flex gap-4 items-start">
+        <div className="flex flex-col flex-1 space-y-4 min-w-0">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="border p-4 aspect-video rounded-xl"></div>
+            <div className="border p-4 aspect-video rounded-xl"></div>
+          </div>
+          <div className="border p-4 aspect-video max-h-[400px] rounded-xl"></div>
+        </div>
+
+        <div className="border p-4 rounded-xl w-lg shrink-0">
           <NoticeBoard />
         </div>
-        <div className="border p-4 aspect-video rounded-xl"></div>
       </div>
 
       {/* Extra placeholder content */}

@@ -5,7 +5,6 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
   CardAction,
 } from "@/components/ui/card";
@@ -41,55 +40,53 @@ export default function AnnouncementCard({
 
   return (
     <Card
-      className="group shadow-none p-0 overflow-hidden transition-all duration-200 hover:shadow-md hover:border-primary/20 cursor-pointer"
+      className="group shadow-none p-0 overflow-hidden border border-border/60 transition-all duration-200 hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 cursor-pointer bg-card"
       onClick={() => onView(post)}
     >
       {post.image ? (
-        <div className="relative h-[210px] w-full overflow-hidden">
+        <div className="relative h-[200px] w-full overflow-hidden">
           <img
             src={post.image}
             alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 backdrop-blur-2xl"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           {isLatest && (
-            <Badge className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white text-[10px] px-1.5 py-0.5">
+            <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
               Latest
             </Badge>
           )}
         </div>
       ) : (
-        <div className="relative flex items-center justify-center h-[120px] w-full bg-gradient-to-br from-muted/40 to-muted/80">
-          <ImageIcon className="size-8 text-muted-foreground/20" />
+        <div className="relative flex items-center justify-center h-[100px] w-full bg-gradient-to-br from-primary/5 to-primary/10">
+          <ImageIcon className="size-8 text-primary/20" />
           {isLatest && (
-            <Badge className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white text-[10px] px-1.5 py-0.5">
+            <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
               Latest
             </Badge>
           )}
         </div>
       )}
 
-      <CardHeader className="gap-0">
-        <div className="flex gap-4 items-center">
-          <CardDescription className="flex items-center gap-2">
-            <Avatar className="size-10">
-              <AvatarFallback className="text-[18px] bg-primary/10 text-primary">
-                {post.authorName
-                  ?.split(" ")
-                  .map((n: string) => n[0])
-                  .join("")
-                  .slice(0, 2)
-                  .toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-          </CardDescription>
-          <div className="group">
-            <CardTitle className="text-md font-semibold line-clamp-1">
+      <CardHeader className="px-4 pt-4 pb-2 gap-0">
+        <div className="flex gap-3 items-center">
+          <Avatar className="size-9 shrink-0">
+            <AvatarFallback className="text-sm font-medium bg-primary/10 text-primary">
+              {post.authorName
+                ?.split(" ")
+                .map((n: string) => n[0])
+                .join("")
+                .slice(0, 2)
+                .toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <CardTitle className="text-sm font-semibold line-clamp-1 leading-snug">
               {post.title}
             </CardTitle>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 mt-0.5 text-muted-foreground">
               <Calendar size={10} />
-              <p className="text-[10px]">{formatDate(post.createdAt)}</p>
+              <span className="text-[12px]">{formatDate(post.createdAt)}</span>
             </div>
           </div>
         </div>
@@ -114,8 +111,8 @@ export default function AnnouncementCard({
         )}
       </CardHeader>
 
-      <CardContent className="pb-4">
-        <p className="text-xs text-muted-foreground whitespace-pre-line line-clamp-2 leading-relaxed">
+      <CardContent className="px-4 pb-4 pt-1">
+        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
           {post.content}
         </p>
       </CardContent>
