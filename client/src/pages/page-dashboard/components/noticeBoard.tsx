@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Plus, ImageIcon, Megaphone, Calendar, ArrowRight } from "lucide-react";
+import { Plus, Megaphone, Calendar, ArrowRight } from "lucide-react";
 import CreatePostDialog from "@/pages/page-announcements/forms/CreatePostDialog";
 import ViewPostDialog from "@/pages/page-announcements/components/ViewPostDialog";
 import type { NoticePost } from "@/types/NoticePost";
@@ -67,7 +67,7 @@ export default function NoticeBoard() {
 
       {posts.length > 0 && (
         <div className="flex flex-col gap-1.5">
-          {posts.map((post) => (
+          {posts.slice(0, 5).map((post) => (
             <div
               key={post.id}
               className="group flex items-center gap-3 p-3 rounded-lg border border-border/50 bg-card hover:bg-muted/40 hover:border-primary/20 transition-all duration-150 cursor-pointer"
@@ -75,17 +75,20 @@ export default function NoticeBoard() {
             >
               {/* Left: text content */}
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 mb-0.5">
+                <div className="flex items-center gap-3 ">
                   <p className="text-md font-semibold line-clamp-1 leading-snug">
                     {post.title}
                   </p>
                   {post.id === latestPostId && (
-                    <Badge className="shrink-0 bg-primary text-primary-foreground text-[10px] px-1.5 py-0">
-                      Latest
-                    </Badge>
+                    <div>
+                      <Badge className="rounded-full bg-red-100 text-red-600 border-0 text-[10px] font-semibold px-2.5">
+                        <span className="mr-1 size-1.5 rounded-full bg-red-600 inline-block animate-pulse" />
+                        Latest
+                      </Badge>
+                    </div>
                   )}
                 </div>
-                <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed mb-2">
+                <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed mt-2 mb-2">
                   {post.content}
                 </p>
                 <div className="flex items-center justify-between gap-1.5">
@@ -112,18 +115,15 @@ export default function NoticeBoard() {
                 </div>
               </div>
 
-              {/* Right: image preview or placeholder */}
-              <div className="shrink-0 w-16 h-16 rounded-md overflow-hidden bg-muted flex items-center justify-center">
-                {post.image ? (
+              {post.image && (
+                <div className="shrink-0 w-16 h-16 rounded-md overflow-hidden bg-muted">
                   <img
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover"
                   />
-                ) : (
-                  <ImageIcon className="size-5 text-muted-foreground/30" />
-                )}
-              </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

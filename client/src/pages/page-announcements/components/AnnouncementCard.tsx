@@ -1,14 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardAction,
-} from "@/components/ui/card";
-import { Pencil, Trash2, ImageIcon, Calendar } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import EditPostDialog from "../forms/EditPostDialog";
 import DeletePostDialog from "../forms/DeletePostDialog";
 import type { NoticePost } from "@/types/NoticePost";
@@ -22,6 +15,8 @@ interface Props {
   onView: (post: NoticePost) => void;
 }
 
+const MONTH_SHORT = { month: "short", day: "numeric", year: "numeric" } as const;
+
 export default function AnnouncementCard({
   post,
   isLatest,
@@ -29,93 +24,133 @@ export default function AnnouncementCard({
   noticeBoardState,
   onView,
 }: Props) {
-  const formatDate = (dateStr: string) =>
-    new Date(dateStr).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  const dateLabel = new Date(post.createdAt).toLocaleDateString("en-US", MONTH_SHORT);
+
+  const initials = post.authorName
+    ?.split(" ")
+    .map((n: string) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase() ?? "??";
 
   return (
-    <Card
-      className="group shadow-none p-0 overflow-hidden border border-border/60 transition-all duration-200 hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 cursor-pointer bg-card"
+    <article
+      role="button"
+      tabIndex={0}
       onClick={() => onView(post)}
+      onKeyDown={(e) => e.key === "Enter" && onView(post)}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
     >
-      {post.image ? (
-        <div className="relative h-[200px] w-full overflow-hidden">
+      {/* ── Hero image ───────────────────────────────────────── */}
+      {post.image && (
+        <div className="relative h-48 w-full overflow-hidden bg-muted shrink-0">
+          {/* blurred backdrop */}
+          <img
+            src={post.image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-60"
+          />
+          {/* main image */}
           <img
             src={post.image}
             alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 backdrop-blur-2xl"
+            className="relative z-10 h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-          {isLatest && (
-            <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
-              Latest
-            </Badge>
-          )}
-        </div>
-      ) : (
-        <div className="relative flex items-center justify-center h-[100px] w-full bg-gradient-to-br from-primary/5 to-primary/10">
-          <ImageIcon className="size-8 text-primary/20" />
-          {isLatest && (
-            <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
-              Latest
-            </Badge>
-          )}
-        </div>
-      )}
+          {/* bottom fade for text legibility */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
-      <CardHeader className="px-4 pt-4 pb-2 gap-0">
-        <div className="flex gap-3 items-center">
-          <Avatar className="size-9 shrink-0">
-            <AvatarFallback className="text-sm font-medium bg-primary/10 text-primary">
-              {post.authorName
-                ?.split(" ")
-                .map((n: string) => n[0])
-                .join("")
-                .slice(0, 2)
-                .toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <div className="min-w-0 flex-1">
-            <CardTitle className="text-sm font-semibold line-clamp-1 leading-snug">
-              {post.title}
-            </CardTitle>
-            <div className="flex items-center gap-1 mt-0.5 text-muted-foreground">
-              <Calendar size={10} />
-              <span className="text-[12px]">{formatDate(post.createdAt)}</span>
-            </div>
-          </div>
-        </div>
-        {isAdmin && (
-          <CardAction>
+          {/* Latest pill — bottom-left over image */}
+          {isLatest && (
+            <span className="absolute bottom-3 left-3 z-20 inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-primary-foreground shadow">
+              <span className="size-1.5 rounded-full bg-primary-foreground/80 animate-pulse" />
+              Latest
+            </span>
+          )}
+
+          {/* Admin actions — top-right, reveal on hover */}
+          {isAdmin && (
             <div
-              className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              className="absolute top-2.5 right-2.5 z-20 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
               onClick={(e) => e.stopPropagation()}
             >
               <EditPostDialog post={post} noticeBoardState={noticeBoardState}>
-                <Button variant="ghost" size="icon-sm">
+                <Button variant="secondary" size="icon-sm" className="shadow backdrop-blur-sm bg-white/80 hover:bg-white">
                   <Pencil className="size-3.5" />
                 </Button>
               </EditPostDialog>
               <DeletePostDialog post={post} noticeBoardState={noticeBoardState}>
-                <Button variant="ghost" size="icon-sm">
+                <Button variant="secondary" size="icon-sm" className="shadow backdrop-blur-sm bg-white/80 hover:bg-white">
                   <Trash2 className="size-3.5 text-destructive" />
                 </Button>
               </DeletePostDialog>
             </div>
-          </CardAction>
-        )}
-      </CardHeader>
+          )}
+        </div>
+      )}
 
-      <CardContent className="px-4 pb-4 pt-1">
-        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+
+      <div className="flex flex-1 flex-col gap-3 p-4">
+
+        {/* No-image: latest badge + admin actions inline */}
+        {!post.image && (
+          <div className="flex items-center justify-between -mb-1">
+            <div>
+              {isLatest && (
+                <Badge className="rounded-full bg-red-100 text-red-600 border-0 text-[10px] font-semibold px-2.5">
+                  <span className="mr-1 size-1.5 rounded-full bg-red-600 inline-block animate-pulse" />
+                  Latest
+                </Badge>
+              )}
+            </div>
+            {isAdmin && (
+              <div
+                className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <EditPostDialog post={post} noticeBoardState={noticeBoardState}>
+                  <Button variant="ghost" size="icon-sm">
+                    <Pencil className="size-3.5" />
+                  </Button>
+                </EditPostDialog>
+                <DeletePostDialog post={post} noticeBoardState={noticeBoardState}>
+                  <Button variant="ghost" size="icon-sm">
+                    <Trash2 className="size-3.5 text-destructive" />
+                  </Button>
+                </DeletePostDialog>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Title */}
+        <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-foreground">
+          {post.title}
+        </h3>
+
+        {/* Content preview */}
+        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1">
           {post.content}
         </p>
-      </CardContent>
-    </Card>
+
+        {/* Footer: author + date */}
+        <div className="flex items-center gap-2 pt-2 border-t border-border/40 mt-auto">
+          <Avatar className="size-6 shrink-0 ring-2 ring-background">
+            <AvatarFallback className="text-[9px] font-bold bg-primary/10 text-primary">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+          <span className="text-xs font-medium text-foreground truncate flex-1">
+            {post.authorName}
+          </span>
+          <time
+            dateTime={post.createdAt}
+            className="text-[10px] text-muted-foreground shrink-0 tabular-nums"
+          >
+            {dateLabel}
+          </time>
+        </div>
+      </div>
+    </article>
   );
 }

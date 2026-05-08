@@ -4,7 +4,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ImageIcon, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import type { NoticePost } from "@/types/NoticePost";
 
 interface Props {
@@ -28,25 +28,22 @@ export default function ViewPostDialog({ post, isLatest, onClose }: Props) {
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto p-0 gap-0">
         {post && (
           <>
-            {post.image ? (
-              <div className="relative w-full overflow-hidden rounded-t-lg">
+            {post.image && (
+              <div className="relative w-full overflow-hidden rounded-t-lg bg-muted">
+                <img
+                  src={post.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-50"
+                />
                 <img
                   src={post.image}
                   alt={post.title}
-                  className="w-full max-h-[340px] object-cover"
+                  className="relative z-10 w-full max-h-[420px] object-contain"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 {isLatest && (
-                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
-                    Latest
-                  </Badge>
-                )}
-              </div>
-            ) : (
-              <div className="relative flex items-center justify-center h-36 rounded-t-lg bg-gradient-to-br from-primary/5 to-primary/10">
-                <ImageIcon className="size-12 text-primary/20" />
-                {isLatest && (
-                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
+                  <Badge className="absolute top-4 left-4 z-20 bg-primary text-primary-foreground text-[10px] px-2 py-0.5 shadow-sm">
                     Latest
                   </Badge>
                 )}

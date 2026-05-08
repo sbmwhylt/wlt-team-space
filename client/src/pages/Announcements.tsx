@@ -68,7 +68,7 @@ export default function Announcements() {
 
         {/* Posts grid */}
         {paginatedPosts.length > 0 && (
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-4 lg:grid-cols-5">
             {paginatedPosts.map((post) => (
               <AnnouncementCard
                 key={post.id}
