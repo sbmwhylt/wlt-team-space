@@ -38,7 +38,7 @@ const Microsite = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        isNumeric: true,
+        is: /^[\d\s\-()+]+$/,
       },
     },
     banner: {
