@@ -121,8 +121,8 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
   const initializeMap = () => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
-    // Initialize map centered on Philippines
-    const map = window.L.map(mapRef.current).setView([12.8797, 121.774], 6);
+    // Initialize map centered on Australia
+    const map = window.L.map(mapRef.current).setView([-25.2744, 133.7751], 4);
 
     window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
@@ -140,7 +140,7 @@ export default function StoreLocation({ micrositeId }: StoreLocationProps) {
 
     if (filteredStores.length === 0) {
       // If no stores, show default view
-      mapInstanceRef.current.setView([12.8797, 121.774], 6);
+      mapInstanceRef.current.setView([-25.2744, 133.7751], 4);
       return;
     }
 
