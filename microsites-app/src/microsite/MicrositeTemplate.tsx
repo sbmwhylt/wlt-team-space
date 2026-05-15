@@ -726,10 +726,20 @@ export default function MicrositeTemplate({ microsite }: Props) {
                 <AccordionContent className="w-full">
                   <p className="text-gray-700 text-md">
                     Gift cards can be spent at any participating business
-                    featured on this site. <strong>See map above. </strong>
-                    Look for the "Why Leave Town Gift Cards Accepted Here" badge
-                    on <strong>shop doors & windows</strong>, or check the full
-                    list of businesses in the Where to Spend section.
+                    featured on this site.{" "}
+                    {microsite.communityLink && (
+                      <>
+                        <a
+                          href={microsite.communityLink}
+                          className="text-blue-600 underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Click here
+                        </a>{" "}
+                        to view participating stores.{" "}
+                      </>
+                    )}
                   </p>
                 </AccordionContent>
               </AccordionItem>
