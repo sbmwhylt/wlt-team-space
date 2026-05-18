@@ -21,6 +21,7 @@ interface Props {
   section: DashboardSection;
   sectionLabel: string;
   dashboardState: ReturnType<typeof useDashboardPosts>;
+  imageUpload?: boolean;
   children?: ReactNode;
 }
 
@@ -28,6 +29,7 @@ export default function CreateDashboardPostDialog({
   section,
   sectionLabel,
   dashboardState,
+  imageUpload = true,
   children,
 }: Props) {
   const [open, setOpen] = useState(false);
@@ -125,43 +127,45 @@ export default function CreateDashboardPostDialog({
             />
           </div>
 
-          <div className="space-y-2">
-            <Label>Image (optional)</Label>
-            {imagePreview ? (
-              <div className="relative rounded-md overflow-hidden border">
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="w-full h-48 object-cover"
-                />
-                <Button
+          {imageUpload && (
+            <div className="space-y-2">
+              <Label>Image (optional)</Label>
+              {imagePreview ? (
+                <div className="relative rounded-md overflow-hidden border">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-full h-48 object-cover"
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon-sm"
+                    className="absolute top-2 right-2"
+                    onClick={removeImage}
+                  >
+                    <X className="size-3.5" />
+                  </Button>
+                </div>
+              ) : (
+                <button
                   type="button"
-                  variant="destructive"
-                  size="icon-sm"
-                  className="absolute top-2 right-2"
-                  onClick={removeImage}
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex flex-col items-center justify-center w-full h-32 rounded-md border border-dashed border-muted-foreground/30 hover:border-muted-foreground/50 transition-colors cursor-pointer text-muted-foreground"
                 >
-                  <X className="size-3.5" />
-                </Button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="flex flex-col items-center justify-center w-full h-32 rounded-md border border-dashed border-muted-foreground/30 hover:border-muted-foreground/50 transition-colors cursor-pointer text-muted-foreground"
-              >
-                <ImagePlus className="size-8 mb-2 opacity-50" />
-                <span className="text-xs">Click to upload an image</span>
-              </button>
-            )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageChange}
-            />
-          </div>
+                  <ImagePlus className="size-8 mb-2 opacity-50" />
+                  <span className="text-xs">Click to upload an image</span>
+                </button>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageChange}
+              />
+            </div>
+          )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>

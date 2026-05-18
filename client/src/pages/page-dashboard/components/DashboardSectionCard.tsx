@@ -56,6 +56,7 @@ export default function DashboardSectionCard({ section, label }: Props) {
             section={section}
             sectionLabel={label}
             dashboardState={dashboardState}
+            imageUpload={section !== "quote-of-the-week"}
           >
             <Button size="sm" variant="outline">
               <Plus className="size-3.5" />

@@ -5,6 +5,7 @@ import microSiteRoutes from "./microSiteRoute.js";
 import storeRoutes from "./storeRoute.js";
 import noticePostRoutes from "./noticePostRoute.js";
 import dashboardPostRoutes from "./dashboardPostRoute.js";
+import calendarRoutes from "./calendarRoute.js";
 
 const router = express.Router();
 
@@ -17,5 +18,6 @@ router.use("/microsites", microSiteRoutes);
 router.use("/stores", storeRoutes);
 router.use("/notice-posts", noticePostRoutes);
 router.use("/dashboard-posts", dashboardPostRoutes);
+router.use("/calendar", calendarRoutes);
 
 export default router;
