@@ -14,6 +14,7 @@ export interface CalendarEvent {
 
 let cachedEvents: CalendarEvent[] | null = null;
 let cachedAt = 0;
+
 const CACHE_TTL = 1000 * 60 * 5;
 
 export function useCalendar() {
@@ -34,7 +35,7 @@ export function useCalendar() {
     setLoading(true);
     try {
       const res = await axios.get(`${baseUrl}/upcoming`, authHeader());
-      cachedEvents = res.data.events || [];
+      cachedEvents = (res.data.events || []).filter((e: CalendarEvent) => !!e.meetLink);
       cachedAt = Date.now();
       setEvents(cachedEvents!);
     } catch (err) {
