@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")",
+      "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\Development\\\\wlt-team-space\\\\server\" -Recurse -Depth 2)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Development\\\\wlt-team-space\\\\server\" -Recurse -Depth 2 | Select-Object FullName, PSIsContainer | Where-Object {$_.PSIsContainer} | ForEach-Object {$_.FullName})"
     ]
   }
 }
