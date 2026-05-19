@@ -44,7 +44,7 @@ export default function DashboardSectionCard({ section, label }: Props) {
     });
 
   return (
-    <div className="border rounded-xl p-4 min-h-[220px] flex flex-col">
+    <div className="border rounded-xl p-4 min-h-[350px] flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -56,7 +56,7 @@ export default function DashboardSectionCard({ section, label }: Props) {
             section={section}
             sectionLabel={label}
             dashboardState={dashboardState}
-            imageUpload={section !== "quote-of-the-week"}
+            imageUpload={true}
           >
             <Button size="sm" variant="outline" className="border-none shadow-none">
               <Plus className="size-3.5" />
