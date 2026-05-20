@@ -5,6 +5,12 @@ import type { DashboardPost, DashboardSection } from "@/types/DashboardPost";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Plus,
   Calendar,
   Trash2,
@@ -26,15 +32,15 @@ const SECTION_ICONS: Record<DashboardSection, React.ReactNode> = {
 interface Props {
   section: DashboardSection;
   label: string;
+  compact?: boolean;
 }
 
-export default function DashboardSectionCard({ section, label }: Props) {
+export default function DashboardSectionCard({ section, label, compact }: Props) {
   const { user } = useContext(AuthContext);
   const dashboardState = useDashboardPosts(section);
   const { posts, loading } = dashboardState;
-  const [expanded, setExpanded] = useState<number | null>(null);
-
   const isAdmin = user?.role === "admin" || user?.role === "super-admin";
+  const [selected, setSelected] = useState<DashboardPost | null>(null);
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
@@ -44,7 +50,7 @@ export default function DashboardSectionCard({ section, label }: Props) {
     });
 
   return (
-    <div className="border rounded-xl p-4 min-h-[350px] flex flex-col">
+    <div className={`border rounded-xl p-4 flex flex-col ${compact ? "h-full min-h-0 overflow-hidden" : "min-h-[300px]"}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -84,8 +90,8 @@ export default function DashboardSectionCard({ section, label }: Props) {
           {posts.map((post: DashboardPost) => (
             <div
               key={post.id}
-              className="group rounded-lg border border-border/50 bg-card hover:bg-muted/40 hover:border-primary/20 transition-all duration-150 cursor-pointer overflow-hidden"
-              onClick={() => setExpanded(expanded === post.id ? null : post.id)}
+              className="group rounded-lg border border-border/50 bg-card overflow-hidden shrink-0 cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
+              onClick={() => setSelected(post)}
             >
               <div className="flex items-start gap-3 p-3">
                 {/* Text */}
@@ -93,35 +99,28 @@ export default function DashboardSectionCard({ section, label }: Props) {
                   <p className="text-sm font-semibold line-clamp-1 leading-snug">
                     {post.title}
                   </p>
-                  <p
-                    className={`text-xs text-muted-foreground leading-relaxed mt-1 ${
-                      expanded === post.id ? "" : "line-clamp-2"
-                    }`}
-                  >
+                  <p className="text-xs text-muted-foreground leading-relaxed mt-1 line-clamp-2">
                     {post.content}
                   </p>
-
-                  {expanded === post.id && (
-                    <div className="flex items-center justify-between mt-2">
-                      <div className="flex items-center gap-2">
-                        <Avatar className="size-5 shrink-0">
-                          <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
-                            {post.authorName
-                              ?.split(" ")
-                              .map((n: string) => n[0])
-                              .join("")
-                              .slice(0, 2)
-                              .toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <span className="text-xs font-medium">{post.authorName}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-muted-foreground">
-                        <Calendar size={10} />
-                        <span className="text-[11px]">{formatDate(post.createdAt)}</span>
-                      </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <div className="flex items-center gap-2">
+                      <Avatar className="size-5 shrink-0">
+                        <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
+                          {post.authorName
+                            ?.split(" ")
+                            .map((n: string) => n[0])
+                            .join("")
+                            .slice(0, 2)
+                            .toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-xs font-medium">{post.authorName}</span>
                     </div>
-                  )}
+                    <div className="flex items-center gap-1 text-muted-foreground">
+                      <Calendar size={10} />
+                      <span className="text-[11px]">{formatDate(post.createdAt)}</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Image thumbnail */}
@@ -153,6 +152,49 @@ export default function DashboardSectionCard({ section, label }: Props) {
           ))}
         </div>
       )}
+
+      {/* Post detail dialog */}
+      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{selected?.title}</DialogTitle>
+          </DialogHeader>
+
+          {selected?.image && (
+            <div className="rounded-lg overflow-hidden bg-muted max-h-64">
+              <img
+                src={selected.image}
+                alt={selected.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
+          <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+            {selected?.content}
+          </p>
+
+          <div className="flex items-center justify-between pt-2 border-t">
+            <div className="flex items-center gap-2">
+              <Avatar className="size-6 shrink-0">
+                <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
+                  {selected?.authorName
+                    ?.split(" ")
+                    .map((n: string) => n[0])
+                    .join("")
+                    .slice(0, 2)
+                    .toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <span className="text-xs font-medium">{selected?.authorName}</span>
+            </div>
+            <div className="flex items-center gap-1 text-muted-foreground">
+              <Calendar size={12} />
+              <span className="text-xs">{selected ? formatDate(selected.createdAt) : ""}</span>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

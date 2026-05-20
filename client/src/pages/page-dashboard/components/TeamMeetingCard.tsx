@@ -67,7 +67,7 @@ export default function TeamMeetingCard() {
   const { events, loading, refresh } = useCalendar();
 
   return (
-    <div className="border rounded-xl p-4 min-h-[220px] flex flex-col">
+    <div className="border rounded-xl p-4 flex flex-col flex-1 min-h-0 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">

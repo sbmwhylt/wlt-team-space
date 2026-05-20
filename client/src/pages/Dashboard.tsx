@@ -3,23 +3,21 @@ import MainLayout from "@/layouts/MainLayout";
 import DashboardSectionCard from "./page-dashboard/components/DashboardSectionCard";
 import TeamMeetingCard from "./page-dashboard/components/TeamMeetingCard";
 
-
 export default function Dashboard() {
   return (
     <MainLayout>
-      <div className="flex gap-4 items-start">
-        <div className="flex flex-col flex-1 min-w-0">
-          <div className="grid gap-4 md:grid-cols-3">
-            <DashboardSectionCard section="reminders" label="Reminders" />
-            <TeamMeetingCard />
-            <DashboardSectionCard section="quote-of-the-week" label="Quote of the Week" />
-            <DashboardSectionCard section="staff-updates" label="Staff Updates" />
-          </div>
+      <div className="flex gap-4 h-[calc(100vh-6rem)]">
+        {/* Left column: compact section cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-3 md:grid-rows-2 gap-3 flex-1 min-w-0 overflow-hidden">
+          <DashboardSectionCard section="reminders" label="Reminders" compact />
+          <DashboardSectionCard section="quote-of-the-week" label="Quote of the Week" compact />
+          <DashboardSectionCard section="staff-updates" label="Staff Updates" compact />
         </div>
 
-        {/* <div className="border p-4 rounded-xl w-lg shrink-0">
-          <NoticeBoard />
-        </div> */}
+        {/* Right column: Team Meetings */}
+        <div className="w-[420px] shrink-0 flex flex-col overflow-hidden">
+          <TeamMeetingCard />
+        </div>
       </div>
     </MainLayout>
   );
