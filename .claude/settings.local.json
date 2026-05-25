@@ -11,7 +11,9 @@
       "Bash(git checkout *)",
       "Bash(git stash *)",
       "Bash(git filter-branch --force --tree-filter ' *)",
-      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --force --tree-filter ' *)"
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --force --tree-filter ' *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Development\\\\wlt-team-space\" -Directory)",
+      "Bash(Select-Object Name)"
     ]
   }
 }
