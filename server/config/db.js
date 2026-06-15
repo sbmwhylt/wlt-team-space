@@ -1,8 +1,5 @@
 import pkg from "sequelize";
 const { Sequelize } = pkg;
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const isLocal = process.env.DATABASE_URL.includes("localhost");
 
