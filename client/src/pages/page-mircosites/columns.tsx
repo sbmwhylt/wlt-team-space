@@ -2,7 +2,14 @@
 
 import React, { useEffect } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, Copy, Check } from "lucide-react";
+import {
+  ArrowUpDown,
+  MoreHorizontal,
+  Copy,
+  Check,
+  BadgeCheck,
+  CircleX,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -350,6 +357,32 @@ export const getColumns = (micrositesState?: {
       ) : (
         <div className="py-1 px-2 w-fit text-sm rounded-full  text-gray-400 font-medium">
           Standard
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "isActive",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Status
+        <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const isActive = row.getValue("isActive") as boolean;
+      return isActive ? (
+        <div className="flex gap-1 items-center py-1 px-2 w-fit text-xs font-medium rounded-full bg-gray-100/80 border text-green-600">
+          <BadgeCheck size={12} />
+          active
+        </div>
+      ) : (
+        <div className="flex gap-1 items-center py-1 px-2 w-fit text-xs font-medium rounded-full bg-gray-100/80 border text-red-700 ">
+          <CircleX size={12} />
+          inactive
         </div>
       );
     },

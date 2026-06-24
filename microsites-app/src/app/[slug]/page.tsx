@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import MicrositeTemplate from "@/microsite/MicrositeTemplate";
 import type { MicroSite } from "@/types/Microsite";
 
@@ -81,7 +82,7 @@ export default async function Page({ params }: Props) {
   const microsite = await getMicrosite(slug);
 
   if (!microsite) {
-    return <div>Microsite not found</div>;
+    notFound();
   }
 
   const canonicalUrl = `${SITE_URL}/${slug}`;

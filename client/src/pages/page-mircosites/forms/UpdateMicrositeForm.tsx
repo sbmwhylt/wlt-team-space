@@ -55,6 +55,7 @@ const micrositeSchema = z.object({
   digitalBulkImg: z.any().optional(),
   color: z.enum(Object.keys(colors) as [string, ...string[]]),
   isPromotional: z.boolean(),
+  isActive: z.boolean(),
 });
 
 type MicrositeFormValues = z.infer<typeof micrositeSchema>;
@@ -319,6 +320,7 @@ export default function UpdateMicrositeForm({
       digitalBulkImg: null,
       color: "red",
       isPromotional: false,
+      isActive: true,
     },
   });
 
@@ -358,6 +360,7 @@ export default function UpdateMicrositeForm({
       businessLink: microsite.businessLink || "",
       color: microsite.color || "red",
       isPromotional: microsite.isPromotional ?? false,
+      isActive: microsite.isActive ?? true,
       banner: null,
       physicalImg: null,
       digitalImg: null,
@@ -393,6 +396,7 @@ export default function UpdateMicrositeForm({
       formData.append("type", values.type);
       formData.append("color", values.color);
       formData.append("isPromotional", String(values.isPromotional));
+      formData.append("isActive", String(values.isActive));
 
       const optionalFields = [
         "email",
@@ -976,6 +980,27 @@ export default function UpdateMicrositeForm({
                 <span className="text-gray-500 font-normal text-xs">
                   (hides Purchase Cards, Card Stocks, and "How can I get a
                   card" FAQ)
+                </span>
+              </FormLabel>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="isActive"
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-3">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel className="!mt-0 cursor-pointer">
+                Active{" "}
+                <span className="text-gray-500 font-normal text-xs">
+                  (inactive microsites return 404)
                 </span>
               </FormLabel>
             </FormItem>
