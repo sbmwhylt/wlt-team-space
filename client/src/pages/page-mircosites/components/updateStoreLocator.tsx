@@ -348,7 +348,7 @@ export default function UpdateStoreLocator({
             </div>
           ) : (
             <div className="divide-y divide-gray-100 border border-gray-200 rounded-lg overflow-hidden">
-              {existingStores.map((loc) => (
+              {[...existingStores].sort((a, b) => a.name.localeCompare(b.name)).map((loc) => (
                 <div key={loc.id} className="px-4 py-3 bg-white">
                   {confirmDeleteId === loc.id ? (
                     <div className="flex items-center justify-between gap-3">

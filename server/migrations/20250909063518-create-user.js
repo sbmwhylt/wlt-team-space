@@ -1,7 +1,5 @@
 "use strict";
 
-import { DATE } from "sequelize";
-
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("Users", {
     id: {

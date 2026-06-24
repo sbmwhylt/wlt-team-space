@@ -1,13 +1,10 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
 import db from "./models/index.js";
 import routes from "./routes/index.js";
 import contactRouter from "./api/contactRouter.js";
 import toolsRouter from "./api/toolsRouter.js";
-
-dotenv.config();
 
 const app = express();
 

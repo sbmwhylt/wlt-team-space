@@ -428,7 +428,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
 
           <CardContent className="text-center p-0 ">
             {/* Purchase Cards */}
-            {!microsite.isPromotional && (
+            {!microsite.isPromotional && (microsite.physicalCardOrderLink || microsite.digitalCardOrderLink) && (
               <>
             {/* Section Title */}
             <div className="section-title my-14 flex flex-col justify-center items-center text-center gap-3">
@@ -439,7 +439,8 @@ export default function MicrositeTemplate({ microsite }: Props) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {/* Card 1 */}
+              {/* Card 1 - Physical single */}
+              {microsite.physicalCardOrderLink && (
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
                   <img
@@ -481,8 +482,10 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   </a>
                 </div>
               </div>
+              )}
 
-              {/* Card 2 */}
+              {/* Card 2 - Physical bulk */}
+              {microsite.physicalCardOrderLink && (
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
                   <img
@@ -523,8 +526,10 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   </a>
                 </div>
               </div>
+              )}
 
-              {/* Card 3 */}
+              {/* Card 3 - Digital single */}
+              {microsite.digitalCardOrderLink && (
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
                   <img
@@ -565,8 +570,10 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   </a>
                 </div>
               </div>
+              )}
 
-              {/* Card 4 */}
+              {/* Card 4 - Digital bulk */}
+              {microsite.digitalCardOrderLink && (
               <div className="group relative bg-white border-2 border-gray-200 rounded-3xl overflow-hidden hover:shadow-xl hover:border-gray-300 transition-all duration-300">
                 <div className="relative h-fit overflow-hidden">
                   <img
@@ -607,6 +614,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   </a>
                 </div>
               </div>
+              )}
             </div>
               </>
             )}
