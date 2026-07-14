@@ -626,28 +626,23 @@ export default function UpdateMicrositeForm({
                 </FormItem>
               )}
             />
-            {microsite.type === "consumer" && (
-              <FormField
-                control={form.control}
-                name="communityLink"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Community Link{" "}
-                      <span className="text-orange-500 font-normal">(Consumer)</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="https://example.com"
-                        {...field}
-                        value={field.value || ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+            <FormField
+              control={form.control}
+              name="communityLink"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Community Link</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="https://example.com"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             {microsite.type === "consumer" && (
               <FormField
                 control={form.control}
