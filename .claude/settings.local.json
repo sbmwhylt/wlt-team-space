@@ -19,7 +19,8 @@
       "Bash(grep -E \"\\\\.\\(js|ts\\)$\")",
       "WebFetch(domain:mapsplatform.google.com)",
       "Bash(psql \"postgresql://sbmdev:eKUOHvhcFDkO4KwbTkSU6hktpvR2pctB@dpg-d4jp5k7diees73b29510-a.singapore-postgres.render.com/db_wlt_system\" -c \"\\\\dt\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

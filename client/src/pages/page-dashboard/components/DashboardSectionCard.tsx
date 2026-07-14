@@ -29,6 +29,16 @@ const SECTION_ICONS: Record<DashboardSection, React.ReactNode> = {
   "staff-updates": <MonitorDot className="size-4 text-primary" />,
 };
 
+const PREVIEW_COUNT = 3;
+
+const getInitials = (name?: string) =>
+  name
+    ?.split(" ")
+    .map((n: string) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
 interface Props {
   section: DashboardSection;
   label: string;
@@ -41,6 +51,10 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
   const { posts, loading } = dashboardState;
   const isAdmin = user?.role === "admin" || user?.role === "super-admin";
   const [selected, setSelected] = useState<DashboardPost | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const latest = posts[0];
+  const preview = posts.slice(1, 1 + PREVIEW_COUNT);
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString("en-US", {
@@ -50,26 +64,37 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
     });
 
   return (
-    <div className={`border rounded-xl p-4 flex flex-col ${compact ? "h-full min-h-0 overflow-hidden" : "min-h-[300px]"}`}>
+    <div className={`border rounded-xl p-4 flex flex-col ${compact ? "h-full min-h-0 overflow-hidden" : "min-h-[0px]"}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           {SECTION_ICONS[section]}
           <h2 className="text-base font-semibold">{label}</h2>
         </div>
-        {isAdmin && (
-          <CreateDashboardPostDialog
-            section={section}
-            sectionLabel={label}
-            dashboardState={dashboardState}
-            imageUpload={true}
-          >
-            <Button size="sm" variant="outline" className="border-none shadow-none">
-              <Plus className="size-3.5" />
-              
+        <div className="flex items-center gap-1">
+          {posts.length > 0 && (
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-xs text-muted-foreground"
+              onClick={() => setShowAll(true)}
+            >
+              View More
             </Button>
-          </CreateDashboardPostDialog>
-        )}
+          )}
+          {isAdmin && (
+            <CreateDashboardPostDialog
+              section={section}
+              sectionLabel={label}
+              dashboardState={dashboardState}
+              imageUpload={true}
+            >
+              <Button size="sm" variant="outline" className="border-none shadow-none">
+                <Plus className="size-3.5" />
+              </Button>
+            </CreateDashboardPostDialog>
+          )}
+        </div>
       </div>
 
       {/* Body */}
@@ -85,73 +110,152 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
         </div>
       )}
 
-      {posts.length > 0 && (
-        <div className="flex flex-col gap-1.5 flex-1 overflow-y-auto">
-          {posts.map((post: DashboardPost) => (
-            <div
-              key={post.id}
-              className="group rounded-lg border border-border/50 bg-card overflow-hidden shrink-0 cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
-              onClick={() => setSelected(post)}
-            >
-              <div className="flex items-start gap-3 p-3">
-                {/* Text */}
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold line-clamp-1 leading-snug">
-                    {post.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed mt-1 line-clamp-2">
-                    {post.content}
-                  </p>
-                  <div className="flex items-center justify-between mt-2">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="size-5 shrink-0">
-                        <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
-                          {post.authorName
-                            ?.split(" ")
-                            .map((n: string) => n[0])
-                            .join("")
-                            .slice(0, 2)
-                            .toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="text-xs font-medium">{post.authorName}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-muted-foreground">
-                      <Calendar size={10} />
-                      <span className="text-[11px]">{formatDate(post.createdAt)}</span>
-                    </div>
+      {latest && (
+        <div className="flex flex-col flex-1 min-h-0">
+          {/* Most recent post — prominent */}
+          <div
+            className="group rounded-lg border border-border/50 bg-card overflow-hidden shrink-0 cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
+            onClick={() => setSelected(latest)}
+          >
+            {latest.image && (
+              <div className="w-full h-60 bg-muted overflow-hidden">
+                <img
+                  src={latest.image}
+                  alt={latest.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+            <div className="flex items-start gap-3 p-3">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold line-clamp-1 leading-snug">
+                  {latest.title}
+                </p>
+                <p className="text-xs text-muted-foreground leading-relaxed mt-1 line-clamp-3">
+                  {latest.content}
+                </p>
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar className="size-5 shrink-0">
+                      <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
+                        {getInitials(latest.authorName)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-xs font-medium">{latest.authorName}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <Calendar size={10} />
+                    <span className="text-[11px]">{formatDate(latest.createdAt)}</span>
                   </div>
                 </div>
-
-                {/* Image thumbnail */}
-                {post.image && (
-                  <div className="shrink-0 w-12 h-12 rounded-md overflow-hidden bg-muted">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-
-                {/* Delete — admin only, shown on hover */}
-                {isAdmin && (
-                  <DeleteDashboardPostDialog post={post} dashboardState={dashboardState}>
-                    <Button
-                      size="icon-sm"
-                      variant="ghost"
-                      className="shrink-0 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Trash2 className="size-3.5" />
-                    </Button>
-                  </DeleteDashboardPostDialog>
-                )}
               </div>
+
+              {/* Delete — admin only, shown on hover */}
+              {isAdmin && (
+                <DeleteDashboardPostDialog post={latest} dashboardState={dashboardState}>
+                  <Button
+                    size="icon-sm"
+                    variant="ghost"
+                    className="shrink-0 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Trash2 className="size-3.5" />
+                  </Button>
+                </DeleteDashboardPostDialog>
+              )}
             </div>
-          ))}
+          </div>
+
+          {/* Preview of the next few items */}
+          {preview.length > 0 && (
+            <div className="flex flex-col gap-0.5 mt-2 shrink-0">
+              {preview.map((post) => (
+                <button
+                  key={post.id}
+                  type="button"
+                  className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left cursor-pointer hover:bg-muted/40 transition-colors"
+                  onClick={() => setSelected(post)}
+                >
+                  <span className="text-xs font-medium truncate">{post.title}</span>
+                  <span className="text-[10px] text-muted-foreground shrink-0">
+                    {formatDate(post.createdAt)}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
+
+      {/* Full list dialog */}
+      <Dialog open={showAll} onOpenChange={setShowAll}>
+        <DialogContent className="max-w-lg max-h-[80vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>{label}</DialogTitle>
+          </DialogHeader>
+
+          <div className="flex flex-col gap-1.5 overflow-y-auto">
+            {posts.map((post: DashboardPost) => (
+              <div
+                key={post.id}
+                className="group rounded-lg border border-border/50 bg-card overflow-hidden shrink-0 cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
+                onClick={() => {
+                  setShowAll(false);
+                  setSelected(post);
+                }}
+              >
+                <div className="flex items-start gap-3 p-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold line-clamp-1 leading-snug">
+                      {post.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground leading-relaxed mt-1 line-clamp-2">
+                      {post.content}
+                    </p>
+                    <div className="flex items-center justify-between mt-2">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="size-5 shrink-0">
+                          <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
+                            {getInitials(post.authorName)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-xs font-medium">{post.authorName}</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-muted-foreground">
+                        <Calendar size={10} />
+                        <span className="text-[11px]">{formatDate(post.createdAt)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {post.image && (
+                    <div className="shrink-0 w-12 h-12 rounded-md overflow-hidden bg-muted">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+
+                  {isAdmin && (
+                    <DeleteDashboardPostDialog post={post} dashboardState={dashboardState}>
+                      <Button
+                        size="icon-sm"
+                        variant="ghost"
+                        className="shrink-0 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Trash2 className="size-3.5" />
+                      </Button>
+                    </DeleteDashboardPostDialog>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Post detail dialog */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
@@ -178,12 +282,7 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
             <div className="flex items-center gap-2">
               <Avatar className="size-6 shrink-0">
                 <AvatarFallback className="text-[10px] font-medium bg-primary/10 text-primary">
-                  {selected?.authorName
-                    ?.split(" ")
-                    .map((n: string) => n[0])
-                    .join("")
-                    .slice(0, 2)
-                    .toUpperCase()}
+                  {getInitials(selected?.authorName)}
                 </AvatarFallback>
               </Avatar>
               <span className="text-xs font-medium">{selected?.authorName}</span>

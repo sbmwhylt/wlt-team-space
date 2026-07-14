@@ -7,7 +7,7 @@ export default function Dashboard() {
   return (
     <MainLayout>
       <div className="flex gap-4 h-[calc(100vh-6rem)]">
-        {/* Left column: compact section cards */}
+        {/* Left column: section cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-3 md:grid-rows-2 gap-3 flex-1 min-w-0 overflow-hidden">
           <DashboardSectionCard section="reminders" label="Reminders" compact />
           <DashboardSectionCard section="quote-of-the-week" label="Quote of the Week" compact />
