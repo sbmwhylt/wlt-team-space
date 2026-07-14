@@ -60,11 +60,14 @@ const isThisWeek = (dateStr: string) => {
   const now = new Date();
   const weekAhead = new Date(now);
   weekAhead.setDate(now.getDate() + 7);
-  return d > now && d <= weekAhead && !isTomorrow(dateStr);
+  return d > now && d <= weekAhead && !isToday(dateStr) && !isTomorrow(dateStr);
 };
+
+const MAX_VISIBLE_EVENTS = 5;
 
 export default function TeamMeetingCard() {
   const { events, loading, refresh } = useCalendar();
+  const visibleEvents = events.slice(0, MAX_VISIBLE_EVENTS);
 
   return (
     <div className="border rounded-xl p-4 flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -103,8 +106,8 @@ export default function TeamMeetingCard() {
 
       {/* Events */}
       {events.length > 0 && (
-        <div className="flex flex-col gap-2 flex-1 overflow-y-auto">
-          {events.map((event: CalendarEvent) => {
+        <div className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto">
+          {visibleEvents.map((event: CalendarEvent) => {
             const today = isToday(event.start);
             const tomorrow = isTomorrow(event.start);
             const thisWeek = isThisWeek(event.start);
@@ -122,11 +125,13 @@ export default function TeamMeetingCard() {
                 {today && <div className="h-0.5 w-full bg-primary" />}
 
                 <div className="p-3">
-                  {/* Title row */}
-                  <div className="flex items-start justify-between gap-2 mb-1.5">
-                    <p className="text-sm font-semibold line-clamp-1 leading-snug flex-1">
-                      {event.title}
-                    </p>
+                  {/* Title */}
+                  <p className="text-sm font-semibold line-clamp-1 leading-snug">
+                    {event.title}
+                  </p>
+
+                  {/* Badges + date + time + duration */}
+                  <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mt-1.5 text-muted-foreground">
                     {today && (
                       <Badge className="rounded-full bg-primary/10 text-primary border-0 text-[10px] font-semibold px-2 shrink-0">
                         <span className="mr-1 size-1.5 rounded-full bg-primary inline-block animate-pulse" />
@@ -143,10 +148,6 @@ export default function TeamMeetingCard() {
                         This week
                       </Badge>
                     )}
-                  </div>
-
-                  {/* Date + time + duration */}
-                  <div className="flex items-center gap-2 text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <CalendarClock size={10} />
                       <span className="text-[11px] font-medium">
