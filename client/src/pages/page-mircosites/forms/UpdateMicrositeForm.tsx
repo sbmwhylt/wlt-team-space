@@ -16,7 +16,6 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMicroSites } from "@/hooks/use-microsites";
 import { toast } from "react-hot-toast";
 import { Upload, X, ImagePlus, Plus, Trash2 } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
@@ -63,6 +62,7 @@ type MicrositeFormValues = z.infer<typeof micrositeSchema>;
 interface UpdateMicrositeFormProps {
   microsite: MicroSite;
   onSuccess?: () => void;
+  update: (id: string | number, data: FormData | Partial<MicroSite>) => Promise<any>;
 }
 
 // ─── Reusable single-image upload field ──────────────────────────────────────
@@ -271,9 +271,8 @@ function MarketingImageSection({
 export default function UpdateMicrositeForm({
   microsite,
   onSuccess,
+  update,
 }: UpdateMicrositeFormProps) {
-  const { update } = useMicroSites();
-
   const [existingImages, setExistingImages] = useState<{
     banner?: string;
     physicalImg?: string;

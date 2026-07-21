@@ -72,10 +72,14 @@ function UpdateDialog({
   microsite,
   open,
   onOpenChange,
+  update,
+  onUpdated,
 }: {
   microsite: MicroSite;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  update: (id: string | number, data: any) => Promise<any>;
+  onUpdated: () => Promise<void> | void;
 }) {
   return (
     <>
@@ -91,7 +95,11 @@ function UpdateDialog({
           {/* Pass the microsite data */}
           <UpdateMicrositeForm
             microsite={microsite}
-            onSuccess={() => onOpenChange(false)}
+            update={update}
+            onSuccess={async () => {
+              await onUpdated();
+              onOpenChange(false);
+            }}
           />
         </DialogContent>
       </Dialog>
@@ -180,9 +188,10 @@ function UpdateStoreDialog({
 }
 
 // Remove the parameter if you don't need actions, OR type it properly
-export const getColumns = (micrositesState?: {
-  update?: (id: string | number, data: any) => Promise<any>;
+export const getColumns = (micrositesState: {
+  update: (id: string | number, data: any) => Promise<any>;
   remove?: (id: string | number) => Promise<void>;
+  get: () => Promise<void>;
 }): ColumnDef<MicroSite>[] => [
   {
     id: "select",
@@ -469,6 +478,8 @@ export const getColumns = (micrositesState?: {
             microsite={microsite}
             open={updateDialogOpen}
             onOpenChange={setUpdateDialogOpen}
+            update={micrositesState.update}
+            onUpdated={micrositesState.get}
           />
 
           {/* Store Update Dialog */}

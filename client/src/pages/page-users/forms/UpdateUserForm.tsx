@@ -75,11 +75,11 @@ export default function UpdateUsersForm({
         }
       );
       if (!response.ok) throw new Error("Failed to fetch user data");
-      const data = await response.json();
+      const { user } = await response.json();
       form.reset({
-        email: data.email,
-        status: data.status,
-        role: data.role,
+        email: user.email,
+        status: user.status,
+        role: user.role,
         password: "",
       });
     } catch (error) {
