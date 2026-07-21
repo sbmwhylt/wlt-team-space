@@ -66,6 +66,26 @@ export const auditColumns: ColumnDef<AuditRow>[] = [
     sortingFn: (a, b) => a.original.missing.length - b.original.missing.length,
   },
   {
+    id: "missingCount",
+    accessorFn: (row) => row.missing.length,
+    header: ({ column }) => (
+      <div className="flex justify-center">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          # Missing
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className="text-center font-medium tabular-nums">
+        {row.original.missing.length}
+      </div>
+    ),
+  },
+  {
     id: "stores",
     accessorFn: (row) => (row.type === "business" ? -1 : row.hasStores ? 1 : 0),
     header: ({ column }) => (

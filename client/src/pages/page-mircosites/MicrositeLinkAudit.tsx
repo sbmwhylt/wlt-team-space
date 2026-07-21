@@ -50,7 +50,9 @@ export default function MicrositeLinkAudit() {
   const { microsites, loading, get } = useMicroSites();
 
   const [filtering, setFiltering] = useState("");
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "missingCount", desc: true },
+  ]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [typeFilter, setTypeFilter] = useState<"all" | "consumer" | "business">(
     "all",
