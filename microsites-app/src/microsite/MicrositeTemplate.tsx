@@ -39,6 +39,7 @@ import {
   Earth,
   Facebook,
   Instagram,
+  Linkedin,
   Palette,
   CircleOff,
 } from "lucide-react";
@@ -924,11 +925,22 @@ export default function MicrositeTemplate({ microsite }: Props) {
                   />
                 </a>
                 <a
-                  href="https://www.instagram.com/whyleavetown/?hl=en"
+                  href="https://www.instagram.com/whyleavetown/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Instagram
+                    strokeWidth={1.5}
+                    size={28}
+                    className="rounded-full p-1.5 bg-secondary text-white"
+                  />
+                </a>
+                <a
+                  href="https://au.linkedin.com/in/ashley-watt-159b2845"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin
                     strokeWidth={1.5}
                     size={28}
                     className="rounded-full p-1.5 bg-secondary text-white"
