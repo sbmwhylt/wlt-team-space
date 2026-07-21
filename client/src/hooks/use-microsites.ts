@@ -7,8 +7,10 @@ let cachedAt = 0;
 const CACHE_TTL = 1000 * 60 * 5;
 
 export function useMicroSites() {
-  const [microsites, setMicrosites] = useState<MicroSite[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [microsites, setMicrosites] = useState<MicroSite[]>(
+    cachedMicrosites || [],
+  );
+  const [loading, setLoading] = useState(!cachedMicrosites);
 
   const baseUrl = `${import.meta.env.VITE_API_URL}/microsites`;
 

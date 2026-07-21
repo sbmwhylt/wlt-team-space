@@ -14,7 +14,8 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 
-import { ChevronDown, LayoutGrid, List } from "lucide-react";
+import { ChevronDown, LayoutGrid, List, Link2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -48,6 +49,7 @@ export function DataTable<TData, TValue>({
   data,
   filterColumn,
 }: DataTableProps<TData, TValue>) {
+  const navigate = useNavigate();
   const [sorting, setSorting] = React.useState<SortingState>([
     { id: "updatedAt", desc: true },
   ]);
@@ -161,6 +163,15 @@ export function DataTable<TData, TValue>({
           >
             <SquareArrowOutUpRight />
             Microsites Page
+          </Button>
+
+          <Button
+            onClick={() => navigate("/microsites/link-audit")}
+            variant="outline"
+            className="cursor-pointer"
+          >
+            <Link2 />
+            Link Audit
           </Button>
 
           <DropdownMenu>

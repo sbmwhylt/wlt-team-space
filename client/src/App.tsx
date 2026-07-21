@@ -11,6 +11,7 @@ import Settings from "@/pages/Settings";
 import Profile from "@/pages/Profile";
 import Apps from "@/pages/Apps";
 import PdfToCsv from "@/pages/apps/PdfToCsv";
+import MicrositeLinkAudit from "@/pages/page-mircosites/MicrositeLinkAudit";
 import NotFound from "@/pages/404";
 
 function App() {
@@ -88,6 +89,15 @@ function App() {
           element={
             <ProtectedRoute>
               <PdfToCsv />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/microsites/link-audit"
+          element={
+            <ProtectedRoute>
+              <MicrositeLinkAudit />
             </ProtectedRoute>
           }
         />
