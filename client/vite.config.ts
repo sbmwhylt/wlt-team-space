@@ -12,8 +12,8 @@ export default defineConfig({
     },
   },
   server: {
-    host: true, // ← Add this! Makes Docker accessible
-    port: 4000,
+    host: true, // Makes Docker accessible
+    port: 5001,
     watch: {
       usePolling: true,
       interval: 100, // Check every 100ms (default is 1000ms)
