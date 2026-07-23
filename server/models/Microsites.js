@@ -111,6 +111,11 @@ const Microsite = sequelize.define(
       allowNull: false,
       defaultValue: true,
     },
+    linkAuditReviewed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     timestamps: true,

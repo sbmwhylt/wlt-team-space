@@ -4,6 +4,8 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Spinner } from "@/components/ui/spinner";
 import type { MicroSite } from "@/types/Microsite";
 
 export interface AuditRow extends MicroSite {
@@ -11,7 +13,11 @@ export interface AuditRow extends MicroSite {
   hasStores: boolean;
 }
 
-export const auditColumns: ColumnDef<AuditRow>[] = [
+export function getAuditColumns(
+  reviewingIds: Set<string | number>,
+  onToggleReviewed: (row: AuditRow, reviewed: boolean) => void,
+): ColumnDef<AuditRow>[] {
+  return [
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -119,4 +125,28 @@ export const auditColumns: ColumnDef<AuditRow>[] = [
       </div>
     ),
   },
-];
+  {
+    id: "reviewed",
+    accessorFn: (row) => row.linkAuditReviewed ?? false,
+    header: () => <div className="flex justify-center">Reviewed</div>,
+    cell: ({ row }) => {
+      const isReviewing = reviewingIds.has(row.original.id);
+      return (
+        <div className="flex justify-center">
+          {isReviewing ? (
+            <Spinner className="h-4 w-4" />
+          ) : (
+            <Checkbox
+              className="cursor-pointer"
+              checked={row.original.linkAuditReviewed ?? false}
+              onCheckedChange={(checked) =>
+                onToggleReviewed(row.original, checked === true)
+              }
+            />
+          )}
+        </div>
+      );
+    },
+  },
+  ];
+}

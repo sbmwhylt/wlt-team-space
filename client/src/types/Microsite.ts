@@ -33,6 +33,7 @@ export interface MicroSite {
   color: string;
   isPromotional?: boolean;
   isActive?: boolean;
+  linkAuditReviewed?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

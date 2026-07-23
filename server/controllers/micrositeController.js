@@ -151,7 +151,8 @@ export const getMicroSiteById = async (req, res) => {
 export const updateMicroSite = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, socialLinks, isPromotional, isActive, ...rest } = req.body;
+    const { name, socialLinks, isPromotional, isActive, linkAuditReviewed, ...rest } =
+      req.body;
 
     const microsite = await Microsite.findByPk(id);
     if (!microsite) {
@@ -234,6 +235,9 @@ export const updateMicroSite = async (req, res) => {
       ...rest,
       ...(isPromotional !== undefined && { isPromotional: isPromotional === "true" }),
       ...(isActive !== undefined && { isActive: isActive === "true" }),
+      ...(linkAuditReviewed !== undefined && {
+        linkAuditReviewed: linkAuditReviewed === "true" || linkAuditReviewed === true,
+      }),
       ...(parsedSocialLinks && { socialLinks: parsedSocialLinks }),
       ...uploadedData,
     });

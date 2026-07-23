@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/table";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { MicroSite } from "@/types/Microsite";
-import { auditColumns, type AuditRow } from "@/pages/page-mircosites/audit-columns";
+import { getAuditColumns, type AuditRow } from "@/pages/page-mircosites/audit-columns";
 
 const LINK_FIELDS: { key: keyof MicroSite; label: string }[] = [
   { key: "communityLink", label: "Community" },
@@ -47,7 +47,7 @@ function isEmpty(v: unknown) {
 
 export default function MicrositeLinkAudit() {
   const navigate = useNavigate();
-  const { microsites, loading, get } = useMicroSites();
+  const { microsites, loading, get, update } = useMicroSites();
 
   const [filtering, setFiltering] = useState("");
   const [sorting, setSorting] = useState<SortingState>([
@@ -59,6 +59,9 @@ export default function MicrositeLinkAudit() {
   );
   const [storesFilter, setStoresFilter] = useState<"all" | "yes" | "no">("all");
   const [missingOnly, setMissingOnly] = useState(false);
+  const [reviewingIds, setReviewingIds] = useState<Set<string | number>>(
+    new Set(),
+  );
 
   const rows: AuditRow[] = useMemo(() => {
     return microsites.map((m) => {
@@ -80,6 +83,8 @@ export default function MicrositeLinkAudit() {
 
   const filteredRows = useMemo(() => {
     return rows.filter((r) => {
+      if (r.isPromotional) return false;
+      if (!r.isActive) return false;
       if (typeFilter !== "all" && r.type !== typeFilter) return false;
       if (storesFilter !== "all" && r.type === "business") return false;
       if (storesFilter === "yes" && !r.hasStores) return false;
@@ -89,9 +94,26 @@ export default function MicrositeLinkAudit() {
     });
   }, [rows, typeFilter, storesFilter, missingOnly]);
 
+  const columns = useMemo(
+    () =>
+      getAuditColumns(reviewingIds, async (row, reviewed) => {
+        setReviewingIds((prev) => new Set(prev).add(row.id));
+        try {
+          await update(row.id, { linkAuditReviewed: reviewed });
+        } finally {
+          setReviewingIds((prev) => {
+            const next = new Set(prev);
+            next.delete(row.id);
+            return next;
+          });
+        }
+      }),
+    [update, reviewingIds],
+  );
+
   const table = useReactTable({
     data: filteredRows,
-    columns: auditColumns,
+    columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setFiltering,
@@ -220,7 +242,7 @@ export default function MicrositeLinkAudit() {
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={auditColumns.length} className="h-24">
+                <TableCell colSpan={columns.length} className="h-24">
                   <Spinner className="mx-auto h-4 w-4" />
                 </TableCell>
               </TableRow>
@@ -237,7 +259,7 @@ export default function MicrositeLinkAudit() {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={auditColumns.length}
+                  colSpan={columns.length}
                   className="h-24 text-center text-muted-foreground"
                 >
                   No microsites match.
