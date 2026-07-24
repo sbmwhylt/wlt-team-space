@@ -59,6 +59,9 @@ export default function MicrositeLinkAudit() {
   );
   const [storesFilter, setStoresFilter] = useState<"all" | "yes" | "no">("all");
   const [missingOnly, setMissingOnly] = useState(false);
+  const [reviewedFilter, setReviewedFilter] = useState<
+    "all" | "checked" | "unchecked"
+  >("all");
   const [reviewingIds, setReviewingIds] = useState<Set<string | number>>(
     new Set(),
   );
@@ -90,9 +93,11 @@ export default function MicrositeLinkAudit() {
       if (storesFilter === "yes" && !r.hasStores) return false;
       if (storesFilter === "no" && r.hasStores) return false;
       if (missingOnly && r.missing.length === 0) return false;
+      if (reviewedFilter === "checked" && !r.linkAuditReviewed) return false;
+      if (reviewedFilter === "unchecked" && r.linkAuditReviewed) return false;
       return true;
     });
-  }, [rows, typeFilter, storesFilter, missingOnly]);
+  }, [rows, typeFilter, storesFilter, missingOnly, reviewedFilter]);
 
   const columns = useMemo(
     () =>
@@ -200,6 +205,28 @@ export default function MicrositeLinkAudit() {
               onClick={() => setStoresFilter(val)}
               className={`rounded px-3 py-1 text-sm font-medium transition ${
                 storesFilter === val
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-1 rounded-md border p-1">
+          {(
+            [
+              ["all", "Any review"],
+              ["checked", "Checked"],
+              ["unchecked", "Unchecked"],
+            ] as const
+          ).map(([val, label]) => (
+            <button
+              key={val}
+              onClick={() => setReviewedFilter(val)}
+              className={`rounded px-3 py-1 text-sm font-medium transition ${
+                reviewedFilter === val
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-muted"
               }`}
