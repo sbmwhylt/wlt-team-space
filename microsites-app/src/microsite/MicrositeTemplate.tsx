@@ -201,25 +201,15 @@ export default function MicrositeTemplate({ microsite }: Props) {
                       the card, there could be several reasons behind this. Here
                       are some of the most common causes:
                     </p>
-                    <ol className="list-decimal pl-5">
+                    <ol className="list-decimal pl-5 space-y-3">
                       <li>
-                        <strong>Incorrect process</strong>: Before swiping the
+                        <strong>Incorrect process: </strong>Before swiping the
                         card, the purchase amount must be typed into the
                         terminal, and the enter button pressed. Only after this
                         is completed, should the card be swiped.
                       </li>
                       <li>
-                        <strong>Terminal compatibility:</strong>
-                        Some terminals, like Square, are not compatible with
-                        EFTPOS Swipe gift cards (i.e. the type of card we use
-                        for the physical version of the gift card). If you're
-                        using a terminal that doesn't support these cards, the
-                        swipe won't register, and therefore the cards cannot be
-                        redeemed. For further information on Square related
-                        issues, please refer to this section below.
-                      </li>
-                      <li>
-                        <strong>Damaged terminal:</strong>
+                        <strong>Damaged terminal: </strong>
                         If the card is not reading when swiped, it may be
                         because the terminal's swipe functionality isn't working
                         properly. This could be be due to a technical issue,
@@ -229,7 +219,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                         contact your terminal provider.
                       </li>
                       <li>
-                        <strong>Magnetic strip damage:</strong>
+                        <strong>Magnetic strip damage: </strong>
                         Another reason for cards not swiping properly is because
                         the magnetic strip on the gift card may be damaged. This
                         can happen if the card has been scratched, bent, or
@@ -246,6 +236,17 @@ export default function MicrositeTemplate({ microsite }: Props) {
                             here.
                           </a>
                         </span>
+                      </li>
+                      <li>
+                        <strong>Terminal compatibility: </strong>
+                        Some terminals, like Square, are not compatible with
+                        EFTPOS Swipe gift cards ( Only relevant for programs
+                        using the eftpos swipe gift cards. Not relevant if your
+                        program is using chip cards ). If you're using a
+                        terminal that doesn't support these cards, the swipe
+                        won't register, and therefore the cards cannot be
+                        redeemed. For further information on Square related
+                        issues, please refer to this section below.
                       </li>
                     </ol>
                   </div>
@@ -835,10 +836,10 @@ export default function MicrositeTemplate({ microsite }: Props) {
                 </div>
                 <h2 className="text-2xl w-60">Business Owners</h2>
                 <p className="text-lg lg:px-10 max-w-xl text-gray-700">
-                  Do you want to accept the {microsite.name}{" "}
-                  Gift Card at your business? Join the Why Leave Town network
-                  today and start attracting more local customers while
-                  supporting your community.
+                  Do you want to accept the {microsite.name} Gift Card at your
+                  business? Join the Why Leave Town network today and start
+                  attracting more local customers while supporting your
+                  community.
                 </p>
                 {microsite.businessLink && (
                   <a
