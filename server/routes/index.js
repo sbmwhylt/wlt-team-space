@@ -6,6 +6,7 @@ import storeRoutes from "./storeRoute.js";
 import noticePostRoutes from "./noticePostRoute.js";
 import dashboardPostRoutes from "./dashboardPostRoute.js";
 import calendarRoutes from "./calendarRoute.js";
+import songPickRoutes from "./songPickRoute.js";
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use("/stores", storeRoutes);
 router.use("/notice-posts", noticePostRoutes);
 router.use("/dashboard-posts", dashboardPostRoutes);
 router.use("/calendar", calendarRoutes);
+router.use("/song-picks", songPickRoutes);
 
 export default router;

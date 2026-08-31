@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   Plus,
@@ -50,8 +51,12 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
   const dashboardState = useDashboardPosts(section);
   const { posts, loading } = dashboardState;
   const isAdmin = user?.role === "admin" || user?.role === "super-admin";
-  const [selected, setSelected] = useState<DashboardPost | null>(null);
+  // Track the id, not the post itself, so a deleted post closes the dialog
+  // instead of leaving a stale copy on screen.
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
+
+  const selected = posts.find((p) => p.id === selectedId) ?? null;
 
   const latest = posts[0];
   const preview = posts.slice(1, 1 + PREVIEW_COUNT);
@@ -64,7 +69,7 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
     });
 
   return (
-    <div className={`border rounded-xl p-4 flex flex-col ${compact ? "h-full min-h-0 overflow-hidden" : "min-h-[0px]"}`}>
+    <div className={`border rounded-xl p-4 flex flex-col ${compact ? "h-full min-h-0 overflow-hidden" : ""}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -111,14 +116,14 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
       )}
 
       {latest && (
-        <div className="flex flex-col flex-1 min-h-0">
+        <div className="flex flex-col flex-1 min-h-0 overflow-y-auto">
           {/* Most recent post — prominent */}
           <div
             className="group rounded-lg border border-border/50 bg-card overflow-hidden shrink-0 cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
-            onClick={() => setSelected(latest)}
+            onClick={() => setSelectedId(latest.id)}
           >
             {latest.image && (
-              <div className="w-full h-60 bg-muted overflow-hidden">
+              <div className={`w-full bg-muted overflow-hidden ${compact ? "h-44" : "h-72"}`}>
                 <img
                   src={latest.image}
                   alt={latest.title}
@@ -174,7 +179,7 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
                   key={post.id}
                   type="button"
                   className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left cursor-pointer hover:bg-muted/40 transition-colors"
-                  onClick={() => setSelected(post)}
+                  onClick={() => setSelectedId(post.id)}
                 >
                   <span className="text-xs font-medium truncate">{post.title}</span>
                   <span className="text-[10px] text-muted-foreground shrink-0">
@@ -192,6 +197,9 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
         <DialogContent className="max-w-lg max-h-[80vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>{label}</DialogTitle>
+            <DialogDescription>
+              All {posts.length} {posts.length === 1 ? "post" : "posts"} in this section.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="flex flex-col gap-1.5 overflow-y-auto">
@@ -201,7 +209,7 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
                 className="group rounded-lg border border-border/50 bg-card overflow-hidden shrink-0 cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
                 onClick={() => {
                   setShowAll(false);
-                  setSelected(post);
+                  setSelectedId(post.id);
                 }}
               >
                 <div className="flex items-start gap-3 p-3">
@@ -258,10 +266,14 @@ export default function DashboardSectionCard({ section, label, compact }: Props)
       </Dialog>
 
       {/* Post detail dialog */}
-      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
+      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelectedId(null)}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>{selected?.title}</DialogTitle>
+            <DialogDescription>
+              Posted by {selected?.authorName}
+              {selected ? ` on ${formatDate(selected.createdAt)}` : ""}
+            </DialogDescription>
           </DialogHeader>
 
           {selected?.image && (

@@ -2,6 +2,7 @@ import MainLayout from "@/layouts/MainLayout";
 // import NoticeBoard from "./page-dashboard/components/noticeBoard";
 import DashboardSectionCard from "./page-dashboard/components/DashboardSectionCard";
 import TeamMeetingCard from "./page-dashboard/components/TeamMeetingCard";
+import SongPickCard from "./page-dashboard/components/SongPickCard";
 
 export default function Dashboard() {
   return (
@@ -12,6 +13,7 @@ export default function Dashboard() {
           <DashboardSectionCard section="reminders" label="Reminders" compact />
           <DashboardSectionCard section="quote-of-the-week" label="Quote of the Week" compact />
           <DashboardSectionCard section="staff-updates" label="Staff Updates" compact />
+          <SongPickCard />
         </div>
 
         {/* Right column: Team Meetings */}

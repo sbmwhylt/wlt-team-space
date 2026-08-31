@@ -7,6 +7,7 @@ import Microsite from "./Microsites.js";
 import Store from "./Store.js";
 import NoticePost from "./NoticePost.js";
 import DashboardPost from "./DashboardPost.js";
+import SongPick from "./SongPick.js";
 
 const db = {};
 
@@ -19,6 +20,7 @@ db.Microsite = Microsite;
 db.Store = Store;
 db.NoticePost = NoticePost;
 db.DashboardPost = DashboardPost;
+db.SongPick = SongPick;
 
 // Associations
 Microsite.hasMany(Store, { foreignKey: "micrositeId", as: "stores", onDelete: "CASCADE" });
@@ -29,5 +31,8 @@ NoticePost.belongsTo(User, { foreignKey: "authorId", as: "author" });
 
 User.hasMany(DashboardPost, { foreignKey: "authorId", as: "dashboardPosts", onDelete: "CASCADE" });
 DashboardPost.belongsTo(User, { foreignKey: "authorId", as: "author" });
+
+User.hasMany(SongPick, { foreignKey: "authorId", as: "songPicks", onDelete: "CASCADE" });
+SongPick.belongsTo(User, { foreignKey: "authorId", as: "author" });
 
 export default db;
