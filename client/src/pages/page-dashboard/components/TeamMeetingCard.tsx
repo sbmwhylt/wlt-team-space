@@ -2,22 +2,18 @@ import { useCalendar, type CalendarEvent } from "@/hooks/use-calendar";
 import { CalendarClock, MapPin, Video, RefreshCw, CalendarX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import DashboardCard, {
+  DashboardCardEmpty,
+  DashboardCardSkeleton,
+} from "./DashboardCard";
 
-const formatDay = (dateStr: string, isAllDay: boolean) => {
-  const date = new Date(dateStr);
-  if (isAllDay) {
-    return date.toLocaleDateString("en-AU", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-  }
-  return date.toLocaleDateString("en-AU", {
+const formatDay = (dateStr: string) =>
+  new Date(dateStr).toLocaleDateString("en-AU", {
     weekday: "short",
     month: "short",
     day: "numeric",
   });
-};
 
 const formatTime = (dateStr: string) =>
   new Date(dateStr).toLocaleTimeString("en-AU", {
@@ -70,13 +66,11 @@ export default function TeamMeetingCard() {
   const visibleEvents = events.slice(0, MAX_VISIBLE_EVENTS);
 
   return (
-    <div className="border rounded-xl p-4 flex flex-col flex-1 min-h-0 overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <CalendarClock className="size-4 text-primary" />
-          <h2 className="text-base font-semibold">Team Meeting</h2>
-        </div>
+    <DashboardCard
+      icon={CalendarClock}
+      title="Team Meetings"
+      count={events.length}
+      actions={
         <Button
           size="icon-sm"
           variant="ghost"
@@ -85,28 +79,22 @@ export default function TeamMeetingCard() {
           className="text-muted-foreground hover:text-foreground"
           title="Refresh"
         >
-          <RefreshCw className={`size-3.5 ${loading ? "animate-spin" : ""}`} />
+          <RefreshCw className={cn("size-3.5", loading && "animate-spin")} />
         </Button>
-      </div>
+      }
+    >
+      {loading && events.length === 0 && <DashboardCardSkeleton rows={3} />}
 
-      {/* Loading */}
-      {loading && events.length === 0 && (
-        <div className="flex-1 flex items-center justify-center text-xs text-muted-foreground">
-          Loading...
-        </div>
-      )}
-
-      {/* Empty */}
       {!loading && events.length === 0 && (
-        <div className="flex-1 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-          <CalendarX className="size-8 opacity-20" />
-          <p className="text-xs">No upcoming meetings</p>
-        </div>
+        <DashboardCardEmpty
+          icon={CalendarX}
+          message="No upcoming meetings"
+          hint="Anything scheduled will show up here."
+        />
       )}
 
-      {/* Events */}
       {events.length > 0 && (
-        <div className="flex flex-col gap-2 flex-1 min-h-0 overflow-y-auto">
+        <div className="flex flex-col gap-2">
           {visibleEvents.map((event: CalendarEvent) => {
             const today = isToday(event.start);
             const tomorrow = isTomorrow(event.start);
@@ -115,43 +103,43 @@ export default function TeamMeetingCard() {
             return (
               <div
                 key={event.id}
-                className={`rounded-lg border transition-all duration-150 overflow-hidden ${
+                className={cn(
+                  "shrink-0 overflow-hidden rounded-lg border transition-colors",
                   today
                     ? "border-primary/30 bg-primary/5"
-                    : "border-border/50 bg-card hover:bg-muted/40 hover:border-border"
-                }`}
+                    : "bg-card hover:border-border hover:bg-muted/40",
+                )}
               >
                 {/* Accent top bar for today */}
                 {today && <div className="h-0.5 w-full bg-primary" />}
 
                 <div className="p-3">
-                  {/* Title */}
-                  <p className="text-sm font-semibold line-clamp-1 leading-snug">
+                  <p className="line-clamp-1 text-sm font-semibold leading-snug">
                     {event.title}
                   </p>
 
                   {/* Badges + date + time + duration */}
-                  <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mt-1.5 text-muted-foreground">
+                  <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground">
                     {today && (
-                      <Badge className="rounded-full bg-primary/10 text-primary border-0 text-[10px] font-semibold px-2 shrink-0">
-                        <span className="mr-1 size-1.5 rounded-full bg-primary inline-block animate-pulse" />
+                      <Badge className="shrink-0 rounded-full border-0 bg-primary/10 px-2 text-[10px] font-semibold text-primary">
+                        <span className="mr-1 inline-block size-1.5 animate-pulse rounded-full bg-primary" />
                         Today
                       </Badge>
                     )}
                     {tomorrow && (
-                      <Badge className="rounded-full bg-orange-100 text-orange-600 border-0 text-[10px] font-semibold px-2 shrink-0">
+                      <Badge className="shrink-0 rounded-full border-0 bg-orange-100 px-2 text-[10px] font-semibold text-orange-600 dark:bg-orange-500/15 dark:text-orange-400">
                         Tomorrow
                       </Badge>
                     )}
                     {thisWeek && (
-                      <Badge className="rounded-full bg-muted text-muted-foreground border-0 text-[10px] font-semibold px-2 shrink-0">
+                      <Badge className="shrink-0 rounded-full border-0 bg-muted px-2 text-[10px] font-semibold text-muted-foreground">
                         This week
                       </Badge>
                     )}
                     <div className="flex items-center gap-1">
                       <CalendarClock size={10} />
                       <span className="text-[11px] font-medium">
-                        {formatDay(event.start, event.isAllDay)}
+                        {formatDay(event.start)}
                       </span>
                     </div>
                     {!event.isAllDay && (
@@ -165,31 +153,36 @@ export default function TeamMeetingCard() {
                         </span>
                       </>
                     )}
+                    {event.isAllDay && (
+                      <>
+                        <span className="text-[11px]">·</span>
+                        <span className="text-[11px]">All day</span>
+                      </>
+                    )}
                   </div>
 
-                  {/* Location */}
                   {event.location && (
-                    <div className="flex items-center gap-1 mt-1 text-muted-foreground">
-                      <MapPin size={10} />
-                      <span className="text-[11px] line-clamp-1">{event.location}</span>
+                    <div className="mt-1 flex items-center gap-1 text-muted-foreground">
+                      <MapPin size={10} className="shrink-0" />
+                      <span className="line-clamp-1 text-[11px]">
+                        {event.location}
+                      </span>
                     </div>
                   )}
 
-                  {/* Description */}
                   {event.description && (
-                    <p className="text-[11px] text-muted-foreground mt-1.5 line-clamp-2 leading-relaxed">
+                    <p className="mt-1.5 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground">
                       {event.description}
                     </p>
                   )}
 
-                  {/* Join Meet button */}
                   {event.meetLink && (
                     <a
                       href={event.meetLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-md bg-primary text-primary-foreground text-[11px] font-medium hover:opacity-90 transition-opacity"
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-primary px-2.5 py-1 text-[11px] font-medium text-primary-foreground transition-opacity hover:opacity-90"
                     >
                       <Video size={10} />
                       Join Meet
@@ -199,8 +192,14 @@ export default function TeamMeetingCard() {
               </div>
             );
           })}
+
+          {events.length > MAX_VISIBLE_EVENTS && (
+            <p className="shrink-0 pt-1 text-center text-[11px] text-muted-foreground">
+              +{events.length - MAX_VISIBLE_EVENTS} more scheduled
+            </p>
+          )}
         </div>
       )}
-    </div>
+    </DashboardCard>
   );
 }

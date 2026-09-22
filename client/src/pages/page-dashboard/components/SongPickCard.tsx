@@ -11,8 +11,12 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Plus, Music, Trash2, Disc3 } from "lucide-react";
+import { Plus, Music, Trash2, Disc3, Play } from "lucide-react";
 import AddSongPickDialog from "./AddSongPickDialog";
+import DashboardCard, {
+  DashboardCardEmpty,
+  DashboardCardSkeleton,
+} from "./DashboardCard";
 
 const getInitials = (name?: string) =>
   name
@@ -25,7 +29,9 @@ const getInitials = (name?: string) =>
 // open.spotify.com/track/ID -> open.spotify.com/embed/track/ID
 const toEmbedUrl = (url: string | null) => {
   if (!url || !/^https?:\/\/open\.spotify\.com\//.test(url)) return null;
-  return url.split("?")[0].replace("open.spotify.com/", "open.spotify.com/embed/");
+  return url
+    .split("?")[0]
+    .replace("open.spotify.com/", "open.spotify.com/embed/");
 };
 
 export default function SongPickCard() {
@@ -59,38 +65,36 @@ export default function SongPickCard() {
   const embedUrl = toEmbedUrl(selected?.url ?? null);
 
   return (
-    <div className="border rounded-xl p-4 flex flex-col h-full min-h-0 overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <Music className="size-4 text-primary" />
-          <h2 className="text-base font-semibold">Team Playlist</h2>
-        </div>
+    <DashboardCard
+      icon={Music}
+      title="Team Playlist"
+      count={songs.length}
+      actions={
         <AddSongPickDialog songState={songState}>
-          <Button size="sm" variant="outline" className="border-none shadow-none">
-            <Plus className="size-3.5" />
+          <Button
+            size="icon-sm"
+            variant="ghost"
+            title="Add a song"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <Plus className="size-4" />
           </Button>
         </AddSongPickDialog>
-      </div>
+      }
+    >
+      {loading && songs.length === 0 && <DashboardCardSkeleton rows={3} />}
 
-      {/* Loading */}
-      {loading && songs.length === 0 && (
-        <div className="flex-1 flex items-center justify-center text-xs text-muted-foreground">
-          Loading...
-        </div>
-      )}
-
-      {/* Empty */}
       {!loading && songs.length === 0 && (
-        <div className="flex-1 flex flex-col items-center justify-center gap-2 text-muted-foreground">
-          <Disc3 className="size-8 opacity-20" />
-          <p className="text-xs">No songs yet — add the first one</p>
-        </div>
+        <DashboardCardEmpty
+          icon={Disc3}
+          message="No songs yet"
+          hint="Add the first pick with +."
+        />
       )}
 
       {/* List — scrolls inside the card rather than being clipped */}
       {songs.length > 0 && (
-        <div className="flex flex-col gap-1 flex-1 min-h-0 overflow-y-auto">
+        <div className="flex flex-col gap-1.5">
           {songs.map((song) => (
             <div
               key={song.id}
@@ -98,32 +102,41 @@ export default function SongPickCard() {
               tabIndex={0}
               onClick={() => setSelected(song)}
               onKeyDown={(e) => e.key === "Enter" && setSelected(song)}
-              className="group flex items-center gap-3 p-2 rounded-lg border border-border/50 bg-card cursor-pointer hover:bg-muted/40 hover:border-primary/20 transition-all duration-150"
+              className="group flex shrink-0 cursor-pointer items-center gap-3 rounded-lg border bg-card p-2 transition-colors hover:border-primary/30 hover:bg-muted/40"
             >
-              {song.thumbnail ? (
-                <img
-                  src={song.thumbnail}
-                  alt={song.title}
-                  className="shrink-0 size-10 rounded-md object-cover bg-muted"
-                />
-              ) : (
-                <div className="shrink-0 size-10 rounded-md bg-muted flex items-center justify-center">
-                  <Music className="size-4 text-muted-foreground/50" />
+              <div className="relative size-10 shrink-0 overflow-hidden rounded-md bg-muted">
+                {song.thumbnail ? (
+                  <img
+                    src={song.thumbnail}
+                    alt={song.title}
+                    className="size-full object-cover"
+                  />
+                ) : (
+                  <div className="flex size-full items-center justify-center">
+                    <Music className="size-4 text-muted-foreground/50" />
+                  </div>
+                )}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+                  <Play className="size-4 fill-white text-white" />
                 </div>
-              )}
+              </div>
 
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium truncate leading-snug">{song.title}</p>
+                <p className="truncate text-sm font-medium leading-snug">
+                  {song.title}
+                </p>
                 {song.artist && (
-                  <p className="text-xs text-muted-foreground truncate">{song.artist}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {song.artist}
+                  </p>
                 )}
-                <div className="flex items-center gap-1.5 mt-1">
+                <div className="mt-1 flex items-center gap-1.5">
                   <Avatar className="size-4 shrink-0">
-                    <AvatarFallback className="text-[8px] font-medium bg-primary/10 text-primary">
+                    <AvatarFallback className="bg-primary/10 text-[8px] font-medium text-primary">
                       {getInitials(song.authorName)}
                     </AvatarFallback>
                   </Avatar>
-                  <span className="text-[11px] text-muted-foreground truncate">
+                  <span className="truncate text-[11px] text-muted-foreground">
                     {song.authorName} · {formatDate(song.createdAt)}
                   </span>
                 </div>
@@ -133,7 +146,7 @@ export default function SongPickCard() {
                 <Button
                   size="icon-sm"
                   variant="ghost"
-                  className="shrink-0 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
+                  className="shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-destructive"
                   onClick={(e) => handleRemove(e, song)}
                 >
                   <Trash2 className="size-3.5" />
@@ -145,8 +158,11 @@ export default function SongPickCard() {
       )}
 
       {/* Detail dialog — plays the track when it came from a Spotify link */}
-      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="max-w-md">
+      <Dialog
+        open={!!selected}
+        onOpenChange={(open) => !open && setSelected(null)}
+      >
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>{selected?.title}</DialogTitle>
             <DialogDescription>
@@ -173,6 +189,6 @@ export default function SongPickCard() {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </DashboardCard>
   );
 }
