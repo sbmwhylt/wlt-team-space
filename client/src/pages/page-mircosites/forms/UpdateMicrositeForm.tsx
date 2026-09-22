@@ -237,9 +237,11 @@ export default function UpdateMicrositeForm({
         "digitalCardOrderLink",
       ];
 
+      // Always send these, even when empty — an empty value means the user
+      // cleared the field and the backend needs to store that.
       optionalFields.forEach((field) => {
         const value = values[field as keyof MicrositeFormValues];
-        if (value) formData.append(field, String(value));
+        formData.append(field, value == null ? "" : String(value));
       });
 
       if (values.banner) formData.append("banner", values.banner);

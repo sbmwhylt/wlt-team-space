@@ -162,6 +162,22 @@ export const updateMicroSite = async (req, res) => {
     const parsedSocialLinks =
       typeof socialLinks === "string" ? JSON.parse(socialLinks) : socialLinks;
 
+    // Cleared inputs arrive as "" — store null so the model's validators
+    // (isEmail, phone format) don't reject the whole update.
+    const nullableFields = [
+      "email",
+      "phone",
+      "aboutDesc",
+      "digitalCardOrderLink",
+      "physicalCardOrderLink",
+      "communityLink",
+      "businessLink",
+    ];
+
+    for (const field of nullableFields) {
+      if (rest[field] === "") rest[field] = null;
+    }
+
     const uploadedData = {};
     const folderPath = "/microsites-assets";
 

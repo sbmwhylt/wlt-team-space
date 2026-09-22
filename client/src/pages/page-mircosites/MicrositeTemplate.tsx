@@ -53,17 +53,15 @@ import CardStockForm from "@/pages/page-mircosites/forms/CardStockForm";
 import MarketingImgs from "@/pages/page-mircosites/components/MarketingImgs";
 
 export default function MicrositeTemplate() {
-  const { slug, type } = useParams();
+  const { slug } = useParams();
   const [microsite, setMicrosite] = useState<MicroSite | null>(null);
 
   useEffect(() => {
     const fetchMicrosite = async () => {
-      if (!slug || !type) return;
+      if (!slug) return;
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/microsites/${encodeURIComponent(
-            type,
-          )}/${encodeURIComponent(slug)}`,
+          `${import.meta.env.VITE_API_URL}/microsites/${encodeURIComponent(slug)}`,
         );
         setMicrosite(res.data.microsite);
       } catch (err) {
@@ -71,7 +69,7 @@ export default function MicrositeTemplate() {
       }
     };
     fetchMicrosite();
-  }, [slug, type]);
+  }, [slug]);
 
   useEffect(() => {
     if (microsite?.name) {
