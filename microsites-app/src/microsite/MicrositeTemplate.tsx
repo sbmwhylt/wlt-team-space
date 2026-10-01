@@ -468,8 +468,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                               Physical Gift Cards
                             </h2>
                             <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
-                              Send a physical gift card via post for $25, $50,
-                              $100 or $200
+                              Send a physical gift card via post
                             </p>
                           </div>
 
@@ -557,8 +556,7 @@ export default function MicrositeTemplate({ microsite }: Props) {
                               Digital Gift Cards
                             </h2>
                             <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
-                              Instant delivery via SMS for $25, $50, $100 or
-                              $200
+                              Send a digital card via SMS
                             </p>
                           </div>
 
