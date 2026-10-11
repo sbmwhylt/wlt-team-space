@@ -51,9 +51,7 @@ export function useMicroSites() {
   const create = async (formData: FormData) => {
     setLoading(true);
     try {
-      const res = await axios.post(baseUrl, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await axios.post(baseUrl, formData);
       // Invalidate cache and refresh list
       cachedMicrosites = null;
       await get(); // Fetch fresh data
@@ -74,13 +72,7 @@ export function useMicroSites() {
   ) => {
     setLoading(true);
     try {
-      const res = await axios.put(`${baseUrl}/${id}`, data, {
-        // Only set Content-Type header if it's FormData
-        headers:
-          data instanceof FormData
-            ? { "Content-Type": "multipart/form-data" }
-            : {},
-      });
+      const res = await axios.put(`${baseUrl}/${id}`, data);
 
       // Invalidate cache and refresh list (same as create)
       cachedMicrosites = null;

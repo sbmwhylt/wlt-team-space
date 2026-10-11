@@ -252,7 +252,7 @@ export const sendContactEmail = async (req, res) => {
 
     await transporter.sendMail({
       from: `"${name || "Contact Form"}" <${process.env.EMAIL_USER}>`,
-      to: "shemrei@whyleavetown.com",
+      to: "rachel@whyleavetown.com",
       subject: subject || "New Contact Form Submission",
       html: htmlContent,
       replyTo: email,
