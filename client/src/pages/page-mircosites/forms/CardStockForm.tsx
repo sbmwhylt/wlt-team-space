@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import toast from "react-hot-toast";
 
-export default function CardStockForm() {
+export default function CardStockForm({ programName }: { programName: string }) {
   const [form, setForm] = useState({
     businessName: "",
     contactName: "",
@@ -28,9 +28,10 @@ export default function CardStockForm() {
         body: JSON.stringify({
           name: form.contactName || "N/A",
           email: form.contactEmail || "N/A",
-          subject: "Need More Card Stock",
+          subject: `${programName} - Need More Card Stock`,
           // Send as object for nice email formatting!
           formData: {
+            Program: programName,
             "Business Name": form.businessName,
             "Preferred Contact Name": form.contactName,
             "Preferred Contact Email": form.contactEmail,

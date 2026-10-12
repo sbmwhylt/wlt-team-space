@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import toast from "react-hot-toast";
 
-export default function UpdateTerminalForm() {
+export default function UpdateTerminalForm({ programName }: { programName: string }) {
   const [form, setForm] = useState({
     businessName: "",
     contactName: "",
@@ -31,9 +31,10 @@ export default function UpdateTerminalForm() {
         body: JSON.stringify({
           name: form.contactName || "N/A",
           email: form.contactEmail || "N/A",
-          subject: "Update Terminal Details",
+          subject: `${programName} - Update Terminal Details`,
           // Send as object for nice email formatting!
           formData: {
+            Program: programName,
             "Business Name": form.businessName,
             "Preferred Contact Name": form.contactName,
             "Preferred Contact Email": form.contactEmail,

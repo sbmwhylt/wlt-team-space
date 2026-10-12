@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import toast from "react-hot-toast";
 
-export default function UpdateContactForm() {
+export default function UpdateContactForm({ programName }: { programName: string }) {
   const [form, setForm] = useState({
     businessName: "",
     contactName: "",
@@ -33,9 +33,10 @@ export default function UpdateContactForm() {
         body: JSON.stringify({
           name: form.contactName,
           email: form.contactEmail,
-          subject: "Update Contact Details",
+          subject: `${programName} - Update Contact Details`,
           // Send as object instead of string!
           formData: {
+            Program: programName,
             "Business Name": form.businessName,
             "Contact Name": form.contactName,
             Email: form.contactEmail,
